@@ -15,7 +15,7 @@ pub trait Route {
 #[command(author, version, about = "Algorithm tool", long_about = None)]
 pub struct CliArgs {
     #[arg(short, long, help = "Show logs")]
-    pub verbose: bool,
+    verbose: bool,
 
     #[command(subcommand)]
     command: CliSubcommand,

@@ -14,7 +14,7 @@ pub trait Route {
 #[derive(Parser, Debug)]
 #[command(author, version, about = "Algorithm tool", long_about = None)]
 pub struct CliArgs {
-    #[arg(short, long, help = "Show logs")]
+    #[arg(short, long, global = true, help = "Show logs")]
     verbose: bool,
 
     #[command(subcommand)]

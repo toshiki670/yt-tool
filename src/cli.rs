@@ -12,7 +12,7 @@ pub trait Route {
 
 #[derive(Parser, Debug)]
 #[command(author, version, about = "Algorithm tool", long_about = None)]
-pub struct CliArgs {
+pub struct Args {
     #[arg(short, long, global = true, help = "Show logs")]
     verbose: bool,
 
@@ -29,7 +29,7 @@ enum CliSubcommand {
     Youtube(YoutubeArgs),
 }
 
-impl Route for CliArgs {
+impl Route for Args {
     fn route(&self) {
         if let Some(shell) = &self.generate_completions {
             generate_completions(shell.clone());
@@ -44,7 +44,7 @@ impl Route for CliArgs {
 }
 
 fn generate_completions<G: Generator>(gen: G) {
-    let mut cmd = CliArgs::command();
+    let mut cmd = Args::command();
     let bin_name = cmd.get_name().to_string();
     generate(gen, &mut cmd, bin_name, &mut stdout());
 }

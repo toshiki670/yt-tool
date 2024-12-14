@@ -1,9 +1,9 @@
 use clap::Parser;
-use cli::{CliArgs, Route};
+use cli::{Args, Route};
 
 mod cli;
 mod youtube;
 
 fn main() {
-    CliArgs::parse().route();
+    Args::parse().route();
 }

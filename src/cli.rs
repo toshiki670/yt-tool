@@ -1,12 +1,11 @@
 use crate::youtube::interface::cli::YoutubeArgs;
 use clap::{CommandFactory, Parser, Subcommand};
 use clap_complete::{generate, Generator, Shell};
-use enum_dispatch::enum_dispatch;
 use env_logger;
 use log::Level;
 use std::{env, io::stdout};
 
-#[enum_dispatch]
+#[enum_delegate::register]
 pub trait Route {
     fn route(&self);
 }
@@ -25,7 +24,7 @@ pub struct CliArgs {
 }
 
 #[derive(Subcommand, Debug)]
-#[enum_dispatch(Route)]
+#[enum_delegate::implement(Route)]
 enum CliSubcommand {
     Youtube(YoutubeArgs),
 }

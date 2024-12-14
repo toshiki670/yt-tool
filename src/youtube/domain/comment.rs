@@ -3,9 +3,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Comment {
+    pub is_live: bool,
     pub replay_chat_item_action: ReplayChatItemAction,
     pub video_offset_time_msec: String,
-    pub is_live: bool,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -30,7 +30,9 @@ pub struct AddChatItemAction {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Item {
-    pub live_chat_text_message_renderer: LiveChatTextMessageRenderer,
+    pub live_chat_text_message_renderer: Option<LiveChatTextMessageRenderer>,
+    pub live_chat_sponsorships_gift_redemption_announcement_renderer:
+        Option<LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -57,6 +59,8 @@ pub struct Message {
 #[serde(rename_all = "camelCase")]
 pub struct Run {
     pub text: String,
+    pub italics: Option<bool>,
+    pub bold: Option<bool>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -113,9 +117,10 @@ pub struct AuthorBadge {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LiveChatAuthorBadgeRenderer {
-    pub icon: Icon,
+    pub icon: Option<Icon>,
     pub tooltip: String,
     pub accessibility: Accessibility,
+    pub custom_thumbnail: Option<CustomThumbnail>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -127,7 +132,8 @@ pub struct Icon {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum IconType {
-    #[default] VERIFIED,
+    #[default]
+    VERIFIED,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -138,12 +144,31 @@ pub struct Accessibility {
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
+pub struct AccessibilityData {
+    pub label: String,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct CustomThumbnail {
+    pub thumbnails: Vec<Thumbnail>,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct ContextMenuAccessibility {
     pub accessibility_data: AccessibilityData,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct AccessibilityData {
-    pub label: String,
+pub struct LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer {
+    pub id: String,
+    pub timestamp_usec: String,
+    pub author_external_channel_id: String,
+    pub author_name: AuthorName,
+    pub author_photo: AuthorPhoto,
+    pub message: Message,
+    pub context_menu_endpoint: ContextMenuEndpoint,
+    pub context_menu_accessibility: ContextMenuAccessibility,
 }

@@ -51,6 +51,19 @@ pub struct LiveChatTextMessageRenderer {
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
+pub struct LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer {
+    pub id: String,
+    pub timestamp_usec: String,
+    pub author_external_channel_id: String,
+    pub author_name: AuthorName,
+    pub author_photo: AuthorPhoto,
+    pub message: Message,
+    pub context_menu_endpoint: ContextMenuEndpoint,
+    pub context_menu_accessibility: ContextMenuAccessibility,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Message {
     pub runs: Vec<Run>,
 }
@@ -158,17 +171,4 @@ pub struct CustomThumbnail {
 #[serde(rename_all = "camelCase")]
 pub struct ContextMenuAccessibility {
     pub accessibility_data: AccessibilityData,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer {
-    pub id: String,
-    pub timestamp_usec: String,
-    pub author_external_channel_id: String,
-    pub author_name: AuthorName,
-    pub author_photo: AuthorPhoto,
-    pub message: Message,
-    pub context_menu_endpoint: ContextMenuEndpoint,
-    pub context_menu_accessibility: ContextMenuAccessibility,
 }

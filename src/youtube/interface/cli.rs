@@ -1,7 +1,6 @@
-mod comment;
+mod comment_file;
 
 use crate::cli::Route;
-use comment::CommentArgs;
 
 #[derive(clap::Args, Debug)]
 #[command(name = "Youtube")]
@@ -13,7 +12,7 @@ pub struct Args {
 #[derive(clap::Subcommand, Debug)]
 #[enum_delegate::implement(Route)]
 pub enum Subcommand {
-    Comment(CommentArgs),
+    CommentFile(comment_file::Args),
 }
 
 impl Route for Args {

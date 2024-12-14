@@ -1,13 +1,12 @@
 use crate::cli::Route;
-use clap::Args;
 
-#[derive(Args, Debug)]
-#[command(name = "Comment")]
-pub struct CommentArgs {
+#[derive(clap::Args, Debug)]
+#[command(name = "Comment File Feature")]
+pub struct Args {
     pub value: String,
 }
 
-impl Route for CommentArgs {
+impl Route for Args {
     fn route(&self) {
         let value = self.value.clone();
         println!("{}", value);

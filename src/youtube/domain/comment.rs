@@ -38,28 +38,28 @@ pub struct Item {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LiveChatTextMessageRenderer {
-    pub message: Message,
-    pub author_name: AuthorName,
-    pub author_photo: AuthorPhoto,
-    pub context_menu_endpoint: ContextMenuEndpoint,
-    pub id: String,
-    pub timestamp_usec: String,
     pub author_badges: Option<Vec<AuthorBadge>>,
     pub author_external_channel_id: String,
+    pub author_name: AuthorName,
+    pub author_photo: AuthorPhoto,
     pub context_menu_accessibility: ContextMenuAccessibility,
+    pub context_menu_endpoint: ContextMenuEndpoint,
+    pub id: String,
+    pub message: Message,
+    pub timestamp_usec: String,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer {
-    pub id: String,
-    pub timestamp_usec: String,
     pub author_external_channel_id: String,
     pub author_name: AuthorName,
     pub author_photo: AuthorPhoto,
-    pub message: Message,
-    pub context_menu_endpoint: ContextMenuEndpoint,
     pub context_menu_accessibility: ContextMenuAccessibility,
+    pub context_menu_endpoint: ContextMenuEndpoint,
+    pub id: String,
+    pub message: Message,
+    pub timestamp_usec: String,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -71,9 +71,9 @@ pub struct Message {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Run {
-    pub text: String,
-    pub italics: Option<bool>,
     pub bold: Option<bool>,
+    pub italics: Option<bool>,
+    pub text: String,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -91,9 +91,9 @@ pub struct AuthorPhoto {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Thumbnail {
+    pub height: i64,
     pub url: String,
     pub width: i64,
-    pub height: i64,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -130,10 +130,10 @@ pub struct AuthorBadge {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LiveChatAuthorBadgeRenderer {
-    pub icon: Option<Icon>,
-    pub tooltip: String,
     pub accessibility: Accessibility,
     pub custom_thumbnail: Option<CustomThumbnail>,
+    pub icon: Option<Icon>,
+    pub tooltip: String,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

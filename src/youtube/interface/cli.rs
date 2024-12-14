@@ -1,23 +1,22 @@
 mod comment;
 
 use crate::cli::Route;
-use clap::{Args, Subcommand};
 use comment::CommentArgs;
 
-#[derive(Args, Debug)]
+#[derive(clap::Args, Debug)]
 #[command(name = "Youtube")]
-pub struct YoutubeArgs {
+pub struct Args {
     #[command(subcommand)]
-    command: YoutubeSubcommand,
+    command: Subcommand,
 }
 
-#[derive(Subcommand, Debug)]
+#[derive(clap::Subcommand, Debug)]
 #[enum_delegate::implement(Route)]
-pub enum YoutubeSubcommand {
+pub enum Subcommand {
     Comment(CommentArgs),
 }
 
-impl Route for YoutubeArgs {
+impl Route for Args {
     fn route(&self) {
         self.command.route();
     }

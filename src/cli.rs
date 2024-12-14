@@ -1,4 +1,3 @@
-use crate::youtube::interface::cli::YoutubeArgs;
 use clap::{CommandFactory, Parser};
 use clap_complete::{generate, Generator, Shell};
 use env_logger;
@@ -26,7 +25,7 @@ pub struct Args {
 #[derive(clap::Subcommand, Debug)]
 #[enum_delegate::implement(Route)]
 enum Subcommand {
-    Youtube(YoutubeArgs),
+    Youtube(crate::youtube::interface::cli::Args),
 }
 
 impl Route for Args {

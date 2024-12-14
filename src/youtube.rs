@@ -1,8 +1,6 @@
-pub mod application {
-    pub mod comments;
-}
+mod application;
+mod domain;
+mod infra;
+mod interface;
 
-pub mod domain {
-    pub mod comment;
-}
-
+pub(crate) use interface::cli::Args as CliArgs;

@@ -1,5 +1,6 @@
+mod cli;
 mod youtube;
 
 fn main() {
-    println!("Hello, world!");
+    cli::Args::run();
 }

@@ -1,1 +1,1 @@
-pub mod cli;
+pub(super) mod cli;

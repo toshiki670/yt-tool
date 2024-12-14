@@ -2,8 +2,8 @@ use crate::cli::Route;
 
 #[derive(clap::Args, Debug)]
 #[command(name = "Comment File Feature")]
-pub struct Args {
-    pub value: String,
+pub(super) struct Args {
+    value: String,
 }
 
 impl Route for Args {

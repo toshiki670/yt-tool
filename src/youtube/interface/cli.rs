@@ -4,14 +4,14 @@ use crate::cli::Route;
 
 #[derive(clap::Args, Debug)]
 #[command(name = "Youtube")]
-pub struct Args {
+pub(crate) struct Args {
     #[command(subcommand)]
     command: Subcommand,
 }
 
 #[derive(clap::Subcommand, Debug)]
 #[enum_delegate::implement(Route)]
-pub enum Subcommand {
+enum Subcommand {
     CommentFile(comment_file::Args),
 }
 

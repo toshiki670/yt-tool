@@ -5,13 +5,13 @@ use log::Level;
 use std::{env, io::stdout};
 
 #[enum_delegate::register]
-pub trait Route {
+pub(crate) trait Route {
     fn route(&self);
 }
 
 #[derive(Parser, Debug)]
 #[command(author, version, about = "Algorithm tool", long_about = None)]
-pub struct Args {
+pub(super) struct Args {
     #[arg(short, long, global = true, help = "Show logs")]
     verbose: bool,
 
@@ -25,7 +25,7 @@ pub struct Args {
 #[derive(clap::Subcommand, Debug)]
 #[enum_delegate::implement(Route)]
 enum Subcommand {
-    Youtube(crate::youtube::interface::cli::Args),
+    Youtube(crate::youtube::CliArgs),
 }
 
 impl Args {

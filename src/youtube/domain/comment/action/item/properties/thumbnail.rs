@@ -1,18 +1,16 @@
-mod action;
-
-use action::Action;
 use serde::{Deserialize, Serialize};
+
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Comment {
-    pub is_live: bool,
-    pub replay_chat_item_action: ReplayChatItemAction,
-    pub video_offset_time_msec: String,
+pub struct Thumbnails {
+    pub thumbnails: Vec<Thumbnail>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct ReplayChatItemAction {
-    pub actions: Vec<Action>,
+pub struct Thumbnail {
+    pub height: i64,
+    pub url: String,
+    pub width: i64,
 }

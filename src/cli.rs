@@ -1,5 +1,5 @@
 use crate::youtube::interface::cli::YoutubeArgs;
-use clap::{CommandFactory, Parser, Subcommand};
+use clap::{CommandFactory, Parser};
 use clap_complete::{generate, Generator, Shell};
 use env_logger;
 use log::Level;
@@ -20,12 +20,12 @@ pub struct Args {
     generate_completions: Option<Shell>,
 
     #[command(subcommand)]
-    command: Option<CliSubcommand>,
+    command: Option<Subcommand>,
 }
 
-#[derive(Subcommand, Debug)]
+#[derive(clap::Subcommand, Debug)]
 #[enum_delegate::implement(Route)]
-enum CliSubcommand {
+enum Subcommand {
     Youtube(YoutubeArgs),
 }
 

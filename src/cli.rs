@@ -28,6 +28,12 @@ enum Subcommand {
     Youtube(crate::youtube::interface::cli::Args),
 }
 
+impl Args {
+    pub(super) fn run() {
+        Args::parse().route();
+    }
+}
+
 impl Route for Args {
     fn route(&self) {
         if let Some(shell) = &self.generate_completions {

@@ -4,7 +4,7 @@ use crate::cli::Route;
 
 #[derive(clap::Args, Debug)]
 #[command(name = "Youtube")]
-pub(crate) struct Args {
+pub(super) struct Args {
     #[command(subcommand)]
     command: Subcommand,
 }

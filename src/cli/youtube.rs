@@ -1,4 +1,4 @@
-mod comment_file;
+mod chat;
 
 use crate::cli::Route;
 

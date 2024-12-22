@@ -1,3 +1,5 @@
+// https://transform.tools/json-to-rust-serde
+
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -5,7 +7,8 @@ use serde::{Deserialize, Serialize};
 pub struct Chat {
     pub is_live: bool,
     pub replay_chat_item_action: ReplayChatItemAction,
-    pub video_offset_time_msec: String,
+    pub video_offset_time_msec: Option<String>,
+}
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

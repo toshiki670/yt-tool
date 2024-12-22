@@ -12,11 +12,12 @@ pub(super) struct Args {
 #[derive(clap::Subcommand, Debug)]
 #[enum_delegate::implement(Route)]
 enum Subcommand {
-    CommentFile(comment_file::Args),
+    Chat(chat::Args),
 }
 
 impl Route for Args {
-    fn route(&self) {
-        self.command.route();
+    fn route(&self) -> anyhow::Result<()> {
+        self.command.route()?;
+        Ok(())
     }
 }

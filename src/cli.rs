@@ -8,7 +8,7 @@ use std::{env, io::stdout};
 
 #[enum_delegate::register]
 pub(self) trait Route {
-    fn route(&self);
+    fn route(&self) -> anyhow::Result<()>;
 }
 
 #[derive(Parser, Debug)]

@@ -1,4 +1,5 @@
 mod application;
 mod domain;
-mod infra;
+mod infrastructure;
 mod interface;
+

@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+# https://zenn.dev/yukinarit/articles/b39cd42820f29e
 anyhow = "1.0.94"
 thiserror = "2.0.9"
 

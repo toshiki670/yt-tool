@@ -501,7 +501,6 @@ name = "youtube"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "enum_delegate",
  "env_logger",
  "log",
  "serde",

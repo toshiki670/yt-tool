@@ -520,6 +520,7 @@ dependencies = [
  "env_logger",
  "log",
  "thiserror",
+ "youtube",
 ]
 
 [[package]]

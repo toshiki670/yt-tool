@@ -16,6 +16,8 @@ log = "0.4.22"
 
 enum_delegate = "0.2.0"
 
+youtube = { path = "youtube" }
+
 [workspace]
 members = [
   "youtube",

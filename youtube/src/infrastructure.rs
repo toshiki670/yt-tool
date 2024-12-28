@@ -1,1 +1,1 @@
-mod filesystem;
+pub(crate) mod filesystem;

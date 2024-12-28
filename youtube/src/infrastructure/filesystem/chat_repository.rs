@@ -13,7 +13,7 @@ use crate::domain::chat::Chat;
 
 use super::super::super::domain::repositories::ChatRepository;
 
-struct FsChatRepository {
+pub struct FsChatRepository {
     file: File,
     file_type: FileType,
 }

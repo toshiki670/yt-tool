@@ -1,5 +1,3 @@
-
-
 #[derive(Default, Debug, Clone, PartialEq)]
 pub struct Chat {
     pub timestamp_usec: String,
@@ -11,12 +9,11 @@ pub struct Chat {
     pub category: Category,
 }
 
-
 #[derive(Default, Debug, Clone, PartialEq)]
 pub enum Category {
     #[default]
     ChatTextMessage,
+    ChatPaidMessage,
     ChatSponsorshipsGiftRedemptionAnnouncement,
+    ChatTickerPaidMessageItem,
 }
-
-

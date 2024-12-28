@@ -1,1 +1,1 @@
-mod comment;
+pub(crate) mod chat_service;

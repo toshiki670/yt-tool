@@ -1,153 +1,103 @@
 // https://transform.tools/json-to-rust-serde
+mod item_renderer;
 
+use crate::domain::chat::{Category, Chat as ChatDomain};
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Chat {
+pub struct JsonChat {
     pub is_live: bool,
+    pub click_tracking_params: Option<String>,
     pub replay_chat_item_action: ReplayChatItemAction,
     pub video_offset_time_msec: Option<String>,
 }
+
+impl JsonChat {
+    pub fn try_into_chat_domains(self) -> anyhow::Result<Vec<ChatDomain>> {
+        let mut results = Vec::new();
+
+        for action in self.replay_chat_item_action.actions {
+            let chat_domain: ChatDomain = action.try_into()?;
+            results.push(chat_domain);
+        }
+
+        Ok(results)
+    }
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ReplayChatItemAction {
     pub actions: Vec<Action>,
+    pub video_offset_time_msec: Option<String>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Action {
-    pub add_chat_item_action: AddChatItemAction,
+    pub click_tracking_params: Option<String>,
+    pub add_chat_item_action: Option<AddChatItemAction>,
+    pub add_live_chat_ticker_item_action: Option<AddLiveChatTickerItemAction>,
+}
+
+impl TryInto<ChatDomain> for Action {
+    type Error = anyhow::Error;
+
+    fn try_into(self) -> anyhow::Result<ChatDomain> {
+        let item = if let Some(add_chat_item_action) = self.add_chat_item_action {
+            add_chat_item_action.item
+        } else if let Some(add_live_chat_ticker_item_action) = self.add_live_chat_ticker_item_action
+        {
+            add_live_chat_ticker_item_action.item
+        } else {
+            return Err(anyhow::anyhow!("No item found for action"));
+        };
+
+        let category: Category = match item {
+            item_renderer::Item::LiveChatPaidMessageRenderer(_) => Category::ChatPaidMessage,
+            item_renderer::Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(_) => {
+                Category::ChatSponsorshipsGiftRedemptionAnnouncement
+            }
+            item_renderer::Item::LiveChatTextMessageRenderer(_) => Category::ChatTextMessage,
+            item_renderer::Item::LiveChatTickerPaidMessageItemRenderer(_) => {
+                Category::ChatTickerPaidMessageItem
+            }
+            item_renderer::Item::None => return Err(anyhow::anyhow!("No item found")),
+        };
+
+        let renderer: item_renderer::CommonRenderer = match item {
+            item_renderer::Item::LiveChatPaidMessageRenderer(renderer) => renderer.into(),
+            item_renderer::Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(
+                renderer,
+            ) => renderer.into(),
+            item_renderer::Item::LiveChatTextMessageRenderer(renderer) => renderer.into(),
+            item_renderer::Item::LiveChatTickerPaidMessageItemRenderer(renderer) => renderer.into(),
+            item_renderer::Item::None => unreachable!(),
+        };
+
+        Ok(ChatDomain {
+            timestamp_usec: renderer.timestamp_usec,
+            author_external_channel_id: renderer.author_external_channel_id,
+            author_name: renderer.author_name,
+            message: renderer.message,
+            is_moderator: false,
+            membership_months: "1".to_string(),
+            category: category,
+        })
+    }
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AddChatItemAction {
     pub client_id: String,
-    pub item: Item,
+    pub item: item_renderer::Item,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub enum Item {
-    #[default]
-    None,
-    LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(LiveChatRenderer),
-    LiveChatTextMessageRenderer(LiveChatRenderer),
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct LiveChatRenderer {
-    pub author_badges: Option<Vec<AuthorBadge>>,
-    pub author_external_channel_id: String,
-    pub author_name: AuthorName,
-    pub author_photo: Thumbnails,
-    pub context_menu_accessibility: Accessibility,
-    pub context_menu_endpoint: ContextMenuEndpoint,
-    pub id: String,
-    pub message: Message,
-    pub timestamp_usec: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Accessibility {
-    pub accessibility_data: AccessibilityData,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct AccessibilityData {
-    pub label: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct AuthorBadge {
-    pub live_chat_author_badge_renderer: LiveChatAuthorBadgeRenderer,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct LiveChatAuthorBadgeRenderer {
-    pub accessibility: Accessibility,
-    pub custom_thumbnail: Option<Thumbnails>,
-    pub icon: Option<Icon>,
-    pub tooltip: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct AuthorName {
-    pub simple_text: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct ContextMenuEndpoint {
-    pub command_metadata: CommandMetadata,
-    pub live_chat_item_context_menu_endpoint: LiveChatItemContextMenuEndpoint,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct CommandMetadata {
-    pub web_command_metadata: WebCommandMetadata,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct WebCommandMetadata {
-    pub ignore_navigation: bool,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct LiveChatItemContextMenuEndpoint {
-    pub params: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Icon {
-    pub icon_type: IconType,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub enum IconType {
-    #[default]
-    VERIFIED,
-    MODERATOR,
-}
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Message {
-    pub runs: Vec<Run>,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Run {
-    pub bold: Option<bool>,
-    pub italics: Option<bool>,
-    pub text: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Thumbnails {
-    pub thumbnails: Vec<Thumbnail>,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Thumbnail {
-    pub height: i64,
-    pub url: String,
-    pub width: i64,
+pub struct AddLiveChatTickerItemAction {
+    pub item: item_renderer::Item,
+    pub duration_sec: String,
 }

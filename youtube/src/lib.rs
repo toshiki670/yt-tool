@@ -4,5 +4,5 @@ mod infrastructure;
 mod interface;
 
 pub mod prelude {
-    pub use crate::interface::chat_file::*;
+    pub use crate::interface::chat_file_service::*;
 }

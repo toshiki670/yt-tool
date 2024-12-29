@@ -1,1 +1,1 @@
-pub(crate) mod chat_file;
+pub(crate) mod chat_file_service;

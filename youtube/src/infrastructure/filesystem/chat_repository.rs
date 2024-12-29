@@ -19,9 +19,9 @@ pub struct FsChatRepository {
 }
 
 impl FsChatRepository {
-    pub fn new(file_path: PathBuf) -> anyhow::Result<Self> {
-        let file = File::open(&file_path)?;
-        let file_type = FileType::from_path(&file_path)?;
+    pub fn new(file_path: &PathBuf) -> anyhow::Result<Self> {
+        let file = File::open(file_path)?;
+        let file_type = FileType::from_path(file_path)?;
         Ok(Self { file, file_type })
     }
 }

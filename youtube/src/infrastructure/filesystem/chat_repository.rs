@@ -72,12 +72,12 @@ impl FileType {
 
 #[derive(thiserror::Error, Debug)]
 pub enum FsChatRepositoryError {
-    #[error("No extension: \"{}\"", .0.display())]
+    #[error("NoExtensionError<{}>", .0.display())]
     NoExtensionError(PathBuf),
 
-    #[error("Invalid extension: \"{}\"", .0.display())]
+    #[error("InvalidExtensionError<{}>", .0.display())]
     InvalidExtensionError(PathBuf),
 
-    #[error("Unsupported extension")]
+    #[error("UnsupportedExtensionError")]
     UnsupportedExtensionError,
 }

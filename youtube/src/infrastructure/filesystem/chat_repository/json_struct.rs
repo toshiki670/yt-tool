@@ -46,7 +46,7 @@ impl JsonStruct {
                     chats.extend(chat_entities);
                 }
                 Err(err) => match err.downcast_ref::<JsonStructError>() {
-                    Some(JsonStructError::IgnoreRow) => continue,
+                    Some(JsonStructError::Ignore) => continue,
                     _ => bail!(err.context(JsonStructError::FailedConvertError(line_number))),
                 },
             }
@@ -82,9 +82,9 @@ impl TryInto<ChatEntity> for Action {
         {
             add_live_chat_ticker_item_action.item
         } else if let Some(_) = self.live_chat_report_moderation_state_command {
-            bail!(JsonStructError::IgnoreRow);
+            bail!(JsonStructError::Ignore);
         } else {
-            bail!(JsonStructError::NotFoundItemForActionError);
+            bail!("no exists actions");
         };
 
         let category: CategoryValue = match item {
@@ -100,7 +100,7 @@ impl TryInto<ChatEntity> for Action {
                 CategoryValue::ChatViewerEngagementMessage
             }
             item_renderer::Item::None => {
-                return Err(JsonStructError::InvalidCategoryItemError.into())
+                bail!("no exists renderers");
             }
         };
 
@@ -144,18 +144,12 @@ pub struct AddLiveChatTickerItemAction {
 }
 
 #[derive(thiserror::Error, Debug)]
-pub enum JsonStructError {
-    #[error("NotFoundItemForActionError")]
-    NotFoundItemForActionError,
-
-    #[error("InvalidCategoryItemError")]
-    InvalidCategoryItemError,
-
-    #[error("FailedConvertError<LineNumber<{}>>", .0)]
+enum JsonStructError {
+    #[error("Failed conversion in {} row", .0)]
     FailedConvertError(usize),
 
-    #[error("IgnoreRow")]
-    IgnoreRow,
+    #[error("Ignore")]
+    Ignore,
 }
 
 #[cfg(test)]

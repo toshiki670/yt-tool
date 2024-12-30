@@ -7,7 +7,7 @@ use std::{
 };
 
 use crate::domain::chat::{CategoryValue, ChatEntity};
-use anyhow::Context as _;
+use anyhow::{bail, Context as _};
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -37,13 +37,19 @@ impl JsonStruct {
         for (line_number, line) in BufReader::new(file).lines().enumerate() {
             let line_number = line_number + 1;
             let line = line?;
+
             let chat = serde_json::from_str::<JsonStruct>(&line)
                 .context(JsonStructError::FailedConvertError(line_number))?;
-            let chat_domains = chat
-                .try_into_chat_domains()
-                .context(JsonStructError::FailedConvertError(line_number))?;
 
-            chats.extend(chat_domains);
+            match chat.try_into_chat_domains() {
+                Ok(chat_entities) => {
+                    chats.extend(chat_entities);
+                }
+                Err(err) => match err.downcast_ref::<JsonStructError>() {
+                    Some(JsonStructError::IgnoreRow) => continue,
+                    _ => bail!(err.context(JsonStructError::FailedConvertError(line_number))),
+                },
+            }
         }
 
         Ok(chats)
@@ -63,6 +69,7 @@ pub struct Action {
     pub click_tracking_params: Option<String>,
     pub add_chat_item_action: Option<AddChatItemAction>,
     pub add_live_chat_ticker_item_action: Option<AddLiveChatTickerItemAction>,
+    pub live_chat_report_moderation_state_command: Option<serde_json::Value>,
 }
 
 impl TryInto<ChatEntity> for Action {
@@ -74,8 +81,10 @@ impl TryInto<ChatEntity> for Action {
         } else if let Some(add_live_chat_ticker_item_action) = self.add_live_chat_ticker_item_action
         {
             add_live_chat_ticker_item_action.item
+        } else if let Some(_) = self.live_chat_report_moderation_state_command {
+            bail!(JsonStructError::IgnoreRow);
         } else {
-            return Err(JsonStructError::NotFoundItemForActionError.into());
+            bail!(JsonStructError::NotFoundItemForActionError);
         };
 
         let category: CategoryValue = match item {
@@ -144,6 +153,9 @@ pub enum JsonStructError {
 
     #[error("FailedConvertError<LineNumber<{}>>", .0)]
     FailedConvertError(usize),
+
+    #[error("IgnoreRow")]
+    IgnoreRow,
 }
 
 #[cfg(test)]

@@ -1,2 +1,2 @@
-pub mod chat_entity;
+pub mod chat;
 pub mod repositories;

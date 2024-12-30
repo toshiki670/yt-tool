@@ -1,4 +1,4 @@
-use super::chat_entity::ChatEntity;
+use super::chat::ChatEntity;
 
 pub trait ChatRepository {
     fn all(&self) -> anyhow::Result<Vec<ChatEntity>>;

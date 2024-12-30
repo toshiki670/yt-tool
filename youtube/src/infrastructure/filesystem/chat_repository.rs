@@ -2,7 +2,7 @@ mod csv_struct;
 mod json_struct;
 
 use super::super::super::domain::repositories::ChatRepository;
-use crate::domain::chat_entity::ChatEntity;
+use crate::domain::chat::ChatEntity;
 use anyhow::Context;
 use std::{fs::File, path::PathBuf};
 

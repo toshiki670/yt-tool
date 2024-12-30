@@ -6,7 +6,7 @@ use std::{
     io::{BufRead as _, BufReader},
 };
 
-use crate::domain::chat_entity::{Category, ChatEntity};
+use crate::domain::chat::{Category, ChatEntity};
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

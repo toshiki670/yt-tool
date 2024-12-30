@@ -143,7 +143,6 @@ mod tests {
 
     mod live_chat_text_message_renderer {
         use super::*;
-        use anyhow::Context as _;
         use chrono::prelude::*;
 
         const RAW_JSON: &str = r#"
@@ -191,7 +190,6 @@ mod tests {
 
     mod live_chat_viewer_engagement_message_renderer {
         use super::*;
-        use anyhow::Context as _;
         use chrono::prelude::*;
 
         const RAW_JSON: &str = r#"
@@ -225,7 +223,7 @@ mod tests {
 
         #[test]
         fn it_equals_timestamp_usec() -> anyhow::Result<()> {
-            let expected = Utc.timestamp_micros(1733370114906095).unwrap();
+            let expected = Utc.timestamp_micros(1733370532507093).unwrap();
 
             let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
             let chat_domains = json_chat.try_into_chat_domains()?;

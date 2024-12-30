@@ -1,6 +1,8 @@
 // https://transform.tools/json-to-rust-serde
 mod item_renderer;
 
+use std::{fs::File, io::{BufRead as _, BufReader}};
+
 use crate::domain::chat::{Category, Chat as ChatDomain};
 use serde::{Deserialize, Serialize};
 
@@ -23,6 +25,19 @@ impl JsonChat {
         }
 
         Ok(results)
+    }
+
+    pub fn all_from_file(file: &File) -> anyhow::Result<Vec<ChatDomain>> {
+        let mut chats = Vec::new();
+
+        for line in BufReader::new(file).lines() {
+            let line = line?;
+            let chat = serde_json::from_str::<JsonChat>(&line)?;
+            let chat_domains = chat.try_into_chat_domains()?;
+            chats.extend(chat_domains);
+        }
+
+        Ok(chats)
     }
 }
 

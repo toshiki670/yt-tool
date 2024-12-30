@@ -28,16 +28,11 @@ impl FsChatRepository {
 
 impl ChatRepository for FsChatRepository {
     fn all(&self) -> anyhow::Result<Vec<Chat>> {
-        let mut chats = Vec::new();
+        let chats;
 
         match self.file_type {
             FileType::Json => {
-                for line in BufReader::new(&self.file).lines() {
-                    let line = line?;
-                    let chat = serde_json::from_str::<json_struct::JsonChat>(&line)?;
-                    let chat_domains = chat.try_into_chat_domains()?;
-                    chats.extend(chat_domains);
-                }
+                chats = json_struct::JsonChat::all_from_file(&self.file)?;
             }
             FileType::Csv => {
                 unimplemented!()

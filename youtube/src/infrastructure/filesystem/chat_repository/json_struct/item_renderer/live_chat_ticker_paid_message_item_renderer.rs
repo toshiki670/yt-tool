@@ -2,7 +2,8 @@ use super::{
     live_chat_paid_message_renderer::LiveChatPaidMessageRenderer,
     values::{
         author_photo::AuthorPhoto, engagement_panel_command::EngagementPanelCommand,
-        simple_text::SimpleText, web_command_metadata::WebCommandMetadata,
+        ignore_navigation::IgnoreNavigation, simple_text::SimpleText,
+        web_command_metadata::WebCommandMetadata,
     },
     CommonRenderer,
 };
@@ -34,7 +35,8 @@ impl Into<CommonRenderer> for LiveChatTickerPaidMessageItemRenderer {
                 .show_live_chat_item_endpoint
                 .renderer
                 .live_chat_paid_message_renderer
-                .timestamp_usec.into(),
+                .timestamp_usec
+                .into(),
             author_external_channel_id: self.author_external_channel_id,
             author_name: self.author_username.into(),
             message: self
@@ -52,7 +54,7 @@ impl Into<CommonRenderer> for LiveChatTickerPaidMessageItemRenderer {
 #[serde(rename_all = "camelCase")]
 pub struct ShowItemEndpoint {
     pub click_tracking_params: String,
-    pub command_metadata: WebCommandMetadata,
+    pub command_metadata: WebCommandMetadata<IgnoreNavigation>,
     pub show_live_chat_item_endpoint: ShowLiveChatItemEndpoint,
 }
 

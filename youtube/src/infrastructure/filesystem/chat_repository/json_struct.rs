@@ -119,3 +119,57 @@ pub struct AddLiveChatTickerItemAction {
     pub item: item_renderer::Item,
     pub duration_sec: String,
 }
+
+#[cfg(test)]
+mod tests {
+
+    use super::*;
+
+    mod live_chat_text_message_renderer {
+        use super::*;
+        use anyhow::Context as _;
+        use chrono::prelude::*;
+
+        const RAW_JSON: &str = r#"
+            {"replayChatItemAction":{"actions":[{"clickTrackingParams":"clickTrackingParams","addChatItemAction":{"item":{"liveChatTextMessageRenderer":{"message":{"runs":[{"text":"メッセージ"}]},"authorName":{"simpleText":"authorName"},"authorPhoto":{"thumbnails":[{"url":"https://yt4.ggpht.com/","width":32,"height":32},{"url":"https://yt4.ggpht.com/","width":64,"height":64}]},"contextMenuEndpoint":{"clickTrackingParams":"clickTrackingParams","commandMetadata":{"webCommandMetadata":{"ignoreNavigation":true}},"liveChatItemContextMenuEndpoint":{"params":"params=="}},"id":"id","timestampUsec":"1733370114906095","authorExternalChannelId":"authorExternalChannelId","contextMenuAccessibility":{"accessibilityData":{"label":"Chat actions"}},"trackingParams":"trackingParams"}},"clientId":"clientId"}}]},"videoOffsetTimeMsec":"-416809","isLive":true}
+        "#;
+
+        #[test]
+        fn it_has_one_domain_chat() -> anyhow::Result<()> {
+            let expected = 1;
+
+            let json_chat = serde_json::from_str::<JsonChat>(&RAW_JSON)?;
+            let chat_domains = json_chat.try_into_chat_domains()?;
+            let actual = chat_domains.len();
+
+            assert_eq!(expected, actual);
+            Ok(())
+        }
+
+        #[test]
+        fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
+            let expected = Category::ChatTextMessage;
+
+            let json_chat = serde_json::from_str::<JsonChat>(&RAW_JSON)?;
+            let chat_domains = json_chat.try_into_chat_domains()?;
+            let first = chat_domains.first().context("There is no chat")?;
+            let actual = first.category.clone();
+
+            assert_eq!(expected, actual);
+            Ok(())
+        }
+
+        #[test]
+        fn it_equals_timestamp_usec() -> anyhow::Result<()> {
+            let expected = Utc.timestamp_micros(1733370114906095).unwrap();
+
+            let json_chat = serde_json::from_str::<JsonChat>(&RAW_JSON)?;
+            let chat_domains = json_chat.try_into_chat_domains()?;
+            let first = chat_domains.first().context("There is no chat")?;
+            let actual = first.timestamp_usec;
+
+            assert_eq!(expected, actual);
+            Ok(())
+        }
+    }
+}

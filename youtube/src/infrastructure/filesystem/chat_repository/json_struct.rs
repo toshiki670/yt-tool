@@ -69,7 +69,7 @@ impl TryInto<ChatEntity> for Action {
         {
             add_live_chat_ticker_item_action.item
         } else {
-            return Err(anyhow::anyhow!("No item found for action"));
+            return Err(JsonStructError::NotFoundItemForActionError.into());
         };
 
         let category: CategoryValue = match item {
@@ -84,7 +84,7 @@ impl TryInto<ChatEntity> for Action {
             item_renderer::Item::LiveChatViewerEngagementMessageRenderer(_) => {
                 CategoryValue::ChatViewerEngagementMessage
             }
-            item_renderer::Item::None => return Err(anyhow::anyhow!("No item found")),
+            item_renderer::Item::None => return Err(JsonStructError::InvalidCategoryItemError.into()),
         };
 
         let renderer: item_renderer::CommonRenderer = match item {
@@ -125,6 +125,17 @@ pub struct AddLiveChatTickerItemAction {
     pub item: item_renderer::Item,
     pub duration_sec: String,
 }
+
+
+#[derive(thiserror::Error, Debug)]
+pub enum JsonStructError {
+    #[error("Not found item for action")]
+    NotFoundItemForActionError,
+
+    #[error("Invalid category item error")]
+    InvalidCategoryItemError,
+}
+
 
 #[cfg(test)]
 mod tests {

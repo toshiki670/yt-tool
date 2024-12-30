@@ -1,2 +1,2 @@
-pub mod chat;
-pub mod repositories;
+pub(crate) mod chat;
+pub(crate) mod repositories;

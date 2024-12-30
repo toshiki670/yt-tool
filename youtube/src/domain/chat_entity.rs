@@ -1,7 +1,7 @@
 use chrono::prelude::*;
 
 #[derive(Default, Debug, Clone, PartialEq)]
-pub struct Chat {
+pub struct ChatEntity {
     pub timestamp_usec: DateTime<Utc>,
     pub author_external_channel_id: String,
     pub author_name: String,

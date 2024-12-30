@@ -6,7 +6,7 @@ use std::{
     io::{BufRead as _, BufReader},
 };
 
-use crate::domain::chat::{Category, Chat as ChatDomain};
+use crate::domain::chat_entity::{Category, ChatEntity};
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -19,18 +19,18 @@ pub struct JsonChat {
 }
 
 impl JsonChat {
-    pub fn try_into_chat_domains(self) -> anyhow::Result<Vec<ChatDomain>> {
+    pub fn try_into_chat_domains(self) -> anyhow::Result<Vec<ChatEntity>> {
         let mut results = Vec::new();
 
         for action in self.replay_chat_item_action.actions {
-            let chat_domain: ChatDomain = action.try_into()?;
+            let chat_domain: ChatEntity = action.try_into()?;
             results.push(chat_domain);
         }
 
         Ok(results)
     }
 
-    pub fn all_from_file(file: &File) -> anyhow::Result<Vec<ChatDomain>> {
+    pub fn all_from_file(file: &File) -> anyhow::Result<Vec<ChatEntity>> {
         let mut chats = Vec::new();
 
         for line in BufReader::new(file).lines() {
@@ -59,10 +59,10 @@ pub struct Action {
     pub add_live_chat_ticker_item_action: Option<AddLiveChatTickerItemAction>,
 }
 
-impl TryInto<ChatDomain> for Action {
+impl TryInto<ChatEntity> for Action {
     type Error = anyhow::Error;
 
-    fn try_into(self) -> anyhow::Result<ChatDomain> {
+    fn try_into(self) -> anyhow::Result<ChatEntity> {
         let item = if let Some(add_chat_item_action) = self.add_chat_item_action {
             add_chat_item_action.item
         } else if let Some(add_live_chat_ticker_item_action) = self.add_live_chat_ticker_item_action
@@ -94,7 +94,7 @@ impl TryInto<ChatDomain> for Action {
             item_renderer::Item::None => unreachable!(),
         };
 
-        Ok(ChatDomain {
+        Ok(ChatEntity {
             timestamp_usec: renderer.timestamp_usec,
             author_external_channel_id: renderer.author_external_channel_id,
             author_name: renderer.author_name,

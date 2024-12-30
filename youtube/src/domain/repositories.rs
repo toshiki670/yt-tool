@@ -1,6 +1,6 @@
-use super::chat::Chat;
+use super::chat_entity::ChatEntity;
 
 pub trait ChatRepository {
-    fn all(&self) -> anyhow::Result<Vec<Chat>>;
-    fn bulk_create(&self, chats: Vec<Chat>) -> anyhow::Result<()>;
+    fn all(&self) -> anyhow::Result<Vec<ChatEntity>>;
+    fn bulk_create(&self, chats: Vec<ChatEntity>) -> anyhow::Result<()>;
 }

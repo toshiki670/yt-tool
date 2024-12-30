@@ -2,7 +2,7 @@ mod csv_struct;
 mod json_struct;
 
 use super::super::super::domain::repositories::ChatRepository;
-use crate::domain::chat::Chat;
+use crate::domain::chat_entity::ChatEntity;
 use anyhow::Context;
 use std::{fs::File, path::PathBuf};
 
@@ -20,7 +20,7 @@ impl FsChatRepository {
 }
 
 impl ChatRepository for FsChatRepository {
-    fn all(&self) -> anyhow::Result<Vec<Chat>> {
+    fn all(&self) -> anyhow::Result<Vec<ChatEntity>> {
         let chats;
 
         match self.file_type {
@@ -35,7 +35,7 @@ impl ChatRepository for FsChatRepository {
         Ok(chats)
     }
 
-    fn bulk_create(&self, chats: Vec<Chat>) -> anyhow::Result<()> {
+    fn bulk_create(&self, chats: Vec<ChatEntity>) -> anyhow::Result<()> {
         match self.file_type {
             FileType::Json => {
                 unimplemented!()

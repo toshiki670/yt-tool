@@ -7,9 +7,10 @@ pub struct Icon {
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "UPPERCASE")]
+#[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum IconType {
     #[default]
-    VERIFIED,
-    MODERATOR,
+    Verified,
+    Moderator,
+    YoutubeRound,
 }

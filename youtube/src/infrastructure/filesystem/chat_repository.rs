@@ -43,7 +43,16 @@ impl ChatRepository for FsChatRepository {
     }
 
     fn bulk_create(&self, chats: Vec<Chat>) -> anyhow::Result<()> {
-        unimplemented!()
+        match self.file_type {
+            FileType::Json => {
+                unimplemented!()
+            }
+            FileType::Csv => {
+                csv_struct::CsvChat::bulk_create_file(chats, &self.file)?;
+            }
+        }
+
+        Ok(())
     }
 }
 

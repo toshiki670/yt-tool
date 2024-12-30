@@ -2,7 +2,7 @@ use chrono::prelude::*;
 use serde::{de, Deserialize, Deserializer, Serialize, Serializer};
 
 #[derive(Default, Debug, Clone, PartialEq)]
-struct TimestampUsec(DateTime<Utc>);
+pub struct TimestampUsec(DateTime<Utc>);
 
 impl core::ops::Deref for TimestampUsec {
     type Target = DateTime<Utc>;

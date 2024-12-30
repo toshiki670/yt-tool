@@ -6,7 +6,7 @@ use std::{
     io::{BufRead as _, BufReader},
 };
 
-use crate::domain::chat::{Category, ChatEntity};
+use crate::domain::chat::{CategoryValue, ChatEntity};
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -72,14 +72,14 @@ impl TryInto<ChatEntity> for Action {
             return Err(anyhow::anyhow!("No item found for action"));
         };
 
-        let category: Category = match item {
-            item_renderer::Item::LiveChatPaidMessageRenderer(_) => Category::ChatPaidMessage,
+        let category: CategoryValue = match item {
+            item_renderer::Item::LiveChatPaidMessageRenderer(_) => CategoryValue::ChatPaidMessage,
             item_renderer::Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(_) => {
-                Category::ChatSponsorshipsGiftRedemptionAnnouncement
+                CategoryValue::ChatSponsorshipsGiftRedemptionAnnouncement
             }
-            item_renderer::Item::LiveChatTextMessageRenderer(_) => Category::ChatTextMessage,
+            item_renderer::Item::LiveChatTextMessageRenderer(_) => CategoryValue::ChatTextMessage,
             item_renderer::Item::LiveChatTickerPaidMessageItemRenderer(_) => {
-                Category::ChatTickerPaidMessageItem
+                CategoryValue::ChatTickerPaidMessageItem
             }
             item_renderer::Item::None => return Err(anyhow::anyhow!("No item found")),
         };
@@ -95,7 +95,7 @@ impl TryInto<ChatEntity> for Action {
         };
 
         Ok(ChatEntity {
-            timestamp_usec: renderer.timestamp_usec,
+            posted_at: renderer.timestamp_usec.into(),
             author_external_channel_id: renderer.author_external_channel_id,
             author_name: renderer.author_name,
             message: renderer.message,
@@ -148,7 +148,7 @@ mod tests {
 
         #[test]
         fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
-            let expected = Category::ChatTextMessage;
+            let expected = CategoryValue::ChatTextMessage;
 
             let json_chat = serde_json::from_str::<JsonChat>(&RAW_JSON)?;
             let chat_domains = json_chat.try_into_chat_domains()?;
@@ -166,7 +166,7 @@ mod tests {
             let json_chat = serde_json::from_str::<JsonChat>(&RAW_JSON)?;
             let chat_domains = json_chat.try_into_chat_domains()?;
             let first = chat_domains.first().context("There is no chat")?;
-            let actual = first.timestamp_usec;
+            let actual: DateTime<Utc> = first.posted_at.into();
 
             assert_eq!(expected, actual);
             Ok(())

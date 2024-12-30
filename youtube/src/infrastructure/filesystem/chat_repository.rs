@@ -1,17 +1,10 @@
-use std::{
-    fs::File,
-    io::{BufRead as _, BufReader},
-    path::PathBuf,
-};
-
 mod csv_struct;
 mod json_struct;
 
-use anyhow::Context;
-
-use crate::domain::chat::Chat;
-
 use super::super::super::domain::repositories::ChatRepository;
+use crate::domain::chat::Chat;
+use anyhow::Context;
+use std::{fs::File, path::PathBuf};
 
 pub struct FsChatRepository {
     file: File,

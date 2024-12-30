@@ -25,7 +25,7 @@ impl ChatRepository for FsChatRepository {
 
         match self.file_type {
             FileType::Json => {
-                chats = json_struct::JsonChat::all_from_file(&self.file)?;
+                chats = json_struct::JsonStruct::all_from_file(&self.file)?;
             }
             FileType::Csv => {
                 unimplemented!()

@@ -11,14 +11,14 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct JsonChat {
+pub struct JsonStruct {
     pub is_live: bool,
     pub click_tracking_params: Option<String>,
     pub replay_chat_item_action: ReplayChatItemAction,
     pub video_offset_time_msec: Option<String>,
 }
 
-impl JsonChat {
+impl JsonStruct {
     pub fn try_into_chat_domains(self) -> anyhow::Result<Vec<ChatEntity>> {
         let mut results = Vec::new();
 
@@ -35,7 +35,7 @@ impl JsonChat {
 
         for line in BufReader::new(file).lines() {
             let line = line?;
-            let chat = serde_json::from_str::<JsonChat>(&line)?;
+            let chat = serde_json::from_str::<JsonStruct>(&line)?;
             let chat_domains = chat.try_into_chat_domains()?;
             chats.extend(chat_domains);
         }
@@ -143,7 +143,7 @@ mod tests {
         fn it_has_one_domain_chat() -> anyhow::Result<()> {
             let expected = 1;
 
-            let json_chat = serde_json::from_str::<JsonChat>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
             let chat_domains = json_chat.try_into_chat_domains()?;
             let actual = chat_domains.len();
 
@@ -155,7 +155,7 @@ mod tests {
         fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
             let expected = CategoryValue::ChatTextMessage;
 
-            let json_chat = serde_json::from_str::<JsonChat>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
             let chat_domains = json_chat.try_into_chat_domains()?;
             let first = chat_domains.first().context("There is no chat")?;
             let actual = first.category.clone();
@@ -168,7 +168,7 @@ mod tests {
         fn it_equals_timestamp_usec() -> anyhow::Result<()> {
             let expected = Utc.timestamp_micros(1733370114906095).unwrap();
 
-            let json_chat = serde_json::from_str::<JsonChat>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
             let chat_domains = json_chat.try_into_chat_domains()?;
             let first = chat_domains.first().context("There is no chat")?;
             let actual: DateTime<Utc> = first.posted_at.into();
@@ -191,7 +191,7 @@ mod tests {
         fn it_has_one_domain_chat() -> anyhow::Result<()> {
             let expected = 1;
 
-            let json_chat = serde_json::from_str::<JsonChat>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
             let chat_domains = json_chat.try_into_chat_domains()?;
             let actual = chat_domains.len();
 
@@ -203,7 +203,7 @@ mod tests {
         fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
             let expected = CategoryValue::ChatViewerEngagementMessage;
 
-            let json_chat = serde_json::from_str::<JsonChat>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
             let chat_domains = json_chat.try_into_chat_domains()?;
             let first = chat_domains.first().context("There is no chat")?;
             let actual = first.category.clone();
@@ -216,7 +216,7 @@ mod tests {
         fn it_equals_timestamp_usec() -> anyhow::Result<()> {
             let expected = Utc.timestamp_micros(1733370114906095).unwrap();
 
-            let json_chat = serde_json::from_str::<JsonChat>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
             let chat_domains = json_chat.try_into_chat_domains()?;
             let first = chat_domains.first().context("There is no chat")?;
             let actual: DateTime<Utc> = first.posted_at.into();

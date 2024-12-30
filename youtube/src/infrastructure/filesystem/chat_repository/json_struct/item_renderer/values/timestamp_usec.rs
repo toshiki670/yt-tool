@@ -52,6 +52,12 @@ impl Serialize for TimestampUsec {
     }
 }
 
+impl Into<DateTime<Utc>> for TimestampUsec {
+    fn into(self) -> DateTime<Utc> {
+        self.0
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -67,25 +73,31 @@ mod tests {
 
         #[test]
         fn it_deserialize_from_string() -> anyhow::Result<()> {
+            let expected = Utc
+                .timestamp_micros(1733370114906095)
+                .unwrap()
+                .timestamp_micros();
+
             let json_data = r#"{"timestampUsec":"1733370114906095"}"#;
             let example: Example = serde_json::from_str(json_data)?;
-            let timestamp: TimestampUsec = example.timestamp_usec;
+            let actual = example.timestamp_usec.timestamp_micros();
 
-            let expected = Utc.timestamp_micros(1733370114906095).unwrap();
-
-            assert_eq!(timestamp.timestamp_micros(), expected.timestamp_micros());
+            assert_eq!(expected, actual);
             Ok(())
         }
 
         #[test]
         fn it_deserialize_from_number() -> anyhow::Result<()> {
+            let expected = Utc
+                .timestamp_micros(1733370114906095)
+                .unwrap()
+                .timestamp_micros();
+
             let json_data = r#"{"timestampUsec":1733370114906095}"#;
             let example: Example = serde_json::from_str(json_data)?;
-            let timestamp: TimestampUsec = example.timestamp_usec;
+            let actual = example.timestamp_usec.timestamp_micros();
 
-            let expected = Utc.timestamp_micros(1733370114906095).unwrap();
-
-            assert_eq!(timestamp.timestamp_micros(), expected.timestamp_micros());
+            assert_eq!(expected, actual);
             Ok(())
         }
     }
@@ -95,16 +107,14 @@ mod tests {
 
         #[test]
         fn it_serialize() -> anyhow::Result<()> {
+            let expected = r#"{"timestampUsec":"1733370114906095"}"#;
+
             let time = Utc.timestamp_micros(1733370114906095).unwrap();
             let timestamp_usec = TimestampUsec(time);
             let example = Example { timestamp_usec };
+            let actual = serde_json::to_string(&example).unwrap();
 
-            let serialized = serde_json::to_string(&example).unwrap();
-
-            let expected = r#"{"timestampUsec":"1733370114906095"}"#;
-
-            assert_eq!(serialized, expected);
-
+            assert_eq!(expected, actual);
             Ok(())
         }
     }

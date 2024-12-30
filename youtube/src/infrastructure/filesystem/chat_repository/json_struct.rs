@@ -81,6 +81,9 @@ impl TryInto<ChatEntity> for Action {
             item_renderer::Item::LiveChatTickerPaidMessageItemRenderer(_) => {
                 CategoryValue::ChatTickerPaidMessageItem
             }
+            item_renderer::Item::LiveChatViewerEngagementMessageRenderer(_) => {
+                CategoryValue::ChatViewerEngagementMessage
+            }
             item_renderer::Item::None => return Err(anyhow::anyhow!("No item found")),
         };
 
@@ -91,6 +94,9 @@ impl TryInto<ChatEntity> for Action {
             ) => renderer.into(),
             item_renderer::Item::LiveChatTextMessageRenderer(renderer) => renderer.into(),
             item_renderer::Item::LiveChatTickerPaidMessageItemRenderer(renderer) => renderer.into(),
+            item_renderer::Item::LiveChatViewerEngagementMessageRenderer(renderer) => {
+                renderer.into()
+            }
             item_renderer::Item::None => unreachable!(),
         };
 
@@ -122,7 +128,6 @@ pub struct AddLiveChatTickerItemAction {
 
 #[cfg(test)]
 mod tests {
-
     use super::*;
 
     mod live_chat_text_message_renderer {
@@ -149,6 +154,54 @@ mod tests {
         #[test]
         fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
             let expected = CategoryValue::ChatTextMessage;
+
+            let json_chat = serde_json::from_str::<JsonChat>(&RAW_JSON)?;
+            let chat_domains = json_chat.try_into_chat_domains()?;
+            let first = chat_domains.first().context("There is no chat")?;
+            let actual = first.category.clone();
+
+            assert_eq!(expected, actual);
+            Ok(())
+        }
+
+        #[test]
+        fn it_equals_timestamp_usec() -> anyhow::Result<()> {
+            let expected = Utc.timestamp_micros(1733370114906095).unwrap();
+
+            let json_chat = serde_json::from_str::<JsonChat>(&RAW_JSON)?;
+            let chat_domains = json_chat.try_into_chat_domains()?;
+            let first = chat_domains.first().context("There is no chat")?;
+            let actual: DateTime<Utc> = first.posted_at.into();
+
+            assert_eq!(expected, actual);
+            Ok(())
+        }
+    }
+
+    mod live_chat_viewer_engagement_message_renderer {
+        use super::*;
+        use anyhow::Context as _;
+        use chrono::prelude::*;
+
+        const RAW_JSON: &str = r#"
+            {"replayChatItemAction": {"actions": [{"clickTrackingParams": "CAEQl98BIhMI-ZrpttyPigMV0rpWAR2tPxON", "addChatItemAction": {"item": {"liveChatViewerEngagementMessageRenderer": {"id": "CjEKL0NPTU1VTklUWV9HVUlERUxJTkVTX1ZFTTIwMjQvMTIvMDQtMTk6NDg6NTIuNTA3", "timestampUsec": "1733370532507093", "icon": {"iconType": "YOUTUBE_ROUND"}, "message": {"runs": [{"text": "Welcome to live chat! Remember to guard your privacy and abide by our community guidelines."}]}, "actionButton": {"buttonRenderer": {"style": "STYLE_BLUE_TEXT", "size": "SIZE_DEFAULT", "isDisabled": false, "text": {"simpleText": "Learn more"}, "navigationEndpoint": {"clickTrackingParams": "CCIQ8FsiEwj5mum23I-KAxXSulYBHa0_E40=", "commandMetadata": {"webCommandMetadata": {"url": "//support.google.com/youtube/answer/2853856?hl=en#safe", "webPageType": "WEB_PAGE_TYPE_UNKNOWN", "rootVe": 83769}}, "urlEndpoint": {"url": "//support.google.com/youtube/answer/2853856?hl=en#safe", "target": "TARGET_NEW_WINDOW"}}, "trackingParams": "CCIQ8FsiEwj5mum23I-KAxXSulYBHa0_E40=", "accessibilityData": {"accessibilityData": {"label": "Learn more"}}}}, "trackingParams": "CAEQl98BIhMI-ZrpttyPigMV0rpWAR2tPxON"}}}}]}, "videoOffsetTimeMsec": "-87005", "isLive": true}
+        "#;
+
+        #[test]
+        fn it_has_one_domain_chat() -> anyhow::Result<()> {
+            let expected = 1;
+
+            let json_chat = serde_json::from_str::<JsonChat>(&RAW_JSON)?;
+            let chat_domains = json_chat.try_into_chat_domains()?;
+            let actual = chat_domains.len();
+
+            assert_eq!(expected, actual);
+            Ok(())
+        }
+
+        #[test]
+        fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
+            let expected = CategoryValue::ChatViewerEngagementMessage;
 
             let json_chat = serde_json::from_str::<JsonChat>(&RAW_JSON)?;
             let chat_domains = json_chat.try_into_chat_domains()?;

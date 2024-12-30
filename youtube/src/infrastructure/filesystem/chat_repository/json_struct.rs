@@ -7,6 +7,7 @@ use std::{
 };
 
 use crate::domain::chat::{CategoryValue, ChatEntity};
+use anyhow::Context as _;
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -33,10 +34,15 @@ impl JsonStruct {
     pub fn all_from_file(file: &File) -> anyhow::Result<Vec<ChatEntity>> {
         let mut chats = Vec::new();
 
-        for line in BufReader::new(file).lines() {
+        for (line_number, line) in BufReader::new(file).lines().enumerate() {
+            let line_number = line_number + 1;
             let line = line?;
-            let chat = serde_json::from_str::<JsonStruct>(&line)?;
-            let chat_domains = chat.try_into_chat_domains()?;
+            let chat = serde_json::from_str::<JsonStruct>(&line)
+                .context(JsonStructError::FailedConvertError(line_number))?;
+            let chat_domains = chat
+                .try_into_chat_domains()
+                .context(JsonStructError::FailedConvertError(line_number))?;
+
             chats.extend(chat_domains);
         }
 
@@ -84,7 +90,9 @@ impl TryInto<ChatEntity> for Action {
             item_renderer::Item::LiveChatViewerEngagementMessageRenderer(_) => {
                 CategoryValue::ChatViewerEngagementMessage
             }
-            item_renderer::Item::None => return Err(JsonStructError::InvalidCategoryItemError.into()),
+            item_renderer::Item::None => {
+                return Err(JsonStructError::InvalidCategoryItemError.into())
+            }
         };
 
         let renderer: item_renderer::CommonRenderer = match item {
@@ -115,7 +123,7 @@ impl TryInto<ChatEntity> for Action {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AddChatItemAction {
-    pub client_id: String,
+    pub client_id: Option<String>,
     pub item: item_renderer::Item,
 }
 
@@ -126,16 +134,17 @@ pub struct AddLiveChatTickerItemAction {
     pub duration_sec: String,
 }
 
-
 #[derive(thiserror::Error, Debug)]
 pub enum JsonStructError {
-    #[error("Not found item for action")]
+    #[error("NotFoundItemForActionError")]
     NotFoundItemForActionError,
 
-    #[error("Invalid category item error")]
+    #[error("InvalidCategoryItemError")]
     InvalidCategoryItemError,
-}
 
+    #[error("FailedConvertError<LineNumber<{}>>", .0)]
+    FailedConvertError(usize),
+}
 
 #[cfg(test)]
 mod tests {

@@ -10,3 +10,4 @@ pub mod reply_button;
 pub mod simple_text;
 pub mod thumbnails;
 pub mod web_command_metadata;
+pub mod timestamp_usec;

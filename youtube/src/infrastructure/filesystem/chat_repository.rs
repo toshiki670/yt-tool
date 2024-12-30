@@ -3,7 +3,7 @@ mod json_struct;
 
 use crate::domain::chat::ChatEntity;
 use crate::domain::repositories::ChatRepository;
-use anyhow::Context;
+use anyhow::{bail, Context as _};
 use std::{fs::File, path::PathBuf};
 
 pub struct FsChatRepository {
@@ -13,7 +13,8 @@ pub struct FsChatRepository {
 
 impl FsChatRepository {
     pub fn new(file_path: &PathBuf) -> anyhow::Result<Self> {
-        let file = File::open(file_path)?;
+        let file = File::open(file_path)
+            .with_context(|| format!("Failed to open {}", &file_path.display()))?;
         let file_type = FileType::from_path(file_path)?;
         Ok(Self { file, file_type })
     }
@@ -58,26 +59,14 @@ impl FileType {
     fn from_path(path: &PathBuf) -> anyhow::Result<Self> {
         let extension = path
             .extension()
-            .context(FsChatRepositoryError::NoExtensionError(path.clone()))?
+            .with_context(|| format!("No include extention in {}", &path.display()))?
             .to_str()
-            .context(FsChatRepositoryError::InvalidExtensionError(path.clone()))?;
+            .with_context(|| format!("Imvalid extention in {}", &path.display()))?;
 
         match extension {
             "json" => Ok(Self::Json),
             "csv" => Ok(Self::Csv),
-            _ => Err(FsChatRepositoryError::UnsupportedExtensionError.into()),
+            _ => bail!("\"{}\" is unsupported extention", extension),
         }
     }
-}
-
-#[derive(thiserror::Error, Debug)]
-pub enum FsChatRepositoryError {
-    #[error("NoExtensionError<{}>", .0.display())]
-    NoExtensionError(PathBuf),
-
-    #[error("InvalidExtensionError<{}>", .0.display())]
-    InvalidExtensionError(PathBuf),
-
-    #[error("UnsupportedExtensionError")]
-    UnsupportedExtensionError,
 }

@@ -1,7 +1,10 @@
 // https://transform.tools/json-to-rust-serde
 mod item_renderer;
 
-use std::{fs::File, io::{BufRead as _, BufReader}};
+use std::{
+    fs::File,
+    io::{BufRead as _, BufReader},
+};
 
 use crate::domain::chat::{Category, Chat as ChatDomain};
 use serde::{Deserialize, Serialize};

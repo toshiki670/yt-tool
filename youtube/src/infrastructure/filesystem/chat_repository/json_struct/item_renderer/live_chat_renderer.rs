@@ -2,7 +2,7 @@ use super::{
     values::{
         accessibility::Accessibility, author_badge::AuthorBadge,
         context_menu_endpoint::ContextMenuEndpoint, message::Message, simple_text::SimpleText,
-        thumbnails::Thumbnails,
+        thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
     },
     CommonRenderer,
 };
@@ -19,13 +19,13 @@ pub struct LiveChatRenderer {
     pub context_menu_endpoint: ContextMenuEndpoint,
     pub id: String,
     pub message: Message,
-    pub timestamp_usec: String,
+    pub timestamp_usec: TimestampUsec,
 }
 
 impl Into<CommonRenderer> for LiveChatRenderer {
     fn into(self) -> CommonRenderer {
         CommonRenderer {
-            timestamp_usec: self.timestamp_usec,
+            timestamp_usec: self.timestamp_usec.into(),
             author_external_channel_id: self.author_external_channel_id,
             author_name: self.author_name.into(),
             message: self.message.into(),

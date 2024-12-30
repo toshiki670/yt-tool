@@ -3,7 +3,7 @@ use super::{
         accessibility::Accessibility, author_badge::AuthorBadge,
         context_menu_endpoint::ContextMenuEndpoint, creator_heart_button::CreatorHeartButton,
         message::Message, reply_button::ReplyButton, simple_text::SimpleText,
-        thumbnails::Thumbnails,
+        thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
     },
     CommonRenderer,
 };
@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 #[serde(rename_all = "camelCase")]
 pub struct LiveChatPaidMessageRenderer {
     pub id: String,
-    pub timestamp_usec: String,
+    pub timestamp_usec: TimestampUsec,
     pub author_name: SimpleText,
     pub author_photo: Thumbnails,
     pub purchase_amount_text: SimpleText,
@@ -40,7 +40,7 @@ pub struct LiveChatPaidMessageRenderer {
 impl Into<CommonRenderer> for LiveChatPaidMessageRenderer {
     fn into(self) -> CommonRenderer {
         CommonRenderer {
-            timestamp_usec: self.timestamp_usec,
+            timestamp_usec: self.timestamp_usec.into(),
             author_external_channel_id: self.author_external_channel_id,
             author_name: self.author_name.into(),
             message: self.message.into(),

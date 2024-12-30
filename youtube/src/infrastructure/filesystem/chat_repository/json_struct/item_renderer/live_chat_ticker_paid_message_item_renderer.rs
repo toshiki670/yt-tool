@@ -34,7 +34,7 @@ impl Into<CommonRenderer> for LiveChatTickerPaidMessageItemRenderer {
                 .show_live_chat_item_endpoint
                 .renderer
                 .live_chat_paid_message_renderer
-                .timestamp_usec,
+                .timestamp_usec.into(),
             author_external_channel_id: self.author_external_channel_id,
             author_name: self.author_username.into(),
             message: self

@@ -59,9 +59,9 @@ impl FileType {
     fn from_path(path: &PathBuf) -> anyhow::Result<Self> {
         let extension = path
             .extension()
-            .with_context(|| format!("No include extention in {}", &path.display()))?
+            .with_context(|| format!("No include extention in \"{}\"", &path.display()))?
             .to_str()
-            .with_context(|| format!("Imvalid extention in {}", &path.display()))?;
+            .with_context(|| format!("Imvalid extention in \"{}\"", &path.display()))?;
 
         match extension {
             "json" => Ok(Self::Json),

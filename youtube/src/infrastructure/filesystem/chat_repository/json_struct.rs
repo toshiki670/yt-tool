@@ -21,14 +21,14 @@ pub struct JsonStruct {
 
 impl JsonStruct {
     pub fn try_into_chat_domains(self) -> anyhow::Result<Vec<ChatEntity>> {
-        let mut results = Vec::new();
+        let mut chat_entities = Vec::new();
 
         for action in self.replay_chat_item_action.actions {
-            let chat_domain: ChatEntity = action.try_into()?;
-            results.push(chat_domain);
+            let chat_entity: ChatEntity = action.try_into()?;
+            chat_entities.push(chat_entity);
         }
 
-        Ok(results)
+        Ok(chat_entities)
     }
 
     pub fn all_from_file(file: &File) -> anyhow::Result<Vec<ChatEntity>> {

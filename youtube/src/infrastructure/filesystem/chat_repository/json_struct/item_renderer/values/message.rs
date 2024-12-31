@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use serde::{Deserialize, Serialize};
 
 use super::thumbnails::Thumbnails;
@@ -6,6 +8,12 @@ use super::thumbnails::Thumbnails;
 #[serde(rename_all = "camelCase")]
 pub struct Message {
     pub runs: Vec<Run>,
+}
+
+impl Display for Message {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.into())
+    }
 }
 
 impl Into<String> for Message {

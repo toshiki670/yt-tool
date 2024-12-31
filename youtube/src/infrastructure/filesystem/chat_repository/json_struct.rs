@@ -100,6 +100,9 @@ impl TryInto<ChatEntity> for Action {
                 CategoryValue::ChatViewerEngagementMessage
             }
             item_renderer::Item::LiveChatPaidStickerRenderer(_) => bail!(JsonStructError::Ignore),
+            item_renderer::Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(_) => {
+                CategoryValue::ChatSponsorshipsGiftPurchaseAnnouncement
+            }
             item_renderer::Item::None => {
                 bail!("no exists renderers");
             }
@@ -113,6 +116,9 @@ impl TryInto<ChatEntity> for Action {
             item_renderer::Item::LiveChatTextMessageRenderer(renderer) => renderer.into(),
             item_renderer::Item::LiveChatTickerPaidMessageItemRenderer(renderer) => renderer.into(),
             item_renderer::Item::LiveChatViewerEngagementMessageRenderer(renderer) => {
+                renderer.into()
+            }
+            item_renderer::Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(renderer) => {
                 renderer.into()
             }
             item_renderer::Item::LiveChatPaidStickerRenderer(_) => unreachable!(),
@@ -246,6 +252,39 @@ mod tests {
             let chat_domains = json_chat.try_into_chat_domains()?;
             let first = chat_domains.first().context("There is no chat")?;
             let actual: DateTime<Utc> = first.posted_at.into();
+
+            assert_eq!(expected, actual);
+            Ok(())
+        }
+    }
+
+    mod live_chat_sponsorships_gift_purchase_announcement_renderer {
+        use super::*;
+
+        const RAW_JSON: &str = r#"
+          {"replayChatItemAction": {"actions": [{"clickTrackingParams": "CAEQl98BIhMIh5KnseuPigMVhE31BR2YaRHr", "addChatItemAction": {"item": {"liveChatSponsorshipsGiftPurchaseAnnouncementRenderer": {"id": "ChwKGkNOX3NqcWZyajRvREZSM0J3Z1FkSVRZZDd3", "timestampUsec": "1733374539514652", "authorExternalChannelId": "UC0Fruh1Rn-PPpb8lrkww_ew", "header": {"liveChatSponsorshipsHeaderRenderer": {"authorName": {"simpleText": "村田美夏（ウルフ村田）"}, "authorPhoto": {"thumbnails": [{"url": "https://yt4.ggpht.com/ytc/AIdro_ngUufTAybBxOIjcibAvd8VCzex89HBlP-Dyo9fg-DxdyA=s32-c-k-c0x00ffffff-no-rj", "width": 32, "height": 32}, {"url": "https://yt4.ggpht.com/ytc/AIdro_ngUufTAybBxOIjcibAvd8VCzex89HBlP-Dyo9fg-DxdyA=s64-c-k-c0x00ffffff-no-rj", "width": 64, "height": 64}]}, "primaryText": {"runs": [{"text": "Gifted ", "bold": true}, {"text": "50", "bold": true}, {"text": " ", "bold": true}, {"text": "ホロライブ愛好会ch【旧:ホロライブ切り抜き hololive clips】", "bold": true}, {"text": " memberships", "bold": true}]}, "contextMenuEndpoint": {"clickTrackingParams": "CAkQ3MMKIhMIh5KnseuPigMVhE31BR2YaRHr", "commandMetadata": {"webCommandMetadata": {"ignoreNavigation": true}}, "liveChatItemContextMenuEndpoint": {"params": "Q2g0S0hBb2FRMDVmYzJweFpuSnFORzlFUmxJelFuZG5VV1JKVkZsa04zY2FLU29uQ2hoVlF6WnZURGhuWlV0TlpYbG5iUzAwT1dsTWNuRmxabmNTQzJkWWNrUkthakZyWjB0SklBRW9CRElhQ2hoVlF6QkdjblZvTVZKdUxWQlFjR0k0YkhKcmQzZGZaWGM0QWtnQVVDUSUzRA=="}}, "contextMenuAccessibility": {"accessibilityData": {"label": "Chat actions"}}, "image": {"thumbnails": [{"url": "https://www.gstatic.com/youtube/img/sponsorships/sponsorships_gift_purchase_announcement_artwork.png"}]}}}}}, "clientId": "CN_sjqfrj4oDFR3BwgQdITYd7w"}}]}, "videoOffsetTimeMsec": "4002297", "isLive": true}
+        "#;
+
+        #[test]
+        fn it_has_one_domain_chat() -> anyhow::Result<()> {
+            let expected = 1;
+
+            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
+            let chat_domains = json_chat.try_into_chat_domains()?;
+            let actual = chat_domains.len();
+
+            assert_eq!(expected, actual);
+            Ok(())
+        }
+
+        #[test]
+        fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
+            let expected = CategoryValue::ChatSponsorshipsGiftPurchaseAnnouncement;
+
+            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
+            let chat_domains = json_chat.try_into_chat_domains()?;
+            let first = chat_domains.first().context("There is no chat")?;
+            let actual = first.category.clone();
 
             assert_eq!(expected, actual);
             Ok(())

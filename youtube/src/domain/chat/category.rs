@@ -8,6 +8,7 @@ pub(crate) enum CategoryValue {
     ChatSponsorshipsGiftRedemptionAnnouncement,
     ChatTickerPaidMessageItem,
     ChatViewerEngagementMessage,
+    ChatSponsorshipsGiftPurchaseAnnouncement,
 }
 
 impl fmt::Display for CategoryValue {
@@ -19,7 +20,12 @@ impl fmt::Display for CategoryValue {
                 write!(f, "Chat sponsorships gift redemption announcement")
             }
             CategoryValue::ChatTickerPaidMessageItem => write!(f, "Chat ticker paid message item"),
-            CategoryValue::ChatViewerEngagementMessage => write!(f, "Chat viewer engagement message"),
+            CategoryValue::ChatViewerEngagementMessage => {
+                write!(f, "Chat viewer engagement message")
+            }
+            CategoryValue::ChatSponsorshipsGiftPurchaseAnnouncement => {
+                write!(f, "Chat sponsorships gift purchase announcement")
+            }
         }
     }
 }

@@ -30,6 +30,7 @@ pub struct LiveChatTickerPaidMessageItemRenderer {
 impl Into<CommonRenderer> for LiveChatTickerPaidMessageItemRenderer {
     fn into(self) -> CommonRenderer {
         CommonRenderer {
+            id: self.id,
             timestamp_usec: self
                 .show_item_endpoint
                 .show_live_chat_item_endpoint

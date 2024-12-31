@@ -20,6 +20,7 @@ pub struct LiveChatViewerEngagementMessageRenderer {
 impl Into<CommonRenderer> for LiveChatViewerEngagementMessageRenderer {
     fn into(self) -> CommonRenderer {
         CommonRenderer {
+            id: self.id,
             timestamp_usec: self.timestamp_usec.into(),
             author_external_channel_id: "".to_string(),
             author_name: SimpleText::default().into(),

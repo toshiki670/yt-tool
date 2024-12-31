@@ -40,6 +40,7 @@ pub struct LiveChatPaidMessageRenderer {
 impl Into<CommonRenderer> for LiveChatPaidMessageRenderer {
     fn into(self) -> CommonRenderer {
         CommonRenderer {
+            id: self.id,
             timestamp_usec: self.timestamp_usec.into(),
             author_external_channel_id: self.author_external_channel_id,
             author_name: self.author_name.into(),

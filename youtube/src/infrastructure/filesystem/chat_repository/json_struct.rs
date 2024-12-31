@@ -134,6 +134,7 @@ impl TryInto<ChatEntity> for Action {
         };
 
         Ok(ChatEntity {
+            id: renderer.id,
             posted_at: renderer.timestamp_usec.into(),
             author_external_channel_id: renderer.author_external_channel_id,
             author_name: renderer.author_name,

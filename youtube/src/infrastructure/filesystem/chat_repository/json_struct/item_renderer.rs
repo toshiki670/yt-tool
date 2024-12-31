@@ -33,6 +33,7 @@ pub enum Item {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct CommonRenderer {
+    pub id: String,
     pub timestamp_usec: DateTime<Utc>,
     pub author_external_channel_id: String,
     pub author_name: String,

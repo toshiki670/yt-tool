@@ -99,6 +99,7 @@ impl TryInto<ChatEntity> for Action {
             item_renderer::Item::LiveChatViewerEngagementMessageRenderer(_) => {
                 CategoryValue::ChatViewerEngagementMessage
             }
+            item_renderer::Item::LiveChatPaidStickerRenderer(_) => bail!(JsonStructError::Ignore),
             item_renderer::Item::None => {
                 bail!("no exists renderers");
             }
@@ -114,6 +115,7 @@ impl TryInto<ChatEntity> for Action {
             item_renderer::Item::LiveChatViewerEngagementMessageRenderer(renderer) => {
                 renderer.into()
             }
+            item_renderer::Item::LiveChatPaidStickerRenderer(_) => unreachable!(),
             item_renderer::Item::None => unreachable!(),
         };
 
@@ -247,6 +249,32 @@ mod tests {
 
             assert_eq!(expected, actual);
             Ok(())
+        }
+    }
+
+    mod live_chat_paid_sticker_renderer {
+        use super::*;
+
+        const RAW_JSON: &str = r#"
+            {"replayChatItemAction": {"actions": [{"clickTrackingParams": "CAEQl98BIhMI75ionOWPigMVIF8PAh37ORBy", "addChatItemAction": {"item": {"liveChatPaidStickerRenderer": {"id": "ChwKGkNPamo2bzNsajRvREZhYkN3Z1FkSGlBNGxn", "contextMenuEndpoint": {"clickTrackingParams": "CAIQ77sEIhMI75ionOWPigMVIF8PAh37ORBy", "commandMetadata": {"webCommandMetadata": {"ignoreNavigation": true}}, "liveChatItemContextMenuEndpoint": {"params": "Q2g0S0hBb2FRMDlxYWpadk0yeHFORzlFUm1GaVEzZG5VV1JJYVVFMGJHY2FLU29uQ2hoVlF6WnZURGhuWlV0TlpYbG5iUzAwT1dsTWNuRmxabmNTQzJkWWNrUkthakZyWjB0SklBRW9CRElhQ2hoVlEyUkZhRWN6Ykdwa1gwZG9lbnBTWVhrd2FTMHdibEU0QWtnQVVCUSUzRA=="}}, "contextMenuAccessibility": {"accessibilityData": {"label": "Chat actions"}}, "timestampUsec": "1733372891803993", "authorPhoto": {"thumbnails": [{"url": "https://yt4.ggpht.com/", "width": 32, "height": 32}, {"url": "https://yt4.ggpht.com/j", "width": 64, "height": 64}]}, "authorName": {"simpleText": "authorName"}, "authorExternalChannelId": "UCdEhG3ljd_GhzzRay0i-0nQ", "sticker": {"thumbnails": [{"url": "//lh3.googleusercontent.com/kgcJnLI6rRPD1Jm7xko7FNnl0k9qVFGzNvu8TmtTcAs4vHwigbTfa0N7N98r1TfqUPfHfRRln47UiRbeCr3Z=s40-rp", "width": 40, "height": 40}, {"url": "//lh3.googleusercontent.com/kgcJnLI6rRPD1Jm7xko7FNnl0k9qVFGzNvu8TmtTcAs4vHwigbTfa0N7N98r1TfqUPfHfRRln47UiRbeCr3Z=s80-rp", "width": 80, "height": 80}], "accessibility": {"accessibilityData": {"label": "A pile of poop with a face"}}}, "authorBadges": [{"liveChatAuthorBadgeRenderer": {"icon": {"iconType": "MODERATOR"}, "tooltip": "Moderator", "accessibility": {"accessibilityData": {"label": "Moderator"}}}}, {"liveChatAuthorBadgeRenderer": {"customThumbnail": {"thumbnails": [{"url": "https://yt3.ggpht.com/pXR9awenP6d6R834AgGxte9GJkrUIH_JEhTQhshA55tMmthEV8smNV8GFUhqgnNAvQEaNSml5EQhIzM=s16-c-k", "width": 16, "height": 16}, {"url": "https://yt3.ggpht.com/pXR9awenP6d6R834AgGxte9GJkrUIH_JEhTQhshA55tMmthEV8smNV8GFUhqgnNAvQEaNSml5EQhIzM=s32-c-k", "width": 32, "height": 32}]}, "tooltip": "Member (2 months)", "accessibility": {"accessibilityData": {"label": "Member (2 months)"}}}}], "moneyChipBackgroundColor": 4280191205, "moneyChipTextColor": 4294967295, "purchaseAmountText": {"simpleText": "¥90"}, "stickerDisplayWidth": 40, "stickerDisplayHeight": 40, "backgroundColor": 4280191205, "authorNameTextColor": 3019898879, "trackingParams": "CAIQ77sEIhMI75ionOWPigMVIF8PAh37ORBy", "isV2Style": true}}, "clientId": "COjj6o3lj4oDFabCwgQdHiA4lg"}}]}, "videoOffsetTimeMsec": "2360088", "isLive": true}
+        "#;
+
+        #[test]
+        fn it_will_be_ignored() -> anyhow::Result<()> {
+            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
+
+            let error = json_chat
+                .try_into_chat_domains()
+                .err()
+                .context("Expected error because it will be no error")?;
+            let json_struct_error = error
+                .downcast_ref::<JsonStructError>()
+                .context("Expected error becouse it raised different error")?;
+
+            match json_struct_error {
+                JsonStructError::Ignore => Ok(()), // Expected
+                _ => bail!("Expected error is not raised"),
+            }
         }
     }
 }

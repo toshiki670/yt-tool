@@ -71,6 +71,7 @@ pub struct Action {
     pub add_chat_item_action: Option<AddChatItemAction>,
     pub add_live_chat_ticker_item_action: Option<AddLiveChatTickerItemAction>,
     pub live_chat_report_moderation_state_command: Option<serde_json::Value>,
+    pub remove_chat_item_action: Option<serde_json::Value>,
 }
 
 impl TryInto<ChatEntity> for Action {
@@ -83,6 +84,8 @@ impl TryInto<ChatEntity> for Action {
         {
             add_live_chat_ticker_item_action.item
         } else if let Some(_) = self.live_chat_report_moderation_state_command {
+            bail!(JsonStructError::Ignore);
+        } else if let Some(_) = self.remove_chat_item_action {
             bail!(JsonStructError::Ignore);
         } else {
             unreachable!();

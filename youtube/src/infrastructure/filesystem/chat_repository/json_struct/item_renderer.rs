@@ -1,5 +1,4 @@
 mod live_chat_paid_message_renderer;
-mod live_chat_paid_sticker_renderer;
 mod live_chat_renderer;
 mod live_chat_sponsorships_gift_purchase_announcement_renderer;
 mod live_chat_ticker_paid_message_item_renderer;
@@ -8,7 +7,6 @@ mod values;
 
 use chrono::prelude::*;
 use live_chat_paid_message_renderer::LiveChatPaidMessageRenderer;
-use live_chat_paid_sticker_renderer::LiveChatPaidStickerRenderer;
 use live_chat_renderer::LiveChatRenderer;
 use live_chat_sponsorships_gift_purchase_announcement_renderer::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer;
 use live_chat_ticker_paid_message_item_renderer::LiveChatTickerPaidMessageItemRenderer;
@@ -25,7 +23,7 @@ pub enum Item {
     LiveChatTextMessageRenderer(LiveChatRenderer),
     LiveChatTickerPaidMessageItemRenderer(LiveChatTickerPaidMessageItemRenderer),
     LiveChatViewerEngagementMessageRenderer(LiveChatViewerEngagementMessageRenderer),
-    LiveChatPaidStickerRenderer(LiveChatPaidStickerRenderer),
+    LiveChatPaidStickerRenderer(serde_json::Value),
     LiveChatTickerSponsorItemRenderer(serde_json::Value),
     LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(
         LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer,

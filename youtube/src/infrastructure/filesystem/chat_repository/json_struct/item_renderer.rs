@@ -26,6 +26,7 @@ pub enum Item {
     LiveChatTickerPaidMessageItemRenderer(LiveChatTickerPaidMessageItemRenderer),
     LiveChatViewerEngagementMessageRenderer(LiveChatViewerEngagementMessageRenderer),
     LiveChatPaidStickerRenderer(LiveChatPaidStickerRenderer),
+    LiveChatTickerSponsorItemRenderer(serde_json::Value),
     LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(
         LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer,
     ),

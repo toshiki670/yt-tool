@@ -145,7 +145,7 @@ pub struct AddLiveChatTickerItemAction {
 
 #[derive(thiserror::Error, Debug)]
 enum JsonStructError {
-    #[error("Failed conversion in {} row", .0)]
+    #[error("Failed to convert in {} row", .0)]
     FailedConvertError(usize),
 
     #[error("Ignore")]

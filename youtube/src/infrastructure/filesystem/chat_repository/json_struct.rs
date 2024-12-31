@@ -65,6 +65,7 @@ pub struct ReplayChatItemAction {
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
 pub struct Action {
     pub click_tracking_params: Option<String>,
     pub add_chat_item_action: Option<AddChatItemAction>,
@@ -84,7 +85,7 @@ impl TryInto<ChatEntity> for Action {
         } else if let Some(_) = self.live_chat_report_moderation_state_command {
             bail!(JsonStructError::Ignore);
         } else {
-            bail!("no exists actions");
+            unreachable!();
         };
 
         let category: CategoryValue = match item {

@@ -13,8 +13,8 @@ use serde::{Deserialize, Serialize};
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct JsonStruct {
-    pub is_live: bool,
     pub click_tracking_params: Option<String>,
+    pub is_live: bool,
     pub replay_chat_item_action: ReplayChatItemAction,
     pub video_offset_time_msec: Option<String>,
 }
@@ -67,9 +67,9 @@ pub struct ReplayChatItemAction {
 #[serde(rename_all = "camelCase")]
 #[serde(deny_unknown_fields)]
 pub struct Action {
-    pub click_tracking_params: Option<String>,
     pub add_chat_item_action: Option<AddChatItemAction>,
     pub add_live_chat_ticker_item_action: Option<AddLiveChatTickerItemAction>,
+    pub click_tracking_params: Option<String>,
     pub live_chat_report_moderation_state_command: Option<serde_json::Value>,
     pub remove_chat_item_action: Option<serde_json::Value>,
 }
@@ -156,8 +156,8 @@ pub struct AddChatItemAction {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AddLiveChatTickerItemAction {
-    pub item: item_renderer::Item,
     pub duration_sec: String,
+    pub item: item_renderer::Item,
 }
 
 #[derive(thiserror::Error, Debug)]

@@ -5,10 +5,10 @@ pub(crate) enum CategoryValue {
     #[default]
     ChatTextMessage,
     ChatPaidMessage,
+    ChatSponsorshipsGiftPurchaseAnnouncement,
     ChatSponsorshipsGiftRedemptionAnnouncement,
     ChatTickerPaidMessageItem,
     ChatViewerEngagementMessage,
-    ChatSponsorshipsGiftPurchaseAnnouncement,
 }
 
 impl fmt::Display for CategoryValue {

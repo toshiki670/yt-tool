@@ -7,11 +7,11 @@ pub(crate) use posted_at::PostedAtValue;
 #[derive(Default, Debug, Clone, PartialEq)]
 pub struct ChatEntity {
     pub id: String,
-    pub posted_at: PostedAtValue,
     pub author_external_channel_id: String,
     pub author_name: String,
-    pub message: String,
+    pub category: CategoryValue,
     pub is_moderator: bool,
     pub membership_months: String,
-    pub category: CategoryValue,
+    pub message: String,
+    pub posted_at: PostedAtValue,
 }

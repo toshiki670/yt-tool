@@ -19,15 +19,15 @@ pub enum Item {
     #[default]
     None,
     LiveChatPaidMessageRenderer(LiveChatPaidMessageRenderer),
-    LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(LiveChatRenderer),
-    LiveChatTextMessageRenderer(LiveChatRenderer),
-    LiveChatTickerPaidMessageItemRenderer(LiveChatTickerPaidMessageItemRenderer),
-    LiveChatViewerEngagementMessageRenderer(LiveChatViewerEngagementMessageRenderer),
     LiveChatPaidStickerRenderer(serde_json::Value),
-    LiveChatTickerSponsorItemRenderer(serde_json::Value),
     LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(
         LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer,
     ),
+    LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(LiveChatRenderer),
+    LiveChatTextMessageRenderer(LiveChatRenderer),
+    LiveChatTickerPaidMessageItemRenderer(LiveChatTickerPaidMessageItemRenderer),
+    LiveChatTickerSponsorItemRenderer(serde_json::Value),
+    LiveChatViewerEngagementMessageRenderer(LiveChatViewerEngagementMessageRenderer),
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

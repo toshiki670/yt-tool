@@ -26,7 +26,7 @@ impl ChatRepository for FsChatRepository {
 
         match self.file_type {
             FileType::Json => {
-                chats = json_struct::JsonStruct::all_from_file(&self.file)?;
+                chats = json_struct::JsonStruct::all_from_file(&self.file).context("Failed to read json file")?;
             }
             FileType::Csv => {
                 unimplemented!()
@@ -42,7 +42,7 @@ impl ChatRepository for FsChatRepository {
                 unimplemented!()
             }
             FileType::Csv => {
-                csv_struct::CsvChat::bulk_create_file(chats, &self.file)?;
+                csv_struct::CsvChat::bulk_create_file(chats, &self.file).context("Failed to create csv file")?;
             }
         }
 

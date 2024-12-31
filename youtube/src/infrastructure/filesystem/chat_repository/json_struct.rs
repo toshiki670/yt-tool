@@ -299,6 +299,38 @@ mod tests {
             Ok(())
         }
     }
+    mod live_chat_paid_message_renderer {
+        use super::*;
+
+        const RAW_JSON: &str = r#"
+           {"replayChatItemAction": {"actions": [{"clickTrackingParams": "CAEQl98BIhMIg6vejuiPigMVXmr1BR0z6x8E", "addChatItemAction": {"item": {"liveChatPaidMessageRenderer": {"id": "ChwKGkNPZURnSVhvajRvREZjN0N3Z1FkV3hNMElR", "timestampUsec": "1733373660562877", "authorName": {"simpleText": "にねんせい"}, "authorPhoto": {"thumbnails": [{"url": "https://yt4.ggpht.com/QHs0vgTB8C4DpCe7cC5YZMiJYdTK_NqbfxZuGwbdy4os29j3T0Tk9Qzm04yrrNL0TYNaS6QVKg=s32-c-k-c0x00ffffff-no-rj", "width": 32, "height": 32}, {"url": "https://yt4.ggpht.com/QHs0vgTB8C4DpCe7cC5YZMiJYdTK_NqbfxZuGwbdy4os29j3T0Tk9Qzm04yrrNL0TYNaS6QVKg=s64-c-k-c0x00ffffff-no-rj", "width": 64, "height": 64}]}, "purchaseAmountText": {"simpleText": "¥200"}, "message": {"runs": [{"text": "今日初めてほんものみた、おもがんばれよ"}]}, "headerBackgroundColor": 4278237396, "headerTextColor": 4278190080, "bodyBackgroundColor": 4278248959, "bodyTextColor": 4278190080, "authorExternalChannelId": "UCdEhG3ljd_GhzzRay0i-0nQ", "authorNameTextColor": 3003121664, "contextMenuEndpoint": {"clickTrackingParams": "CAIQ7rsEIhMIg6vejuiPigMVXmr1BR0z6x8E", "commandMetadata": {"webCommandMetadata": {"ignoreNavigation": true}}, "liveChatItemContextMenuEndpoint": {"params": "Q2g0S0hBb2FRMDlsUkdkSldHOXFORzlFUm1NM1EzZG5VV1JYZUUwd1NWRWFLU29uQ2hoVlF6WnZURGhuWlV0TlpYbG5iUzAwT1dsTWNuRmxabmNTQzJkWWNrUkthakZyWjB0SklBRW9CRElhQ2hoVlEyUkZhRWN6Ykdwa1gwZG9lbnBTWVhrd2FTMHdibEU0QWtnQVVBOCUzRA=="}}, "timestampColor": 2147483648, "contextMenuAccessibility": {"accessibilityData": {"label": "Chat actions"}}, "trackingParams": "CAIQ7rsEIhMIg6vejuiPigMVXmr1BR0z6x8E", "authorBadges": [{"liveChatAuthorBadgeRenderer": {"icon": {"iconType": "MODERATOR"}, "tooltip": "Moderator", "accessibility": {"accessibilityData": {"label": "Moderator"}}}}, {"liveChatAuthorBadgeRenderer": {"customThumbnail": {"thumbnails": [{"url": "https://yt3.ggpht.com/pXR9awenP6d6R834AgGxte9GJkrUIH_JEhTQhshA55tMmthEV8smNV8GFUhqgnNAvQEaNSml5EQhIzM=s16-c-k", "width": 16, "height": 16}, {"url": "https://yt3.ggpht.com/pXR9awenP6d6R834AgGxte9GJkrUIH_JEhTQhshA55tMmthEV8smNV8GFUhqgnNAvQEaNSml5EQhIzM=s32-c-k", "width": 32, "height": 32}]}, "tooltip": "Member (2 months)", "accessibility": {"accessibilityData": {"label": "Member (2 months)"}}}}], "textInputBackgroundColor": 822083583, "creatorHeartButton": {"creatorHeartViewModel": {"creatorThumbnail": {"sources": [{"url": "https://yt3.ggpht.com/JvnR_Vv_2eMqmKEQ-_-Rqbm6JcwJmawPy8jFU60QYbLxeLNSHUWIenI-JxQDPD5j-8QTV0bC16M=s48-c-k-c0x00ffffff-no-rj"}]}, "heartedIcon": {"sources": [{"clientResource": {"imageName": "full_heart-filled"}}]}, "unheartedIcon": {"sources": [{"clientResource": {"imageName": "full_heart"}}], "processor": {"borderImageProcessor": {"imageTint": {"color": 4278190080}}}}, "heartedHoverText": "❤ by ホロライブ愛好会ch【旧:ホロライブ切り抜き hololive clips】", "heartedAccessibilityLabel": "Remove heart", "unheartedAccessibilityLabel": "Heart", "engagementStateKey": "EktsaXZlLWNoYXQtbWVzc2FnZS1lbmdhZ2VtZW50LXN0YXRlLUNod0tHa05QWlVSblNWaHZhalJ2UkVaak4wTjNaMUZrVjNoTk1FbFIgLCgB"}}, "isV2Style": true}}, "clientId": "COeDgIXoj4oDFc7CwgQdWxM0IQ"}}]}, "videoOffsetTimeMsec": "3128847", "isLive": true}
+        "#;
+
+        #[test]
+        fn it_has_one_domain_chat() -> anyhow::Result<()> {
+            let expected = 1;
+
+            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
+            let chat_domains = json_chat.try_into_chat_domains()?;
+            let actual = chat_domains.len();
+
+            assert_eq!(expected, actual);
+            Ok(())
+        }
+
+        #[test]
+        fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
+            let expected = CategoryValue::ChatPaidMessage;
+
+            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
+            let chat_domains = json_chat.try_into_chat_domains()?;
+            let first = chat_domains.first().context("There is no chat")?;
+            let actual = first.category.clone();
+
+            assert_eq!(expected, actual);
+            Ok(())
+        }
+    }
 
     mod live_chat_paid_sticker_renderer {
         use super::*;

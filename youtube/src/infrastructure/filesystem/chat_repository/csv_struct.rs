@@ -7,8 +7,8 @@ use std::fs::File;
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct CsvChat {
     pub id: String,
-    pub posted_at: String,
     pub author_external_channel_id: String,
+    pub posted_at: String,
     pub author_name: String,
     pub message: String,
     pub is_moderator: bool,

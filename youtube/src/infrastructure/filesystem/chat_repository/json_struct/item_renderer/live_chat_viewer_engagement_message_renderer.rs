@@ -26,7 +26,7 @@ impl Into<CommonRenderer> for LiveChatViewerEngagementMessageRenderer {
             author_name: SimpleText::default().into(),
             message: self.message.into(),
             is_moderator: false,
-            membership_months: "0".to_string(),
+            membership_months: "".to_string(),
         }
     }
 }

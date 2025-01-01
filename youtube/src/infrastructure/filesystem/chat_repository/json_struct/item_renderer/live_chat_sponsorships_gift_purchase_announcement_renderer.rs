@@ -51,7 +51,7 @@ impl Into<CommonRenderer> for LiveChatSponsorshipsGiftPurchaseAnnouncementRender
                 .primary_text
                 .into(),
             is_moderator: false,
-            membership_months: "0".to_string(),
+            membership_months: "".to_string(),
         }
     }
 }

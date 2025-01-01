@@ -1,12 +1,13 @@
 use crate::domain::chat::ChatEntity;
 use anyhow::Context;
+use chrono::Local;
 use serde::{Deserialize, Serialize};
 use std::fs::File;
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct CsvChat {
     pub id: String,
-    pub timestamp_usec: String,
+    pub posted_at: String,
     pub author_external_channel_id: String,
     pub author_name: String,
     pub message: String,
@@ -34,7 +35,7 @@ impl<'a> From<ChatEntity> for CsvChat {
     fn from(chat: ChatEntity) -> Self {
         Self {
             id: chat.id,
-            timestamp_usec: chat.posted_at.to_string(),
+            posted_at: chat.posted_at.with_timezone(&Local).to_string(),
             author_external_channel_id: chat.author_external_channel_id,
             author_name: chat.author_name,
             message: chat.message,

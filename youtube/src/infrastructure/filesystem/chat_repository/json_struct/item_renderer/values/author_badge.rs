@@ -6,20 +6,6 @@ use super::{accessibility::Accessibility, icon::Icon, thumbnails::Thumbnails};
 #[serde(rename_all = "camelCase")]
 pub struct AuthorBadges(Vec<AuthorBadge>);
 
-impl core::ops::Deref for AuthorBadges {
-    type Target = Vec<AuthorBadge>;
-
-    fn deref(self: &'_ Self) -> &'_ Self::Target {
-        &self.0
-    }
-}
-
-impl AuthorBadges {
-    pub fn has_moderator(&self) -> bool {
-        self.iter().any(|badge| badge.is_moderator())
-    }
-}
-
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AuthorBadge {
@@ -33,6 +19,20 @@ pub struct LiveChatAuthorBadgeRenderer {
     pub custom_thumbnail: Option<Thumbnails>,
     pub icon: Option<Icon>,
     pub tooltip: String,
+}
+
+impl core::ops::Deref for AuthorBadges {
+    type Target = Vec<AuthorBadge>;
+
+    fn deref(self: &'_ Self) -> &'_ Self::Target {
+        &self.0
+    }
+}
+
+impl AuthorBadges {
+    pub fn has_moderator(&self) -> bool {
+        self.iter().any(|badge| badge.is_moderator())
+    }
 }
 
 impl AuthorBadge {

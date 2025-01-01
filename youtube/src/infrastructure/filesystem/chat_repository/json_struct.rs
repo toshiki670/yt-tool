@@ -132,15 +132,13 @@ impl TryInto<ChatEntity> for Action {
         };
 
         let renderer: CommonRenderer = match item {
-            Item::LiveChatPaidMessageRenderer(renderer) => renderer.into(),
-            Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(renderer) => {
-                renderer.into()
-            }
-            Item::LiveChatTextMessageRenderer(renderer) => renderer.into(),
-            Item::LiveChatTickerPaidMessageItemRenderer(renderer) => renderer.into(),
-            Item::LiveChatViewerEngagementMessageRenderer(renderer) => renderer.into(),
-            Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(renderer) => renderer.into(),
-            Item::LiveChatMembershipItemRenderer(renderer) => renderer.into(),
+            Item::LiveChatPaidMessageRenderer(r) => r.into(),
+            Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(r) => r.into(),
+            Item::LiveChatTextMessageRenderer(r) => r.into(),
+            Item::LiveChatTickerPaidMessageItemRenderer(r) => r.into(),
+            Item::LiveChatViewerEngagementMessageRenderer(r) => r.into(),
+            Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(r) => r.into(),
+            Item::LiveChatMembershipItemRenderer(r) => r.into(),
             Item::LiveChatPaidStickerRenderer(_) => unreachable!(),
             Item::LiveChatTickerSponsorItemRenderer(_) => unreachable!(),
             Item::None => unreachable!(),

@@ -1,8 +1,8 @@
 use super::{
     values::{
         accessibility::Accessibility, author_badge::AuthorBadge,
-        context_menu_endpoint::ContextMenuEndpoint, message::Message, simple_text::SimpleText,
-        thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
+        context_menu_endpoint::ContextMenuEndpoint, icon::IconType, message::Message,
+        simple_text::SimpleText, thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
     },
     CommonRenderer,
 };
@@ -24,12 +24,26 @@ pub struct LiveChatRenderer {
 
 impl Into<CommonRenderer> for LiveChatRenderer {
     fn into(self) -> CommonRenderer {
+        let is_moderator = if let Some(author_badges) = self.author_badges {
+            author_badges.iter().any(|badge| {
+                if let Some(icon) = &badge.live_chat_author_badge_renderer.icon {
+                    icon.icon_type == IconType::Moderator
+                } else {
+                    false
+                }
+            })
+        } else {
+            false
+        };
+
         CommonRenderer {
             id: self.id,
             timestamp_usec: self.timestamp_usec.into(),
             author_external_channel_id: self.author_external_channel_id,
             author_name: self.author_name.into(),
             message: self.message.into(),
+            is_moderator,
+            membership_months: "0".to_string(),
         }
     }
 }

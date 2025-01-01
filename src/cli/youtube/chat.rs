@@ -16,10 +16,10 @@ pub(super) struct Args {
     #[clap(value_name = "INPUT FILE", value_hint = ValueHint::FilePath)]
     input_file: PathBuf,
 
-    #[clap(short, long, value_name = "OUTPUT FILE", value_hint = ValueHint::FilePath)]
+    #[clap(short = 'o', long, value_name = "OUTPUT FILE", value_hint = ValueHint::FilePath)]
     output_file: Option<PathBuf>,
 
-    #[arg(short, long, value_name = "FILE_TYPE", help = "Output file type")]
+    #[arg(short = 't', long, value_name = "FILE_TYPE", help = "Output file type")]
     output_type: Option<FileType>,
 }
 

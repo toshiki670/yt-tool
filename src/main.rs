@@ -1,6 +1,6 @@
 mod cli;
-mod youtube;
 
-fn main() {
-    cli::Args::run();
+fn main() -> anyhow::Result<()> {
+    cli::Args::run()?;
+    Ok(())
 }

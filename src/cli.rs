@@ -1,3 +1,5 @@
+mod youtube;
+
 use clap::{CommandFactory, Parser};
 use clap_complete::{generate, Generator, Shell};
 use env_logger;
@@ -5,8 +7,8 @@ use log::Level;
 use std::{env, io::stdout};
 
 #[enum_delegate::register]
-pub(crate) trait Route {
-    fn route(&self);
+pub(self) trait Route {
+    fn route(&self) -> anyhow::Result<()>;
 }
 
 #[derive(Parser, Debug)]
@@ -25,26 +27,28 @@ pub(super) struct Args {
 #[derive(clap::Subcommand, Debug)]
 #[enum_delegate::implement(Route)]
 enum Subcommand {
-    Youtube(crate::youtube::CliArgs),
+    Youtube(youtube::Args),
 }
 
 impl Args {
-    pub(super) fn run() {
-        Args::parse().route();
+    pub(super) fn run() -> anyhow::Result<()> {
+        Args::parse().route()?;
+        Ok(())
     }
 }
 
 impl Route for Args {
-    fn route(&self) {
+    fn route(&self) -> anyhow::Result<()> {
         if let Some(shell) = &self.generate_completions {
             generate_completions(shell.clone());
         } else {
             initialize_logger(self.verbose);
 
             if let Some(command) = &self.command {
-                command.route();
+                command.route()?;
             }
         }
+        Ok(())
     }
 }
 

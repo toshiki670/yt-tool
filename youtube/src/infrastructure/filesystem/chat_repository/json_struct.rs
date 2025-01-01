@@ -7,7 +7,7 @@ use std::{
     io::{BufRead as _, BufReader},
 };
 
-use crate::domain::chat::{CategoryValue, ChatEntity};
+use crate::domain::simple_chat::{CategoryValue, SimpleChatEntity};
 use anyhow::{bail, Context as _};
 use serde::{Deserialize, Serialize};
 
@@ -53,18 +53,18 @@ pub struct AddLiveChatTickerItemAction {
 }
 
 impl JsonStruct {
-    pub fn try_into_chat_domains(self) -> anyhow::Result<Vec<ChatEntity>> {
+    pub fn try_into_chat_domains(self) -> anyhow::Result<Vec<SimpleChatEntity>> {
         let mut chat_entities = Vec::new();
 
         for action in self.replay_chat_item_action.actions {
-            let chat_entity: ChatEntity = action.try_into()?;
+            let chat_entity: SimpleChatEntity = action.try_into()?;
             chat_entities.push(chat_entity);
         }
 
         Ok(chat_entities)
     }
 
-    pub fn all_from_file(file: &File) -> anyhow::Result<Vec<ChatEntity>> {
+    pub fn all_from_file(file: &File) -> anyhow::Result<Vec<SimpleChatEntity>> {
         let mut chats = Vec::new();
 
         for (line_number, line) in BufReader::new(file).lines().enumerate() {
@@ -89,10 +89,10 @@ impl JsonStruct {
     }
 }
 
-impl TryInto<ChatEntity> for Action {
+impl TryInto<SimpleChatEntity> for Action {
     type Error = anyhow::Error;
 
-    fn try_into(self) -> anyhow::Result<ChatEntity> {
+    fn try_into(self) -> anyhow::Result<SimpleChatEntity> {
         let item = if let Some(add_chat_item_action) = self.add_chat_item_action {
             add_chat_item_action.item
         } else if let Some(add_live_chat_ticker_item_action) = self.add_live_chat_ticker_item_action
@@ -144,12 +144,12 @@ impl TryInto<ChatEntity> for Action {
             Item::None => unreachable!(),
         };
 
-        Ok(ChatEntity {
+        Ok(SimpleChatEntity {
             id: renderer.id,
             posted_at: renderer.timestamp_usec.into(),
             author_external_channel_id: renderer.author_external_channel_id,
             author_name: renderer.author_name,
-            message: renderer.message,
+            content: renderer.message,
             is_moderator: renderer.is_moderator,
             membership_months: renderer.membership_months,
             category: category,

@@ -12,9 +12,18 @@ pub struct FsChatRepository {
 }
 
 impl FsChatRepository {
-    pub fn new(file_path: &PathBuf) -> anyhow::Result<Self> {
+    pub fn create(file_path: &PathBuf) -> anyhow::Result<Self> {
+        let file = File::create(file_path)
+            .with_context(|| format!("Failed to create {}", &file_path.display()))?;
+
+        let file_type = FileType::from_path(file_path)?;
+        Ok(Self { file, file_type })
+    }
+
+    pub fn open(file_path: &PathBuf) -> anyhow::Result<Self> {
         let file = File::open(file_path)
             .with_context(|| format!("Failed to open {}", &file_path.display()))?;
+
         let file_type = FileType::from_path(file_path)?;
         Ok(Self { file, file_type })
     }

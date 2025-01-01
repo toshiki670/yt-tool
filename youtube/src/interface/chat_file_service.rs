@@ -12,8 +12,8 @@ impl<'a> ChatFileService<'a> {
     }
 
     pub fn convert_with_path(&self, path: &PathBuf) -> anyhow::Result<()> {
-        let from_chat = Box::new(FsChatRepository::new(self.base_path)?);
-        let to_chat = Box::new(FsChatRepository::new(path)?);
+        let from_chat = Box::new(FsChatRepository::open(self.base_path)?);
+        let to_chat = Box::new(FsChatRepository::create(path)?);
         let chat_convert_service = ChatConvertService::new(from_chat, to_chat);
         chat_convert_service.convert()
     }
@@ -22,8 +22,8 @@ impl<'a> ChatFileService<'a> {
         let mut to_path = self.base_path.clone();
         to_path.set_extension(file_type);
 
-        let from_chat = Box::new(FsChatRepository::new(self.base_path)?);
-        let to_chat = Box::new(FsChatRepository::new(&to_path)?);
+        let from_chat = Box::new(FsChatRepository::open(self.base_path)?);
+        let to_chat = Box::new(FsChatRepository::create(&to_path)?);
         let chat_convert_service = ChatConvertService::new(from_chat, to_chat);
         chat_convert_service.convert()
     }

@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[serde(rename_all = "camelCase")]
 pub struct JsonStruct {
     pub click_tracking_params: Option<String>,
-    pub is_live: bool,
+    pub is_live: Option<bool>,
     pub replay_chat_item_action: ReplayChatItemAction,
     pub video_offset_time_msec: Option<String>,
 }

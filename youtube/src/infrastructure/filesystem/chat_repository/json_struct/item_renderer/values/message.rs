@@ -50,7 +50,7 @@ pub struct Emoji {
     pub shortcuts: Vec<String>,
     pub search_terms: Vec<String>,
     pub image: Thumbnails,
-    pub is_custom_emoji: bool,
+    pub is_custom_emoji: Option<bool>,
 }
 
 impl Into<String> for Emoji {

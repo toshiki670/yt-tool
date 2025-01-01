@@ -9,7 +9,7 @@ pub struct Thumbnails {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Thumbnail {
-    pub height: i64,
+    pub height: Option<i64>,
     pub url: String,
-    pub width: i64,
+    pub width: Option<i64>,
 }

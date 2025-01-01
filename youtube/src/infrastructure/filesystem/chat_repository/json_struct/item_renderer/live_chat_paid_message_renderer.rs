@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LiveChatPaidMessageRenderer {
-    pub author_badges: Vec<AuthorBadge>,
+    pub author_badges: Option<Vec<AuthorBadge>>,
     pub author_external_channel_id: String,
     pub author_name_text_color: i64,
     pub author_name: SimpleText,
@@ -27,7 +27,7 @@ pub struct LiveChatPaidMessageRenderer {
     pub id: String,
     #[serde(rename = "isV2Style")]
     pub is_v2style: bool,
-    pub message: Message,
+    pub message: Option<Message>,
     pub purchase_amount_text: SimpleText,
     pub reply_button: Option<ReplyButton>,
     pub text_input_background_color: i64,
@@ -37,14 +37,26 @@ pub struct LiveChatPaidMessageRenderer {
     pub tracking_params: String,
 }
 
+impl LiveChatPaidMessageRenderer {
+    pub fn message_text(&self) -> String {
+        if let Some(message) = &self.message {
+            format!("{}: {}", self.purchase_amount_text.simple_text, message)
+        } else {
+            self.purchase_amount_text.simple_text.clone()
+        }
+    }
+}
+
 impl Into<CommonRenderer> for LiveChatPaidMessageRenderer {
     fn into(self) -> CommonRenderer {
+        let message = self.message_text();
+
         CommonRenderer {
             id: self.id,
             timestamp_usec: self.timestamp_usec.into(),
             author_external_channel_id: self.author_external_channel_id,
             author_name: self.author_name.into(),
-            message: self.message.into(),
+            message: message,
         }
     }
 }

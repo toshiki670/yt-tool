@@ -27,7 +27,7 @@ impl Into<CommonRenderer> for LiveChatRenderer {
         let is_moderator = if let Some(author_badges) = self.author_badges {
             author_badges.iter().any(|badge| {
                 if let Some(icon) = &badge.live_chat_author_badge_renderer.icon {
-                    icon.icon_type == IconType::Moderator
+                    icon.is_moderator()
                 } else {
                     false
                 }

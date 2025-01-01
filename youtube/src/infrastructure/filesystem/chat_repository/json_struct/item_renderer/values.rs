@@ -1,6 +1,5 @@
 pub mod accessibility;
 pub mod author_badge;
-pub mod author_photo;
 pub mod context_menu_endpoint;
 pub mod creator_heart_button;
 pub mod engagement_panel_command;

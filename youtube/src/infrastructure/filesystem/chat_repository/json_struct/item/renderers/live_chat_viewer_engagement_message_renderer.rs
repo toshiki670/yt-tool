@@ -1,10 +1,11 @@
+use serde::{Deserialize, Serialize};
+
 use super::{
     values::{
         icon::Icon, message::Message, simple_text::SimpleText, timestamp_usec::TimestampUsec,
     },
     CommonRenderer,
 };
-use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]

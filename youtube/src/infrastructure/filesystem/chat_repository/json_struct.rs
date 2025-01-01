@@ -1,7 +1,7 @@
 // https://transform.tools/json-to-rust-serde
 mod item;
 
-use item::{CommonRenderer, Item};
+use item::{renderers::CommonRenderer, Item};
 use std::{
     fs::File,
     io::{BufRead as _, BufReader},
@@ -122,9 +122,7 @@ impl TryInto<ChatEntity> for Action {
             Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(_) => {
                 CategoryValue::ChatSponsorshipsGiftPurchaseAnnouncement
             }
-            Item::LiveChatMembershipItemRenderer(_) => {
-                CategoryValue::ChatMembershipItem
-            }
+            Item::LiveChatMembershipItemRenderer(_) => CategoryValue::ChatMembershipItem,
             Item::LiveChatTickerSponsorItemRenderer(_) => {
                 bail!(JsonStructError::Ignore)
             }
@@ -140,12 +138,8 @@ impl TryInto<ChatEntity> for Action {
             }
             Item::LiveChatTextMessageRenderer(renderer) => renderer.into(),
             Item::LiveChatTickerPaidMessageItemRenderer(renderer) => renderer.into(),
-            Item::LiveChatViewerEngagementMessageRenderer(renderer) => {
-                renderer.into()
-            }
-            Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(renderer) => {
-                renderer.into()
-            }
+            Item::LiveChatViewerEngagementMessageRenderer(renderer) => renderer.into(),
+            Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(renderer) => renderer.into(),
             Item::LiveChatMembershipItemRenderer(renderer) => renderer.into(),
             Item::LiveChatPaidStickerRenderer(_) => unreachable!(),
             Item::LiveChatTickerSponsorItemRenderer(_) => unreachable!(),

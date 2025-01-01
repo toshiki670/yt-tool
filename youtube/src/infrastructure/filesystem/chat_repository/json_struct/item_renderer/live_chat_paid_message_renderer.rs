@@ -51,11 +51,18 @@ impl Into<CommonRenderer> for LiveChatPaidMessageRenderer {
     fn into(self) -> CommonRenderer {
         let message = self.message_text();
 
-        let is_moderator = if let Some(author_badges) = self.author_badges {
+        let is_moderator = if let Some(author_badges) = &self.author_badges {
             author_badges.has_moderator()
         } else {
             false
         };
+
+        let membership_months = if let Some(author_badges) = &self.author_badges {
+            author_badges.fetch_membership_months()
+        } else {
+            None
+        };
+        let membership_months = membership_months.unwrap_or("".to_string());
 
         CommonRenderer {
             id: self.id,
@@ -64,7 +71,7 @@ impl Into<CommonRenderer> for LiveChatPaidMessageRenderer {
             author_name: self.author_name.into(),
             message: message,
             is_moderator,
-            membership_months: "0".to_string(),
+            membership_months: membership_months,
         }
     }
 }

@@ -6,20 +6,6 @@ use super::{accessibility::Accessibility, icon::Icon, thumbnails::Thumbnails};
 #[serde(rename_all = "camelCase")]
 pub struct AuthorBadges(Vec<AuthorBadge>);
 
-impl core::ops::Deref for AuthorBadges {
-    type Target = Vec<AuthorBadge>;
-
-    fn deref(self: &'_ Self) -> &'_ Self::Target {
-        &self.0
-    }
-}
-
-impl AuthorBadges {
-    pub fn has_moderator(&self) -> bool {
-        self.iter().any(|badge| badge.is_moderator())
-    }
-}
-
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AuthorBadge {
@@ -35,12 +21,44 @@ pub struct LiveChatAuthorBadgeRenderer {
     pub tooltip: String,
 }
 
+impl core::ops::Deref for AuthorBadges {
+    type Target = Vec<AuthorBadge>;
+
+    fn deref(self: &'_ Self) -> &'_ Self::Target {
+        &self.0
+    }
+}
+
+impl AuthorBadges {
+    pub fn has_moderator(&self) -> bool {
+        self.iter().any(|badge| badge.is_moderator())
+    }
+
+    pub fn fetch_membership_months(&self) -> Option<String> {
+        self.iter().find_map(|badge| {
+            badge
+                .live_chat_author_badge_renderer
+                .fetch_membership_months()
+        })
+    }
+}
+
 impl AuthorBadge {
     pub fn is_moderator(&self) -> bool {
         if let Some(icon) = &self.live_chat_author_badge_renderer.icon {
             icon.is_moderator()
         } else {
             false
+        }
+    }
+}
+
+impl LiveChatAuthorBadgeRenderer {
+    pub fn fetch_membership_months(&self) -> Option<String> {
+        if self.tooltip.contains("Member") {
+            Some(self.tooltip.clone())
+        } else {
+            None
         }
     }
 }

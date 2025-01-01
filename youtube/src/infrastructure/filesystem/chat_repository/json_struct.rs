@@ -1,6 +1,7 @@
 // https://transform.tools/json-to-rust-serde
-mod item_renderer;
+mod item;
 
+use item::{CommonRenderer, Item};
 use std::{
     fs::File,
     io::{BufRead as _, BufReader},
@@ -41,14 +42,14 @@ pub struct Action {
 #[serde(rename_all = "camelCase")]
 pub struct AddChatItemAction {
     pub client_id: Option<String>,
-    pub item: item_renderer::Item,
+    pub item: Item,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AddLiveChatTickerItemAction {
     pub duration_sec: String,
-    pub item: item_renderer::Item,
+    pub item: Item,
 }
 
 impl JsonStruct {
@@ -106,49 +107,49 @@ impl TryInto<ChatEntity> for Action {
         };
 
         let category: CategoryValue = match item {
-            item_renderer::Item::LiveChatPaidMessageRenderer(_) => CategoryValue::ChatPaidMessage,
-            item_renderer::Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(_) => {
+            Item::LiveChatPaidMessageRenderer(_) => CategoryValue::ChatPaidMessage,
+            Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(_) => {
                 CategoryValue::ChatSponsorshipsGiftRedemptionAnnouncement
             }
-            item_renderer::Item::LiveChatTextMessageRenderer(_) => CategoryValue::ChatTextMessage,
-            item_renderer::Item::LiveChatTickerPaidMessageItemRenderer(_) => {
+            Item::LiveChatTextMessageRenderer(_) => CategoryValue::ChatTextMessage,
+            Item::LiveChatTickerPaidMessageItemRenderer(_) => {
                 CategoryValue::ChatTickerPaidMessageItem
             }
-            item_renderer::Item::LiveChatViewerEngagementMessageRenderer(_) => {
+            Item::LiveChatViewerEngagementMessageRenderer(_) => {
                 CategoryValue::ChatViewerEngagementMessage
             }
-            item_renderer::Item::LiveChatPaidStickerRenderer(_) => bail!(JsonStructError::Ignore),
-            item_renderer::Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(_) => {
+            Item::LiveChatPaidStickerRenderer(_) => bail!(JsonStructError::Ignore),
+            Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(_) => {
                 CategoryValue::ChatSponsorshipsGiftPurchaseAnnouncement
             }
-            item_renderer::Item::LiveChatMembershipItemRenderer(_) => {
+            Item::LiveChatMembershipItemRenderer(_) => {
                 CategoryValue::ChatMembershipItem
             }
-            item_renderer::Item::LiveChatTickerSponsorItemRenderer(_) => {
+            Item::LiveChatTickerSponsorItemRenderer(_) => {
                 bail!(JsonStructError::Ignore)
             }
-            item_renderer::Item::None => {
+            Item::None => {
                 bail!("no exists renderers");
             }
         };
 
-        let renderer: item_renderer::CommonRenderer = match item {
-            item_renderer::Item::LiveChatPaidMessageRenderer(renderer) => renderer.into(),
-            item_renderer::Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(
-                renderer,
-            ) => renderer.into(),
-            item_renderer::Item::LiveChatTextMessageRenderer(renderer) => renderer.into(),
-            item_renderer::Item::LiveChatTickerPaidMessageItemRenderer(renderer) => renderer.into(),
-            item_renderer::Item::LiveChatViewerEngagementMessageRenderer(renderer) => {
+        let renderer: CommonRenderer = match item {
+            Item::LiveChatPaidMessageRenderer(renderer) => renderer.into(),
+            Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(renderer) => {
                 renderer.into()
             }
-            item_renderer::Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(renderer) => {
+            Item::LiveChatTextMessageRenderer(renderer) => renderer.into(),
+            Item::LiveChatTickerPaidMessageItemRenderer(renderer) => renderer.into(),
+            Item::LiveChatViewerEngagementMessageRenderer(renderer) => {
                 renderer.into()
             }
-            item_renderer::Item::LiveChatMembershipItemRenderer(renderer) => renderer.into(),
-            item_renderer::Item::LiveChatPaidStickerRenderer(_) => unreachable!(),
-            item_renderer::Item::LiveChatTickerSponsorItemRenderer(_) => unreachable!(),
-            item_renderer::Item::None => unreachable!(),
+            Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(renderer) => {
+                renderer.into()
+            }
+            Item::LiveChatMembershipItemRenderer(renderer) => renderer.into(),
+            Item::LiveChatPaidStickerRenderer(_) => unreachable!(),
+            Item::LiveChatTickerSponsorItemRenderer(_) => unreachable!(),
+            Item::None => unreachable!(),
         };
 
         Ok(ChatEntity {

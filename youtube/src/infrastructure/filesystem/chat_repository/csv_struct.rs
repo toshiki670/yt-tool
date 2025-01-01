@@ -1,6 +1,5 @@
 use crate::domain::chat::ChatEntity;
 use anyhow::Context;
-use chrono::Local;
 use serde::{Deserialize, Serialize};
 use std::fs::File;
 
@@ -19,7 +18,7 @@ pub struct CsvChat {
 impl CsvChat {
     pub fn bulk_create_file(chats: Vec<ChatEntity>, file: &File) -> anyhow::Result<()> {
         let mut wtr = csv::Writer::from_writer(file);
-
+        
         for chat in chats {
             let csv_chat: CsvChat = chat.into();
             wtr.serialize(&csv_chat)
@@ -35,7 +34,7 @@ impl<'a> From<ChatEntity> for CsvChat {
     fn from(chat: ChatEntity) -> Self {
         Self {
             id: chat.id,
-            posted_at: chat.posted_at.with_timezone(&Local).to_string(),
+            posted_at: chat.posted_at.to_string(),
             author_external_channel_id: chat.author_external_channel_id,
             author_name: chat.author_name,
             message: chat.message,

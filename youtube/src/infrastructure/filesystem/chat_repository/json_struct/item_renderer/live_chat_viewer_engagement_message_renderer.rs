@@ -13,7 +13,7 @@ pub struct LiveChatViewerEngagementMessageRenderer {
     pub timestamp_usec: TimestampUsec,
     pub icon: Icon,
     pub message: Message,
-    pub action_button: serde_json::Value,
+    pub action_button: Option<serde_json::Value>,
     pub tracking_params: String,
 }
 

@@ -12,13 +12,18 @@ pub struct Message {
 
 impl Display for Message {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.into())
+        let message: String = self.clone().into();
+        write!(f, "{}", message)
     }
 }
 
 impl Into<String> for Message {
     fn into(self) -> String {
-        self.runs.into_iter().map(|run| run.into()).collect::<Vec<String>>().join("")
+        self.runs
+            .into_iter()
+            .map(|run| run.into())
+            .collect::<Vec<String>>()
+            .join("")
     }
 }
 
@@ -33,7 +38,8 @@ pub struct Run {
 
 impl Into<String> for Run {
     fn into(self) -> String {
-        self.text.unwrap_or_else(|| self.emoji.unwrap_or_default().into())
+        self.text
+            .unwrap_or_else(|| self.emoji.unwrap_or_default().into())
     }
 }
 

@@ -1,9 +1,8 @@
 use super::{
     live_chat_paid_message_renderer::LiveChatPaidMessageRenderer,
     values::{
-        author_photo::AuthorPhoto, engagement_panel_command::EngagementPanelCommand,
-        ignore_navigation::IgnoreNavigation, simple_text::SimpleText,
-        web_command_metadata::WebCommandMetadata,
+        engagement_panel_command::EngagementPanelCommand, ignore_navigation::IgnoreNavigation,
+        simple_text::SimpleText, thumbnails::Thumbnails, web_command_metadata::WebCommandMetadata,
     },
     CommonRenderer,
 };
@@ -16,7 +15,7 @@ pub struct LiveChatTickerPaidMessageItemRenderer {
     pub amount_text_color: i64,
     pub start_background_color: i64,
     pub end_background_color: i64,
-    pub author_photo: AuthorPhoto,
+    pub author_photo: Thumbnails,
     pub duration_sec: i64,
     pub show_item_endpoint: ShowItemEndpoint,
     pub author_external_channel_id: String,
@@ -37,6 +36,7 @@ impl Into<CommonRenderer> for LiveChatTickerPaidMessageItemRenderer {
                 .renderer
                 .live_chat_paid_message_renderer
                 .timestamp_usec
+                .clone()
                 .into(),
             author_external_channel_id: self.author_external_channel_id,
             author_name: self.author_username.into(),
@@ -45,8 +45,7 @@ impl Into<CommonRenderer> for LiveChatTickerPaidMessageItemRenderer {
                 .show_live_chat_item_endpoint
                 .renderer
                 .live_chat_paid_message_renderer
-                .message
-                .into(),
+                .message_text(),
         }
     }
 }

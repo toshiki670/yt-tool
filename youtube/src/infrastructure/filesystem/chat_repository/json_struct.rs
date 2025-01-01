@@ -121,6 +121,9 @@ impl TryInto<ChatEntity> for Action {
             item_renderer::Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(_) => {
                 CategoryValue::ChatSponsorshipsGiftPurchaseAnnouncement
             }
+            item_renderer::Item::LiveChatMembershipItemRenderer(_) => {
+                CategoryValue::ChatMembershipItem
+            }
             item_renderer::Item::LiveChatTickerSponsorItemRenderer(_) => {
                 bail!(JsonStructError::Ignore)
             }
@@ -142,6 +145,7 @@ impl TryInto<ChatEntity> for Action {
             item_renderer::Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(renderer) => {
                 renderer.into()
             }
+            item_renderer::Item::LiveChatMembershipItemRenderer(renderer) => renderer.into(),
             item_renderer::Item::LiveChatPaidStickerRenderer(_) => unreachable!(),
             item_renderer::Item::LiveChatTickerSponsorItemRenderer(_) => unreachable!(),
             item_renderer::Item::None => unreachable!(),

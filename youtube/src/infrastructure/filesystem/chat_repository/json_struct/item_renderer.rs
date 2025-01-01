@@ -3,6 +3,7 @@ mod live_chat_renderer;
 mod live_chat_sponsorships_gift_purchase_announcement_renderer;
 mod live_chat_ticker_paid_message_item_renderer;
 mod live_chat_viewer_engagement_message_renderer;
+mod live_chat_membership_item_renderer;
 mod values;
 
 use chrono::prelude::*;
@@ -11,6 +12,7 @@ use live_chat_renderer::LiveChatRenderer;
 use live_chat_sponsorships_gift_purchase_announcement_renderer::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer;
 use live_chat_ticker_paid_message_item_renderer::LiveChatTickerPaidMessageItemRenderer;
 use live_chat_viewer_engagement_message_renderer::LiveChatViewerEngagementMessageRenderer;
+use live_chat_membership_item_renderer::LiveChatMembershipItemRenderer;
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -28,6 +30,7 @@ pub enum Item {
     LiveChatTickerPaidMessageItemRenderer(LiveChatTickerPaidMessageItemRenderer),
     LiveChatTickerSponsorItemRenderer(serde_json::Value),
     LiveChatViewerEngagementMessageRenderer(LiveChatViewerEngagementMessageRenderer),
+    LiveChatMembershipItemRenderer(LiveChatMembershipItemRenderer),
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

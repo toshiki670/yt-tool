@@ -19,6 +19,38 @@ pub struct JsonStruct {
     pub video_offset_time_msec: Option<String>,
 }
 
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct ReplayChatItemAction {
+    pub actions: Vec<Action>,
+    pub video_offset_time_msec: Option<String>,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields)]
+pub struct Action {
+    pub add_chat_item_action: Option<AddChatItemAction>,
+    pub add_live_chat_ticker_item_action: Option<AddLiveChatTickerItemAction>,
+    pub click_tracking_params: Option<String>,
+    pub live_chat_report_moderation_state_command: Option<serde_json::Value>,
+    pub remove_chat_item_action: Option<serde_json::Value>,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct AddChatItemAction {
+    pub client_id: Option<String>,
+    pub item: item_renderer::Item,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct AddLiveChatTickerItemAction {
+    pub duration_sec: String,
+    pub item: item_renderer::Item,
+}
+
 impl JsonStruct {
     pub fn try_into_chat_domains(self) -> anyhow::Result<Vec<ChatEntity>> {
         let mut chat_entities = Vec::new();
@@ -54,24 +86,6 @@ impl JsonStruct {
 
         Ok(chats)
     }
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct ReplayChatItemAction {
-    pub actions: Vec<Action>,
-    pub video_offset_time_msec: Option<String>,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-#[serde(deny_unknown_fields)]
-pub struct Action {
-    pub add_chat_item_action: Option<AddChatItemAction>,
-    pub add_live_chat_ticker_item_action: Option<AddLiveChatTickerItemAction>,
-    pub click_tracking_params: Option<String>,
-    pub live_chat_report_moderation_state_command: Option<serde_json::Value>,
-    pub remove_chat_item_action: Option<serde_json::Value>,
 }
 
 impl TryInto<ChatEntity> for Action {
@@ -144,20 +158,6 @@ impl TryInto<ChatEntity> for Action {
             category: category,
         })
     }
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct AddChatItemAction {
-    pub client_id: Option<String>,
-    pub item: item_renderer::Item,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct AddLiveChatTickerItemAction {
-    pub duration_sec: String,
-    pub item: item_renderer::Item,
 }
 
 #[derive(thiserror::Error, Debug)]

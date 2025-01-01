@@ -50,6 +50,8 @@ impl Into<CommonRenderer> for LiveChatSponsorshipsGiftPurchaseAnnouncementRender
                 .live_chat_sponsorships_header_renderer
                 .primary_text
                 .into(),
+            is_moderator: false,
+            membership_months: "0".to_string(),
         }
     }
 }

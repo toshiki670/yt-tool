@@ -153,8 +153,8 @@ impl TryInto<ChatEntity> for Action {
             author_external_channel_id: renderer.author_external_channel_id,
             author_name: renderer.author_name,
             message: renderer.message,
-            is_moderator: false,
-            membership_months: "1".to_string(),
+            is_moderator: renderer.is_moderator,
+            membership_months: renderer.membership_months,
             category: category,
         })
     }

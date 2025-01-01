@@ -46,6 +46,8 @@ impl Into<CommonRenderer> for LiveChatTickerPaidMessageItemRenderer {
                 .renderer
                 .live_chat_paid_message_renderer
                 .message_text(),
+            is_moderator: false,
+            membership_months: "0".to_string(),
         }
     }
 }

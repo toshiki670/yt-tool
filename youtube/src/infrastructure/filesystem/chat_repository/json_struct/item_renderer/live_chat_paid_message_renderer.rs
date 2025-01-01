@@ -1,6 +1,6 @@
 use super::{
     values::{
-        accessibility::Accessibility, author_badge::AuthorBadge,
+        accessibility::Accessibility, author_badge::AuthorBadges,
         context_menu_endpoint::ContextMenuEndpoint, creator_heart_button::CreatorHeartButton,
         message::Message, reply_button::ReplyButton, simple_text::SimpleText,
         thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LiveChatPaidMessageRenderer {
-    pub author_badges: Option<Vec<AuthorBadge>>,
+    pub author_badges: Option<AuthorBadges>,
     pub author_external_channel_id: String,
     pub author_name_text_color: i64,
     pub author_name: SimpleText,
@@ -51,12 +51,20 @@ impl Into<CommonRenderer> for LiveChatPaidMessageRenderer {
     fn into(self) -> CommonRenderer {
         let message = self.message_text();
 
+        let is_moderator = if let Some(author_badges) = self.author_badges {
+            author_badges.has_moderator()
+        } else {
+            false
+        };
+
         CommonRenderer {
             id: self.id,
             timestamp_usec: self.timestamp_usec.into(),
             author_external_channel_id: self.author_external_channel_id,
             author_name: self.author_name.into(),
             message: message,
+            is_moderator,
+            membership_months: "0".to_string(),
         }
     }
 }

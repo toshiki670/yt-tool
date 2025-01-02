@@ -1,10 +1,9 @@
 use crate::domain::{
-    live_chat::LiveChatEntity,
-    repositories::{LiveChatRepository, SimpleChatRepository},
-    simple_chat::SimpleChatEntity,
+    live_chat::{repository::FetchLiveChatRepository, LiveChatEntity},
+    simple_chat::{repository::SaveSimpleChatRepository, SimpleChatEntity},
 };
 use anyhow::{bail, Context as _};
-use std::io::{BufRead as _, BufReader};
+use std::io::{BufRead as _, BufReader, Read as _};
 use std::{fs::File, path::PathBuf};
 
 pub struct FsChatRepository {
@@ -40,7 +39,11 @@ impl FsChatRepository {
             .with_context(|| format!("Failed to create {}", &file_path.display()))?;
 
         let file_type = FileType::from_path(file_path)?;
-        Ok(Self { file, file_type, file_path: file_path.clone() })
+        Ok(Self {
+            file,
+            file_type,
+            file_path: file_path.clone(),
+        })
     }
 
     pub fn open(file_path: &PathBuf) -> anyhow::Result<Self> {
@@ -48,11 +51,15 @@ impl FsChatRepository {
             .with_context(|| format!("Failed to open {}", &file_path.display()))?;
 
         let file_type = FileType::from_path(file_path)?;
-        Ok(Self { file, file_type, file_path: file_path.clone() })
+        Ok(Self {
+            file,
+            file_type,
+            file_path: file_path.clone(),
+        })
     }
 }
 
-impl LiveChatRepository for FsChatRepository {
+impl FetchLiveChatRepository for FsChatRepository {
     fn all(&self) -> anyhow::Result<Vec<LiveChatEntity>> {
         let mut live_chats = Vec::new();
 
@@ -73,9 +80,23 @@ impl LiveChatRepository for FsChatRepository {
 
         Ok(live_chats)
     }
+
+    fn one_chunk(&self) -> anyhow::Result<LiveChatEntity> {
+        let mut content = String::new();
+        BufReader::new(&self.file).read_to_string(&mut content)?;
+
+        let live_chat = serde_json::from_str::<LiveChatEntity>(&content).with_context(|| {
+            format!(
+                "Failed to convert the content of the file: {}",
+                &self.file_path.display()
+            )
+        })?;
+
+        Ok(live_chat)
+    }
 }
 
-impl SimpleChatRepository for FsChatRepository {
+impl SaveSimpleChatRepository for FsChatRepository {
     fn bulk_create(&self, simple_chats: Vec<SimpleChatEntity>) -> anyhow::Result<()> {
         match self.file_type {
             FileType::Json => {

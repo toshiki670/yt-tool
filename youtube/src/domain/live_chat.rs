@@ -1,5 +1,6 @@
 // https://transform.tools/json-to-rust-serde
 pub(crate) mod item;
+pub(crate) mod repository;
 
 use item::Item;
 use serde::{Deserialize, Serialize};

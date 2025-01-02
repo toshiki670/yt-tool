@@ -1,5 +1,6 @@
 mod category;
 mod posted_at;
+pub(crate) mod repository;
 
 pub(crate) use category::CategoryValue;
 pub(crate) use posted_at::PostedAtValue;

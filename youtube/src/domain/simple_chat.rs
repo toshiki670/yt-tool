@@ -10,10 +10,10 @@ use serde::{Deserialize, Serialize};
 pub struct SimpleChatEntity {
     pub id: String,
     pub author_external_channel_id: String,
+    pub posted_at: PostedAtValue,
     pub author_name: String,
-    pub category: CategoryValue,
+    pub content: String,
     pub is_moderator: bool,
     pub membership_months: String,
-    pub content: String,
-    pub posted_at: PostedAtValue,
+    pub category: CategoryValue,
 }

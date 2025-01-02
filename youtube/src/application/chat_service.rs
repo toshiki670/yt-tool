@@ -6,20 +6,20 @@ use anyhow::Context;
 use std::convert::TryInto;
 
 pub struct ChatConvertService {
-    from_chat: Box<dyn FetchLiveChatRepository>,
-    to_chat: Box<dyn SaveSimpleChatRepository>,
+    live_chat: Box<dyn FetchLiveChatRepository>,
+    simple_chat: Box<dyn SaveSimpleChatRepository>,
 }
 
 impl ChatConvertService {
     pub fn new(
-        from_chat: Box<dyn FetchLiveChatRepository>,
-        to_chat: Box<dyn SaveSimpleChatRepository>,
+        live_chat: Box<dyn FetchLiveChatRepository>,
+        simple_chat: Box<dyn SaveSimpleChatRepository>,
     ) -> Self {
-        Self { from_chat, to_chat }
+        Self { live_chat, simple_chat }
     }
 
     pub fn convert(&self) -> anyhow::Result<()> {
-        let live_chats = self.from_chat.all()?;
+        let live_chats = self.live_chat.all()?;
         let mut simple_chats = Vec::new();
 
         for (line_number, live_chat) in live_chats.into_iter().enumerate() {
@@ -29,6 +29,6 @@ impl ChatConvertService {
             simple_chats.extend(chats);
         }
 
-        self.to_chat.bulk_create(simple_chats)
+        self.simple_chat.bulk_create(simple_chats)
     }
 }

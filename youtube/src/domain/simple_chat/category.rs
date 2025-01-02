@@ -1,6 +1,6 @@
 use std::fmt;
-
-#[derive(Default, Debug, Clone, PartialEq)]
+use serde::{Deserialize, Serialize};
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub(crate) enum CategoryValue {
     #[default]
     ChatTextMessage,

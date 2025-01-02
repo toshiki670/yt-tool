@@ -9,5 +9,5 @@ pub(super) mod message;
 pub(super) mod reply_button;
 pub(super) mod simple_text;
 pub(super) mod thumbnails;
-pub(super) mod timestamp_usec;
+pub(crate) mod timestamp_usec;
 pub(super) mod web_command_metadata;

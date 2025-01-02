@@ -1,64 +1,16 @@
-mod csv_struct;
-mod json_struct;
-
-use crate::domain::simple_chat::SimpleChatEntity;
-use crate::domain::repositories::ChatRepository;
+use crate::domain::{
+    live_chat::LiveChatEntity,
+    repositories::{LiveChatRepository, SimpleChatRepository},
+    simple_chat::SimpleChatEntity,
+};
 use anyhow::{bail, Context as _};
+use std::io::{BufRead as _, BufReader};
 use std::{fs::File, path::PathBuf};
 
 pub struct FsChatRepository {
     file: File,
+    file_path: PathBuf,
     file_type: FileType,
-}
-
-impl FsChatRepository {
-    pub fn create(file_path: &PathBuf) -> anyhow::Result<Self> {
-        let file = File::create(file_path)
-            .with_context(|| format!("Failed to create {}", &file_path.display()))?;
-
-        let file_type = FileType::from_path(file_path)?;
-        Ok(Self { file, file_type })
-    }
-
-    pub fn open(file_path: &PathBuf) -> anyhow::Result<Self> {
-        let file = File::open(file_path)
-            .with_context(|| format!("Failed to open {}", &file_path.display()))?;
-
-        let file_type = FileType::from_path(file_path)?;
-        Ok(Self { file, file_type })
-    }
-}
-
-impl ChatRepository for FsChatRepository {
-    fn all(&self) -> anyhow::Result<Vec<SimpleChatEntity>> {
-        let chats;
-
-        match self.file_type {
-            FileType::Json => {
-                chats = json_struct::JsonStruct::all_from_file(&self.file)
-                    .context("Failed to read json file")?;
-            }
-            FileType::Csv => {
-                unimplemented!()
-            }
-        }
-
-        Ok(chats)
-    }
-
-    fn bulk_create(&self, chats: Vec<SimpleChatEntity>) -> anyhow::Result<()> {
-        match self.file_type {
-            FileType::Json => {
-                unimplemented!()
-            }
-            FileType::Csv => {
-                csv_struct::CsvChat::bulk_create_file(chats, &self.file)
-                    .context("Failed to create csv file")?;
-            }
-        }
-
-        Ok(())
-    }
 }
 
 enum FileType {
@@ -79,5 +31,67 @@ impl FileType {
             "csv" => Ok(Self::Csv),
             _ => bail!("\"{}\" is unsupported extention", extension),
         }
+    }
+}
+
+impl FsChatRepository {
+    pub fn create(file_path: &PathBuf) -> anyhow::Result<Self> {
+        let file = File::create(file_path)
+            .with_context(|| format!("Failed to create {}", &file_path.display()))?;
+
+        let file_type = FileType::from_path(file_path)?;
+        Ok(Self { file, file_type, file_path: file_path.clone() })
+    }
+
+    pub fn open(file_path: &PathBuf) -> anyhow::Result<Self> {
+        let file = File::open(file_path)
+            .with_context(|| format!("Failed to open {}", &file_path.display()))?;
+
+        let file_type = FileType::from_path(file_path)?;
+        Ok(Self { file, file_type, file_path: file_path.clone() })
+    }
+}
+
+impl LiveChatRepository for FsChatRepository {
+    fn all(&self) -> anyhow::Result<Vec<LiveChatEntity>> {
+        let mut live_chats = Vec::new();
+
+        for (line_number, line) in BufReader::new(&self.file).lines().enumerate() {
+            let line_number = line_number + 1;
+            let line = line?;
+
+            let live_chat = serde_json::from_str::<LiveChatEntity>(&line).with_context(|| {
+                format!(
+                    "Failed to convert at {}:{}",
+                    &self.file_path.display(),
+                    line_number
+                )
+            })?;
+
+            live_chats.push(live_chat);
+        }
+
+        Ok(live_chats)
+    }
+}
+
+impl SimpleChatRepository for FsChatRepository {
+    fn bulk_create(&self, simple_chats: Vec<SimpleChatEntity>) -> anyhow::Result<()> {
+        match self.file_type {
+            FileType::Json => {
+                unimplemented!()
+            }
+            FileType::Csv => {
+                let mut wtr = csv::Writer::from_writer(&self.file);
+
+                for simple_chat in simple_chats {
+                    wtr.serialize(&simple_chat)
+                        .with_context(|| format!("Failed to serialize at {:?}", &simple_chat))?;
+                }
+                wtr.flush().context("Failed to flush")?;
+            }
+        }
+
+        Ok(())
     }
 }

@@ -1,8 +1,9 @@
 use std::fmt::{self, Display, Formatter};
 
 use chrono::prelude::*;
+use serde::{Deserialize, Serialize};
 
-#[derive(Default, Debug, Clone, Copy, PartialEq)]
+#[derive(Default, Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
 pub(crate) struct PostedAtValue(DateTime<Local>);
 
 impl core::ops::Deref for PostedAtValue {

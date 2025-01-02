@@ -1,137 +1,63 @@
-// https://transform.tools/json-to-rust-serde
-mod item;
+pub(super) mod live_chat_membership_item_renderer;
+pub(super) mod live_chat_paid_message_renderer;
+pub(super) mod live_chat_renderer;
+pub(super) mod live_chat_sponsorships_gift_purchase_announcement_renderer;
+pub(super) mod live_chat_ticker_paid_message_item_renderer;
+pub(super) mod live_chat_viewer_engagement_message_renderer;
 
-use item::{renderers::CommonRenderer, Item};
-use std::{
-    fs::File,
-    io::{BufRead as _, BufReader},
+use anyhow::bail;
+use chrono::{DateTime, Utc};
+
+use super::{
+    live_chat::{
+        item::{values::timestamp_usec::TimestampUsec, Item},
+        Action, LiveChatEntity,
+    },
+    simple_chat::{PostedAtValue, SimpleChatEntity},
 };
 
-use crate::domain::simple_chat::{CategoryValue, SimpleChatEntity};
-use anyhow::{bail, Context as _};
-use serde::{Deserialize, Serialize};
+impl TryInto<Vec<SimpleChatEntity>> for LiveChatEntity {
+    type Error = anyhow::Error;
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct JsonStruct {
-    pub click_tracking_params: Option<String>,
-    pub is_live: Option<bool>,
-    pub replay_chat_item_action: ReplayChatItemAction,
-    pub video_offset_time_msec: Option<String>,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct ReplayChatItemAction {
-    pub actions: Vec<Action>,
-    pub video_offset_time_msec: Option<String>,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-#[serde(deny_unknown_fields)]
-pub struct Action {
-    pub add_chat_item_action: Option<AddChatItemAction>,
-    pub add_live_chat_ticker_item_action: Option<AddLiveChatTickerItemAction>,
-    pub click_tracking_params: Option<String>,
-    pub live_chat_report_moderation_state_command: Option<serde_json::Value>,
-    pub remove_chat_item_action: Option<serde_json::Value>,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct AddChatItemAction {
-    pub client_id: Option<String>,
-    pub item: Item,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct AddLiveChatTickerItemAction {
-    pub duration_sec: String,
-    pub item: Item,
-}
-
-impl JsonStruct {
-    pub fn try_into_chat_domains(self) -> anyhow::Result<Vec<SimpleChatEntity>> {
-        let mut chat_entities = Vec::new();
+    fn try_into(self) -> anyhow::Result<Vec<SimpleChatEntity>> {
+        let mut simple_chats = Vec::new();
 
         for action in self.replay_chat_item_action.actions {
-            let chat_entity: SimpleChatEntity = action.try_into()?;
-            chat_entities.push(chat_entity);
-        }
-
-        Ok(chat_entities)
-    }
-
-    pub fn all_from_file(file: &File) -> anyhow::Result<Vec<SimpleChatEntity>> {
-        let mut chats = Vec::new();
-
-        for (line_number, line) in BufReader::new(file).lines().enumerate() {
-            let line_number = line_number + 1;
-            let line = line?;
-
-            let chat = serde_json::from_str::<JsonStruct>(&line)
-                .context(JsonStructError::FailedConvertError(line_number))?;
-
-            match chat.try_into_chat_domains() {
-                Ok(chat_entities) => {
-                    chats.extend(chat_entities);
-                }
-                Err(err) => match err.downcast_ref::<JsonStructError>() {
-                    Some(JsonStructError::Ignore) => continue,
-                    _ => bail!(err.context(JsonStructError::FailedConvertError(line_number))),
-                },
+            if let Some(simple_chat) = action.try_into()? {
+                simple_chats.push(simple_chat);
             }
         }
 
-        Ok(chats)
+        Ok(simple_chats)
     }
 }
 
-impl TryInto<SimpleChatEntity> for Action {
+impl TryInto<Option<SimpleChatEntity>> for Action {
     type Error = anyhow::Error;
 
-    fn try_into(self) -> anyhow::Result<SimpleChatEntity> {
+    fn try_into(self) -> anyhow::Result<Option<SimpleChatEntity>> {
         let item = if let Some(add_chat_item_action) = self.add_chat_item_action {
             add_chat_item_action.item
         } else if let Some(add_live_chat_ticker_item_action) = self.add_live_chat_ticker_item_action
         {
             add_live_chat_ticker_item_action.item
         } else if let Some(_) = self.live_chat_report_moderation_state_command {
-            bail!(JsonStructError::Ignore);
+            return Ok(None);
         } else if let Some(_) = self.remove_chat_item_action {
-            bail!(JsonStructError::Ignore);
+            return Ok(None);
         } else {
             unreachable!();
         };
 
-        let category: CategoryValue = match item {
-            Item::LiveChatPaidMessageRenderer(_) => CategoryValue::ChatPaidMessage,
-            Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(_) => {
-                CategoryValue::ChatSponsorshipsGiftRedemptionAnnouncement
-            }
-            Item::LiveChatTextMessageRenderer(_) => CategoryValue::ChatTextMessage,
-            Item::LiveChatTickerPaidMessageItemRenderer(_) => {
-                CategoryValue::ChatTickerPaidMessageItem
-            }
-            Item::LiveChatViewerEngagementMessageRenderer(_) => {
-                CategoryValue::ChatViewerEngagementMessage
-            }
-            Item::LiveChatPaidStickerRenderer(_) => bail!(JsonStructError::Ignore),
-            Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(_) => {
-                CategoryValue::ChatSponsorshipsGiftPurchaseAnnouncement
-            }
-            Item::LiveChatMembershipItemRenderer(_) => CategoryValue::ChatMembershipItem,
-            Item::LiveChatTickerSponsorItemRenderer(_) => {
-                bail!(JsonStructError::Ignore)
-            }
-            Item::None => {
-                bail!("no exists renderers");
-            }
-        };
+        Ok(item.try_into()?)
+    }
+}
 
-        let renderer: CommonRenderer = match item {
+impl TryInto<Option<SimpleChatEntity>> for Item {
+    type Error = anyhow::Error;
+
+    fn try_into(self) -> anyhow::Result<Option<SimpleChatEntity>> {
+        let renderer: SimpleChatEntity = match self {
             Item::LiveChatPaidMessageRenderer(r) => r.into(),
             Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(r) => r.into(),
             Item::LiveChatTextMessageRenderer(r) => r.into(),
@@ -139,31 +65,19 @@ impl TryInto<SimpleChatEntity> for Action {
             Item::LiveChatViewerEngagementMessageRenderer(r) => r.into(),
             Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(r) => r.into(),
             Item::LiveChatMembershipItemRenderer(r) => r.into(),
-            Item::LiveChatPaidStickerRenderer(_) => unreachable!(),
-            Item::LiveChatTickerSponsorItemRenderer(_) => unreachable!(),
-            Item::None => unreachable!(),
+            Item::LiveChatPaidStickerRenderer(_) => return Ok(None),
+            Item::LiveChatTickerSponsorItemRenderer(_) => return Ok(None),
+            Item::None => bail!("no exists renderers"),
         };
 
-        Ok(SimpleChatEntity {
-            id: renderer.id,
-            posted_at: renderer.timestamp_usec.into(),
-            author_external_channel_id: renderer.author_external_channel_id,
-            author_name: renderer.author_name,
-            content: renderer.message,
-            is_moderator: renderer.is_moderator,
-            membership_months: renderer.membership_months,
-            category: category,
-        })
+        Ok(Some(renderer))
     }
 }
 
-#[derive(thiserror::Error, Debug)]
-enum JsonStructError {
-    #[error("Failed to convert in {} row", .0)]
-    FailedConvertError(usize),
-
-    #[error("Ignore")]
-    Ignore,
+impl From<TimestampUsec> for PostedAtValue {
+    fn from(value: TimestampUsec) -> Self {
+        Self::from(Into::<DateTime<Utc>>::into(value))
+    }
 }
 
 #[cfg(test)]
@@ -171,7 +85,10 @@ mod tests {
     use super::*;
 
     mod live_chat_text_message_renderer {
+        use crate::domain::simple_chat::CategoryValue;
+
         use super::*;
+        use anyhow::Context as _;
         use chrono::prelude::*;
 
         const RAW_JSON: &str = r#"
@@ -179,12 +96,12 @@ mod tests {
         "#;
 
         #[test]
-        fn it_has_one_domain_chat() -> anyhow::Result<()> {
+        fn it_has_one_simple_chat() -> anyhow::Result<()> {
             let expected = 1;
 
-            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
-            let chat_domains = json_chat.try_into_chat_domains()?;
-            let actual = chat_domains.len();
+            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
+            let actual = simple_chats.len();
 
             assert_eq!(expected, actual);
             Ok(())
@@ -194,9 +111,9 @@ mod tests {
         fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
             let expected = CategoryValue::ChatTextMessage;
 
-            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
-            let chat_domains = json_chat.try_into_chat_domains()?;
-            let first = chat_domains.first().context("There is no chat")?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
+            let first = simple_chats.first().context("There is no chat")?;
             let actual = first.category.clone();
 
             assert_eq!(expected, actual);
@@ -207,9 +124,9 @@ mod tests {
         fn it_equals_timestamp_usec() -> anyhow::Result<()> {
             let expected = Utc.timestamp_micros(1733370114906095).unwrap();
 
-            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
-            let chat_domains = json_chat.try_into_chat_domains()?;
-            let first = chat_domains.first().context("There is no chat")?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
+            let first = simple_chats.first().context("There is no chat")?;
             let actual: DateTime<Utc> = first.posted_at.into();
 
             assert_eq!(expected, actual);
@@ -218,7 +135,10 @@ mod tests {
     }
 
     mod live_chat_viewer_engagement_message_renderer {
+        use crate::domain::simple_chat::CategoryValue;
+
         use super::*;
+        use anyhow::Context as _;
         use chrono::prelude::*;
 
         const RAW_JSON: &str = r#"
@@ -226,12 +146,12 @@ mod tests {
         "#;
 
         #[test]
-        fn it_has_one_domain_chat() -> anyhow::Result<()> {
+        fn it_has_one_simple_chat() -> anyhow::Result<()> {
             let expected = 1;
 
-            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
-            let chat_domains = json_chat.try_into_chat_domains()?;
-            let actual = chat_domains.len();
+            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
+            let actual = simple_chats.len();
 
             assert_eq!(expected, actual);
             Ok(())
@@ -241,9 +161,9 @@ mod tests {
         fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
             let expected = CategoryValue::ChatViewerEngagementMessage;
 
-            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
-            let chat_domains = json_chat.try_into_chat_domains()?;
-            let first = chat_domains.first().context("There is no chat")?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
+            let first = simple_chats.first().context("There is no chat")?;
             let actual = first.category.clone();
 
             assert_eq!(expected, actual);
@@ -254,9 +174,9 @@ mod tests {
         fn it_equals_timestamp_usec() -> anyhow::Result<()> {
             let expected = Utc.timestamp_micros(1733370532507093).unwrap();
 
-            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
-            let chat_domains = json_chat.try_into_chat_domains()?;
-            let first = chat_domains.first().context("There is no chat")?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
+            let first = simple_chats.first().context("There is no chat")?;
             let actual: DateTime<Utc> = first.posted_at.into();
 
             assert_eq!(expected, actual);
@@ -265,6 +185,10 @@ mod tests {
     }
 
     mod live_chat_sponsorships_gift_purchase_announcement_renderer {
+        use anyhow::Context as _;
+
+        use crate::domain::simple_chat::CategoryValue;
+
         use super::*;
 
         const RAW_JSON: &str = r#"
@@ -272,12 +196,12 @@ mod tests {
         "#;
 
         #[test]
-        fn it_has_one_domain_chat() -> anyhow::Result<()> {
+        fn it_has_one_simple_chat() -> anyhow::Result<()> {
             let expected = 1;
 
-            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
-            let chat_domains = json_chat.try_into_chat_domains()?;
-            let actual = chat_domains.len();
+            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
+            let actual = simple_chats.len();
 
             assert_eq!(expected, actual);
             Ok(())
@@ -287,9 +211,9 @@ mod tests {
         fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
             let expected = CategoryValue::ChatSponsorshipsGiftPurchaseAnnouncement;
 
-            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
-            let chat_domains = json_chat.try_into_chat_domains()?;
-            let first = chat_domains.first().context("There is no chat")?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
+            let first = simple_chats.first().context("There is no chat")?;
             let actual = first.category.clone();
 
             assert_eq!(expected, actual);
@@ -297,6 +221,10 @@ mod tests {
         }
     }
     mod live_chat_paid_message_renderer {
+        use anyhow::Context as _;
+
+        use crate::domain::simple_chat::CategoryValue;
+
         use super::*;
 
         const RAW_JSON: &str = r#"
@@ -304,12 +232,12 @@ mod tests {
         "#;
 
         #[test]
-        fn it_has_one_domain_chat() -> anyhow::Result<()> {
+        fn it_has_one_simple_chat() -> anyhow::Result<()> {
             let expected = 1;
 
-            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
-            let chat_domains = json_chat.try_into_chat_domains()?;
-            let actual = chat_domains.len();
+            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
+            let actual = simple_chats.len();
 
             assert_eq!(expected, actual);
             Ok(())
@@ -319,9 +247,9 @@ mod tests {
         fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
             let expected = CategoryValue::ChatPaidMessage;
 
-            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
-            let chat_domains = json_chat.try_into_chat_domains()?;
-            let first = chat_domains.first().context("There is no chat")?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
+            let first = simple_chats.first().context("There is no chat")?;
             let actual = first.category.clone();
 
             assert_eq!(expected, actual);
@@ -337,21 +265,16 @@ mod tests {
         "#;
 
         #[test]
-        fn it_will_be_ignored() -> anyhow::Result<()> {
-            let json_chat = serde_json::from_str::<JsonStruct>(&RAW_JSON)?;
+        fn it_has_no_simple_chat() -> anyhow::Result<()> {
+            let expected = 0;
 
-            let error = json_chat
-                .try_into_chat_domains()
-                .err()
-                .context("Expected error because it will be no error")?;
-            let json_struct_error = error
-                .downcast_ref::<JsonStructError>()
-                .context("Expected error becouse it raised different error")?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
+            let actual = simple_chats.len();
 
-            match json_struct_error {
-                JsonStructError::Ignore => Ok(()), // Expected
-                _ => bail!("Expected error is not raised"),
-            }
+            assert_eq!(expected, actual);
+
+            Ok(())
         }
     }
 }

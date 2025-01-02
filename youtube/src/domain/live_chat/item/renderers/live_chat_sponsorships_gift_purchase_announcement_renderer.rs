@@ -1,11 +1,8 @@
 use serde::{Deserialize, Serialize};
 
-use super::{
-    values::{
-        message::Message, simple_text::SimpleText, thumbnails::Thumbnails,
-        timestamp_usec::TimestampUsec,
-    },
-    CommonRenderer,
+use super::values::{
+    message::Message, simple_text::SimpleText, thumbnails::Thumbnails,
+    timestamp_usec::TimestampUsec,
 };
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -32,26 +29,4 @@ pub struct LiveChatSponsorshipsHeaderRenderer {
     pub context_menu_endpoint: serde_json::Value,
     pub context_menu_accessibility: serde_json::Value,
     pub image: serde_json::Value,
-}
-
-impl Into<CommonRenderer> for LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer {
-    fn into(self) -> CommonRenderer {
-        CommonRenderer {
-            id: self.id,
-            timestamp_usec: self.timestamp_usec.into(),
-            author_external_channel_id: self.author_external_channel_id,
-            author_name: self
-                .header
-                .live_chat_sponsorships_header_renderer
-                .author_name
-                .into(),
-            message: self
-                .header
-                .live_chat_sponsorships_header_renderer
-                .primary_text
-                .into(),
-            is_moderator: false,
-            membership_months: "".to_string(),
-        }
-    }
 }

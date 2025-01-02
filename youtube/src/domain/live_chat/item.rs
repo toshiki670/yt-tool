@@ -1,5 +1,5 @@
-pub(super) mod renderers;
-mod values;
+pub(crate) mod renderers;
+pub(crate) mod values;
 
 use renderers::{
     live_chat_membership_item_renderer::LiveChatMembershipItemRenderer,

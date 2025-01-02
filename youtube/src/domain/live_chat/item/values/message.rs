@@ -47,14 +47,14 @@ impl Into<String> for Run {
 #[serde(rename_all = "camelCase")]
 pub struct Emoji {
     pub emoji_id: String,
-    pub shortcuts: Vec<String>,
-    pub search_terms: Vec<String>,
+    pub shortcuts: Option<Vec<String>>,
+    pub search_terms: Option<Vec<String>>,
     pub image: Thumbnails,
     pub is_custom_emoji: Option<bool>,
 }
 
 impl Into<String> for Emoji {
     fn into(self) -> String {
-        self.shortcuts.join(", ")
+        self.emoji_id
     }
 }

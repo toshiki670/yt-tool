@@ -18,7 +18,7 @@ impl ChatConvertService {
         Self { live_chat, simple_chat }
     }
 
-    pub fn convert(&self) -> anyhow::Result<()> {
+    pub fn convert(&mut self) -> anyhow::Result<()> {
         let live_chats = self.live_chat.all()?;
         let mut simple_chats = Vec::new();
 

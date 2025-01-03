@@ -12,14 +12,6 @@ pub(crate) struct IoSimpleChatRepository<T> {
     inner: Rc<Mutex<T>>,
 }
 
-impl<T> IoSimpleChatRepository<T> {
-    pub fn new(inner: &Rc<Mutex<T>>) -> Self {
-        Self {
-            inner: Rc::clone(inner),
-        }
-    }
-}
-
 impl IoSimpleChatRepository<File> {
     pub fn build_created_file(file_path: &PathBuf) -> anyhow::Result<(Rc<Mutex<File>>, Self)> {
         let file = File::create(file_path).context("Failed to create file")?;

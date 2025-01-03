@@ -1,6 +1,6 @@
 use std::fmt;
-
-#[derive(Default, Debug, Clone, PartialEq)]
+use serde::{Deserialize, Serialize};
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub(crate) enum CategoryValue {
     #[default]
     ChatTextMessage,
@@ -9,6 +9,7 @@ pub(crate) enum CategoryValue {
     ChatSponsorshipsGiftRedemptionAnnouncement,
     ChatTickerPaidMessageItem,
     ChatViewerEngagementMessage,
+    ChatMembershipItem,
 }
 
 impl fmt::Display for CategoryValue {
@@ -26,6 +27,7 @@ impl fmt::Display for CategoryValue {
             CategoryValue::ChatSponsorshipsGiftPurchaseAnnouncement => {
                 write!(f, "Chat sponsorships gift purchase announcement")
             }
+            CategoryValue::ChatMembershipItem => write!(f, "Chat membership item"),
         }
     }
 }

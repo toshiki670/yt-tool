@@ -4,7 +4,6 @@ use super::{
         engagement_panel_command::EngagementPanelCommand, ignore_navigation::IgnoreNavigation,
         simple_text::SimpleText, thumbnails::Thumbnails, web_command_metadata::WebCommandMetadata,
     },
-    CommonRenderer,
 };
 use serde::{Deserialize, Serialize};
 
@@ -24,32 +23,6 @@ pub struct LiveChatTickerPaidMessageItemRenderer {
     pub author_username: SimpleText,
     pub animation_origin: String,
     pub open_engagement_panel_command: EngagementPanelCommand,
-}
-
-impl Into<CommonRenderer> for LiveChatTickerPaidMessageItemRenderer {
-    fn into(self) -> CommonRenderer {
-        CommonRenderer {
-            id: self.id,
-            timestamp_usec: self
-                .show_item_endpoint
-                .show_live_chat_item_endpoint
-                .renderer
-                .live_chat_paid_message_renderer
-                .timestamp_usec
-                .clone()
-                .into(),
-            author_external_channel_id: self.author_external_channel_id,
-            author_name: self.author_username.into(),
-            message: self
-                .show_item_endpoint
-                .show_live_chat_item_endpoint
-                .renderer
-                .live_chat_paid_message_renderer
-                .message_text(),
-            is_moderator: false,
-            membership_months: "".to_string(),
-        }
-    }
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

@@ -4,7 +4,7 @@
 use crate::cli::Route;
 use clap::{ArgGroup, ValueEnum, ValueHint};
 use std::{fmt::Display, path::PathBuf};
-use youtube::prelude::ChatFileService;
+use youtube::prelude::*;
 
 #[derive(clap::Args, Debug)]
 #[command(name = "Comment File Feature")]

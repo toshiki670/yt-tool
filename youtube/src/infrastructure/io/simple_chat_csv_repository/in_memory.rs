@@ -1,22 +1,21 @@
 use crate::domain::simple_chat::{repository::SaveSimpleChatRepository, SimpleChatEntity};
 use anyhow::Context as _;
-use std::{fs::File, path::PathBuf};
+use std::io::Cursor;
 
-pub(crate) struct FileRepository {
-    path: PathBuf,
+pub(crate) struct InMemoryRepository {
+    inner: Vec<u8>,
 }
 
-impl From<PathBuf> for FileRepository {
-    fn from(value: PathBuf) -> Self {
-        Self { path: value }
+impl From<Vec<u8>> for InMemoryRepository {
+    fn from(value: Vec<u8>) -> Self {
+        Self { inner: value }
     }
 }
 
-impl SaveSimpleChatRepository for FileRepository {
+impl SaveSimpleChatRepository for InMemoryRepository {
     fn bulk_create(&mut self, simple_chats: Vec<SimpleChatEntity>) -> anyhow::Result<()> {
-        let file = File::create(&self.path)
-            .with_context(|| format!("Failed to create {}", &self.path.display()))?;
-        let mut wtr = csv::Writer::from_writer(file);
+        let cursor = Cursor::new(&mut self.inner);
+        let mut wtr = csv::Writer::from_writer(cursor);
 
         for simple_chat in simple_chats {
             wtr.serialize(&simple_chat)

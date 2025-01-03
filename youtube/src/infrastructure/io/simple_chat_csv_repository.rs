@@ -1,32 +1,31 @@
 pub(crate) mod file;
+pub(crate) mod in_memory;
 
 use crate::domain::simple_chat::{repository::SaveSimpleChatRepository, SimpleChatEntity};
-use anyhow::Context as _;
-use std::io::Write;
+use file::FileRepository;
+use in_memory::InMemoryRepository;
+use std::path::PathBuf;
 
 pub struct IoSimpleChatRepository<T> {
     inner: T,
 }
 
-impl<W: Write> IoSimpleChatRepository<W> {
-    pub fn create(inner: W) -> anyhow::Result<Self> {
-        Ok(Self { inner })
+impl From<PathBuf> for IoSimpleChatRepository<FileRepository> {
+    fn from(value: PathBuf) -> Self {
+        let inner = FileRepository::from(value);
+        Self { inner }
     }
 }
 
-impl<W: Write> SaveSimpleChatRepository for IoSimpleChatRepository<W>
-where
-    for<'a> &'a W: Write,
-{
-    fn bulk_create(&self, simple_chats: Vec<SimpleChatEntity>) -> anyhow::Result<()> {
-        let mut wtr = csv::Writer::from_writer(&self.inner);
+impl From<Vec<u8>> for IoSimpleChatRepository<InMemoryRepository> {
+    fn from(value: Vec<u8>) -> Self {
+        let inner = InMemoryRepository::from(value);
+        Self { inner }
+    }
+}
 
-        for simple_chat in simple_chats {
-            wtr.serialize(&simple_chat)
-                .with_context(|| format!("Failed to serialize at {:?}", &simple_chat))?;
-        }
-        wtr.flush().context("Failed to flush")?;
-
-        Ok(())
+impl<T: SaveSimpleChatRepository> SaveSimpleChatRepository for IoSimpleChatRepository<T> {
+    fn bulk_create(&mut self, chats: Vec<SimpleChatEntity>) -> anyhow::Result<()> {
+        self.inner.bulk_create(chats)
     }
 }

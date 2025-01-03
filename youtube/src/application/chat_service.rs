@@ -21,7 +21,7 @@ impl ChatConvertService {
         }
     }
 
-    pub fn convert(&mut self) -> anyhow::Result<()> {
+    pub fn convert_with_lines(&mut self) -> anyhow::Result<()> {
         let live_chats = self.live_chat.all()?;
         let mut simple_chats = Vec::new();
 
@@ -33,5 +33,11 @@ impl ChatConvertService {
         }
 
         self.simple_chat.bulk_create(simple_chats)
+    }
+
+    pub fn convert_with_one_chunk(&mut self) -> anyhow::Result<()> {
+        let live_chat = self.live_chat.one_chunk()?;
+        let simple_chat = live_chat.try_into()?;
+        self.simple_chat.bulk_create(simple_chat)
     }
 }

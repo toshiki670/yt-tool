@@ -10,6 +10,7 @@ use std::{
 
 pub(crate) struct IoLiveChatRepository<T> {
     inner: Rc<Mutex<T>>,
+    source: Option<String>,
 }
 
 impl IoLiveChatRepository<File> {
@@ -19,6 +20,7 @@ impl IoLiveChatRepository<File> {
 
         let repository = Self {
             inner: Rc::clone(&file_mutex),
+            source: Some(file_path.to_string_lossy().to_string()),
         };
         Ok((file_mutex, repository))
     }
@@ -31,6 +33,7 @@ impl<T> IoLiveChatRepository<Cursor<T>> {
 
         let repository = Self {
             inner: Rc::clone(&cursor_mutex),
+            source: None,
         };
         Ok((cursor_mutex, repository))
     }
@@ -52,8 +55,13 @@ where
             let line_number = line_number + 1;
             let line = line?;
 
-            let live_chat = serde_json::from_str::<LiveChatEntity>(&line)
-                .with_context(|| format!("Failed to convert at {line_number} row"))?;
+            let live_chat = serde_json::from_str::<LiveChatEntity>(&line).with_context(|| {
+                if let Some(source) = &self.source {
+                    format!("Failed to convert at {source}:{line_number}")
+                } else {
+                    format!("Failed to convert at {line_number} row")
+                }
+            })?;
 
             live_chats.push(live_chat);
         }

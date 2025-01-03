@@ -15,7 +15,10 @@ impl ChatConvertService {
         live_chat: Box<dyn FetchLiveChatRepository>,
         simple_chat: Box<dyn SaveSimpleChatRepository>,
     ) -> Self {
-        Self { live_chat, simple_chat }
+        Self {
+            live_chat,
+            simple_chat,
+        }
     }
 
     pub fn convert(&mut self) -> anyhow::Result<()> {

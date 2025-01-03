@@ -25,14 +25,14 @@ impl IoSimpleChatRepository<File> {
 }
 
 impl<T> IoSimpleChatRepository<Cursor<T>> {
-    pub fn build_in_memory(inner: T) -> anyhow::Result<(Rc<Mutex<Cursor<T>>>, Self)> {
+    pub fn build_in_memory(inner: T) -> (Rc<Mutex<Cursor<T>>>, Self) {
         let cursor = Cursor::new(inner);
         let cursor_mutex = Rc::new(Mutex::new(cursor));
 
         let repository = Self {
             inner: Rc::clone(&cursor_mutex),
         };
-        Ok((cursor_mutex, repository))
+        (cursor_mutex, repository)
     }
 }
 

@@ -14,11 +14,11 @@ impl<'a> ChatInMemoryService<'a> {
     }
 
     pub fn convert_as_lines(&self) -> anyhow::Result<String> {
-        let (_, live_chat_repository) = IoLiveChatRepository::build_in_memory(self.value.clone())?;
+        let (_, live_chat_repository) = IoLiveChatRepository::build_in_memory(self.value.clone());
         let live_chat_repository = Box::new(live_chat_repository);
 
         let (cursor_mutex, simple_chat_repository) =
-            IoSimpleChatRepository::build_in_memory(Vec::new())?;
+            IoSimpleChatRepository::build_in_memory(Vec::new());
         let simple_chat_repository = Box::new(simple_chat_repository);
 
         let mut chat_convert_service =
@@ -34,11 +34,11 @@ impl<'a> ChatInMemoryService<'a> {
     }
 
     pub fn convert_as_chunk(&self) -> anyhow::Result<String> {
-        let (_, live_chat_repository) = IoLiveChatRepository::build_in_memory(self.value.clone())?;
+        let (_, live_chat_repository) = IoLiveChatRepository::build_in_memory(self.value.clone());
         let live_chat_repository = Box::new(live_chat_repository);
 
         let (cursor_mutex, simple_chat_repository) =
-            IoSimpleChatRepository::build_in_memory(Vec::new())?;
+            IoSimpleChatRepository::build_in_memory(Vec::new());
         let simple_chat_repository = Box::new(simple_chat_repository);
 
         let mut chat_convert_service =

@@ -11,7 +11,7 @@ mod file {
         let current_path = env::current_dir()?;
         let temp_dir = tempdir()?;
 
-        let input_path = current_path.join("tests/formatted.json");
+        let input_path = current_path.join("tests/json/formatted.json");
         // let input_path = current_path.join("../testxxx.json");
         let output_path = temp_dir.path().join("output.csv");
 
@@ -32,7 +32,7 @@ mod file {
         let temp_dir = tempdir()?;
 
         let file_name = "formatted.json";
-        let base_input_path = current_path.join("tests/").join(file_name);
+        let base_input_path = current_path.join("tests/json/").join(file_name);
 
         let input_path = temp_dir.path().join(file_name);
         std::fs::copy(&base_input_path, &input_path)?;

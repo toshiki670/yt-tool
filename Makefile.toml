@@ -12,3 +12,8 @@ args = ["doc", "--document-private-items", "--workspace"]
 description = "Generate documentation for all packages"
 dependencies = ["doc-self", "doc-workspace"]
 
+# For the tests
+[tasks.test]
+description = "Run the tests"
+command = "cargo"
+args = ["test", "--workspace"]

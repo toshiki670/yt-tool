@@ -15,8 +15,8 @@ csv = "1.3.1"
 # https://docs.rs/chrono/latest/chrono/serde/ts_seconds/fn.serialize.html
 chrono = { version = "0.4.39", features = ["serde"] }
 
-env_logger =  { workspace = true }
-log =  { workspace = true }
+env_logger = { workspace = true }
+log = { workspace = true }
 
 [dev-dependencies]
 tempfile = "3.15.0"

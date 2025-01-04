@@ -8,11 +8,21 @@ use std::{
     sync::Mutex,
 };
 
+/// This repository provides an interface for managing and retrieving live chat JSON data.
+///
+/// Internally, it uses a shared resource (`Rc<Mutex<T>>`) protected by a Mutex, enabling thread-safe operations.
+/// It supports both reading live chat data from files and handling data in memory.
+/// Additionally, it implements the FetchLiveChatRepository trait, supporting the retrieval of all live chat entities.
 pub(crate) struct IoLiveChatRepository<T> {
     inner: Rc<Mutex<T>>,
     source: Option<String>,
 }
 
+/// `IoLiveChatRepository<File>` is a repository implemented based on files.
+///
+/// In this implementation, live chat JSON data is read from the specified file,
+/// and `Rc<Mutex<File>>` is used to enable thread-safe access.
+/// The `source` field is added to retain source information.
 impl IoLiveChatRepository<File> {
     pub fn build_opened_file(file_path: &PathBuf) -> anyhow::Result<(Rc<Mutex<File>>, Self)> {
         let file = File::open(file_path).context("Failed to create file")?;
@@ -26,6 +36,11 @@ impl IoLiveChatRepository<File> {
     }
 }
 
+/// `IoLiveChatRepository<Cursor<T>>` is a repository implemented based on in-memory data.
+///
+/// In this implementation, live chat JSON data is read from the specified in-memory data,
+/// and `Rc<Mutex<Cursor<T>>>` is used to enable thread-safe access.
+/// The `source` field is not retained.
 impl<T> IoLiveChatRepository<Cursor<T>> {
     pub fn build_in_memory(inner: T) -> (Rc<Mutex<Cursor<T>>>, Self) {
         let cursor = Cursor::new(inner);
@@ -39,6 +54,9 @@ impl<T> IoLiveChatRepository<Cursor<T>> {
     }
 }
 
+/// `IoLiveChatRepository<R>` implements the `FetchLiveChatRepository` trait.
+///
+/// `R` is a type that implements the `Read` trait.
 impl<R> FetchLiveChatRepository for IoLiveChatRepository<R>
 where
     R: Read,

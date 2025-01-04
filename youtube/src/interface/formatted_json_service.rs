@@ -85,11 +85,8 @@ impl<'a> FormattedJsonService<'a, String> {
 
     /// Generate simple chat CSV data from live chat JSON data.
     ///
-    /// # Arguments
-    /// - `to_path`: The path to save the converted data.
-    ///
     /// # Returns
-    /// - `anyhow::Result<()>`: Result of the conversion.
+    /// - `anyhow::Result<String>`: Result of the conversion.
     pub fn generate_string(&self) -> anyhow::Result<String> {
         let (_, live_chat_repository) = IoLiveChatRepository::build_in_memory(self.inner);
         let (cursor_mutex, simple_chat_repository) =

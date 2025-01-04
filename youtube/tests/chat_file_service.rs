@@ -2,7 +2,7 @@ extern crate youtube;
 
 use pretty_assertions::assert_eq;
 use tempfile::tempdir;
-use youtube::prelude::*;
+use youtube::prelude::ChatFileService;
 
 #[test]
 fn it_generates_simple_chat_csv_data_from_live_chat_json_data_with_path() -> anyhow::Result<()> {

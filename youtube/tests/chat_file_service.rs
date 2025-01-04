@@ -1,8 +1,23 @@
 extern crate youtube;
 
 use pretty_assertions::assert_eq;
+use std::env;
 use tempfile::tempdir;
 use youtube::prelude::ChatFileService;
+
+#[test]
+fn it_able_to_load_live_chat_json() -> anyhow::Result<()> {
+    let current_path = env::current_dir()?;
+    let input_path = current_path.join("tests/live_chat.json");
+    let chat_file_service = ChatFileService::new(&input_path);
+
+    let temp_dir = tempdir()?;
+    let output_path = temp_dir.path().join("output.csv");
+    chat_file_service.generate_with_path(&output_path)?;
+    temp_dir.close()?;
+
+    Ok(())
+}
 
 #[test]
 fn it_generates_simple_chat_csv_data_from_live_chat_json_data_with_path() -> anyhow::Result<()> {

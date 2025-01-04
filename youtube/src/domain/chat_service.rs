@@ -58,16 +58,16 @@ impl TryInto<Option<SimpleChatEntity>> for Item {
 
     fn try_into(self) -> anyhow::Result<Option<SimpleChatEntity>> {
         let renderer: SimpleChatEntity = match self {
+            Item::None => bail!("no exists renderers"),
+            Item::LiveChatMembershipItemRenderer(r) => r.into(),
             Item::LiveChatPaidMessageRenderer(r) => r.into(),
+            Item::LiveChatPaidStickerRenderer(_) => return Ok(None),
+            Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(r) => r.into(),
             Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(r) => r.into(),
             Item::LiveChatTextMessageRenderer(r) => r.into(),
             Item::LiveChatTickerPaidMessageItemRenderer(r) => r.into(),
-            Item::LiveChatViewerEngagementMessageRenderer(r) => r.into(),
-            Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(r) => r.into(),
-            Item::LiveChatMembershipItemRenderer(r) => r.into(),
-            Item::LiveChatPaidStickerRenderer(_) => return Ok(None),
             Item::LiveChatTickerSponsorItemRenderer(_) => return Ok(None),
-            Item::None => bail!("no exists renderers"),
+            Item::LiveChatViewerEngagementMessageRenderer(r) => r.into(),
         };
 
         Ok(Some(renderer))

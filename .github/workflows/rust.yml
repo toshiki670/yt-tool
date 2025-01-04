@@ -11,9 +11,7 @@ env:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Build
@@ -23,3 +21,22 @@ jobs:
     - name: Check format
       run: cargo fmt --check
 
+  test:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Tokyo
+    steps:
+    - uses: actions/checkout@v4
+    - name: Run tests
+      run: cargo test --workspace --verbose
+    - name: Check format
+      run: cargo fmt --check
+
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Check format
+      run: cargo fmt --check
+        
+        

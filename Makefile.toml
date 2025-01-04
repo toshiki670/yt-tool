@@ -1,0 +1,14 @@
+[tasks.doc-self]
+description = "Generate documentation for the self package"
+command = "cargo"
+args = ["doc", "--document-private-items"]
+
+[tasks.doc-workspace]
+description = "Generate documentation for the workspace"
+command = "cargo"
+args = ["doc", "--document-private-items", "--workspace"]
+
+[tasks.docs]
+description = "Generate documentation for all packages"
+dependencies = ["doc-self", "doc-workspace"]
+

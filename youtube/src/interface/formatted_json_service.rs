@@ -62,6 +62,28 @@ impl<'a> FormattedJsonService<'a, PathBuf> {
 
         chat_convert_service.convert_from_chunk()
     }
+
+    /// Generate simple chat CSV data from live chat JSON data.
+    ///
+    /// # Returns
+    /// - `anyhow::Result<String>`: Result of the conversion.
+    pub fn generate_string(&self) -> anyhow::Result<String> {
+        let (_, live_chat_repository) = IoLiveChatRepository::build_opened_file(self.inner)?;
+        let (cursor_mutex, simple_chat_repository) =
+            IoSimpleChatRepository::build_in_memory(Vec::new());
+
+        let mut chat_convert_service =
+            ChatConvertService::new(&live_chat_repository, &simple_chat_repository);
+
+        chat_convert_service.convert_from_chunk()?;
+
+        let mut cursor_lock = cursor_mutex.lock().unwrap();
+        let cursor = &mut *cursor_lock;
+
+        let data = cursor.get_ref();
+        let data_str = String::from_utf8(data.to_vec())?;
+        Ok(data_str)
+    }
 }
 
 /// This implementation is for the String type.

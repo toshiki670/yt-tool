@@ -9,14 +9,14 @@ pub struct ChatInMemoryService;
 
 impl ChatInMemoryService {
 
-    /// Convert live chat JSON data to simple chat CSV data.
+    /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
     /// - `json_data`: The JSON data is not line-broken and consists of multiple lines.
     ///
     /// # Returns
     /// - `anyhow::Result<String>`: Result of the conversion.
-    pub fn convert_as_lines(json_data: String) -> anyhow::Result<String> {
+    pub fn generate_from_lines(json_data: String) -> anyhow::Result<String> {
         let (_, live_chat_repository) = IoLiveChatRepository::build_in_memory(json_data.clone());
         let live_chat_repository = Box::new(live_chat_repository);
 
@@ -36,14 +36,14 @@ impl ChatInMemoryService {
         Ok(data_str)
     }
 
-    /// Convert live chat JSON data to simple chat CSV data.
+    /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
     /// - `json_chunk_data`: The JSON data is line-broken and consists one live chat JSON data.
     ///
     /// # Returns
     /// - `anyhow::Result<String>`: Result of the conversion.
-    pub fn convert_as_chunk(json_chunk_data: String) -> anyhow::Result<String> {
+    pub fn generate_from_chunk(json_chunk_data: String) -> anyhow::Result<String> {
         let (_, live_chat_repository) = IoLiveChatRepository::build_in_memory(json_chunk_data.clone());
         let live_chat_repository = Box::new(live_chat_repository);
 

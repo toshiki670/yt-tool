@@ -5,15 +5,15 @@ use crate::domain::{
 use anyhow::Context;
 use std::convert::TryInto;
 
-pub struct ChatConvertService {
-    live_chat: Box<dyn FetchLiveChatRepository>,
-    simple_chat: Box<dyn SaveSimpleChatRepository>,
+pub struct ChatConvertService<'a> {
+    live_chat: &'a dyn FetchLiveChatRepository,
+    simple_chat: &'a dyn SaveSimpleChatRepository,
 }
 
-impl ChatConvertService {
+impl<'a> ChatConvertService<'a> {
     pub fn new(
-        live_chat: Box<dyn FetchLiveChatRepository>,
-        simple_chat: Box<dyn SaveSimpleChatRepository>,
+        live_chat: &'a dyn FetchLiveChatRepository,
+        simple_chat: &'a dyn SaveSimpleChatRepository,
     ) -> Self {
         Self {
             live_chat,

@@ -23,14 +23,14 @@ impl<'a> ChatFileService<'a> {
         Self { base_path }
     }
 
-    /// Convert live chat JSON data to simple chat CSV data.
+    /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
     /// - `to_path`: The path to save the converted data.
     ///
     /// # Returns
     /// - `anyhow::Result<()>`: Result of the conversion.
-    pub fn convert_with_path(&self, to_path: &PathBuf) -> anyhow::Result<()> {
+    pub fn generate_with_path(&self, to_path: &PathBuf) -> anyhow::Result<()> {
         let (_, live_chat_repository) = IoLiveChatRepository::build_opened_file(self.base_path)?;
         let live_chat_repository = Box::new(live_chat_repository);
 
@@ -42,14 +42,14 @@ impl<'a> ChatFileService<'a> {
         chat_convert_service.convert_with_lines()
     }
 
-    /// Convert live chat JSON data to simple chat CSV data.
+    /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
     /// - `file_type`: The file type to save the converted data.
     ///
     /// # Returns
     /// - `anyhow::Result<()>`: Result of the conversion.
-    pub fn convert_with_type(&self, file_type: &String) -> anyhow::Result<()> {
+    pub fn generate_with_type(&self, file_type: &String) -> anyhow::Result<()> {
         let mut to_path = self.base_path.clone();
         to_path.set_extension(file_type);
 

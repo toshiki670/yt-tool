@@ -42,9 +42,9 @@ impl Route for Args {
         let chat_file_service = ChatFileService::new(input_file);
 
         if let Some(output_file) = &self.output_file {
-            chat_file_service.convert_with_path(output_file)?;
+            chat_file_service.generate_with_path(output_file)?;
         } else if let Some(output_type) = &self.output_type {
-            chat_file_service.convert_with_type(&output_type.to_string())?;
+            chat_file_service.generate_with_type(&output_type.to_string())?;
         } else {
             unreachable!();
         }

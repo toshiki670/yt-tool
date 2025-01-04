@@ -1,4 +1,7 @@
-use crate::domain::{live_chat::item::renderers::live_chat_viewer_engagement_message_renderer::LiveChatViewerEngagementMessageRenderer, simple_chat::{CategoryValue, SimpleChatEntity}};
+use crate::domain::{
+    live_chat::item::renderers::live_chat_viewer_engagement_message_renderer::LiveChatViewerEngagementMessageRenderer,
+    simple_chat::{CategoryValue, SimpleChatEntity},
+};
 
 impl Into<SimpleChatEntity> for LiveChatViewerEngagementMessageRenderer {
     fn into(self) -> SimpleChatEntity {

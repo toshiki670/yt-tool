@@ -8,7 +8,6 @@ use crate::infrastructure::io::{
 pub struct ChatInMemoryService;
 
 impl ChatInMemoryService {
-
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
@@ -44,7 +43,8 @@ impl ChatInMemoryService {
     /// # Returns
     /// - `anyhow::Result<String>`: Result of the conversion.
     pub fn generate_from_chunk(json_chunk_data: String) -> anyhow::Result<String> {
-        let (_, live_chat_repository) = IoLiveChatRepository::build_in_memory(json_chunk_data.clone());
+        let (_, live_chat_repository) =
+            IoLiveChatRepository::build_in_memory(json_chunk_data.clone());
         let live_chat_repository = Box::new(live_chat_repository);
 
         let (cursor_mutex, simple_chat_repository) =

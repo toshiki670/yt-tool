@@ -1,5 +1,6 @@
 use crate::domain::{
-    live_chat::item::renderers::live_chat_renderer::LiveChatRenderer, simple_chat::{CategoryValue, SimpleChatEntity},
+    live_chat::item::renderers::live_chat_renderer::LiveChatRenderer,
+    simple_chat::{CategoryValue, SimpleChatEntity},
 };
 
 impl Into<SimpleChatEntity> for LiveChatRenderer {

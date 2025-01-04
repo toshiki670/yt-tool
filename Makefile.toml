@@ -1,20 +1,43 @@
+# https://sagiegurari.github.io/cargo-make/
+# https://github.com/sagiegurari/cargo-make
+
+[env]
+CARGO_MAKE_EXTEND_WORKSPACE_MAKEFILE = true
+
+
+# For the setup
+[tasks.install-watch]
+description = "Install the watch command"
+category = "Preparation"
+command = "cargo"
+args = ["install", "watch"]
+
+[tasks.setup]
+description = "Setup the project"
+category = "Preparation"
+dependencies = ["install-watch"]
+
 # For the documentation
-[tasks.doc-self]
+[tasks.d]
 description = "Generate documentation for the self package"
+category = "Documentation"
 command = "cargo"
 args = ["doc", "--document-private-items"]
 
-[tasks.doc-workspace]
+[tasks.dw]
 description = "Generate documentation for the workspace"
+category = "Documentation"
 command = "cargo"
 args = ["doc", "--document-private-items", "--workspace"]
 
-[tasks.docs]
-description = "Generate documentation for all packages"
-dependencies = ["doc-self", "doc-workspace"]
 
-# For the tests
-[tasks.test]
-description = "Run the tests"
+[tasks.test-watch]
+description = "Run the tests and watch for changes"
+category = "Test"
 command = "cargo"
-args = ["test", "--workspace"]
+args = ["watch", "-x", "test --workspace"]
+
+[tasks.tw]
+description = "Run the tests and watch for changes (alias for test-watch)"
+category = "Test"
+dependencies = ["test-watch"]

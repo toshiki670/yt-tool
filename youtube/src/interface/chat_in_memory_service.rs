@@ -26,7 +26,7 @@ impl ChatInMemoryService {
 
         let mut chat_convert_service =
             ChatConvertService::new(live_chat_repository, simple_chat_repository);
-        chat_convert_service.convert_with_lines()?;
+        chat_convert_service.convert_from_lines()?;
 
         let mut cursor_lock = cursor_mutex.lock().unwrap();
         let cursor = &mut *cursor_lock;
@@ -53,7 +53,7 @@ impl ChatInMemoryService {
 
         let mut chat_convert_service =
             ChatConvertService::new(live_chat_repository, simple_chat_repository);
-        chat_convert_service.convert_with_one_chunk()?;
+        chat_convert_service.convert_from_chunk()?;
 
         let mut cursor_lock = cursor_mutex.lock().unwrap();
         let cursor = &mut *cursor_lock;

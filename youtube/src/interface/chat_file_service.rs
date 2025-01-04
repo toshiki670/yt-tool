@@ -39,7 +39,7 @@ impl<'a> ChatFileService<'a> {
 
         let mut chat_convert_service =
             ChatConvertService::new(live_chat_repository, simple_chat_repository);
-        chat_convert_service.convert_with_lines()
+        chat_convert_service.convert_from_lines()
     }
 
     /// Generate simple chat CSV data from live chat JSON data.
@@ -61,6 +61,6 @@ impl<'a> ChatFileService<'a> {
 
         let mut chat_convert_service =
             ChatConvertService::new(live_chat_repository, simple_chat_repository);
-        chat_convert_service.convert_with_lines()
+        chat_convert_service.convert_from_lines()
     }
 }

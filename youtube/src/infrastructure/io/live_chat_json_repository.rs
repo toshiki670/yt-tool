@@ -87,7 +87,7 @@ where
         Ok(live_chats)
     }
 
-    fn one_chunk(&self) -> anyhow::Result<LiveChatEntity> {
+    fn first(&self) -> anyhow::Result<LiveChatEntity> {
         let inner_mutex = Rc::clone(&self.inner);
         let mut inner_lock = inner_mutex.lock().unwrap();
         let inner = &mut *inner_lock;

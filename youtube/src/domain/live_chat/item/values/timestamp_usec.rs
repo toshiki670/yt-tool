@@ -70,6 +70,7 @@ mod tests {
 
     mod deserialize {
         use super::*;
+        use pretty_assertions::assert_eq;
 
         #[test]
         fn it_deserialize_from_string() -> anyhow::Result<()> {
@@ -104,6 +105,7 @@ mod tests {
 
     mod serialize {
         use super::*;
+        use pretty_assertions::assert_eq;
 
         #[test]
         fn it_serialize() -> anyhow::Result<()> {

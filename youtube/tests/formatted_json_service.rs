@@ -11,7 +11,7 @@ mod file {
         let current_path = env::current_dir()?;
         let temp_dir = tempdir()?;
 
-        let input_path = current_path.join("tests/live_chat.json");
+        let input_path = current_path.join("tests/formatted.json");
         // let input_path = current_path.join("../testxxx.json");
         let output_path = temp_dir.path().join("output.csv");
 
@@ -31,7 +31,7 @@ mod file {
         let current_path = env::current_dir()?;
         let temp_dir = tempdir()?;
 
-        let file_name = "live_chat.json";
+        let file_name = "formatted.json";
         let base_input_path = current_path.join("tests/").join(file_name);
 
         let input_path = temp_dir.path().join(file_name);

@@ -8,4 +8,5 @@ pub mod prelude {
 
     pub use crate::interface::chat_file_service::*;
     pub use crate::interface::chat_in_memory_service::*;
+    pub use crate::interface::live_chat_json_service::*;
 }

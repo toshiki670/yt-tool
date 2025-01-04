@@ -1,0 +1,104 @@
+use crate::domain::live_chat::{repository::FetchLiveChatRepository, LiveChatEntity};
+use anyhow::Context as _;
+use std::{
+    fs::File,
+    io::{BufRead, BufReader, Cursor, Read},
+    path::PathBuf,
+    rc::Rc,
+    sync::Mutex,
+};
+
+/// This repository provides an interface for managing and retrieving live chat JSON data.
+///
+/// Internally, it uses a shared resource (`Rc<Mutex<T>>`) protected by a Mutex, enabling thread-safe operations.
+/// It supports both reading live chat data from files and handling data in memory.
+/// Additionally, it implements the FetchLiveChatRepository trait, supporting the retrieval of all live chat entities.
+pub(crate) struct IoLiveChatRepository<T> {
+    inner: Rc<Mutex<T>>,
+    source: Option<String>,
+}
+
+/// `IoLiveChatRepository<File>` is a repository implemented based on files.
+///
+/// In this implementation, live chat JSON data is read from the specified file,
+/// and `Rc<Mutex<File>>` is used to enable thread-safe access.
+/// The `source` field is added to retain source information.
+impl IoLiveChatRepository<File> {
+    pub fn build_opened_file(file_path: &PathBuf) -> anyhow::Result<(Rc<Mutex<File>>, Self)> {
+        let file = File::open(file_path).context("Failed to open file")?;
+        let file_mutex = Rc::new(Mutex::new(file));
+
+        let repository = Self {
+            inner: Rc::clone(&file_mutex),
+            source: Some(file_path.to_string_lossy().to_string()),
+        };
+        Ok((file_mutex, repository))
+    }
+}
+
+/// `IoLiveChatRepository<Cursor<T>>` is a repository implemented based on in-memory data.
+///
+/// In this implementation, live chat JSON data is read from the specified in-memory data,
+/// and `Rc<Mutex<Cursor<T>>>` is used to enable thread-safe access.
+/// The `source` field is not retained.
+impl<T> IoLiveChatRepository<Cursor<T>> {
+    pub fn build_in_memory(inner: T) -> (Rc<Mutex<Cursor<T>>>, Self) {
+        let cursor = Cursor::new(inner);
+        let cursor_mutex = Rc::new(Mutex::new(cursor));
+
+        let repository = Self {
+            inner: Rc::clone(&cursor_mutex),
+            source: None,
+        };
+        (cursor_mutex, repository)
+    }
+}
+
+/// `IoLiveChatRepository<R>` implements the `FetchLiveChatRepository` trait.
+///
+/// `R` is a type that implements the `Read` trait.
+impl<R> FetchLiveChatRepository for IoLiveChatRepository<R>
+where
+    R: Read,
+{
+    fn all(&self) -> anyhow::Result<Vec<LiveChatEntity>> {
+        let inner_mutex = Rc::clone(&self.inner);
+        let mut inner_lock = inner_mutex.lock().unwrap();
+        let inner = &mut *inner_lock;
+        let buffered = BufReader::new(inner);
+
+        let mut live_chats = Vec::new();
+
+        for (line_number, line) in buffered.lines().enumerate() {
+            let line_number = line_number + 1;
+            let line = line?;
+
+            let live_chat = serde_json::from_str::<LiveChatEntity>(&line).with_context(|| {
+                if let Some(source) = &self.source {
+                    format!("Failed to convert at {source}:{line_number}")
+                } else {
+                    format!("Failed to convert at {line_number} row")
+                }
+            })?;
+
+            live_chats.push(live_chat);
+        }
+
+        Ok(live_chats)
+    }
+
+    fn first(&self) -> anyhow::Result<LiveChatEntity> {
+        let inner_mutex = Rc::clone(&self.inner);
+        let mut inner_lock = inner_mutex.lock().unwrap();
+        let inner = &mut *inner_lock;
+        let mut buffered = BufReader::new(inner);
+
+        let mut content = String::new();
+        buffered.read_to_string(&mut content)?;
+
+        let live_chat = serde_json::from_str::<LiveChatEntity>(&content)
+            .with_context(|| format!("Failed to convert the content"))?;
+
+        Ok(live_chat)
+    }
+}

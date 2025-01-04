@@ -39,12 +39,12 @@ impl Display for FileType {
 impl Route for Args {
     fn route(&self) -> anyhow::Result<()> {
         let input_file = &self.input_file;
-        let chat_file_service = ChatFileService::new(input_file);
+        let chat_file_service = LiveChatJsonService::new(input_file);
 
         if let Some(output_file) = &self.output_file {
-            chat_file_service.generate_with_path(output_file)?;
+            chat_file_service.generate_file_with_path(output_file)?;
         } else if let Some(output_type) = &self.output_type {
-            chat_file_service.generate_with_type(&output_type.to_string())?;
+            chat_file_service.generate_file_with_type(&output_type.to_string())?;
         } else {
             unreachable!();
         }

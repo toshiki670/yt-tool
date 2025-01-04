@@ -4,17 +4,20 @@ use crate::infrastructure::io::{
     simple_chat_csv_repository::IoSimpleChatRepository,
 };
 
-pub struct ChatInMemoryService<'a> {
-    value: &'a String,
-}
+/// This service provides an interface for managing and retrieving live chat JSON data in memory.
+pub struct ChatInMemoryService;
 
-impl<'a> ChatInMemoryService<'a> {
-    pub fn new(value: &'a String) -> Self {
-        Self { value }
-    }
+impl ChatInMemoryService {
 
-    pub fn convert_as_lines(&self) -> anyhow::Result<String> {
-        let (_, live_chat_repository) = IoLiveChatRepository::build_in_memory(self.value.clone());
+    /// Convert live chat JSON data to simple chat CSV data.
+    ///
+    /// # Arguments
+    /// - `json_data`: The JSON data is not line-broken and consists of multiple lines.
+    ///
+    /// # Returns
+    /// - `anyhow::Result<String>`: Result of the conversion.
+    pub fn convert_as_lines(json_data: String) -> anyhow::Result<String> {
+        let (_, live_chat_repository) = IoLiveChatRepository::build_in_memory(json_data.clone());
         let live_chat_repository = Box::new(live_chat_repository);
 
         let (cursor_mutex, simple_chat_repository) =
@@ -33,8 +36,15 @@ impl<'a> ChatInMemoryService<'a> {
         Ok(data_str)
     }
 
-    pub fn convert_as_chunk(&self) -> anyhow::Result<String> {
-        let (_, live_chat_repository) = IoLiveChatRepository::build_in_memory(self.value.clone());
+    /// Convert live chat JSON data to simple chat CSV data.
+    ///
+    /// # Arguments
+    /// - `json_chunk_data`: The JSON data is line-broken and consists one live chat JSON data.
+    ///
+    /// # Returns
+    /// - `anyhow::Result<String>`: Result of the conversion.
+    pub fn convert_as_chunk(json_chunk_data: String) -> anyhow::Result<String> {
+        let (_, live_chat_repository) = IoLiveChatRepository::build_in_memory(json_chunk_data.clone());
         let live_chat_repository = Box::new(live_chat_repository);
 
         let (cursor_mutex, simple_chat_repository) =

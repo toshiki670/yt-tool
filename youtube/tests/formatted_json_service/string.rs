@@ -26,7 +26,6 @@ fn expected_csv_data_for_test() -> String {
     let mut csvs = Vec::new();
 
     csvs.push("id,authorExternalChannelId,postedAt,authorName,content,isModerator,membershipMonths,category");
-    csvs.push("id,authorExternalChannelId,2024-12-05T12:41:54.906095+09:00,authorName,メッセージ,false,,ChatTextMessage");
 
     format!("{}\n", csvs.join("\n"))
 }

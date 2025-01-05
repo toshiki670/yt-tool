@@ -12,10 +12,19 @@ category = "Preparation"
 command = "cargo"
 args = ["install", "watch"]
 
+[tasks.install-cov]
+description = "Install the cargo-cov command" # https://gist.github.com/buzztaiki/6579a14cbf18dcfebec550ebe531c5cf
+category = "Preparation"
+script = ['''
+rustup component add llvm-tools-preview
+cargo install cargo-llvm-cov
+'''
+]
+
 [tasks.setup]
 description = "Setup the project"
 category = "Preparation"
-dependencies = ["install-watch"]
+dependencies = ["install-watch", "install-cov"]
 
 # For the documentation
 [tasks.d]
@@ -41,3 +50,10 @@ args = ["watch", "-x", "test --workspace"]
 description = "Run the tests and watch for changes (alias for test-watch)"
 category = "Test"
 dependencies = ["test-watch"]
+
+[tasks.cov]
+description = "Run the tests and generate coverage report"
+category = "Test"
+command = "cargo"
+args = ["llvm-cov", "--workspace", "--open"]
+

@@ -5,6 +5,8 @@ edition = "2021"
 
 [dependencies]
 # https://zenn.dev/yukinarit/articles/b39cd42820f29e
+tokio = { workspace = true }
+
 anyhow = { workspace = true }
 thiserror = { workspace = true }
 
@@ -23,6 +25,8 @@ youtube = { path = "youtube" }
 members = ["youtube"]
 
 [workspace.dependencies]
+tokio = { version = "1.42.0", features = ["full"] }
+
 anyhow = "1.0.95"
 thiserror = "2.0.9"
 

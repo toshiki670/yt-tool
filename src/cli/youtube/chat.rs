@@ -3,7 +3,7 @@
 
 use crate::cli::Route;
 use anyhow::{anyhow, bail};
-use clap::{ArgGroup, ValueEnum, ValueHint};
+use clap::ValueEnum;
 use glob::glob;
 use std::{fmt::Display, path::PathBuf};
 use youtube::prelude::*;

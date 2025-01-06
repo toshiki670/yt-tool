@@ -1,4 +1,4 @@
-use crate::domain::live_chat::{repository::FetchLiveChatRepository, LiveChatEntity};
+use crate::domain::{live_chat::LiveChatEntity, repositories::FetchLiveChatRepository};
 use anyhow::Context as _;
 use std::{
     fs::File,

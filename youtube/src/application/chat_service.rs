@@ -1,6 +1,6 @@
 use crate::domain::{
-    live_chat::repository::FetchLiveChatRepository,
-    simple_chat::{repository::SaveSimpleChatRepository, SimpleChatEntity},
+    repositories::{FetchLiveChatRepository, SaveSimpleChatRepository},
+    simple_chat::SimpleChatEntity,
 };
 use anyhow::Context;
 use std::convert::TryInto;

@@ -1,4 +1,4 @@
-use crate::domain::simple_chat::{repository::SaveSimpleChatRepository, SimpleChatEntity};
+use crate::domain::{repositories::SaveSimpleChatRepository, simple_chat::SimpleChatEntity};
 use anyhow::Context as _;
 use std::{
     fs::File,

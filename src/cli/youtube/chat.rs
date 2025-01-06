@@ -2,6 +2,7 @@
 // https://tech.natsuneko.blog/entry/2022/03/15/exclusive-command-options-in-clap
 
 use crate::cli::Route;
+use anyhow::{anyhow, bail};
 use clap::{ArgGroup, ValueEnum, ValueHint};
 use glob::glob;
 use std::{fmt::Display, path::PathBuf};
@@ -72,7 +73,7 @@ fn expend_glob_input_patterns(input_patterns: &Vec<String>) -> anyhow::Result<Ve
         }
     }
     if input_files.is_empty() {
-        anyhow::bail!("No input files were found");
+        bail!("No input files were found");
     }
     Ok(input_files)
 }

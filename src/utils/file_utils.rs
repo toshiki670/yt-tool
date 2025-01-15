@@ -1,9 +1,10 @@
-
 use anyhow::{anyhow, bail};
 use glob::glob;
 use std::path::PathBuf;
 
-pub(crate) fn expend_glob_input_patterns(input_patterns: &Vec<String>) -> anyhow::Result<Vec<PathBuf>> {
+pub(crate) fn expend_glob_input_patterns(
+    input_patterns: &Vec<String>,
+) -> anyhow::Result<Vec<PathBuf>> {
     let mut input_files = Vec::new();
     for pattern in input_patterns {
         let paths = glob(pattern).map_err(|e| anyhow!("Glob pattern is invalid: {}", e))?;

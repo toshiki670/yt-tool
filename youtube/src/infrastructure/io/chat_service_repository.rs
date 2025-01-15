@@ -57,8 +57,6 @@ impl IoChatServiceRepository<Cursor<String>, Cursor<Vec<u8>>> {
     }
 }
 
-
-
 // impl<R, W> IoChatServiceRepository<R, W> {
 //     pub fn from_source(&self) -> Option<PathBuf> {
 //         self.from_inner.source.clone()
@@ -66,7 +64,6 @@ impl IoChatServiceRepository<Cursor<String>, Cursor<Vec<u8>>> {
 // }
 
 impl<R> IoChatServiceRepository<R, Cursor<Vec<u8>>> {
-
     pub fn to_in_memory_data(&self) -> anyhow::Result<String> {
         let cursor_mutex = self.to_inner.clone_inner_mutex();
         let mut cursor_lock = cursor_mutex.lock().unwrap();

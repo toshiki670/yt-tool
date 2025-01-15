@@ -1,8 +1,5 @@
 use crate::application::chat_service::ChatConvertService;
-use crate::infrastructure::io::{
-    live_chat_json_repository::IoLiveChatRepository,
-    simple_chat_csv_repository::IoSimpleChatRepository,
-};
+use crate::infrastructure::io::chat_service_repository::IoChatServiceRepository;
 
 use std::path::PathBuf;
 
@@ -34,11 +31,13 @@ impl<'a> FormattedJsonService<'a, PathBuf> {
     /// # Returns
     /// - `anyhow::Result<()>`: Result of the conversion.
     pub fn generate_file_with_path(&self, to_path: &PathBuf) -> anyhow::Result<()> {
-        let (_, live_chat_repository) = IoLiveChatRepository::build_opened_file(self.inner)?;
-        let (_, simple_chat_repository) = IoSimpleChatRepository::build_created_file(to_path)?;
+        let from_path = self.inner.clone();
+        let to_path = to_path.clone();
 
-        let mut chat_convert_service =
-            ChatConvertService::new(&live_chat_repository, &simple_chat_repository);
+        let chat_service_repositories =
+            vec![IoChatServiceRepository::file_to_file(from_path, to_path)?];
+
+        let mut chat_convert_service = ChatConvertService::new(&chat_service_repositories);
 
         chat_convert_service.convert_from_chunk()
     }
@@ -51,15 +50,15 @@ impl<'a> FormattedJsonService<'a, PathBuf> {
     /// # Returns
     /// - `anyhow::Result<()>`: Result of the conversion.
     pub fn generate_file_with_type(&self, file_type: &String) -> anyhow::Result<()> {
-        let mut to_path = self.inner.clone();
+        let from_path = self.inner.clone();
+        let mut to_path = from_path.clone();
         to_path.set_extension(file_type);
+        let to_path = to_path;
 
-        let (_, live_chat_repository) = IoLiveChatRepository::build_opened_file(self.inner)?;
-        let (_, simple_chat_repository) = IoSimpleChatRepository::build_created_file(&to_path)?;
+        let chat_service_repositories =
+            vec![IoChatServiceRepository::file_to_file(from_path, to_path)?];
 
-        let mut chat_convert_service =
-            ChatConvertService::new(&live_chat_repository, &simple_chat_repository);
-
+        let mut chat_convert_service = ChatConvertService::new(&chat_service_repositories);
         chat_convert_service.convert_from_chunk()
     }
 
@@ -68,20 +67,18 @@ impl<'a> FormattedJsonService<'a, PathBuf> {
     /// # Returns
     /// - `anyhow::Result<String>`: Result of the conversion.
     pub fn generate_string(&self) -> anyhow::Result<String> {
-        let (_, live_chat_repository) = IoLiveChatRepository::build_opened_file(self.inner)?;
-        let (cursor_mutex, simple_chat_repository) =
-            IoSimpleChatRepository::build_in_memory(Vec::new());
+        let from_path = self.inner.clone();
 
-        let mut chat_convert_service =
-            ChatConvertService::new(&live_chat_repository, &simple_chat_repository);
+        let chat_service_repositories =
+            vec![IoChatServiceRepository::file_to_in_memory(from_path)?];
 
+        let mut chat_convert_service = ChatConvertService::new(&chat_service_repositories);
         chat_convert_service.convert_from_chunk()?;
 
-        let mut cursor_lock = cursor_mutex.lock().unwrap();
-        let cursor = &mut *cursor_lock;
-
-        let data = cursor.get_ref();
-        let data_str = String::from_utf8(data.to_vec())?;
+        let data_str = chat_service_repositories
+            .first()
+            .unwrap()
+            .to_in_memory_data()?;
         Ok(data_str)
     }
 }
@@ -96,11 +93,15 @@ impl<'a> FormattedJsonService<'a, String> {
     /// # Returns
     /// - `anyhow::Result<()>`: Result of the conversion.
     pub fn generate_file_with_path(&self, to_path: &PathBuf) -> anyhow::Result<()> {
-        let (_, live_chat_repository) = IoLiveChatRepository::build_in_memory(self.inner);
-        let (_, simple_chat_repository) = IoSimpleChatRepository::build_created_file(to_path)?;
+        let from_string = self.inner.clone();
+        let to_path = to_path.clone();
 
-        let mut chat_convert_service =
-            ChatConvertService::new(&live_chat_repository, &simple_chat_repository);
+        let chat_service_repositories = vec![IoChatServiceRepository::in_memory_to_file(
+            from_string,
+            to_path,
+        )?];
+
+        let mut chat_convert_service = ChatConvertService::new(&chat_service_repositories);
 
         chat_convert_service.convert_from_chunk()
     }
@@ -110,20 +111,20 @@ impl<'a> FormattedJsonService<'a, String> {
     /// # Returns
     /// - `anyhow::Result<String>`: Result of the conversion.
     pub fn generate_string(&self) -> anyhow::Result<String> {
-        let (_, live_chat_repository) = IoLiveChatRepository::build_in_memory(self.inner);
-        let (cursor_mutex, simple_chat_repository) =
-            IoSimpleChatRepository::build_in_memory(Vec::new());
+        let from_string = self.inner.clone();
 
-        let mut chat_convert_service =
-            ChatConvertService::new(&live_chat_repository, &simple_chat_repository);
+        let chat_service_repositories = vec![IoChatServiceRepository::in_memory_to_in_memory(
+            from_string,
+        )?];
+
+        let mut chat_convert_service = ChatConvertService::new(&chat_service_repositories);
 
         chat_convert_service.convert_from_chunk()?;
 
-        let mut cursor_lock = cursor_mutex.lock().unwrap();
-        let cursor = &mut *cursor_lock;
-
-        let data = cursor.get_ref();
-        let data_str = String::from_utf8(data.to_vec())?;
+        let data_str = chat_service_repositories
+            .first()
+            .unwrap()
+            .to_in_memory_data()?;
         Ok(data_str)
     }
 }

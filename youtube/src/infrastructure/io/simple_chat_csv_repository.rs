@@ -17,19 +17,23 @@ pub(crate) struct IoSimpleChatRepository<T> {
     inner: Rc<Mutex<T>>,
 }
 
+impl<T> IoSimpleChatRepository<T> {
+    pub fn clone_inner_mutex(&self) -> Rc<Mutex<T>> {
+        Rc::clone(&self.inner)
+    }
+}
+
 /// `IoSimpleChatRepository<File>` is a repository implemented based on files.
 ///
 /// In this implementation, simple chat CSV data is written to the specified file,
 /// and `Rc<Mutex<File>>` is used to enable thread-safe access.
 impl IoSimpleChatRepository<File> {
-    pub fn build_created_file(file_path: &PathBuf) -> anyhow::Result<(Rc<Mutex<File>>, Self)> {
-        let file = File::create(file_path).context("Failed to create file")?;
+    pub fn build_created_file(file_path: PathBuf) -> anyhow::Result<Self> {
+        let file = File::create(&file_path).context("Failed to create file")?;
         let file_mutex = Rc::new(Mutex::new(file));
 
-        let repository = Self {
-            inner: Rc::clone(&file_mutex),
-        };
-        Ok((file_mutex, repository))
+        let repository = Self { inner: file_mutex };
+        Ok(repository)
     }
 }
 
@@ -38,14 +42,13 @@ impl IoSimpleChatRepository<File> {
 /// In this implementation, simple chat CSV data is written to the specified in-memory data,
 /// and `Rc<Mutex<Cursor<T>>>` is used to enable thread-safe access.
 impl<T> IoSimpleChatRepository<Cursor<T>> {
-    pub fn build_in_memory(inner: T) -> (Rc<Mutex<Cursor<T>>>, Self) {
+    pub fn build_in_memory(inner: T) -> Self {
         let cursor = Cursor::new(inner);
         let cursor_mutex = Rc::new(Mutex::new(cursor));
 
-        let repository = Self {
-            inner: Rc::clone(&cursor_mutex),
-        };
-        (cursor_mutex, repository)
+        Self {
+            inner: cursor_mutex,
+        }
     }
 }
 

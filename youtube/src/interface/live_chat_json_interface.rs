@@ -4,11 +4,11 @@ use std::path::PathBuf;
 use std::sync::Arc;
 
 /// This service provides an interface for managing and retrieving live chat JSON data from files.
-pub struct LiveChatJsonService<'a, T> {
+pub struct LiveChatJsonInterface<'a, T> {
     inner: &'a T,
 }
 
-impl<'a, T> LiveChatJsonService<'a, T> {
+impl<'a, T> LiveChatJsonInterface<'a, T> {
     /// Create a new LiveChatJsonService instance.
     ///
     /// # Arguments
@@ -22,7 +22,7 @@ impl<'a, T> LiveChatJsonService<'a, T> {
 }
 
 /// This implementation is for the PathBuf type.
-impl<'a> LiveChatJsonService<'a, PathBuf> {
+impl<'a> LiveChatJsonInterface<'a, PathBuf> {
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
@@ -66,7 +66,7 @@ impl<'a> LiveChatJsonService<'a, PathBuf> {
     }
 }
 
-impl<'a> LiveChatJsonService<'a, Vec<PathBuf>> {
+impl<'a> LiveChatJsonInterface<'a, Vec<PathBuf>> {
     /// 複数のパスに対して簡単なチャットCSVデータを生成します。
     ///
     /// # 引数
@@ -111,7 +111,7 @@ impl<'a> LiveChatJsonService<'a, Vec<PathBuf>> {
 }
 
 /// This implementation is for the String type.
-impl<'a> LiveChatJsonService<'a, String> {
+impl<'a> LiveChatJsonInterface<'a, String> {
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments

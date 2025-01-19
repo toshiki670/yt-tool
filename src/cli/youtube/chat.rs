@@ -23,12 +23,12 @@ impl Route for Args {
         // Expand glob patterns and create a list of input files
         let input_files = expend_glob_input_patterns(&self.input_patterns)?;
 
-        let chat_file_service = LiveChatJsonService::new(&input_files);
+        let interface = LiveChatJsonInterface::new(&input_files);
 
         if self.rename_with_timestamp {
-            chat_file_service.generate_files_with_csv().await?;
+            interface.generate_files_with_csv().await?;
         } else {
-            chat_file_service.generate_files_with_csv().await?;
+            interface.generate_files_with_csv().await?;
         }
 
         Ok(())

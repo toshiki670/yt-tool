@@ -34,13 +34,13 @@ impl<'a> FormattedJsonService<'a, PathBuf> {
         let from_path = self.inner.clone();
         let to_path = to_path.clone();
 
-        let chat_service_repositories = vec![Arc::new(IoChatServiceRepository::file_to_file(
+        let repositories = vec![Arc::new(IoChatServiceRepository::file_to_file(
             from_path, to_path,
         )?)];
 
-        let chat_convert_service = ChatConvertService::new(chat_service_repositories);
+        let service = ChatConvertService::new(repositories);
 
-        chat_convert_service.convert_from_chunk().await
+        service.convert_from_chunk().await
     }
 
     /// Generate simple chat CSV data from live chat JSON data.
@@ -59,8 +59,8 @@ impl<'a> FormattedJsonService<'a, PathBuf> {
             from_path, to_path,
         )?)];
 
-        let chat_convert_service = ChatConvertService::new(repositories);
-        chat_convert_service.convert_from_chunk().await
+        let service = ChatConvertService::new(repositories);
+        service.convert_from_chunk().await
     }
 
     /// Generate simple chat CSV data from live chat JSON data.
@@ -74,10 +74,10 @@ impl<'a> FormattedJsonService<'a, PathBuf> {
             from_path,
         )?)];
 
-        let chat_convert_service = ChatConvertService::new(repositories);
-        chat_convert_service.convert_from_chunk().await?;
+        let service = ChatConvertService::new(repositories);
+        service.convert_from_chunk().await?;
 
-        let repositories = chat_convert_service.move_chat_service_repository();
+        let repositories = service.move_chat_service_repository();
 
         let data_str = repositories.first().unwrap().to_in_memory_data()?;
         Ok(data_str)
@@ -102,9 +102,9 @@ impl<'a> FormattedJsonService<'a, String> {
             to_path,
         )?)];
 
-        let chat_convert_service = ChatConvertService::new(repositories);
+        let service = ChatConvertService::new(repositories);
 
-        chat_convert_service.convert_from_chunk().await
+        service.convert_from_chunk().await
     }
 
     /// Generate simple chat CSV data from live chat JSON data.
@@ -118,10 +118,10 @@ impl<'a> FormattedJsonService<'a, String> {
             from_string,
         )?)];
 
-        let chat_convert_service = ChatConvertService::new(repositories);
-        chat_convert_service.convert_from_chunk().await?;
+        let service = ChatConvertService::new(repositories);
+        service.convert_from_chunk().await?;
 
-        let repositories = chat_convert_service.move_chat_service_repository();
+        let repositories = service.move_chat_service_repository();
 
         let data_str = repositories.first().unwrap().to_in_memory_data()?;
         Ok(data_str)

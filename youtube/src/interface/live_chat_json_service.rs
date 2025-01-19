@@ -34,13 +34,13 @@ impl<'a> LiveChatJsonService<'a, PathBuf> {
         let from_path = self.inner.clone();
         let to_path = to_path.clone();
 
-        let chat_service_repositories = vec![Arc::new(IoChatServiceRepository::file_to_file(
+        let repositories = vec![Arc::new(IoChatServiceRepository::file_to_file(
             from_path, to_path,
         )?)];
 
-        let chat_convert_service = ChatConvertService::new(chat_service_repositories);
+        let service = ChatConvertService::new(repositories);
 
-        chat_convert_service.convert_from_lines().await
+        service.convert_from_lines().await
     }
 
     /// Generate simple chat CSV data from live chat JSON data.
@@ -56,13 +56,13 @@ impl<'a> LiveChatJsonService<'a, PathBuf> {
         to_path.set_extension(file_type);
         let to_path = to_path;
 
-        let chat_service_repositories = vec![Arc::new(IoChatServiceRepository::file_to_file(
+        let repositories = vec![Arc::new(IoChatServiceRepository::file_to_file(
             from_path, to_path,
         )?)];
 
-        let chat_convert_service = ChatConvertService::new(chat_service_repositories);
+        let service = ChatConvertService::new(repositories);
 
-        chat_convert_service.convert_from_lines().await
+        service.convert_from_lines().await
     }
 }
 
@@ -104,9 +104,9 @@ impl<'a> LiveChatJsonService<'a, Vec<PathBuf>> {
             anyhow::bail!(combined_error);
         }
 
-        let chat_convert_service = ChatConvertService::new(repositories);
+        let service = ChatConvertService::new(repositories);
 
-        chat_convert_service.convert_from_lines().await
+        service.convert_from_lines().await
     }
 }
 
@@ -123,13 +123,13 @@ impl<'a> LiveChatJsonService<'a, String> {
         let from_string = self.inner.clone();
         let to_path = to_path.clone();
 
-        let chat_service_repositories = vec![Arc::new(IoChatServiceRepository::in_memory_to_file(
+        let repositories = vec![Arc::new(IoChatServiceRepository::in_memory_to_file(
             from_string,
             to_path,
         )?)];
 
-        let chat_convert_service = ChatConvertService::new(chat_service_repositories);
+        let service = ChatConvertService::new(repositories);
 
-        chat_convert_service.convert_from_lines().await
+        service.convert_from_lines().await
     }
 }

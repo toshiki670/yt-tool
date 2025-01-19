@@ -2,51 +2,33 @@
 // https://tech.natsuneko.blog/entry/2022/03/15/exclusive-command-options-in-clap
 
 use crate::cli::Route;
-use clap::{ArgGroup, ValueEnum, ValueHint};
-use std::{fmt::Display, path::PathBuf};
+use crate::utils::file_utils::expend_glob_input_patterns;
 use youtube::prelude::*;
 
 #[derive(clap::Args, Debug)]
 #[command(name = "Comment File Feature")]
-#[clap(group(ArgGroup::new("output")
-    .args(&["output_file"])
-    .conflicts_with("output_type"))
-)]
 pub(super) struct Args {
-    #[clap(value_name = "INPUT FILE", value_hint = ValueHint::FilePath)]
-    input_file: PathBuf,
+    #[clap(
+        value_name = "INPUT PATTERNS",
+        help = "Input files (glob patterns supported: *.json)"
+    )]
+    input_patterns: Vec<String>,
 
-    #[clap(short = 'o', long, value_name = "OUTPUT FILE", value_hint = ValueHint::FilePath)]
-    output_file: Option<PathBuf>,
-
-    #[arg(short = 't', long, value_name = "FILE_TYPE", help = "Output file type")]
-    output_type: Option<FileType>,
-}
-
-#[derive(Clone, Debug, ValueEnum)]
-enum FileType {
-    Csv,
-}
-
-impl Display for FileType {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            FileType::Csv => write!(f, "csv"),
-        }
-    }
+    #[clap(short = 'r', long, help = "Rename to include the timestamp")]
+    rename_with_timestamp: bool,
 }
 
 impl Route for Args {
-    fn route(&self) -> anyhow::Result<()> {
-        let input_file = &self.input_file;
-        let chat_file_service = LiveChatJsonService::new(input_file);
+    async fn route(&self) -> anyhow::Result<()> {
+        // Expand glob patterns and create a list of input files
+        let input_files = expend_glob_input_patterns(&self.input_patterns)?;
 
-        if let Some(output_file) = &self.output_file {
-            chat_file_service.generate_file_with_path(output_file)?;
-        } else if let Some(output_type) = &self.output_type {
-            chat_file_service.generate_file_with_type(&output_type.to_string())?;
+        let interface = LiveChatJsonInterface::new(&input_files);
+
+        if self.rename_with_timestamp {
+            interface.generate_files_with_csv().await?;
         } else {
-            unreachable!();
+            interface.generate_files_with_csv().await?;
         }
 
         Ok(())

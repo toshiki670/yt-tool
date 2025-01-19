@@ -6,9 +6,8 @@ use env_logger;
 use log::Level;
 use std::{env, io::stdout};
 
-#[enum_delegate::register]
 pub(self) trait Route {
-    fn route(&self) -> anyhow::Result<()>;
+    async fn route(&self) -> anyhow::Result<()>;
 }
 
 #[derive(Parser, Debug)]
@@ -25,27 +24,28 @@ pub(super) struct Args {
 }
 
 #[derive(clap::Subcommand, Debug)]
-#[enum_delegate::implement(Route)]
 enum Subcommand {
     Youtube(youtube::Args),
 }
 
 impl Args {
-    pub(super) fn run() -> anyhow::Result<()> {
-        Args::parse().route()?;
+    pub(super) async fn run() -> anyhow::Result<()> {
+        Args::parse().route().await?;
         Ok(())
     }
 }
 
 impl Route for Args {
-    fn route(&self) -> anyhow::Result<()> {
+    async fn route(&self) -> anyhow::Result<()> {
         if let Some(shell) = &self.generate_completions {
             generate_completions(shell.clone());
         } else {
             initialize_logger(self.verbose);
 
             if let Some(command) = &self.command {
-                command.route()?;
+                match command {
+                    Subcommand::Youtube(youtube) => youtube.route().await?,
+                }
             }
         }
         Ok(())

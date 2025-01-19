@@ -1,4 +1,4 @@
-use crate::domain::live_chat::{repository::FetchLiveChatRepository, LiveChatEntity};
+use crate::domain::{live_chat::LiveChatEntity, repositories::FetchLiveChatRepository};
 use anyhow::Context as _;
 use std::{
     fs::File,
@@ -15,7 +15,7 @@ use std::{
 /// Additionally, it implements the FetchLiveChatRepository trait, supporting the retrieval of all live chat entities.
 pub(crate) struct IoLiveChatRepository<T> {
     inner: Rc<Mutex<T>>,
-    source: Option<String>,
+    pub source: Option<PathBuf>,
 }
 
 /// `IoLiveChatRepository<File>` is a repository implemented based on files.
@@ -24,15 +24,15 @@ pub(crate) struct IoLiveChatRepository<T> {
 /// and `Rc<Mutex<File>>` is used to enable thread-safe access.
 /// The `source` field is added to retain source information.
 impl IoLiveChatRepository<File> {
-    pub fn build_opened_file(file_path: &PathBuf) -> anyhow::Result<(Rc<Mutex<File>>, Self)> {
-        let file = File::open(file_path).context("Failed to open file")?;
+    pub fn build_opened_file(file_path: PathBuf) -> anyhow::Result<Self> {
+        let file = File::open(&file_path).context("Failed to open file")?;
         let file_mutex = Rc::new(Mutex::new(file));
 
         let repository = Self {
-            inner: Rc::clone(&file_mutex),
-            source: Some(file_path.to_string_lossy().to_string()),
+            inner: file_mutex,
+            source: Some(file_path),
         };
-        Ok((file_mutex, repository))
+        Ok(repository)
     }
 }
 
@@ -42,15 +42,14 @@ impl IoLiveChatRepository<File> {
 /// and `Rc<Mutex<Cursor<T>>>` is used to enable thread-safe access.
 /// The `source` field is not retained.
 impl<T> IoLiveChatRepository<Cursor<T>> {
-    pub fn build_in_memory(inner: T) -> (Rc<Mutex<Cursor<T>>>, Self) {
+    pub fn build_in_memory(inner: T) -> Self {
         let cursor = Cursor::new(inner);
         let cursor_mutex = Rc::new(Mutex::new(cursor));
 
-        let repository = Self {
-            inner: Rc::clone(&cursor_mutex),
+        Self {
+            inner: cursor_mutex,
             source: None,
-        };
-        (cursor_mutex, repository)
+        }
     }
 }
 
@@ -75,7 +74,8 @@ where
 
             let live_chat = serde_json::from_str::<LiveChatEntity>(&line).with_context(|| {
                 if let Some(source) = &self.source {
-                    format!("Failed to convert at {source}:{line_number}")
+                    let source_str = source.to_string_lossy();
+                    format!("Failed to convert at {source_str}:{line_number}")
                 } else {
                     format!("Failed to convert at {line_number} row")
                 }

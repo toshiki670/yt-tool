@@ -10,14 +10,15 @@ pub(super) struct Args {
 }
 
 #[derive(clap::Subcommand, Debug)]
-#[enum_delegate::implement(Route)]
 enum Subcommand {
     Chat(chat::Args),
 }
 
 impl Route for Args {
-    fn route(&self) -> anyhow::Result<()> {
-        self.command.route()?;
+    async fn route(&self) -> anyhow::Result<()> {
+        match &self.command {
+            Subcommand::Chat(chat) => chat.route().await?,
+        }
         Ok(())
     }
 }

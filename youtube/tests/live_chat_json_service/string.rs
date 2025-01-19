@@ -2,17 +2,17 @@ extern crate youtube;
 
 use pretty_assertions::assert_eq;
 use tempfile::tempdir;
-use youtube::prelude::LiveChatJsonService;
+use youtube::prelude::LiveChatJsonInterface;
 
-#[test]
-fn it_generate_with_path() -> anyhow::Result<()> {
+#[tokio::test]
+async fn it_generate_with_path() -> anyhow::Result<()> {
     let temp_dir = tempdir()?;
 
     let input_json = test_formatted_json_data();
     let output_path = temp_dir.path().join("output.csv");
 
-    let chat_file_service = LiveChatJsonService::new(&input_json);
-    chat_file_service.generate_file_with_path(&output_path)?;
+    let interface = LiveChatJsonInterface::new(&input_json);
+    interface.generate_file_with_string(&output_path).await?;
 
     let expected = expected_csv_data_for_test();
     let actual = std::fs::read_to_string(&output_path)?;

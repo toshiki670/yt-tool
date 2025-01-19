@@ -1,7 +1,7 @@
 use crate::application::chat_service::ChatConvertService;
 use crate::infrastructure::io::chat_service_repository::IoChatServiceRepository;
-
 use std::path::PathBuf;
+use std::sync::Arc;
 
 /// This service provides an interface for managing and retrieving live chat JSON data from files.
 pub struct LiveChatJsonService<'a, T> {
@@ -30,16 +30,17 @@ impl<'a> LiveChatJsonService<'a, PathBuf> {
     ///
     /// # Returns
     /// - `anyhow::Result<()>`: Result of the conversion.
-    pub fn generate_file_with_path(&self, to_path: &PathBuf) -> anyhow::Result<()> {
+    pub async fn generate_file_with_path(&self, to_path: &PathBuf) -> anyhow::Result<()> {
         let from_path = self.inner.clone();
         let to_path = to_path.clone();
 
-        let chat_service_repositories =
-            vec![IoChatServiceRepository::file_to_file(from_path, to_path)?];
+        let chat_service_repositories = vec![Arc::new(IoChatServiceRepository::file_to_file(
+            from_path, to_path,
+        )?)];
 
-        let mut chat_convert_service = ChatConvertService::new(&chat_service_repositories);
+        let chat_convert_service = ChatConvertService::new(chat_service_repositories);
 
-        chat_convert_service.convert_from_lines()
+        chat_convert_service.convert_from_lines().await
     }
 
     /// Generate simple chat CSV data from live chat JSON data.
@@ -49,18 +50,19 @@ impl<'a> LiveChatJsonService<'a, PathBuf> {
     ///
     /// # Returns
     /// - `anyhow::Result<()>`: Result of the conversion.
-    pub fn generate_file_with_type(&self, file_type: &String) -> anyhow::Result<()> {
+    pub async fn generate_file_with_type(&self, file_type: &String) -> anyhow::Result<()> {
         let from_path = self.inner.clone();
         let mut to_path = from_path.clone();
         to_path.set_extension(file_type);
         let to_path = to_path;
 
-        let chat_service_repositories =
-            vec![IoChatServiceRepository::file_to_file(from_path, to_path)?];
+        let chat_service_repositories = vec![Arc::new(IoChatServiceRepository::file_to_file(
+            from_path, to_path,
+        )?)];
 
-        let mut chat_convert_service = ChatConvertService::new(&chat_service_repositories);
+        let chat_convert_service = ChatConvertService::new(chat_service_repositories);
 
-        chat_convert_service.convert_from_lines()
+        chat_convert_service.convert_from_lines().await
     }
 }
 
@@ -72,7 +74,7 @@ impl<'a> LiveChatJsonService<'a, Vec<PathBuf>> {
     ///
     /// # 戻り値
     /// - `anyhow::Result<()>`: 変換の結果。
-    pub fn generate_files_with_csv(&self) -> anyhow::Result<()> {
+    pub async fn generate_files_with_csv(&self) -> anyhow::Result<()> {
         let from_paths = self.inner.clone();
 
         let repositories = from_paths
@@ -81,8 +83,9 @@ impl<'a> LiveChatJsonService<'a, Vec<PathBuf>> {
                 let mut to_path = from_path.clone();
                 to_path.set_extension("csv");
                 let to_path = to_path;
+                let rp = IoChatServiceRepository::file_to_file(from_path, to_path)?;
 
-                IoChatServiceRepository::file_to_file(from_path, to_path)
+                Ok(Arc::new(rp))
             })
             .collect::<Vec<_>>();
 
@@ -101,11 +104,9 @@ impl<'a> LiveChatJsonService<'a, Vec<PathBuf>> {
             anyhow::bail!(combined_error);
         }
 
-        let mut chat_convert_service = ChatConvertService::new(&repositories);
+        let chat_convert_service = ChatConvertService::new(repositories);
 
-        chat_convert_service.convert_from_lines()?;
-
-        Ok(())
+        chat_convert_service.convert_from_lines().await
     }
 }
 
@@ -118,17 +119,17 @@ impl<'a> LiveChatJsonService<'a, String> {
     ///
     /// # Returns
     /// - `anyhow::Result<()>`: Result of the conversion.
-    pub fn generate_file_with_path(&self, to_path: &PathBuf) -> anyhow::Result<()> {
+    pub async fn generate_file_with_string(&self, to_path: &PathBuf) -> anyhow::Result<()> {
         let from_string = self.inner.clone();
         let to_path = to_path.clone();
 
-        let chat_service_repositories = vec![IoChatServiceRepository::in_memory_to_file(
+        let chat_service_repositories = vec![Arc::new(IoChatServiceRepository::in_memory_to_file(
             from_string,
             to_path,
-        )?];
+        )?)];
 
-        let mut chat_convert_service = ChatConvertService::new(&chat_service_repositories);
+        let chat_convert_service = ChatConvertService::new(chat_service_repositories);
 
-        chat_convert_service.convert_from_lines()
+        chat_convert_service.convert_from_lines().await
     }
 }

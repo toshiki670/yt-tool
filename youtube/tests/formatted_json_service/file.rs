@@ -11,15 +11,15 @@ fn test_json_dir() -> PathBuf {
         .join("tests/formatted_json_service/json/")
 }
 
-#[test]
-fn it_generate_with_path() -> anyhow::Result<()> {
+#[tokio::test]
+async fn it_generate_with_path() -> anyhow::Result<()> {
     let temp_dir = tempdir()?;
 
     let input_path = test_json_dir().join("base.json");
     let output_path = temp_dir.path().join("output.csv");
 
     let chat_file_service = FormattedJsonService::new(&input_path);
-    chat_file_service.generate_file_with_path(&output_path)?;
+    chat_file_service.generate_file_with_path(&output_path).await?;
 
     let expected = expected_csv_data_for_test();
     let actual = std::fs::read_to_string(&output_path)?;
@@ -29,8 +29,8 @@ fn it_generate_with_path() -> anyhow::Result<()> {
     Ok(())
 }
 
-#[test]
-fn it_generate_with_type() -> anyhow::Result<()> {
+#[tokio::test]
+async fn it_generate_with_type() -> anyhow::Result<()> {
     let temp_dir = tempdir()?;
 
     let file_name = "base.json";
@@ -42,7 +42,7 @@ fn it_generate_with_type() -> anyhow::Result<()> {
     let output_type = "csv".to_string();
 
     let chat_file_service = FormattedJsonService::new(&input_path);
-    chat_file_service.generate_file_with_type(&output_type)?;
+    chat_file_service.generate_file_with_type(&output_type).await?;
 
     let mut to_path = input_path.clone();
     to_path.set_extension(output_type);

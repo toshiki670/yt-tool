@@ -2,9 +2,11 @@ use super::{
     live_chat_json_repository::IoLiveChatRepository,
     simple_chat_csv_repository::IoSimpleChatRepository,
 };
-use crate::domain::repositories::{
-    ChatServiceRepository, FetchLiveChatRepository, SaveSimpleChatRepository,
+use crate::domain::{
+    repositories::{ChatServiceRepository, FetchLiveChatRepository, SaveSimpleChatRepository},
+    simple_chat::SimpleChatEntity,
 };
+use anyhow::Context as _;
 use std::{
     fs::File,
     io::{Cursor, Read, Write},
@@ -79,11 +81,27 @@ where
     R: Read,
     W: Write,
 {
-    fn from_chat_repository(&self) -> &dyn FetchLiveChatRepository {
-        &self.from_inner
+    async fn convert_from_lines(&self) -> anyhow::Result<()> {
+        let from_chats = self.from_inner.all()?;
+        let mut to_chats = Vec::new();
+
+        for (line_number, from_chat) in from_chats.into_iter().enumerate() {
+            let chats: Vec<SimpleChatEntity> = from_chat.try_into().with_context(|| {
+                format!("Failed to convert live chat at line {}", line_number + 1)
+            })?;
+            to_chats.extend(chats);
+        }
+
+        self.to_inner.bulk_create(to_chats)?;
+
+        Ok(())
     }
 
-    fn to_chat_repository(&self) -> &dyn SaveSimpleChatRepository {
-        &self.to_inner
+    async fn convert_from_chunk(&self) -> anyhow::Result<()> {
+        let live_chat = self.from_inner.first()?;
+        let simple_chat = live_chat.try_into()?;
+        self.to_inner.bulk_create(simple_chat)?;
+
+        Ok(())
     }
 }

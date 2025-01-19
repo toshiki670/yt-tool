@@ -2,8 +2,8 @@ use super::live_chat::LiveChatEntity;
 use super::simple_chat::SimpleChatEntity;
 
 pub trait ChatServiceRepository {
-    fn from_chat_repository(&self) -> &dyn FetchLiveChatRepository;
-    fn to_chat_repository(&self) -> &dyn SaveSimpleChatRepository;
+    async fn convert_from_lines(&self) -> anyhow::Result<()>;
+    async fn convert_from_chunk(&self) -> anyhow::Result<()>;
 }
 
 pub trait FetchLiveChatRepository {

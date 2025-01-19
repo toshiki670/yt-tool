@@ -22,4 +22,3 @@ impl Route for Args {
         Ok(())
     }
 }
-

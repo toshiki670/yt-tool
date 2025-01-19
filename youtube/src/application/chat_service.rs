@@ -1,44 +1,47 @@
-use crate::domain::{repositories::ChatServiceRepository, simple_chat::SimpleChatEntity};
-use anyhow::Context;
-use std::convert::TryInto;
+use crate::domain::repositories::ChatServiceRepository;
+use futures::future;
+use std::sync::Arc;
 
-pub struct ChatConvertService<'a, T: ChatServiceRepository> {
-    chat_service_repository: &'a [T],
+pub struct ChatConvertService<T: ChatServiceRepository> {
+    chat_service_repositories: Vec<Arc<T>>,
 }
 
-impl<'a, T: ChatServiceRepository> ChatConvertService<'a, T> {
-    pub fn new(chat_service_repository: &'a [T]) -> Self {
+impl<T: ChatServiceRepository> ChatConvertService<T> {
+    pub fn new(chat_service_repositories: Vec<Arc<T>>) -> Self {
         Self {
-            chat_service_repository,
+            chat_service_repositories,
         }
+    }
+
+    pub fn move_chat_service_repository(self) -> Vec<Arc<T>> {
+        self.chat_service_repositories
     }
 }
 
-impl<'a, T: ChatServiceRepository> ChatConvertService<'a, T> {
-    pub fn convert_from_lines(&mut self) -> anyhow::Result<()> {
-        for chat_service in self.chat_service_repository {
-            let from_chats = chat_service.from_chat_repository().all()?;
-            let mut to_chats = Vec::new();
+impl<T> ChatConvertService<T>
+where
+    T: ChatServiceRepository,
+{
+    pub async fn convert_from_lines(&self) -> anyhow::Result<()> {
+        let futures = self
+            .chat_service_repositories
+            .iter()
+            .map(|chat_service| chat_service.convert_from_lines())
+            .collect::<Vec<_>>();
 
-            for (line_number, from_chat) in from_chats.into_iter().enumerate() {
-                let chats: Vec<SimpleChatEntity> = from_chat.try_into().with_context(|| {
-                    format!("Failed to convert live chat at line {}", line_number + 1)
-                })?;
-                to_chats.extend(chats);
-            }
-
-            chat_service.to_chat_repository().bulk_create(to_chats)?;
-        }
+        future::join_all(futures).await;
 
         Ok(())
     }
 
-    pub fn convert_from_chunk(&mut self) -> anyhow::Result<()> {
-        for chat_service in self.chat_service_repository {
-            let live_chat = chat_service.from_chat_repository().first()?;
-            let simple_chat = live_chat.try_into()?;
-            chat_service.to_chat_repository().bulk_create(simple_chat)?;
-        }
+    pub async fn convert_from_chunk(&self) -> anyhow::Result<()> {
+        let futures = self
+            .chat_service_repositories
+            .iter()
+            .map(|chat_service| chat_service.convert_from_chunk())
+            .collect::<Vec<_>>();
+
+        future::join_all(futures).await;
 
         Ok(())
     }

@@ -1,6 +1,6 @@
 use anyhow::*;
 
-pub(crate) fn collect_results<T>(results: Vec<Result<T, anyhow::Error>>) -> Result<Vec<T>> {
+pub fn collect_results<T>(results: Vec<Result<T, anyhow::Error>>) -> Result<Vec<T>> {
     let (oks, errs): (Vec<_>, Vec<_>) = results.into_iter().partition(Result::is_ok);
     let oks = oks.into_iter().map(Result::unwrap).collect();
     let errs: Vec<anyhow::Error> = errs.into_iter().filter_map(Result::err).collect();

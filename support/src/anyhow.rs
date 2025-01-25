@@ -30,8 +30,7 @@ fn test_collect_results() {
     ];
     let result = collect_results(results);
     assert!(result.is_err());
-    assert_eq!(
-        result.unwrap_err().to_string(),
-        "2 error(s) occurred: error 1\nerror 2"
-    );
+
+    let formatted_error = format!("{:#}", result.unwrap_err());
+    assert_eq!(formatted_error, "error 2: error 1: 2 error(s) occurred");
 }

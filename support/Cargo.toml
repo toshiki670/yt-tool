@@ -1,0 +1,9 @@
+[package]
+name = "support"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+glob = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }

@@ -77,7 +77,7 @@ impl<'a> LiveChatJsonInterface<'a, Vec<PathBuf>> {
     pub async fn generate_files_with_csv(&self) -> anyhow::Result<()> {
         let from_paths = self.inner.clone();
 
-        let repositories = from_paths
+        let results = from_paths
             .into_iter()
             .map(|from_path| {
                 let mut to_path = from_path.clone();
@@ -89,20 +89,7 @@ impl<'a> LiveChatJsonInterface<'a, Vec<PathBuf>> {
             })
             .collect::<Vec<_>>();
 
-        let (oks, errs): (Vec<_>, Vec<_>) = repositories.into_iter().partition(Result::is_ok);
-        let repositories: Vec<_> = oks.into_iter().map(Result::unwrap).collect();
-        let errors: Vec<anyhow::Error> = errs.into_iter().filter_map(Result::err).collect();
-
-        // If there are errors, return a concated error
-        if !errors.is_empty() {
-            let combined_error = errors
-                .into_iter()
-                .fold(anyhow::anyhow!("Multiple errors occurred"), |acc, e| {
-                    acc.context(e)
-                });
-
-            anyhow::bail!(combined_error);
-        }
+        let repositories = support::anyhow::collect_results(results)?;
 
         let service = ChatConvertService::new(repositories);
 

@@ -5,7 +5,9 @@ use std::{env, path::PathBuf};
 use tempfile::tempdir;
 use youtube::prelude::LiveChatJsonInterface;
 
+fn test_root_dir() -> PathBuf {
 fn test_json_dir() -> PathBuf {
+fn test_root_dir() -> PathBuf {
     env::current_dir()
         .unwrap()
         .join("tests/live_chat_json_service/json/")
@@ -34,7 +36,7 @@ async fn it_generate_with_type() -> anyhow::Result<()> {
     let temp_dir = tempdir()?;
 
     let file_name = "live_chat.json";
-    let base_input_path = test_json_dir().join(file_name);
+    let base_input_path = test_root_dir().join(file_name);
 
     let input_path = temp_dir.path().join(file_name);
     std::fs::copy(&base_input_path, &input_path)?;

@@ -16,8 +16,6 @@ async fn it_generate_with_path() -> anyhow::Result<()> {
     let temp_dir = tempdir()?;
 
     let input_path = test_json_dir().join("formatted.json");
-    let input_path = test_json_dir().join("base.json");
-    let input_path = test_json_dir().join("formatted.json");
     let output_path = temp_dir.path().join("output.csv");
 
     let interface = FormattedJsonInterface::new(&input_path);

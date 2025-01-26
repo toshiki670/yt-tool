@@ -1,9 +1,9 @@
 extern crate youtube;
 
 use pretty_assertions::assert_eq;
-use tokio::{fs, try_join};
 use std::{env, path::PathBuf};
 use tempfile::tempdir;
+use tokio::{fs, try_join};
 use youtube::prelude::FormattedJsonInterface;
 
 fn test_root_dir() -> PathBuf {

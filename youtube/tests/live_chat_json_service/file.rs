@@ -8,7 +8,7 @@ use std::{
     path::{Path, PathBuf},
 };
 use tempfile::tempdir;
-use tokio::fs;
+use tokio::{fs, try_join};
 use youtube::prelude::LiveChatJsonInterface;
 
 fn test_root_dir() -> PathBuf {
@@ -83,14 +83,15 @@ async fn it_generate_with_type() -> anyhow::Result<()> {
 
     // Read expected csv file
     let expected_path = test_expected_dir().join("live_chat.csv");
-    let expected = fs::read_to_string(expected_path).await?;
+    let expected = fs::read_to_string(expected_path);
 
     // Read actual csv file
     let mut to_path = input_path.clone();
     to_path.set_extension(output_type);
-    let actual = fs::read_to_string(&to_path).await?;
+    let actual = fs::read_to_string(&to_path);
 
     // Assert the result
+    let (expected, actual) = try_join!(expected, actual)?;
     assert_eq!(expected, actual);
 
     temp_dir.close()?;
@@ -162,7 +163,7 @@ async fn assert_files_with_file_name(
 async fn assert_file_content(expected: PathBuf, actual: PathBuf) -> tokio::io::Result<()> {
     let expected = fs::read_to_string(expected);
     let actual = fs::read_to_string(actual);
-    let (expected, actual) = future::try_join(expected, actual).await?;
+    let (expected, actual) = try_join!(expected, actual)?;
 
     assert_eq!(
         expected, actual,

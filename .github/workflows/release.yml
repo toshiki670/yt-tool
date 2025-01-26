@@ -1,0 +1,26 @@
+# https://qiita.com/T45K/items/660e80034bc54d78af1b
+name: Release
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  release:
+    name: Create release
+    runs-on: ubuntu-latest
+    if: contains(github.head_ref, 'release')
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        run: cargo build --release
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ github.event.pull_request.title }}
+          tag_name: ${{ github.event.pull_request.title }}
+          generate_release_notes: true

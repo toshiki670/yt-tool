@@ -1,7 +1,7 @@
 [package]
 name = "yt-tool"
-version = "0.1.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
 
 [dependencies]
 # https://zenn.dev/yukinarit/articles/b39cd42820f29e
@@ -38,3 +38,7 @@ glob = "0.3.2"
 
 env_logger = "0.11.6"
 log = "0.4.25"
+
+[workspace.package]
+version = "0.2.0"
+edition = "2021"

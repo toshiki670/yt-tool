@@ -1,8 +1,8 @@
 extern crate youtube;
 
-use std::{env, path::PathBuf};
-
 use pretty_assertions::assert_eq;
+use tokio::{fs, try_join};
+use std::{env, path::PathBuf};
 use tempfile::tempdir;
 use youtube::prelude::LiveChatJsonInterface;
 
@@ -29,12 +29,13 @@ async fn it_generate_with_path() -> anyhow::Result<()> {
 
     // Read expected csv file
     let expected_path = test_expected_dir().join("live_chat.csv");
-    let expected = std::fs::read_to_string(expected_path)?;
+    let expected = fs::read_to_string(expected_path);
 
     // Read actual csv file
-    let actual = std::fs::read_to_string(&output_path)?;
+    let actual = fs::read_to_string(&output_path);
 
     // Assert the result
+    let (expected, actual) = try_join!(expected, actual)?;
     assert_eq!(expected, actual);
 
     temp_dir.close()?;

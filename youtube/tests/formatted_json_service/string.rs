@@ -1,8 +1,20 @@
 extern crate youtube;
 
 use pretty_assertions::assert_eq;
+use tokio::{fs, try_join};
+use std::{env, path::PathBuf};
 use tempfile::tempdir;
 use youtube::prelude::FormattedJsonInterface;
+
+fn test_root_dir() -> PathBuf {
+    env::current_dir()
+        .unwrap()
+        .join("tests/formatted_json_service/")
+}
+
+fn test_expected_dir() -> PathBuf {
+    test_root_dir().join("expected/")
+}
 
 #[tokio::test]
 async fn it_generate_with_path() -> anyhow::Result<()> {
@@ -11,24 +23,23 @@ async fn it_generate_with_path() -> anyhow::Result<()> {
     let input_json = test_formatted_json_data();
     let output_path = temp_dir.path().join("output.csv");
 
+    // Run the test subject
     let interface = FormattedJsonInterface::new(&input_json);
     interface.generate_file_with_path(&output_path).await?;
 
-    let expected = expected_csv_data_for_test();
-    let actual = std::fs::read_to_string(&output_path)?;
+    // Read expected csv file
+    let expected_path = test_expected_dir().join("formatted.csv");
+    let expected = fs::read_to_string(expected_path);
+
+    // Read actual csv file
+    let actual = fs::read_to_string(&output_path);
+
+    // Assert the result
+    let (expected, actual) = try_join!(expected, actual)?;
     assert_eq!(expected, actual);
 
     temp_dir.close()?;
     Ok(())
-}
-
-fn expected_csv_data_for_test() -> String {
-    let mut csvs = Vec::new();
-
-    csvs.push("id,authorExternalChannelId,postedAt,authorName,content,isModerator,membershipMonths,category");
-    csvs.push("id,authorExternalChannelId,2024-12-05T12:41:54.906095+09:00,authorName,メッセージ,false,,ChatTextMessage");
-
-    format!("{}\n", csvs.join("\n"))
 }
 
 fn test_formatted_json_data() -> String {

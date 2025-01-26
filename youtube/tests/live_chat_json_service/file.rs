@@ -34,11 +34,12 @@ async fn it_generate_with_path() -> anyhow::Result<()> {
 #[tokio::test]
 async fn it_generate_with_type() -> anyhow::Result<()> {
     let temp_dir = tempdir()?;
+    let test_dir = temp_dir.path().join("it_generate_with_type");
 
     let file_name = "live_chat.json";
     let base_input_path = test_root_dir().join(file_name);
 
-    let input_path = temp_dir.path().join(file_name);
+    let input_path = test_dir.join(file_name);
     std::fs::copy(&base_input_path, &input_path)?;
 
     let output_type = "csv".to_string();

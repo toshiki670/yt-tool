@@ -41,8 +41,24 @@ pub fn expend_glob_input_patterns(patterns: &Vec<String>) -> anyhow::Result<Vec<
     Ok(path_bufs)
 }
 
+pub fn expend_glob_pattern(pattern: &str) -> anyhow::Result<Vec<PathBuf>> {
+    let paths = glob(pattern).map_err(|e| ExpendGlobError::InvalidPattern(e))?;
+
+    let results = paths.map(|p| p.map_err(|e| anyhow::anyhow!(e))).collect();
+    let path_bufs = collect_results(results).map_err(|e| ExpendGlobError::InvalidGlob(e))?;
+
+    if path_bufs.is_empty() {
+        anyhow::bail!(ExpendGlobError::NoInputFilesFound);
+    }
+
+    Ok(path_bufs)
+}
+
 #[derive(Error, Debug)]
 pub enum ExpendGlobError {
+    #[error("invalid pattern: {0}")]
+    InvalidPattern(glob::PatternError),
+
     #[error("invalid patterns: {0}")]
     InvalidPatterns(anyhow::Error),
 

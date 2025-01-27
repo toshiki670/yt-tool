@@ -1,6 +1,6 @@
 use crate::application::chat_service::ChatConvertService;
 use crate::infrastructure::io::chat_service_repository::IoChatServiceRepository;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::sync::Arc;
 
 /// This service provides an interface for managing and retrieving live chat JSON data from files.
@@ -88,9 +88,9 @@ impl<'a> LiveChatJsonInterface<'a, String> {
     ///
     /// # Arguments
     /// - `to_path`: The path to save the converted data.
-    pub async fn generate_file_with_string(&self, to_path: &PathBuf) -> anyhow::Result<()> {
+    pub async fn generate_file_with_string(&self, to_path: &Path) -> anyhow::Result<()> {
         let from_string = self.inner.clone();
-        let to_path = to_path.clone();
+        let to_path = to_path.to_path_buf();
 
         let repositories = vec![Arc::new(IoChatServiceRepository::in_memory_to_file(
             from_string,

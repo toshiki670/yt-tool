@@ -20,8 +20,6 @@ impl<'a, T> LiveChatJsonInterface<'a, T> {
 
 /// This implementation is for the PathBuf type.
 impl LiveChatJsonInterface<'_, PathBuf> {
-impl<'a> LiveChatJsonInterface<'a, PathBuf> {
-impl LiveChatJsonInterface<'_, PathBuf> {
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments

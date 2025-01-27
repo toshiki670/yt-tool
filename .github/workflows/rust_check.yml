@@ -19,7 +19,7 @@ jobs:
       - uses: actions/cache@v3
         with:
           path: |
-            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |

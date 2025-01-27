@@ -17,12 +17,19 @@ jobs:
       TZ: Asia/Tokyo
     steps:
       - uses: actions/checkout@v4
+      - name: Check format
+        run: cargo fmt --check
+
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Tokyo
+    steps:
+      - uses: actions/checkout@v4
       - name: Cache cargo registry
         uses: Swatinem/rust-cache@v2
       - name: Prepare clippy
         run: rustup component add clippy
-      - name: Check format
-        run: cargo fmt --check
       - name: Check lint
         run: cargo clippy --all-targets --all-features -- -D warnings
 

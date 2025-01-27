@@ -10,21 +10,29 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  test:
+  check:
     runs-on: ubuntu-latest
     env:
       TZ: Asia/Tokyo
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/cache@v3
-        with:
-          path: |
-            ~/.cargo/registry/cache/
-            target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-
+      - name: Cache cargo registry
+        uses: Swatinem/rust-cache@v2
+      - name: Prepare clippy
+        run: rustup component add clippy
       - name: Check format
         run: cargo fmt --check
+      - name: Check lint
+        run: cargo clippy
+
+  test:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Tokyo
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Cache cargo registry
+        uses: Swatinem/rust-cache@v2
       - name: Run tests
         run: cargo test --workspace --verbose

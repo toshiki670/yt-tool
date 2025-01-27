@@ -23,12 +23,7 @@ pub fn expend_glob_input_patterns(patterns: &[String]) -> anyhow::Result<Vec<Pat
         .into_iter()
         // Convert iterator Paths to an array
         .map(|p| p.collect::<Vec<Result<PathBuf, glob::GlobError>>>())
-        // Fold arrays into a single array
-        .fold(vec![], |mut acc, g| {
-            acc.extend(g);
-            acc
-        })
-        .into_iter()
+        .flatten()
         .map(|p| p.map_err(|e| anyhow::anyhow!(e)))
         .collect();
 

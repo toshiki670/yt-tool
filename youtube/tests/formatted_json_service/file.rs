@@ -1,9 +1,10 @@
 extern crate youtube;
 
 use pretty_assertions::assert_eq;
-use tokio::{fs, try_join};
 use std::{env, path::PathBuf};
+use support::assert::assert_file_content;
 use tempfile::tempdir;
+use tokio::fs;
 use youtube::prelude::FormattedJsonInterface;
 
 fn test_root_dir() -> PathBuf {
@@ -19,7 +20,6 @@ fn test_json_dir() -> PathBuf {
 fn test_expected_dir() -> PathBuf {
     test_root_dir().join("expected/")
 }
-
 
 #[tokio::test]
 async fn it_generate_with_path() -> anyhow::Result<()> {
@@ -59,18 +59,11 @@ async fn it_generate_with_type() -> anyhow::Result<()> {
     let interface = FormattedJsonInterface::new(&input_path);
     interface.generate_file_with_type(&output_type).await?;
 
-    // Read expected csv file
+    // Assert the result
     let expected_path = test_expected_dir().join("formatted.csv");
-    let expected = fs::read_to_string(expected_path);
-
-    // Read actual csv file
     let mut to_path = input_path.clone();
     to_path.set_extension(output_type);
-    let actual = fs::read_to_string(&to_path);
-
-    // Assert the result
-    let (expected, actual) = try_join!(expected, actual)?;
-    assert_eq!(expected, actual);
+    assert_file_content(expected_path, to_path).await?;
 
     temp_dir.close()?;
     Ok(())

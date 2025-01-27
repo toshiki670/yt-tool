@@ -36,10 +36,10 @@ pub struct Run {
     pub emoji: Option<Emoji>,
 }
 
-impl Into<String> for Run {
-    fn into(self) -> String {
-        self.text
-            .unwrap_or_else(|| self.emoji.unwrap_or_default().into())
+impl From<Run> for String {
+    fn from(val: Run) -> Self {
+        val.text
+            .unwrap_or_else(|| val.emoji.unwrap_or_default().into())
     }
 }
 
@@ -53,8 +53,8 @@ pub struct Emoji {
     pub is_custom_emoji: Option<bool>,
 }
 
-impl Into<String> for Emoji {
-    fn into(self) -> String {
-        self.emoji_id
+impl From<Emoji> for String {
+    fn from(val: Emoji) -> Self {
+        val.emoji_id
     }
 }

@@ -26,9 +26,9 @@ impl From<DateTime<Utc>> for PostedAtValue {
     }
 }
 
-impl Into<DateTime<Utc>> for PostedAtValue {
-    fn into(self) -> DateTime<Utc> {
-        self.with_timezone(&Utc)
+impl From<PostedAtValue> for DateTime<Utc> {
+    fn from(val: PostedAtValue) -> Self {
+        val.with_timezone(&Utc)
     }
 }
 
@@ -38,8 +38,8 @@ impl From<DateTime<Local>> for PostedAtValue {
     }
 }
 
-impl Into<DateTime<Local>> for PostedAtValue {
-    fn into(self) -> DateTime<Local> {
-        self.0
+impl From<PostedAtValue> for DateTime<Local> {
+    fn from(val: PostedAtValue) -> Self {
+        val.0
     }
 }

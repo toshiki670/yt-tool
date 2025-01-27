@@ -6,8 +6,8 @@ pub struct SimpleText {
     pub simple_text: String,
 }
 
-impl Into<String> for SimpleText {
-    fn into(self) -> String {
-        self.simple_text
+impl From<SimpleText> for String {
+    fn from(val: SimpleText) -> Self {
+        val.simple_text
     }
 }

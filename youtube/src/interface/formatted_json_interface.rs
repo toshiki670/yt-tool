@@ -84,6 +84,31 @@ impl<'a> FormattedJsonInterface<'a, PathBuf> {
     }
 }
 
+impl<'a> FormattedJsonInterface<'a, Vec<PathBuf>> {
+    /// Generate simple chat CSV data from live chat JSON data.
+    pub async fn generate_files_with_csv(&self) -> anyhow::Result<()> {
+        let from_paths = self.inner.clone();
+
+        let results = from_paths
+            .into_iter()
+            .map(|from_path| {
+                let mut to_path = from_path.clone();
+                to_path.set_extension("csv");
+                let to_path = to_path;
+                let rp = IoChatServiceRepository::file_to_file(from_path, to_path)?;
+
+                Ok(Arc::new(rp))
+            })
+            .collect::<Vec<_>>();
+
+        let repositories = support::anyhow::collect_results(results)?;
+
+        let service = ChatConvertService::new(repositories);
+
+        service.convert_from_chunk().await
+    }
+}
+
 /// This implementation is for the String type.
 impl<'a> FormattedJsonInterface<'a, String> {
     /// Generate simple chat CSV data from live chat JSON data.

@@ -67,13 +67,7 @@ impl<'a> LiveChatJsonInterface<'a, PathBuf> {
 }
 
 impl<'a> LiveChatJsonInterface<'a, Vec<PathBuf>> {
-    /// 複数のパスに対して簡単なチャットCSVデータを生成します。
-    ///
-    /// # 引数
-    /// - `to_paths`: 変換されたデータを保存するパスの配列。
-    ///
-    /// # 戻り値
-    /// - `anyhow::Result<()>`: 変換の結果。
+    /// Generate simple chat CSV data from live chat JSON data.
     pub async fn generate_files_with_csv(&self) -> anyhow::Result<()> {
         let from_paths = self.inner.clone();
 

@@ -1,6 +1,8 @@
 use serde::{Deserialize, Serialize};
 use std::fmt;
+
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[allow(clippy::enum_variant_names)]
 pub(crate) enum CategoryValue {
     #[default]
     ChatTextMessage,

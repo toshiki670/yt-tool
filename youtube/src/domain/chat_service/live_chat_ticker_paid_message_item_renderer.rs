@@ -3,11 +3,11 @@ use crate::domain::{
     simple_chat::{CategoryValue, SimpleChatEntity},
 };
 
-impl Into<SimpleChatEntity> for LiveChatTickerPaidMessageItemRenderer {
-    fn into(self) -> SimpleChatEntity {
+impl From<Box<LiveChatTickerPaidMessageItemRenderer>> for SimpleChatEntity {
+    fn from(val: Box<LiveChatTickerPaidMessageItemRenderer>) -> Self {
         SimpleChatEntity {
-            id: self.id,
-            posted_at: self
+            id: val.id,
+            posted_at: val
                 .show_item_endpoint
                 .show_live_chat_item_endpoint
                 .renderer
@@ -15,9 +15,9 @@ impl Into<SimpleChatEntity> for LiveChatTickerPaidMessageItemRenderer {
                 .timestamp_usec
                 .clone()
                 .into(),
-            author_external_channel_id: self.author_external_channel_id,
-            author_name: self.author_username.into(),
-            content: self
+            author_external_channel_id: val.author_external_channel_id,
+            author_name: val.author_username.into(),
+            content: val
                 .show_item_endpoint
                 .show_live_chat_item_endpoint
                 .renderer

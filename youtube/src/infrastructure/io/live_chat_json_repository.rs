@@ -98,7 +98,7 @@ where
         buffered.read_to_string(&mut content)?;
 
         let live_chat = serde_json::from_str::<LiveChatEntity>(&content)
-            .with_context(|| format!("Failed to convert the content"))?;
+            .context("Failed to convert the content")?;
 
         Ok(live_chat)
     }

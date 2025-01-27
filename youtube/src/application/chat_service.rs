@@ -1,19 +1,18 @@
 use crate::domain::repositories::ChatServiceRepository;
 use futures::future;
-use std::sync::Arc;
 
 pub struct ChatConvertService<T: ChatServiceRepository> {
-    chat_service_repositories: Vec<Arc<T>>,
+    chat_service_repositories: Vec<T>,
 }
 
 impl<T: ChatServiceRepository> ChatConvertService<T> {
-    pub fn new(chat_service_repositories: Vec<Arc<T>>) -> Self {
+    pub fn new(chat_service_repositories: Vec<T>) -> Self {
         Self {
             chat_service_repositories,
         }
     }
 
-    pub fn move_chat_service_repository(self) -> Vec<Arc<T>> {
+    pub fn move_chat_service_repository(self) -> Vec<T> {
         self.chat_service_repositories
     }
 }

@@ -3,18 +3,18 @@ use crate::domain::{
     simple_chat::{CategoryValue, SimpleChatEntity},
 };
 
-impl Into<SimpleChatEntity> for LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer {
-    fn into(self) -> SimpleChatEntity {
+impl From<Box<LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer>> for SimpleChatEntity {
+    fn from(val: Box<LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer>) -> Self {
         SimpleChatEntity {
-            id: self.id,
-            posted_at: self.timestamp_usec.into(),
-            author_external_channel_id: self.author_external_channel_id,
-            author_name: self
+            id: val.id,
+            posted_at: val.timestamp_usec.into(),
+            author_external_channel_id: val.author_external_channel_id,
+            author_name: val
                 .header
                 .live_chat_sponsorships_header_renderer
                 .author_name
                 .into(),
-            content: self
+            content: val
                 .header
                 .live_chat_sponsorships_header_renderer
                 .primary_text

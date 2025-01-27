@@ -7,7 +7,7 @@ pub struct TimestampUsec(DateTime<Utc>);
 impl core::ops::Deref for TimestampUsec {
     type Target = DateTime<Utc>;
 
-    fn deref(self: &'_ Self) -> &'_ Self::Target {
+    fn deref(&'_ self) -> &'_ Self::Target {
         &self.0
     }
 }
@@ -52,9 +52,9 @@ impl Serialize for TimestampUsec {
     }
 }
 
-impl Into<DateTime<Utc>> for TimestampUsec {
-    fn into(self) -> DateTime<Utc> {
-        self.0
+impl From<TimestampUsec> for DateTime<Utc> {
+    fn from(val: TimestampUsec) -> Self {
+        val.0
     }
 }
 

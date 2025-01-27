@@ -3,14 +3,14 @@ use crate::domain::{
     simple_chat::{CategoryValue, SimpleChatEntity},
 };
 
-impl Into<SimpleChatEntity> for LiveChatViewerEngagementMessageRenderer {
-    fn into(self) -> SimpleChatEntity {
+impl From<Box<LiveChatViewerEngagementMessageRenderer>> for SimpleChatEntity {
+    fn from(val: Box<LiveChatViewerEngagementMessageRenderer>) -> Self {
         SimpleChatEntity {
-            id: self.id,
-            posted_at: self.timestamp_usec.into(),
+            id: val.id,
+            posted_at: val.timestamp_usec.into(),
             author_external_channel_id: "".to_string(),
             author_name: "".to_string(),
-            content: self.message.into(),
+            content: val.message.into(),
             is_moderator: false,
             membership_months: "".to_string(),
             category: CategoryValue::ChatViewerEngagementMessage,

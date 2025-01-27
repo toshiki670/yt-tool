@@ -11,8 +11,8 @@ anyhow = { workspace = true }
 thiserror = { workspace = true }
 
 # https://serde.rs/container-attrs.html
-serde = { version = "1.0.216", features = ["derive"] }
-serde_json = "1.0.134"
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.137"
 csv = "1.3.1"
 
 # https://docs.rs/chrono/latest/chrono/serde/ts_seconds/fn.serialize.html

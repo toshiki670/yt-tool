@@ -16,15 +16,15 @@ use serde::{Deserialize, Serialize};
 pub enum Item {
     #[default]
     None,
-    LiveChatMembershipItemRenderer(LiveChatMembershipItemRenderer),
-    LiveChatPaidMessageRenderer(LiveChatPaidMessageRenderer),
+    LiveChatMembershipItemRenderer(Box<LiveChatMembershipItemRenderer>),
+    LiveChatPaidMessageRenderer(Box<LiveChatPaidMessageRenderer>),
     LiveChatPaidStickerRenderer(serde_json::Value),
     LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(
-        LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer,
+        Box<LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer>,
     ),
-    LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(LiveChatRenderer),
-    LiveChatTextMessageRenderer(LiveChatRenderer),
-    LiveChatTickerPaidMessageItemRenderer(LiveChatTickerPaidMessageItemRenderer),
+    LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(Box<LiveChatRenderer>),
+    LiveChatTextMessageRenderer(Box<LiveChatRenderer>),
+    LiveChatTickerPaidMessageItemRenderer(Box<LiveChatTickerPaidMessageItemRenderer>),
     LiveChatTickerSponsorItemRenderer(serde_json::Value),
-    LiveChatViewerEngagementMessageRenderer(LiveChatViewerEngagementMessageRenderer),
+    LiveChatViewerEngagementMessageRenderer(Box<LiveChatViewerEngagementMessageRenderer>),
 }

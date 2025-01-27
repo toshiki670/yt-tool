@@ -10,14 +10,14 @@ use thiserror::Error;
 // 4. Fold arrays into a single array
 // 5. Collect results into a single array
 // 6. Return the result
-pub fn expend_glob_input_patterns(patterns: &Vec<String>) -> anyhow::Result<Vec<PathBuf>> {
+pub fn expend_glob_input_patterns(patterns: &[String]) -> anyhow::Result<Vec<PathBuf>> {
     let results = patterns
         .iter()
         .map(|s| glob(s))
         .map(|r| r.map_err(|e| anyhow::anyhow!(e)))
         .collect();
 
-    let paths_array = collect_results(results).map_err(|e| ExpendGlobError::InvalidPatterns(e))?;
+    let paths_array = collect_results(results).map_err(ExpendGlobError::InvalidPatterns)?;
 
     let results = paths_array
         .into_iter()
@@ -32,7 +32,7 @@ pub fn expend_glob_input_patterns(patterns: &Vec<String>) -> anyhow::Result<Vec<
         .map(|p| p.map_err(|e| anyhow::anyhow!(e)))
         .collect();
 
-    let path_bufs = collect_results(results).map_err(|e| ExpendGlobError::InvalidGlob(e))?;
+    let path_bufs = collect_results(results).map_err(ExpendGlobError::InvalidGlob)?;
 
     if path_bufs.is_empty() {
         anyhow::bail!(ExpendGlobError::NoInputFilesFound);
@@ -42,10 +42,10 @@ pub fn expend_glob_input_patterns(patterns: &Vec<String>) -> anyhow::Result<Vec<
 }
 
 pub fn expend_glob_pattern(pattern: &str) -> anyhow::Result<Vec<PathBuf>> {
-    let paths = glob(pattern).map_err(|e| ExpendGlobError::InvalidPattern(e))?;
+    let paths = glob(pattern).map_err(ExpendGlobError::InvalidPattern)?;
 
     let results = paths.map(|p| p.map_err(|e| anyhow::anyhow!(e))).collect();
-    let path_bufs = collect_results(results).map_err(|e| ExpendGlobError::InvalidGlob(e))?;
+    let path_bufs = collect_results(results).map_err(ExpendGlobError::InvalidGlob)?;
 
     if path_bufs.is_empty() {
         anyhow::bail!(ExpendGlobError::NoInputFilesFound);

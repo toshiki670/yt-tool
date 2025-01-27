@@ -49,7 +49,7 @@ impl TryInto<Option<SimpleChatEntity>> for Action {
             unreachable!();
         };
 
-        Ok(item.try_into()?)
+        item.try_into()
     }
 }
 

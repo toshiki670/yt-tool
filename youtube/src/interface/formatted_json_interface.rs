@@ -12,10 +12,7 @@ impl<'a, T> FormattedJsonInterface<'a, T> {
     /// Create a new FormatedJsonService instance.
     ///
     /// # Arguments
-    /// - `inner`: The inner path.
-    ///
-    /// # Returns
-    /// - `Self`: FormatedJsonService instance.
+    /// - `inner`: Source file path.
     pub fn new(inner: &'a T) -> Self {
         Self { inner }
     }
@@ -27,9 +24,6 @@ impl<'a> FormattedJsonInterface<'a, PathBuf> {
     ///
     /// # Arguments
     /// - `to_path`: The path to save the converted data.
-    ///
-    /// # Returns
-    /// - `anyhow::Result<()>`: Result of the conversion.
     pub async fn generate_file_with_path(&self, to_path: &PathBuf) -> anyhow::Result<()> {
         let from_path = self.inner.clone();
         let to_path = to_path.clone();
@@ -47,9 +41,6 @@ impl<'a> FormattedJsonInterface<'a, PathBuf> {
     ///
     /// # Arguments
     /// - `file_type`: The file type to save the converted data.
-    ///
-    /// # Returns
-    /// - `anyhow::Result<()>`: Result of the conversion.
     pub async fn generate_file_with_type(&self, file_type: &String) -> anyhow::Result<()> {
         let from_path = self.inner.clone();
         let mut to_path = from_path.clone();
@@ -84,15 +75,37 @@ impl<'a> FormattedJsonInterface<'a, PathBuf> {
     }
 }
 
+impl<'a> FormattedJsonInterface<'a, Vec<PathBuf>> {
+    /// Generate simple chat CSV data from live chat JSON data.
+    pub async fn generate_files_with_csv(&self) -> anyhow::Result<()> {
+        let from_paths = self.inner.clone();
+
+        let results = from_paths
+            .into_iter()
+            .map(|from_path| {
+                let mut to_path = from_path.clone();
+                to_path.set_extension("csv");
+                let to_path = to_path;
+                let rp = IoChatServiceRepository::file_to_file(from_path, to_path)?;
+
+                Ok(Arc::new(rp))
+            })
+            .collect::<Vec<_>>();
+
+        let repositories = support::anyhow::collect_results(results)?;
+
+        let service = ChatConvertService::new(repositories);
+
+        service.convert_from_chunk().await
+    }
+}
+
 /// This implementation is for the String type.
 impl<'a> FormattedJsonInterface<'a, String> {
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
     /// - `to_path`: The path to save the converted data.
-    ///
-    /// # Returns
-    /// - `anyhow::Result<()>`: Result of the conversion.
     pub async fn generate_file_with_path(&self, to_path: &PathBuf) -> anyhow::Result<()> {
         let from_string = self.inner.clone();
         let to_path = to_path.clone();

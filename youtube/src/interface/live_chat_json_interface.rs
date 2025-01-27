@@ -12,10 +12,7 @@ impl<'a, T> LiveChatJsonInterface<'a, T> {
     /// Create a new LiveChatJsonService instance.
     ///
     /// # Arguments
-    /// - `inner`: The inner path.
-    ///
-    /// # Returns
-    /// - `Self`: LiveChatJsonService instance.
+    /// - `inner`: Source file path.
     pub fn new(inner: &'a T) -> Self {
         Self { inner }
     }
@@ -27,9 +24,6 @@ impl<'a> LiveChatJsonInterface<'a, PathBuf> {
     ///
     /// # Arguments
     /// - `to_path`: The path to save the converted data.
-    ///
-    /// # Returns
-    /// - `anyhow::Result<()>`: Result of the conversion.
     pub async fn generate_file_with_path(&self, to_path: &PathBuf) -> anyhow::Result<()> {
         let from_path = self.inner.clone();
         let to_path = to_path.clone();
@@ -47,9 +41,6 @@ impl<'a> LiveChatJsonInterface<'a, PathBuf> {
     ///
     /// # Arguments
     /// - `file_type`: The file type to save the converted data.
-    ///
-    /// # Returns
-    /// - `anyhow::Result<()>`: Result of the conversion.
     pub async fn generate_file_with_type(&self, file_type: &String) -> anyhow::Result<()> {
         let from_path = self.inner.clone();
         let mut to_path = from_path.clone();
@@ -67,13 +58,7 @@ impl<'a> LiveChatJsonInterface<'a, PathBuf> {
 }
 
 impl<'a> LiveChatJsonInterface<'a, Vec<PathBuf>> {
-    /// 複数のパスに対して簡単なチャットCSVデータを生成します。
-    ///
-    /// # 引数
-    /// - `to_paths`: 変換されたデータを保存するパスの配列。
-    ///
-    /// # 戻り値
-    /// - `anyhow::Result<()>`: 変換の結果。
+    /// Generate simple chat CSV data from live chat JSON data.
     pub async fn generate_files_with_csv(&self) -> anyhow::Result<()> {
         let from_paths = self.inner.clone();
 
@@ -103,9 +88,6 @@ impl<'a> LiveChatJsonInterface<'a, String> {
     ///
     /// # Arguments
     /// - `to_path`: The path to save the converted data.
-    ///
-    /// # Returns
-    /// - `anyhow::Result<()>`: Result of the conversion.
     pub async fn generate_file_with_string(&self, to_path: &PathBuf) -> anyhow::Result<()> {
         let from_string = self.inner.clone();
         let to_path = to_path.clone();

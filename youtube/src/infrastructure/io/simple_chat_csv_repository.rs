@@ -29,7 +29,8 @@ impl<T> IoSimpleChatRepository<T> {
 /// and `Rc<Mutex<File>>` is used to enable thread-safe access.
 impl IoSimpleChatRepository<File> {
     pub fn build_created_file(file_path: PathBuf) -> anyhow::Result<Self> {
-        let file = File::create(&file_path).context("Failed to create file")?;
+        let file = File::create(&file_path)
+            .with_context(|| format!("Failed to open {}", file_path.display()))?;
         let file_mutex = Rc::new(Mutex::new(file));
 
         let repository = Self { inner: file_mutex };

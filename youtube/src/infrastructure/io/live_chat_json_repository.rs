@@ -25,7 +25,8 @@ pub(crate) struct IoLiveChatRepository<T> {
 /// The `source` field is added to retain source information.
 impl IoLiveChatRepository<File> {
     pub fn build_opened_file(file_path: PathBuf) -> anyhow::Result<Self> {
-        let file = File::open(&file_path).context("Failed to open file")?;
+        let file = File::open(&file_path)
+            .with_context(|| format!("Failed to open {}", file_path.display()))?;
         let file_mutex = Rc::new(Mutex::new(file));
 
         let repository = Self {

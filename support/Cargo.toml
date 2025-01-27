@@ -3,7 +3,18 @@ name = "support"
 version.workspace = true
 edition.workspace = true
 
+[features]
+default = ['anyhow', 'glob']
+anyhow = []
+glob = []
+
+test = ['assert']
+assert = []
+
 [dependencies]
+tokio = { workspace = true }
+futures = { workspace = true }
+
 glob = { workspace = true }
 anyhow = { workspace = true }
 thiserror = { workspace = true }

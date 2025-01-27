@@ -16,6 +16,12 @@ use super::{
     simple_chat::{PostedAtValue, SimpleChatEntity},
 };
 
+impl LiveChatEntity {
+    pub async fn try_into_simple_chats(self) -> anyhow::Result<Vec<SimpleChatEntity>> {
+        self.try_into()
+    }
+}
+
 impl TryInto<Vec<SimpleChatEntity>> for LiveChatEntity {
     type Error = anyhow::Error;
 

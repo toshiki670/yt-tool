@@ -2,16 +2,17 @@ use super::{
     live_chat_json_repository::IoLiveChatRepository,
     simple_chat_csv_repository::IoSimpleChatRepository,
 };
-use crate::domain::{
-    repositories::{ChatServiceRepository, FetchLiveChatRepository, SaveSimpleChatRepository},
-    simple_chat::SimpleChatEntity,
+use crate::domain::repositories::{
+    ChatServiceRepository, FetchLiveChatRepository, SaveSimpleChatRepository,
 };
 use anyhow::Context as _;
+use futures::future;
 use std::{
     fs::File,
     io::{Cursor, Read, Write},
     path::PathBuf,
 };
+use support::anyhow::collect_results;
 
 /// This repository provides an interface for managing and retrieving live chat JSON data.
 ///
@@ -83,16 +84,27 @@ where
 {
     async fn convert_from_lines(&self) -> anyhow::Result<()> {
         let from_chats = self.from_inner.all()?;
-        let mut to_chats = Vec::new();
 
-        for (line_number, from_chat) in from_chats.into_iter().enumerate() {
-            let chats: Vec<SimpleChatEntity> = from_chat.try_into().with_context(|| {
-                format!("Failed to convert live chat at line {}", line_number + 1)
-            })?;
-            to_chats.extend(chats);
-        }
+        let futures = from_chats
+            .into_iter()
+            .map(|f| f.try_into_simple_chats())
+            .collect::<Vec<_>>();
 
-        self.to_inner.bulk_create(to_chats)?;
+        let results = future::join_all(futures)
+            .await
+            .into_iter()
+            .enumerate()
+            .map(|(n, f)| {
+                f.with_context(|| format!("Failed to convert live chat at line {}", n + 1))
+            })
+            .collect::<Vec<_>>();
+
+        let simple_chats = collect_results(results)?
+            .into_iter()
+            .flatten()
+            .collect::<Vec<_>>();
+
+        self.to_inner.bulk_create(simple_chats)?;
 
         Ok(())
     }

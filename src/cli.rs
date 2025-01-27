@@ -2,11 +2,10 @@ mod youtube;
 
 use clap::{CommandFactory, Parser};
 use clap_complete::{generate, Generator, Shell};
-use env_logger;
 use log::Level;
 use std::{env, io::stdout};
 
-pub(self) trait Route {
+trait Route {
     async fn route(&self) -> anyhow::Result<()>;
 }
 
@@ -38,7 +37,7 @@ impl Args {
 impl Route for Args {
     async fn route(&self) -> anyhow::Result<()> {
         if let Some(shell) = &self.generate_completions {
-            generate_completions(shell.clone());
+            generate_completions(*shell);
         } else {
             initialize_logger(self.verbose);
 

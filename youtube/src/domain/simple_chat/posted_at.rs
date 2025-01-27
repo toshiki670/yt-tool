@@ -9,7 +9,7 @@ pub(crate) struct PostedAtValue(DateTime<Local>);
 impl core::ops::Deref for PostedAtValue {
     type Target = DateTime<Local>;
 
-    fn deref(self: &'_ Self) -> &'_ Self::Target {
+    fn deref(&'_ self) -> &'_ Self::Target {
         &self.0
     }
 }

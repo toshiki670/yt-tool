@@ -7,7 +7,7 @@ pub struct TimestampUsec(DateTime<Utc>);
 impl core::ops::Deref for TimestampUsec {
     type Target = DateTime<Utc>;
 
-    fn deref(self: &'_ Self) -> &'_ Self::Target {
+    fn deref(&'_ self) -> &'_ Self::Target {
         &self.0
     }
 }

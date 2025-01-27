@@ -24,7 +24,7 @@ pub struct LiveChatAuthorBadgeRenderer {
 impl core::ops::Deref for AuthorBadges {
     type Target = Vec<AuthorBadge>;
 
-    fn deref(self: &'_ Self) -> &'_ Self::Target {
+    fn deref(&'_ self) -> &'_ Self::Target {
         &self.0
     }
 }

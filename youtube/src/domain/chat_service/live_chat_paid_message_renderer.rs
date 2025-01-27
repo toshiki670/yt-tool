@@ -37,7 +37,7 @@ impl Into<SimpleChatEntity> for LiveChatPaidMessageRenderer {
             author_name: self.author_name.into(),
             content: message,
             is_moderator,
-            membership_months: membership_months,
+            membership_months,
             category: CategoryValue::ChatPaidMessage,
         }
     }

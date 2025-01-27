@@ -16,7 +16,7 @@ impl Into<SimpleChatEntity> for LiveChatMembershipItemRenderer {
             author_name: self.author_name.into(),
             content: self.header_subtext.into(),
             is_moderator,
-            membership_months: membership_months,
+            membership_months,
             category: CategoryValue::ChatMembershipItem,
         }
     }

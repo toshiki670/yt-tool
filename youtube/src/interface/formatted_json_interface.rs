@@ -19,7 +19,9 @@ impl<'a, T> FormattedJsonInterface<'a, T> {
 }
 
 /// This implementation is for the PathBuf type.
+impl FormattedJsonInterface<'_, PathBuf> {
 impl<'a> FormattedJsonInterface<'a, PathBuf> {
+impl FormattedJsonInterface<'_, PathBuf> {
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
@@ -75,7 +77,9 @@ impl<'a> FormattedJsonInterface<'a, PathBuf> {
     }
 }
 
+impl FormattedJsonInterface<'_, Vec<PathBuf>> {
 impl<'a> FormattedJsonInterface<'a, Vec<PathBuf>> {
+impl FormattedJsonInterface<'_, Vec<PathBuf>> {
     /// Generate simple chat CSV data from live chat JSON data.
     pub async fn generate_files_with_csv(&self) -> anyhow::Result<()> {
         let from_paths = self.inner.clone();
@@ -101,7 +105,7 @@ impl<'a> FormattedJsonInterface<'a, Vec<PathBuf>> {
 }
 
 /// This implementation is for the String type.
-impl<'a> FormattedJsonInterface<'a, String> {
+impl FormattedJsonInterface<'_, String> {
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments

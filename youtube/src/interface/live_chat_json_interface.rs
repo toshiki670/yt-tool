@@ -19,7 +19,9 @@ impl<'a, T> LiveChatJsonInterface<'a, T> {
 }
 
 /// This implementation is for the PathBuf type.
+impl LiveChatJsonInterface<'_, PathBuf> {
 impl<'a> LiveChatJsonInterface<'a, PathBuf> {
+impl LiveChatJsonInterface<'_, PathBuf> {
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
@@ -57,7 +59,7 @@ impl<'a> LiveChatJsonInterface<'a, PathBuf> {
     }
 }
 
-impl<'a> LiveChatJsonInterface<'a, Vec<PathBuf>> {
+impl LiveChatJsonInterface<'_, Vec<PathBuf>> {
     /// Generate simple chat CSV data from live chat JSON data.
     pub async fn generate_files_with_csv(&self) -> anyhow::Result<()> {
         let from_paths = self.inner.clone();

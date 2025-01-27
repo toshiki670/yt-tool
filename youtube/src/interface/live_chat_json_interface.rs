@@ -85,7 +85,7 @@ impl LiveChatJsonInterface<'_, Vec<PathBuf>> {
 }
 
 /// This implementation is for the String type.
-impl<'a> LiveChatJsonInterface<'a, String> {
+impl LiveChatJsonInterface<'_, String> {
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments

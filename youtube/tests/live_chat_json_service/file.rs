@@ -2,13 +2,13 @@ extern crate youtube;
 
 use anyhow::Context;
 use futures::future;
-use pretty_assertions::assert_eq;
 use std::{
     env,
     path::{Path, PathBuf},
 };
+use support::assert::{assert_file_content, assert_files_with_file_name};
 use tempfile::tempdir;
-use tokio::{fs, try_join};
+use tokio::fs;
 use youtube::prelude::LiveChatJsonInterface;
 
 fn test_root_dir() -> PathBuf {
@@ -81,18 +81,11 @@ async fn it_generate_with_type() -> anyhow::Result<()> {
     let interface = LiveChatJsonInterface::new(&input_path);
     interface.generate_file_with_type(&output_type).await?;
 
-    // Read expected csv file
+    // Assert the result
     let expected_path = test_expected_dir().join("live_chat.csv");
-    let expected = fs::read_to_string(expected_path);
-
-    // Read actual csv file
     let mut to_path = input_path.clone();
     to_path.set_extension(output_type);
-    let actual = fs::read_to_string(&to_path);
-
-    // Assert the result
-    let (expected, actual) = try_join!(expected, actual)?;
-    assert_eq!(expected, actual);
+    assert_file_content(expected_path, to_path).await?;
 
     temp_dir.close()?;
     Ok(())
@@ -136,38 +129,4 @@ fn read_paths(path: &Path) -> anyhow::Result<Vec<PathBuf>> {
     let paths = dir_entries.iter().map(|e| e.path()).collect();
 
     Ok(paths)
-}
-
-async fn assert_files_with_file_name(
-    expected_dir: &PathBuf,
-    actual_files: &Vec<PathBuf>,
-) -> anyhow::Result<()> {
-    let zipped = actual_files
-        .clone()
-        .into_iter()
-        .map(|file| {
-            let expected_file = expected_dir.join(file.file_name().unwrap());
-            (expected_file, file)
-        })
-        .collect::<Vec<_>>();
-
-    let futures = zipped
-        .into_iter()
-        .map(|(expected, actual)| assert_file_content(expected, actual))
-        .collect::<Vec<_>>();
-
-    future::try_join_all(futures).await?;
-    Ok(())
-}
-
-async fn assert_file_content(expected: PathBuf, actual: PathBuf) -> tokio::io::Result<()> {
-    let expected = fs::read_to_string(expected);
-    let actual = fs::read_to_string(actual);
-    let (expected, actual) = try_join!(expected, actual)?;
-
-    assert_eq!(
-        expected, actual,
-        "File content does not match expected content."
-    );
-    Ok(())
 }

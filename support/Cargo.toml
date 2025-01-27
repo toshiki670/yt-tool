@@ -3,6 +3,10 @@ name = "support"
 version.workspace = true
 edition.workspace = true
 
+[features]
+default = ['anyhow', 'glob']
+anyhow = []
+glob = []
 [dependencies]
 glob = { workspace = true }
 anyhow = { workspace = true }

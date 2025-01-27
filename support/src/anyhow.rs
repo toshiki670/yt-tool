@@ -20,14 +20,12 @@ fn split_results<T>(results: Vec<Result<T, anyhow::Error>>) -> (Vec<T>, Vec<anyh
 
 fn combined_err(errs: Vec<anyhow::Error>) -> anyhow::Error {
     let len = errs.len();
-    let combined_err = errs
-        .into_iter()
+
+    errs.into_iter()
         .map(|e| format!("{:#}", e))
         .fold(anyhow::anyhow!("{len} error(s) occurred"), |acc, e| {
             acc.context(e)
-        });
-
-    combined_err
+        })
 }
 
 #[test]

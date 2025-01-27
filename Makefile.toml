@@ -6,25 +6,16 @@ CARGO_MAKE_EXTEND_WORKSPACE_MAKEFILE = true
 
 
 # For the setup
-[tasks.install-watch]
-description = "Install the watch command"
-category = "Preparation"
-command = "cargo"
-args = ["install", "watch"]
-
-[tasks.install-cov]
-description = "Install the cargo-cov command" # https://gist.github.com/buzztaiki/6579a14cbf18dcfebec550ebe531c5cf
+[tasks.setup]
+description = "Setup the project"
 category = "Preparation"
 script = ['''
 rustup component add llvm-tools-preview
 cargo install cargo-llvm-cov
+cargo install cargo-watch
+cargo install cargo-edit
 '''
 ]
-
-[tasks.setup]
-description = "Setup the project"
-category = "Preparation"
-dependencies = ["install-watch", "install-cov"]
 
 # For the documentation
 [tasks.d]

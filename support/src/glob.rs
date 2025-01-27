@@ -22,8 +22,7 @@ pub fn expend_glob_input_patterns(patterns: &[String]) -> anyhow::Result<Vec<Pat
     let results = paths_array
         .into_iter()
         // Convert iterator Paths to an array
-        .map(|p| p.collect::<Vec<Result<PathBuf, glob::GlobError>>>())
-        .flatten()
+        .flat_map(|p| p.collect::<Vec<Result<PathBuf, glob::GlobError>>>())
         .map(|p| p.map_err(|e| anyhow::anyhow!(e)))
         .collect();
 

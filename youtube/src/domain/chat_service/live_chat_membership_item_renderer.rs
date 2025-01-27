@@ -3,8 +3,8 @@ use crate::domain::{
     simple_chat::{CategoryValue, SimpleChatEntity},
 };
 
-impl From<LiveChatMembershipItemRenderer> for SimpleChatEntity {
-    fn from(val: LiveChatMembershipItemRenderer) -> Self {
+impl From<Box<LiveChatMembershipItemRenderer>> for SimpleChatEntity {
+    fn from(val: Box<LiveChatMembershipItemRenderer>) -> Self {
         let is_moderator = val.author_badges.has_moderator();
         let membership_months = val.author_badges.fetch_membership_months();
         let membership_months = membership_months.unwrap_or("".to_string());

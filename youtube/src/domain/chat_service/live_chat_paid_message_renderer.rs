@@ -13,8 +13,8 @@ impl LiveChatPaidMessageRenderer {
     }
 }
 
-impl From<LiveChatPaidMessageRenderer> for SimpleChatEntity {
-    fn from(val: LiveChatPaidMessageRenderer) -> Self {
+impl From<Box<LiveChatPaidMessageRenderer>> for SimpleChatEntity {
+    fn from(val: Box<LiveChatPaidMessageRenderer>) -> Self {
         let message = val.message_text();
 
         let is_moderator = if let Some(author_badges) = &val.author_badges {

@@ -3,8 +3,8 @@ use crate::domain::{
     simple_chat::{CategoryValue, SimpleChatEntity},
 };
 
-impl From<LiveChatRenderer> for SimpleChatEntity {
-    fn from(val: LiveChatRenderer) -> Self {
+impl From<Box<LiveChatRenderer>> for SimpleChatEntity {
+    fn from(val: Box<LiveChatRenderer>) -> Self {
         let is_moderator = if let Some(author_badges) = &val.author_badges {
             author_badges.has_moderator()
         } else {

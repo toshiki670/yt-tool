@@ -3,8 +3,8 @@ use crate::domain::{
     simple_chat::{CategoryValue, SimpleChatEntity},
 };
 
-impl From<LiveChatViewerEngagementMessageRenderer> for SimpleChatEntity {
-    fn from(val: LiveChatViewerEngagementMessageRenderer) -> Self {
+impl From<Box<LiveChatViewerEngagementMessageRenderer>> for SimpleChatEntity {
+    fn from(val: Box<LiveChatViewerEngagementMessageRenderer>) -> Self {
         SimpleChatEntity {
             id: val.id,
             posted_at: val.timestamp_usec.into(),

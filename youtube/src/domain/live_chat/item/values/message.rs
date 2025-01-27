@@ -17,9 +17,9 @@ impl Display for Message {
     }
 }
 
-impl Into<String> for Message {
-    fn into(self) -> String {
-        self.runs
+impl From<Message> for String {
+    fn from(val: Message) -> Self {
+        val.runs
             .into_iter()
             .map(|run| run.into())
             .collect::<Vec<String>>()

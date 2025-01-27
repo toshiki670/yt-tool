@@ -52,9 +52,9 @@ impl Serialize for TimestampUsec {
     }
 }
 
-impl Into<DateTime<Utc>> for TimestampUsec {
-    fn into(self) -> DateTime<Utc> {
-        self.0
+impl From<TimestampUsec> for DateTime<Utc> {
+    fn from(val: TimestampUsec) -> Self {
+        val.0
     }
 }
 

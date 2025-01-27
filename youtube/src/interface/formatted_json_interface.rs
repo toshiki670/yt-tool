@@ -1,7 +1,6 @@
 use crate::application::chat_service::ChatConvertService;
 use crate::infrastructure::io::chat_service_repository::IoChatServiceRepository;
 use std::path::{Path, PathBuf};
-use std::sync::Arc;
 
 /// This service provides an interface for managing and retrieving live chat JSON data from files.
 pub struct FormattedJsonInterface<'a, T> {
@@ -28,9 +27,7 @@ impl FormattedJsonInterface<'_, PathBuf> {
         let from_path = self.inner.clone();
         let to_path = to_path.to_path_buf();
 
-        let repositories = vec![Arc::new(IoChatServiceRepository::file_to_file(
-            from_path, to_path,
-        )?)];
+        let repositories = vec![IoChatServiceRepository::file_to_file(from_path, to_path)?];
 
         let service = ChatConvertService::new(repositories);
 
@@ -46,9 +43,7 @@ impl FormattedJsonInterface<'_, PathBuf> {
         let mut to_path = from_path.clone();
         to_path.set_extension(file_type);
 
-        let repositories = vec![Arc::new(IoChatServiceRepository::file_to_file(
-            from_path, to_path,
-        )?)];
+        let repositories = vec![IoChatServiceRepository::file_to_file(from_path, to_path)?];
 
         let service = ChatConvertService::new(repositories);
         service.convert_from_chunk().await
@@ -61,9 +56,7 @@ impl FormattedJsonInterface<'_, PathBuf> {
     pub async fn generate_string(&self) -> anyhow::Result<String> {
         let from_path = self.inner.clone();
 
-        let repositories = vec![Arc::new(IoChatServiceRepository::file_to_in_memory(
-            from_path,
-        )?)];
+        let repositories = vec![IoChatServiceRepository::file_to_in_memory(from_path)?];
 
         let service = ChatConvertService::new(repositories);
         service.convert_from_chunk().await?;
@@ -88,7 +81,7 @@ impl FormattedJsonInterface<'_, Vec<PathBuf>> {
                 let to_path = to_path;
                 let rp = IoChatServiceRepository::file_to_file(from_path, to_path)?;
 
-                Ok(Arc::new(rp))
+                Ok(rp)
             })
             .collect::<Vec<_>>();
 
@@ -110,10 +103,10 @@ impl FormattedJsonInterface<'_, String> {
         let from_string = self.inner.clone();
         let to_path = to_path.to_path_buf();
 
-        let repositories = vec![Arc::new(IoChatServiceRepository::in_memory_to_file(
+        let repositories = vec![IoChatServiceRepository::in_memory_to_file(
             from_string,
             to_path,
-        )?)];
+        )?];
 
         let service = ChatConvertService::new(repositories);
 
@@ -127,9 +120,9 @@ impl FormattedJsonInterface<'_, String> {
     pub async fn generate_string(&self) -> anyhow::Result<String> {
         let from_string = self.inner.clone();
 
-        let repositories = vec![Arc::new(IoChatServiceRepository::in_memory_to_in_memory(
+        let repositories = vec![IoChatServiceRepository::in_memory_to_in_memory(
             from_string,
-        )?)];
+        )?];
 
         let service = ChatConvertService::new(repositories);
         service.convert_from_chunk().await?;

@@ -1,7 +1,6 @@
 use crate::application::chat_service::ChatConvertService;
 use crate::infrastructure::io::chat_service_repository::IoChatServiceRepository;
 use std::path::{Path, PathBuf};
-use std::sync::Arc;
 
 /// This service provides an interface for managing and retrieving live chat JSON data from files.
 pub struct LiveChatJsonInterface<'a, T> {
@@ -28,9 +27,7 @@ impl LiveChatJsonInterface<'_, PathBuf> {
         let from_path = self.inner.clone();
         let to_path = to_path.to_path_buf();
 
-        let repositories = vec![Arc::new(IoChatServiceRepository::file_to_file(
-            from_path, to_path,
-        )?)];
+        let repositories = vec![IoChatServiceRepository::file_to_file(from_path, to_path)?];
 
         let service = ChatConvertService::new(repositories);
 
@@ -47,9 +44,7 @@ impl LiveChatJsonInterface<'_, PathBuf> {
         to_path.set_extension(file_type);
         let to_path = to_path;
 
-        let repositories = vec![Arc::new(IoChatServiceRepository::file_to_file(
-            from_path, to_path,
-        )?)];
+        let repositories = vec![IoChatServiceRepository::file_to_file(from_path, to_path)?];
 
         let service = ChatConvertService::new(repositories);
 
@@ -70,7 +65,7 @@ impl LiveChatJsonInterface<'_, Vec<PathBuf>> {
                 let to_path = to_path;
                 let rp = IoChatServiceRepository::file_to_file(from_path, to_path)?;
 
-                Ok(Arc::new(rp))
+                Ok(rp)
             })
             .collect::<Vec<_>>();
 
@@ -92,10 +87,10 @@ impl LiveChatJsonInterface<'_, String> {
         let from_string = self.inner.clone();
         let to_path = to_path.to_path_buf();
 
-        let repositories = vec![Arc::new(IoChatServiceRepository::in_memory_to_file(
+        let repositories = vec![IoChatServiceRepository::in_memory_to_file(
             from_string,
             to_path,
-        )?)];
+        )?];
 
         let service = ChatConvertService::new(repositories);
 

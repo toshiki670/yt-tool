@@ -1,23 +1,33 @@
 use anyhow::*;
 
 pub fn collect_results<T>(results: Vec<Result<T, anyhow::Error>>) -> Result<Vec<T>> {
-    let (oks, errs): (Vec<_>, Vec<_>) = results.into_iter().partition(Result::is_ok);
-    let oks = oks.into_iter().map(Result::unwrap).collect();
-    let errs: Vec<anyhow::Error> = errs.into_iter().filter_map(Result::err).collect();
+    let (oks, errs) = split_results(results);
 
     if errs.is_empty() {
         Ok(oks)
     } else {
-        let len = errs.len();
-        let combined_err = errs
-            .into_iter()
-            .map(|e| format!("{:#}", e))
-            .fold(anyhow::anyhow!("{len} error(s) occurred"), |acc, e| {
-                acc.context(e)
-            });
-
-        Err(combined_err)
+        Err(combined_err(errs))
     }
+}
+
+fn split_results<T>(results: Vec<Result<T, anyhow::Error>>) -> (Vec<T>, Vec<anyhow::Error>) {
+    let (oks, errs): (Vec<_>, Vec<_>) = results.into_iter().partition(Result::is_ok);
+    let oks = oks.into_iter().filter_map(Result::ok).collect();
+    let errs = errs.into_iter().filter_map(Result::err).collect();
+
+    (oks, errs)
+}
+
+fn combined_err(errs: Vec<anyhow::Error>) -> anyhow::Error {
+    let len = errs.len();
+    let combined_err = errs
+        .into_iter()
+        .map(|e| format!("{:#}", e))
+        .fold(anyhow::anyhow!("{len} error(s) occurred"), |acc, e| {
+            acc.context(e)
+        });
+
+    combined_err
 }
 
 #[test]

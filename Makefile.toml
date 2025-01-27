@@ -57,3 +57,12 @@ category = "Test"
 command = "cargo"
 args = ["llvm-cov", "--workspace", "--open"]
 
+[tasks.update]
+description = "Update the dependencies"
+category = "Development"
+script = ['''
+rustup upgrade
+cargo upgrade
+cargo update
+'''
+]

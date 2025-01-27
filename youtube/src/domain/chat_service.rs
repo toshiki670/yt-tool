@@ -41,9 +41,9 @@ impl TryInto<Option<SimpleChatEntity>> for Action {
         } else if let Some(add_live_chat_ticker_item_action) = self.add_live_chat_ticker_item_action
         {
             add_live_chat_ticker_item_action.item
-        } else if self.live_chat_report_moderation_state_command.is_some() {
-            return Ok(None);
-        } else if self.remove_chat_item_action.is_some() {
+        } else if self.live_chat_report_moderation_state_command.is_some()
+            || self.remove_chat_item_action.is_some()
+        {
             return Ok(None);
         } else {
             unreachable!();

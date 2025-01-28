@@ -48,8 +48,9 @@ jobs:
       - name: Check lint
         uses: giraffate/clippy-action@v1
         with:
-          clippy_flags: -- -Dwarnings
+          clippy_flags: --all-targets --all-features -- -D warnings
           reporter: 'github-pr-review'
+          fail_on_error: true
 
   test:
     runs-on: ubuntu-latest

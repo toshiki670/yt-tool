@@ -18,7 +18,9 @@ impl From<Box<LiveChatTickerPaidStickerItemRenderer>> for SimpleChatEntity {
                 .into(),
             author_external_channel_id: val.author_external_channel_id,
             author_name: live_chat_paid_sticker_renderer.author_name.clone().into(),
-            content: live_chat_paid_sticker_renderer.purchase_amount_text.simple_text,
+            content: live_chat_paid_sticker_renderer
+                .purchase_amount_text
+                .simple_text,
             is_moderator: false,
             membership_months: "".to_string(),
             category: CategoryValue::ChatTickerPaidMessageItem,

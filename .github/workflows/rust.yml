@@ -49,7 +49,7 @@ jobs:
         with:
           components: clippy
       - name: Check lint
-        run: cargo clippy --color never -q --message-format json --all-targets --all-features -- -D warnings ! reviewdog -efm=<pre><code>%E%f:%l:%c:%t:%m -efm=%E%f:%l:%c:%t:%m -efm=%Z__END__ -efm=%C%m</code></pre> -efm=%C%m -efm=%C -name=clippy -reporter=github-pr-review -filter-mode=added -fail-on-error=true -level=error
+        run: cargo clippy --color never -q --message-format json --all-targets --all-features -- -D warnings | reviewdog -efm=<pre><code>%E%f:%l:%c:%t:%m -efm=%E%f:%l:%c:%t:%m -efm=%Z__END__ -efm=%C%m</code></pre> -efm=%C%m -efm=%C -name=clippy -reporter=github-pr-review -filter-mode=added -fail-on-error=true -level=error
 
   test:
     runs-on: ubuntu-latest

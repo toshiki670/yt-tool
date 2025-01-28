@@ -9,12 +9,11 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  TZ: Asia/Tokyo
 
 jobs:
   check:
     runs-on: ubuntu-latest
-    env:
-      TZ: Asia/Tokyo
     steps:
       - uses: actions/checkout@v4
       - name: Check format
@@ -22,8 +21,6 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
-    env:
-      TZ: Asia/Tokyo
     steps:
       - uses: actions/checkout@v4
       - name: Cache cargo registry
@@ -35,8 +32,6 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    env:
-      TZ: Asia/Tokyo
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

@@ -97,8 +97,8 @@ where
         let mut content = String::new();
         buffered.read_to_string(&mut content)?;
 
-        let live_chat = serde_json::from_str::<LiveChatEntity>(&content)
-            .context("Failed to mapping a json")?;
+        let live_chat =
+            serde_json::from_str::<LiveChatEntity>(&content).context("Failed to mapping a json")?;
 
         Ok(live_chat)
     }

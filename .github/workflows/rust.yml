@@ -41,16 +41,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - uses: reviewdog/action-setup@v1
-        with:
-          reviewdog_version: latest
       - name: Setup rust toolchain
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           components: clippy
       - name: Check lint
-        run: cargo clippy --color never -q --message-format json --all-targets --all-features -- -D warnings | reviewdog -efm=<pre><code>%E%f:%l:%c:%t:%m -efm=%E%f:%l:%c:%t:%m -efm=%Z__END__ -efm=%C%m</code></pre> -efm=%C%m -efm=%C -name=clippy -reporter=github-pr-review -filter-mode=added -fail-on-error=true -level=error
-
+        uses: giraffate/clippy-action@v1
+        with:
+          clippy_flags: --all-targets --all-features -- -D warnings
+          reporter: 'github-pr-review'
+          fail_on_error: true
   test:
     runs-on: ubuntu-latest
     steps:

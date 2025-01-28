@@ -12,6 +12,16 @@ env:
   TZ: Asia/Tokyo
 
 jobs:
+  check-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install cargo-outdated
+        run: cargo install cargo-outdated
+      - name: Check dependencies
+        run: cargo outdated --exit-code 1
+
   check:
     runs-on: ubuntu-latest
     steps:

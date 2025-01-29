@@ -1,7 +1,10 @@
+# https://gihyo.jp/article/2024/10/good-practices-for-github-actions
 # https://github.com/Swatinem/rust-cache
 name: Rust
 
 on:
+  # Supports manual startup for easy operation check
+  workflow_dispatch:
   push:
     branches: ["main"]
   pull_request:
@@ -14,6 +17,7 @@ env:
 jobs:
   check-dependencies:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -26,6 +30,7 @@ jobs:
 
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -38,6 +43,7 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -53,6 +59,7 @@ jobs:
           fail_on_error: true
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

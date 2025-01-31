@@ -3,6 +3,7 @@ pub(super) mod live_chat_paid_message_renderer;
 pub(super) mod live_chat_renderer;
 pub(super) mod live_chat_sponsorships_gift_purchase_announcement_renderer;
 pub(super) mod live_chat_ticker_paid_message_item_renderer;
+pub(super) mod live_chat_ticker_paid_sticker_item_renderer;
 pub(super) mod live_chat_viewer_engagement_message_renderer;
 
 use anyhow::bail;
@@ -74,6 +75,7 @@ impl TryInto<Option<SimpleChatEntity>> for Item {
             Item::LiveChatTickerPaidMessageItemRenderer(r) => r.into(),
             Item::LiveChatTickerSponsorItemRenderer(_) => return Ok(None),
             Item::LiveChatViewerEngagementMessageRenderer(r) => r.into(),
+            Item::LiveChatTickerPaidStickerItemRenderer(r) => r.into(),
         };
 
         Ok(Some(renderer))

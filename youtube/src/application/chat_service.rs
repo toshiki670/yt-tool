@@ -1,5 +1,6 @@
 use crate::domain::repositories::ChatServiceRepository;
 use futures::future;
+use support::anyhow::collect_results;
 
 pub struct ChatConvertService<T: ChatServiceRepository> {
     chat_service_repositories: Vec<T>,
@@ -28,7 +29,8 @@ where
             .map(|chat_service| chat_service.convert_from_lines())
             .collect::<Vec<_>>();
 
-        future::join_all(futures).await;
+        let results = future::join_all(futures).await;
+        collect_results(results)?;
 
         Ok(())
     }
@@ -40,7 +42,8 @@ where
             .map(|chat_service| chat_service.convert_from_chunk())
             .collect::<Vec<_>>();
 
-        future::join_all(futures).await;
+        let results = future::join_all(futures).await;
+        collect_results(results)?;
 
         Ok(())
     }

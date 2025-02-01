@@ -1,0 +1,176 @@
+{
+  "clickTrackingParams": "CAEQl98BIhMIz5X5ur27igMVoc80Bx03uTj5",
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "clickTrackingParams": "CAEQl98BIhMIz5X5ur27igMVoc80Bx03uTj5",
+        "addChatItemAction": {
+          "item": {
+            "liveChatMembershipItemRenderer": {
+              "id": "Ci8KLUNPaUp6T2ZOcG9vREZjX3NBZ2NkYzJVQlJnLUxveU1lc0lELTM0Njk3MzczNw%3D%3D",
+              "timestampUsec": "1734868687623455",
+              "timestampText": { "simpleText": "-1:50" },
+              "authorExternalChannelId": "UCVadtt-kF6XtgeFRNJqBbcA",
+              "headerPrimaryText": {
+                "runs": [
+                  { "text": "Member for " },
+                  { "text": "41" },
+                  { "text": " months" }
+                ]
+              },
+              "headerSubtext": { "simpleText": "へい" },
+              "message": {
+                "runs": [
+                  {
+                    "emoji": {
+                      "emojiId": "UCZlDXzGoo7d44bwdNObFacg/dtGrXvr4NJCQ_APl1ICgCg",
+                      "shortcuts": [
+                        ":_kanataHey:",
+                        ":kanataHey:",
+                        ":_hey:",
+                        ":hey:"
+                      ],
+                      "searchTerms": ["_kanataHey", "kanataHey", "_hey", "hey"],
+                      "image": {
+                        "thumbnails": [
+                          {
+                            "url": "https://yt3.ggpht.com/amSWFePc_Hvh-wr520kK2AH6f8lWrWfLVNRZRbGwqjrtUwRbquFQGMOQ1hIfeQpRbCJjeVrEWRc=w24-h24-c-k-nd",
+                            "width": 24,
+                            "height": 24
+                          },
+                          {
+                            "url": "https://yt3.ggpht.com/amSWFePc_Hvh-wr520kK2AH6f8lWrWfLVNRZRbGwqjrtUwRbquFQGMOQ1hIfeQpRbCJjeVrEWRc=w48-h48-c-k-nd",
+                            "width": 48,
+                            "height": 48
+                          }
+                        ],
+                        "accessibility": {
+                          "accessibilityData": { "label": "kanataHey" }
+                        }
+                      },
+                      "isCustomEmoji": true
+                    }
+                  },
+                  {
+                    "emoji": {
+                      "emojiId": "UCZlDXzGoo7d44bwdNObFacg/dtGrXvr4NJCQ_APl1ICgCg",
+                      "shortcuts": [
+                        ":_kanataHey:",
+                        ":kanataHey:",
+                        ":_hey:",
+                        ":hey:"
+                      ],
+                      "searchTerms": ["_kanataHey", "kanataHey", "_hey", "hey"],
+                      "image": {
+                        "thumbnails": [
+                          {
+                            "url": "https://yt3.ggpht.com/amSWFePc_Hvh-wr520kK2AH6f8lWrWfLVNRZRbGwqjrtUwRbquFQGMOQ1hIfeQpRbCJjeVrEWRc=w24-h24-c-k-nd",
+                            "width": 24,
+                            "height": 24
+                          },
+                          {
+                            "url": "https://yt3.ggpht.com/amSWFePc_Hvh-wr520kK2AH6f8lWrWfLVNRZRbGwqjrtUwRbquFQGMOQ1hIfeQpRbCJjeVrEWRc=w48-h48-c-k-nd",
+                            "width": 48,
+                            "height": 48
+                          }
+                        ],
+                        "accessibility": {
+                          "accessibilityData": { "label": "kanataHey" }
+                        }
+                      },
+                      "isCustomEmoji": true
+                    }
+                  },
+                  {
+                    "emoji": {
+                      "emojiId": "UCZlDXzGoo7d44bwdNObFacg/dtGrXvr4NJCQ_APl1ICgCg",
+                      "shortcuts": [
+                        ":_kanataHey:",
+                        ":kanataHey:",
+                        ":_hey:",
+                        ":hey:"
+                      ],
+                      "searchTerms": ["_kanataHey", "kanataHey", "_hey", "hey"],
+                      "image": {
+                        "thumbnails": [
+                          {
+                            "url": "https://yt3.ggpht.com/amSWFePc_Hvh-wr520kK2AH6f8lWrWfLVNRZRbGwqjrtUwRbquFQGMOQ1hIfeQpRbCJjeVrEWRc=w24-h24-c-k-nd",
+                            "width": 24,
+                            "height": 24
+                          },
+                          {
+                            "url": "https://yt3.ggpht.com/amSWFePc_Hvh-wr520kK2AH6f8lWrWfLVNRZRbGwqjrtUwRbquFQGMOQ1hIfeQpRbCJjeVrEWRc=w48-h48-c-k-nd",
+                            "width": 48,
+                            "height": 48
+                          }
+                        ],
+                        "accessibility": {
+                          "accessibilityData": { "label": "kanataHey" }
+                        }
+                      },
+                      "isCustomEmoji": true
+                    }
+                  }
+                ]
+              },
+              "authorName": { "simpleText": "天天天" },
+              "authorPhoto": {
+                "thumbnails": [
+                  {
+                    "url": "https://yt4.ggpht.com/ytc/AIdro_lbDx5wHKPE0BgF6JPfx-Yk_weGIWe9u5Sp0Y_SNsM=s32-c-k-c0x00ffffff-no-rj",
+                    "width": 32,
+                    "height": 32
+                  },
+                  {
+                    "url": "https://yt4.ggpht.com/ytc/AIdro_lbDx5wHKPE0BgF6JPfx-Yk_weGIWe9u5Sp0Y_SNsM=s64-c-k-c0x00ffffff-no-rj",
+                    "width": 64,
+                    "height": 64
+                  }
+                ]
+              },
+              "authorBadges": [
+                {
+                  "liveChatAuthorBadgeRenderer": {
+                    "customThumbnail": {
+                      "thumbnails": [
+                        {
+                          "url": "https://yt3.ggpht.com/ERFyAw0pVAuiLqedFqmLKR2HtW-QaRGjSKJ2anT9jUm-3X-wxKWLqNnbEJmGBuDP75VDFFA2LA=s16-c-k",
+                          "width": 16,
+                          "height": 16
+                        },
+                        {
+                          "url": "https://yt3.ggpht.com/ERFyAw0pVAuiLqedFqmLKR2HtW-QaRGjSKJ2anT9jUm-3X-wxKWLqNnbEJmGBuDP75VDFFA2LA=s32-c-k",
+                          "width": 32,
+                          "height": 32
+                        }
+                      ]
+                    },
+                    "tooltip": "Member (3 years)",
+                    "accessibility": {
+                      "accessibilityData": { "label": "Member (3 years)" }
+                    }
+                  }
+                }
+              ],
+              "contextMenuEndpoint": {
+                "clickTrackingParams": "CMsBEOH9BiITCM-V-bq9u4oDFaHPNAcdN7k4-Q==",
+                "commandMetadata": {
+                  "webCommandMetadata": { "ignoreNavigation": true }
+                },
+                "liveChatItemContextMenuEndpoint": {
+                  "params": "Q2pFS0x3b3RRMDlwU25wUFprNXdiMjlFUm1OZmMwRm5ZMlJqTWxWQ1VtY3RURzk1VFdWelNVUXRNelEyT1Rjek56TTNHaWtxSndvWVZVTmFiRVJZZWtkdmJ6ZGtORFJpZDJST1QySkdZV05uRWd0SmFFcFhMVmxRU2kxNk1DQUJLQUV5R2dvWVZVTldZV1IwZEMxclJqWllkR2RsUmxKT1NuRkNZbU5CT0FKSUFWQVg="
+                }
+              },
+              "contextMenuAccessibility": {
+                "accessibilityData": { "label": "Chat actions" }
+              },
+              "trackingParams": "CMsBEOH9BiITCM-V-bq9u4oDFaHPNAcdN7k4-Q=="
+            }
+          },
+          "clientId": "COiJzOfNpooDFc_sAgcdc2UBRg-LoyMesID-346973737"
+        }
+      }
+    ],
+    "videoOffsetTimeMsec": "0"
+  }
+}

@@ -1,2 +1,2 @@
-id,authorExternalChannelId,postedAt,authorName,content,isModerator,membershipMonths,category
-Ci8KLUNPaUp6T2ZOcG9vREZjX3NBZ2NkYzJVQlJnLUxveU1lc0lELTM0Njk3MzczNw%3D%3D,UCVadtt-kF6XtgeFRNJqBbcA,2024-12-22T20:58:07.623455+09:00,天天天,へい,false,Member (3 years),Membership item
+id,authorExternalChannelId,postedAt,category,authorName,content
+Ci8KLUNPaUp6T2ZOcG9vREZjX3NBZ2NkYzJVQlJnLUxveU1lc0lELTM0Njk3MzczNw%3D%3D,UCVadtt-kF6XtgeFRNJqBbcA,2024-12-22T20:58:07.623455+09:00,Membership item,天天天,message: 'へい'; membershipMonths: 'Member (3 years)'

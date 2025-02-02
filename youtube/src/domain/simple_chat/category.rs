@@ -1,7 +1,7 @@
-use serde::{Deserialize, Serialize, Serializer};
+use serde::{Serialize, Serializer};
 use std::fmt;
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Default, Debug, Clone, PartialEq)]
 pub(crate) enum CategoryValue {
     #[default]
     TextMessage,
@@ -13,30 +13,31 @@ pub(crate) enum CategoryValue {
     MembershipItem,
 }
 
-pub fn serialize_using_display<S, T>(value: &T, serializer: S) -> Result<S::Ok, S::Error>
-where
-    S: Serializer,
-    T: fmt::Display,
-{
-    serializer.serialize_str(&value.to_string())
+impl Serialize for CategoryValue {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        serializer.serialize_str(&self.to_string())
+    }
 }
 
 impl fmt::Display for CategoryValue {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        match self {
-            CategoryValue::TextMessage => write!(f, "Text message"),
-            CategoryValue::PaidMessage => write!(f, "Paid message"),
+        let msg = match self {
+            CategoryValue::TextMessage => "Text message",
+            CategoryValue::PaidMessage => "Paid message",
             CategoryValue::SponsorshipsGiftRedemptionAnnouncement => {
-                write!(f, "Sponsorships gift redemption announcement")
+                "Sponsorships gift redemption announcement"
             }
-            CategoryValue::TickerPaidMessageItem => write!(f, "Ticker paid message item"),
-            CategoryValue::ViewerEngagementMessage => {
-                write!(f, "Viewer engagement message")
-            }
+            CategoryValue::TickerPaidMessageItem => "Ticker paid message item",
+            CategoryValue::ViewerEngagementMessage => "Viewer engagement message",
             CategoryValue::SponsorshipsGiftPurchaseAnnouncement => {
-                write!(f, "Sponsorships gift purchase announcement")
+                "Sponsorships gift purchase announcement"
             }
-            CategoryValue::MembershipItem => write!(f, "Membership item"),
-        }
+            CategoryValue::MembershipItem => "Membership item",
+        };
+
+        write!(f, "{}", msg)
     }
 }

@@ -1,35 +1,37 @@
 use crate::domain::{
     live_chat::item::renderers::live_chat_sponsorships_gift_redemption_announcement_renderer::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer,
-    simple_chat::{CategoryValue, SimpleChatEntity},
+    simple_chat::{CategoryValue, Content, SimpleChatEntity},
 };
 
 impl From<Box<LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer>> for SimpleChatEntity {
     fn from(val: Box<LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer>) -> Self {
-        let is_moderator = if let Some(author_badges) = &val.author_badges {
-            author_badges.has_moderator()
-        } else {
-            false
-        };
+        let author_name = val
+            .author_name
+            .map(|v| v.simple_text)
+            .unwrap_or("".to_string());
 
-        let membership_months = if let Some(author_badges) = &val.author_badges {
-            author_badges.fetch_membership_months()
-        } else {
-            None
-        };
-        let membership_months = membership_months.unwrap_or("".to_string());
+        let mut content = Content::new();
+        content.add("message", Some(String::from(val.message)));
+
+        if let Some(author_badges) = &val.author_badges {
+            if author_badges.has_moderator() {
+                content.add("Moderator", None);
+            }
+        }
+
+        if let Some(author_badges) = &val.author_badges {
+            if let Some(months) = author_badges.fetch_membership_months() {
+                content.add("membershipMonths", Some(months));
+            }
+        }
 
         SimpleChatEntity {
             id: val.id,
-            posted_at: val.timestamp_usec.into(),
             author_external_channel_id: val.author_external_channel_id,
-            author_name: val
-                .author_name
-                .map(|v| v.simple_text)
-                .unwrap_or("".to_string()),
-            content: val.message.into(),
-            is_moderator,
-            membership_months,
+            posted_at: val.timestamp_usec.into(),
             category: CategoryValue::SponsorshipsGiftRedemptionAnnouncement,
+            author_name,
+            content,
         }
     }
 }

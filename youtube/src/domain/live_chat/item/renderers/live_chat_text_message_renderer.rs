@@ -10,7 +10,7 @@ use serde::{Deserialize, Serialize};
 pub struct LiveChatTextMessageRenderer {
     pub author_badges: Option<AuthorBadges>,
     pub author_external_channel_id: String,
-    pub author_name: SimpleText,
+    pub author_name: Option<SimpleText>,
     pub author_photo: Thumbnails,
     pub context_menu_accessibility: Accessibility,
     pub context_menu_endpoint: ContextMenuEndpoint,

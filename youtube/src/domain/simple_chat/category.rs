@@ -1,4 +1,4 @@
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize, Serializer};
 use std::fmt;
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -12,6 +12,14 @@ pub(crate) enum CategoryValue {
     ChatTickerPaidMessageItem,
     ChatViewerEngagementMessage,
     ChatMembershipItem,
+}
+
+pub fn serialize_using_display<S, T>(value: &T, serializer: S) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+    T: fmt::Display,
+{
+    serializer.serialize_str(&value.to_string())
 }
 
 impl fmt::Display for CategoryValue {

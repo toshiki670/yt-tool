@@ -1,7 +1,7 @@
 mod category;
 mod posted_at;
 
-pub(crate) use category::CategoryValue;
+pub(crate) use category::{serialize_using_display, CategoryValue};
 pub(crate) use posted_at::PostedAtValue;
 use serde::{Deserialize, Serialize};
 
@@ -15,5 +15,6 @@ pub struct SimpleChatEntity {
     pub content: String,
     pub is_moderator: bool,
     pub membership_months: String,
+    #[serde(serialize_with = "serialize_using_display")]
     pub category: CategoryValue,
 }

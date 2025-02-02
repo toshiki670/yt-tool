@@ -22,7 +22,7 @@ impl From<Box<LiveChatPaidMessageRenderer>> for SimpleChatEntity {
             .unwrap_or("".to_string());
 
         let mut content = Content::new();
-        content.add("message", Some(String::from(val.message_text())));
+        content.add("message", Some(val.message_text()));
 
         if let Some(author_badges) = &val.author_badges {
             if author_badges.has_moderator() {

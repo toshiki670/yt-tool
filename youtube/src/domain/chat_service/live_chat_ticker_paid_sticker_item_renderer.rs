@@ -23,7 +23,7 @@ impl From<Box<LiveChatTickerPaidStickerItemRenderer>> for SimpleChatEntity {
                 .simple_text,
             is_moderator: false,
             membership_months: "".to_string(),
-            category: CategoryValue::ChatTickerPaidMessageItem,
+            category: CategoryValue::TickerPaidMessageItem,
         }
     }
 }

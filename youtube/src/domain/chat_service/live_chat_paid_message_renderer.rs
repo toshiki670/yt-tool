@@ -41,7 +41,7 @@ impl From<Box<LiveChatPaidMessageRenderer>> for SimpleChatEntity {
             content: message,
             is_moderator,
             membership_months,
-            category: CategoryValue::ChatPaidMessage,
+            category: CategoryValue::PaidMessage,
         }
     }
 }

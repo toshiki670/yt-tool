@@ -119,7 +119,7 @@ mod tests {
 
         #[test]
         fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
-            let expected = CategoryValue::ChatTextMessage;
+            let expected = CategoryValue::TextMessage;
 
             let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
@@ -170,7 +170,7 @@ mod tests {
 
         #[test]
         fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
-            let expected = CategoryValue::ChatViewerEngagementMessage;
+            let expected = CategoryValue::ViewerEngagementMessage;
 
             let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
@@ -220,7 +220,7 @@ mod tests {
 
         #[test]
         fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
-            let expected = CategoryValue::ChatSponsorshipsGiftPurchaseAnnouncement;
+            let expected = CategoryValue::SponsorshipsGiftPurchaseAnnouncement;
 
             let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
@@ -256,7 +256,7 @@ mod tests {
 
         #[test]
         fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
-            let expected = CategoryValue::ChatPaidMessage;
+            let expected = CategoryValue::PaidMessage;
 
             let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;

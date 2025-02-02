@@ -29,7 +29,7 @@ impl From<Box<LiveChatTextMessageRenderer>> for SimpleChatEntity {
             content: val.message.into(),
             is_moderator,
             membership_months,
-            category: CategoryValue::ChatTextMessage,
+            category: CategoryValue::TextMessage,
         }
     }
 }

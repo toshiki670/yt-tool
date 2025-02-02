@@ -20,7 +20,7 @@ impl From<Box<LiveChatMembershipItemRenderer>> for SimpleChatEntity {
             content: val.header_subtext.into(),
             is_moderator,
             membership_months,
-            category: CategoryValue::ChatMembershipItem,
+            category: CategoryValue::MembershipItem,
         }
     }
 }

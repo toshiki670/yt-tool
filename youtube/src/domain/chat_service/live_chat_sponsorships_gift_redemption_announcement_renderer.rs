@@ -29,7 +29,7 @@ impl From<Box<LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer>> for Simpl
             content: val.message.into(),
             is_moderator,
             membership_months,
-            category: CategoryValue::ChatTextMessage,
+            category: CategoryValue::SponsorshipsGiftRedemptionAnnouncement,
         }
     }
 }

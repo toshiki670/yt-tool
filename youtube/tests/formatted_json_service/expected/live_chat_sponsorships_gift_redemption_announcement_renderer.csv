@@ -1,2 +1,2 @@
-id,authorExternalChannelId,postedAt,authorName,content,isModerator,membershipMonths,category
-ChwKGkNKSG05OHV5dTRvREZZb0sxZ0FkcFZrN0FB,UC5ikDcc50XbsQcOygMA68Pg,2024-12-22T21:38:51.029226+09:00,,was gifted a membership by K,false,,Sponsorships gift redemption announcement
+id,authorExternalChannelId,postedAt,category,authorName,content
+ChwKGkNKSG05OHV5dTRvREZZb0sxZ0FkcFZrN0FB,UC5ikDcc50XbsQcOygMA68Pg,2024-12-22T21:38:51.029226+09:00,Sponsorships gift redemption announcement,,message: 'was gifted a membership by K'

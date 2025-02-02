@@ -29,7 +29,7 @@ impl fmt::Display for CategoryValue {
             CategoryValue::SponsorshipsGiftRedemptionAnnouncement => {
                 write!(f, "Sponsorships gift redemption announcement")
             }
-            CategoryValue::TickerPaidMessageItem => write!(f, "Chat ticker paid message item"),
+            CategoryValue::TickerPaidMessageItem => write!(f, "Ticker paid message item"),
             CategoryValue::ViewerEngagementMessage => {
                 write!(f, "Viewer engagement message")
             }

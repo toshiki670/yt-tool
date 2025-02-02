@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 pub enum Text {
     #[default]
     None,
+    #[allow(clippy::enum_variant_names)]
     SimpleText(String),
     Runs(Vec<Run>),
 }

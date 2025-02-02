@@ -1,10 +1,10 @@
 use crate::domain::{
-    live_chat::item::renderers::live_chat_renderer::LiveChatRenderer,
+    live_chat::item::renderers::live_chat_sponsorships_gift_redemption_announcement_renderer::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer,
     simple_chat::{CategoryValue, SimpleChatEntity},
 };
 
-impl From<Box<LiveChatRenderer>> for SimpleChatEntity {
-    fn from(val: Box<LiveChatRenderer>) -> Self {
+impl From<Box<LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer>> for SimpleChatEntity {
+    fn from(val: Box<LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer>) -> Self {
         let is_moderator = if let Some(author_badges) = &val.author_badges {
             author_badges.has_moderator()
         } else {

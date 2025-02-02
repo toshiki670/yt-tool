@@ -7,7 +7,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct LiveChatRenderer {
+pub struct LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer {
     pub author_badges: Option<AuthorBadges>,
     pub author_external_channel_id: String,
     pub author_name: SimpleText,

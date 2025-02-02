@@ -1,0 +1,50 @@
+{
+  "clickTrackingParams": "CAEQl98BIhMIu6L3wb27igMVi9Y0Bx2m8wVM",
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "clickTrackingParams": "CAEQl98BIhMIu6L3wb27igMVi9Y0Bx2m8wVM",
+        "addChatItemAction": {
+          "item": {
+            "liveChatTextMessageRenderer": {
+              "message": { "runs": [{ "text": "ふっふー！" }] },
+              "authorPhoto": {
+                "thumbnails": [
+                  {
+                    "url": "https://yt4.ggpht.com/Ts81zNr4SlA4qVIkemILzivohyBLqMaNjUwnCyH-p4o7CheMhkdPhIaGf89o1N1KWwVfkUjEczs=s32-c-k-c0x00ffffff-no-rj",
+                    "width": 32,
+                    "height": 32
+                  },
+                  {
+                    "url": "https://yt4.ggpht.com/Ts81zNr4SlA4qVIkemILzivohyBLqMaNjUwnCyH-p4o7CheMhkdPhIaGf89o1N1KWwVfkUjEczs=s64-c-k-c0x00ffffff-no-rj",
+                    "width": 64,
+                    "height": 64
+                  }
+                ]
+              },
+              "contextMenuEndpoint": {
+                "clickTrackingParams": "CAEQl98BIhMIu6L3wb27igMVi9Y0Bx2m8wVM",
+                "commandMetadata": {
+                  "webCommandMetadata": { "ignoreNavigation": true }
+                },
+                "liveChatItemContextMenuEndpoint": {
+                  "params": "Q2g0S0hBb2FRMHR4Y2pndE5uRjFORzlFUm1OVVduZG5VV1JrTVVWTmVYY2FLU29uQ2hoVlExcHNSRmg2UjI5dk4yUTBOR0ozWkU1UFlrWmhZMmNTQzBsb1NsY3RXVkJLTFhvd0lBRW9BVElhQ2hoVlEycDRRV0ZKY3pKdmIxSk5hVFZrY0VOSFMwVndZWGM0QWtnQlVBRSUzRA=="
+                }
+              },
+              "id": "ChwKGkNLcXI4LTZxdTRvREZjVFp3Z1FkZDFFTXl3",
+              "timestampUsec": "1734869056809328",
+              "authorExternalChannelId": "UCjxAaIs2ooRMi5dpCGKEpaw",
+              "contextMenuAccessibility": {
+                "accessibilityData": { "label": "Chat actions" }
+              },
+              "timestampText": { "simpleText": "4:16" },
+              "trackingParams": "CAEQl98BIhMIu6L3wb27igMVi9Y0Bx2m8wVM"
+            }
+          },
+          "clientId": "CKqr8-6qu4oDFcTZwgQdd1EMyw"
+        }
+      }
+    ],
+    "videoOffsetTimeMsec": "256333"
+  }
+}

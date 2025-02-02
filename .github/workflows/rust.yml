@@ -1,7 +1,10 @@
+# https://gihyo.jp/article/2024/10/good-practices-for-github-actions
 # https://github.com/Swatinem/rust-cache
 name: Rust
 
 on:
+  # Supports manual startup for easy operation check
+  workflow_dispatch:
   push:
     branches: ["main"]
   pull_request:
@@ -9,38 +12,58 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  TZ: Asia/Tokyo
 
 jobs:
-  check:
+  check-dependencies:
     runs-on: ubuntu-latest
-    env:
-      TZ: Asia/Tokyo
-    steps:
-      - uses: actions/checkout@v4
-      - name: Check format
-        run: cargo fmt --check
-
-  lint:
-    runs-on: ubuntu-latest
-    env:
-      TZ: Asia/Tokyo
-    steps:
-      - uses: actions/checkout@v4
-      - name: Cache cargo registry
-        uses: Swatinem/rust-cache@v2
-      - name: Prepare clippy
-        run: rustup component add clippy
-      - name: Check lint
-        run: cargo clippy --all-targets --all-features -- -D warnings
-
-  test:
-    runs-on: ubuntu-latest
-    env:
-      TZ: Asia/Tokyo
+    timeout-minutes: 5
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Cache cargo registry
-        uses: Swatinem/rust-cache@v2
+      - name: Setup rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+      - name: Install cargo-outdated
+        run: cargo install cargo-outdated
+      - name: Check dependencies
+        run: cargo outdated --exit-code 1
+
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          components: rustfmt
+      - name: Check format
+        uses: actions-rust-lang/rustfmt@v1
+
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          components: clippy
+      - name: Check lint
+        uses: giraffate/clippy-action@v1
+        with:
+          clippy_flags: --all-targets --all-features -- -D warnings
+          reporter: 'github-pr-review'
+          fail_on_error: true
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup rust toolchain
+        uses: actions-rust-lang/setup-rust-toolchain@v1
       - name: Run tests
         run: cargo test --workspace --verbose

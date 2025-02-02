@@ -14,6 +14,7 @@ rustup component add llvm-tools-preview
 cargo install cargo-llvm-cov
 cargo install cargo-watch
 cargo install cargo-edit
+cargo install cargo-outdated
 '''
 ]
 
@@ -36,11 +37,19 @@ description = "Run the tests and watch for changes"
 category = "Test"
 command = "cargo"
 args = ["watch", "-x", "test --workspace"]
+env = { RUST_BACKTRACE = "0" }
 
 [tasks.tw]
 description = "Run the tests and watch for changes (alias for test-watch)"
 category = "Test"
 dependencies = ["test-watch"]
+
+[tasks.t]
+description = "Run the tests"
+category = "Test"
+command = "cargo"
+args = ["test", "--workspace"]
+env = { RUST_BACKTRACE = "0" }
 
 [tasks.cov]
 description = "Run the tests and generate coverage report"

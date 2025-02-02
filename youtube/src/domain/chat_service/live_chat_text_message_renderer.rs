@@ -1,22 +1,10 @@
 use crate::domain::{
-    live_chat::item::renderers::live_chat_paid_message_renderer::LiveChatPaidMessageRenderer,
+    live_chat::item::renderers::live_chat_text_message_renderer::LiveChatTextMessageRenderer,
     simple_chat::{CategoryValue, SimpleChatEntity},
 };
 
-impl LiveChatPaidMessageRenderer {
-    pub fn message_text(&self) -> String {
-        if let Some(message) = &self.message {
-            format!("{}: {}", self.purchase_amount_text.simple_text, message)
-        } else {
-            self.purchase_amount_text.simple_text.clone()
-        }
-    }
-}
-
-impl From<Box<LiveChatPaidMessageRenderer>> for SimpleChatEntity {
-    fn from(val: Box<LiveChatPaidMessageRenderer>) -> Self {
-        let message = val.message_text();
-
+impl From<Box<LiveChatTextMessageRenderer>> for SimpleChatEntity {
+    fn from(val: Box<LiveChatTextMessageRenderer>) -> Self {
         let is_moderator = if let Some(author_badges) = &val.author_badges {
             author_badges.has_moderator()
         } else {
@@ -38,10 +26,10 @@ impl From<Box<LiveChatPaidMessageRenderer>> for SimpleChatEntity {
                 .author_name
                 .map(|v| v.simple_text)
                 .unwrap_or("".to_string()),
-            content: message,
+            content: val.message.into(),
             is_moderator,
             membership_months,
-            category: CategoryValue::PaidMessage,
+            category: CategoryValue::TextMessage,
         }
     }
 }

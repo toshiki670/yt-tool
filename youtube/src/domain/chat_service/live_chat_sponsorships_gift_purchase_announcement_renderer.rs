@@ -21,7 +21,7 @@ impl From<Box<LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer>> for SimpleC
                 .into(),
             is_moderator: false,
             membership_months: "".to_string(),
-            category: CategoryValue::ChatSponsorshipsGiftPurchaseAnnouncement,
+            category: CategoryValue::SponsorshipsGiftPurchaseAnnouncement,
         }
     }
 }

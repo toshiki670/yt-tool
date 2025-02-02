@@ -1,24 +1,20 @@
-use serde::{Deserialize, Serialize};
-
 use super::values::{
     accessibility::Accessibility, author_badge::AuthorBadges,
     context_menu_endpoint::ContextMenuEndpoint, message::Message, simple_text::SimpleText,
-    text::Text, thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
+    thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
 };
+use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct LiveChatMembershipItemRenderer {
-    pub id: String,
-    pub timestamp_usec: TimestampUsec,
-    pub timestamp_text: SimpleText,
+pub struct LiveChatTextMessageRenderer {
+    pub author_badges: Option<AuthorBadges>,
     pub author_external_channel_id: String,
-    pub header_subtext: Text,
-    pub message: Option<Message>,
     pub author_name: Option<SimpleText>,
     pub author_photo: Thumbnails,
-    pub author_badges: AuthorBadges,
-    pub context_menu_endpoint: ContextMenuEndpoint,
     pub context_menu_accessibility: Accessibility,
-    pub tracking_params: String,
+    pub context_menu_endpoint: ContextMenuEndpoint,
+    pub id: String,
+    pub message: Message,
+    pub timestamp_usec: TimestampUsec,
 }

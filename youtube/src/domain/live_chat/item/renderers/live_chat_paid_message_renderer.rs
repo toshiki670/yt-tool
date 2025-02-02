@@ -12,7 +12,7 @@ pub struct LiveChatPaidMessageRenderer {
     pub author_badges: Option<AuthorBadges>,
     pub author_external_channel_id: String,
     pub author_name_text_color: i64,
-    pub author_name: SimpleText,
+    pub author_name: Option<SimpleText>,
     pub author_photo: Thumbnails,
     pub body_background_color: i64,
     pub body_text_color: i64,

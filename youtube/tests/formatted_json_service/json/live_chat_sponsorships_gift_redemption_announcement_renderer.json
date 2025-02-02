@@ -1,0 +1,55 @@
+{
+  "clickTrackingParams": "CAEQl98BIhMIiIzO7r27igMVxDGDAx2o4TJM",
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "clickTrackingParams": "CAEQl98BIhMIiIzO7r27igMVxDGDAx2o4TJM",
+        "addChatItemAction": {
+          "item": {
+            "liveChatSponsorshipsGiftRedemptionAnnouncementRenderer": {
+              "id": "ChwKGkNKSG05OHV5dTRvREZZb0sxZ0FkcFZrN0FB",
+              "timestampUsec": "1734871131029226",
+              "timestampText": { "simpleText": "38:50" },
+              "authorExternalChannelId": "UC5ikDcc50XbsQcOygMA68Pg",
+              "authorPhoto": {
+                "thumbnails": [
+                  {
+                    "url": "https://yt4.ggpht.com/fxTCPG_EEFVsHnBeCPeJ74SJo7zMWx21jtyfG6Bqzg2N7mgMFnavc1R0I5D7VOABnUvceRHR=s32-c-k-c0x00ffffff-no-rj",
+                    "width": 32,
+                    "height": 32
+                  },
+                  {
+                    "url": "https://yt4.ggpht.com/fxTCPG_EEFVsHnBeCPeJ74SJo7zMWx21jtyfG6Bqzg2N7mgMFnavc1R0I5D7VOABnUvceRHR=s64-c-k-c0x00ffffff-no-rj",
+                    "width": 64,
+                    "height": 64
+                  }
+                ]
+              },
+              "message": {
+                "runs": [
+                  { "text": "was gifted a membership by ", "italics": true },
+                  { "text": "K", "bold": true, "italics": true }
+                ]
+              },
+              "contextMenuEndpoint": {
+                "clickTrackingParams": "CAMQ2sMKIhMIiIzO7r27igMVxDGDAx2o4TJM",
+                "commandMetadata": {
+                  "webCommandMetadata": { "ignoreNavigation": true }
+                },
+                "liveChatItemContextMenuEndpoint": {
+                  "params": "Q2g0S0hBb2FRMHBJYlRrNGRYbDFORzlFUmxsdlN6Rm5RV1J3Vm1zM1FVRWFLU29uQ2hoVlExcHNSRmg2UjI5dk4yUTBOR0ozWkU1UFlrWmhZMmNTQzBsb1NsY3RXVkJLTFhvd0lBRW9BVElhQ2hoVlF6VnBhMFJqWXpVd1dHSnpVV05QZVdkTlFUWTRVR2M0QWtnQlVDTSUzRA=="
+                }
+              },
+              "contextMenuAccessibility": {
+                "accessibilityData": { "label": "Chat actions" }
+              },
+              "trackingParams": "CAMQ2sMKIhMIiIzO7r27igMVxDGDAx2o4TJM"
+            }
+          },
+          "clientId": "CJHm98uyu4oDFYoK1gAdpVk7AA"
+        }
+      }
+    ],
+    "videoOffsetTimeMsec": "2330402"
+  }
+}

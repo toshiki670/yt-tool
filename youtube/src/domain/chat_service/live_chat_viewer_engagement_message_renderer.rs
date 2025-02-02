@@ -13,7 +13,7 @@ impl From<Box<LiveChatViewerEngagementMessageRenderer>> for SimpleChatEntity {
             content: val.message.into(),
             is_moderator: false,
             membership_months: "".to_string(),
-            category: CategoryValue::ChatViewerEngagementMessage,
+            category: CategoryValue::ViewerEngagementMessage,
         }
     }
 }

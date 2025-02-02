@@ -27,7 +27,10 @@ impl LiveChatJsonInterface<'_, PathBuf> {
         let source_path = self.source.clone();
         let target_path = target_path.to_path_buf();
 
-        let repositories = vec![IoChatServiceRepository::file_to_file(source_path, target_path)?];
+        let repositories = vec![IoChatServiceRepository::file_to_file(
+            source_path,
+            target_path,
+        )?];
 
         let service = ChatConvertService::new(repositories);
 
@@ -44,7 +47,10 @@ impl LiveChatJsonInterface<'_, PathBuf> {
         target_path.set_extension(file_type);
         let target_path = target_path;
 
-        let repositories = vec![IoChatServiceRepository::file_to_file(source_path, target_path)?];
+        let repositories = vec![IoChatServiceRepository::file_to_file(
+            source_path,
+            target_path,
+        )?];
 
         let service = ChatConvertService::new(repositories);
 

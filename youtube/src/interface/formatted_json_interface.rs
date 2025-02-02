@@ -27,7 +27,10 @@ impl FormattedJsonInterface<'_, PathBuf> {
         let source_path = self.source.clone();
         let target_path = target_path.to_path_buf();
 
-        let repositories = vec![IoChatServiceRepository::file_to_file(source_path, target_path)?];
+        let repositories = vec![IoChatServiceRepository::file_to_file(
+            source_path,
+            target_path,
+        )?];
 
         let service = ChatConvertService::new(repositories);
 
@@ -43,7 +46,10 @@ impl FormattedJsonInterface<'_, PathBuf> {
         let mut target_path = source_path.clone();
         target_path.set_extension(file_type);
 
-        let repositories = vec![IoChatServiceRepository::file_to_file(source_path, target_path)?];
+        let repositories = vec![IoChatServiceRepository::file_to_file(
+            source_path,
+            target_path,
+        )?];
 
         let service = ChatConvertService::new(repositories);
         service.convert_from_chunk().await

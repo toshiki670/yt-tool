@@ -4,7 +4,7 @@ use std::path::{Path, PathBuf};
 
 /// This service provides an interface for managing and retrieving live chat JSON data from files.
 pub struct LiveChatJsonInterface<'a, T> {
-    inner: &'a T,
+    source: &'a T,
 }
 
 impl<'a, T> LiveChatJsonInterface<'a, T> {
@@ -12,8 +12,8 @@ impl<'a, T> LiveChatJsonInterface<'a, T> {
     ///
     /// # Arguments
     /// - `inner`: Source file path.
-    pub fn new(inner: &'a T) -> Self {
-        Self { inner }
+    pub fn new(source: &'a T) -> Self {
+        Self { source }
     }
 }
 
@@ -22,12 +22,12 @@ impl LiveChatJsonInterface<'_, PathBuf> {
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
-    /// - `to_path`: The path to save the converted data.
-    pub async fn generate_file_with_path(&self, to_path: &Path) -> anyhow::Result<()> {
-        let from_path = self.inner.clone();
-        let to_path = to_path.to_path_buf();
+    /// - `target_path`: The path to save the converted data.
+    pub async fn generate_file_with_path(&self, target_path: &Path) -> anyhow::Result<()> {
+        let source_path = self.source.clone();
+        let target_path = target_path.to_path_buf();
 
-        let repositories = vec![IoChatServiceRepository::file_to_file(from_path, to_path)?];
+        let repositories = vec![IoChatServiceRepository::file_to_file(source_path, target_path)?];
 
         let service = ChatConvertService::new(repositories);
 
@@ -39,12 +39,12 @@ impl LiveChatJsonInterface<'_, PathBuf> {
     /// # Arguments
     /// - `file_type`: The file type to save the converted data.
     pub async fn generate_file_with_type(&self, file_type: &String) -> anyhow::Result<()> {
-        let from_path = self.inner.clone();
-        let mut to_path = from_path.clone();
-        to_path.set_extension(file_type);
-        let to_path = to_path;
+        let source_path = self.source.clone();
+        let mut target_path = source_path.clone();
+        target_path.set_extension(file_type);
+        let target_path = target_path;
 
-        let repositories = vec![IoChatServiceRepository::file_to_file(from_path, to_path)?];
+        let repositories = vec![IoChatServiceRepository::file_to_file(source_path, target_path)?];
 
         let service = ChatConvertService::new(repositories);
 
@@ -55,15 +55,15 @@ impl LiveChatJsonInterface<'_, PathBuf> {
 impl LiveChatJsonInterface<'_, Vec<PathBuf>> {
     /// Generate simple chat CSV data from live chat JSON data.
     pub async fn generate_files_with_csv(&self) -> anyhow::Result<()> {
-        let from_paths = self.inner.clone();
+        let source_paths = self.source.clone();
 
-        let results = from_paths
+        let results = source_paths
             .into_iter()
-            .map(|from_path| {
-                let mut to_path = from_path.clone();
-                to_path.set_extension("csv");
-                let to_path = to_path;
-                let rp = IoChatServiceRepository::file_to_file(from_path, to_path)?;
+            .map(|source_path| {
+                let mut target_path = source_path.clone();
+                target_path.set_extension("csv");
+                let target_path = target_path;
+                let rp = IoChatServiceRepository::file_to_file(source_path, target_path)?;
 
                 Ok(rp)
             })
@@ -82,14 +82,14 @@ impl LiveChatJsonInterface<'_, String> {
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
-    /// - `to_path`: The path to save the converted data.
-    pub async fn generate_file_with_string(&self, to_path: &Path) -> anyhow::Result<()> {
-        let from_string = self.inner.clone();
-        let to_path = to_path.to_path_buf();
+    /// - `target_path`: The path to save the converted data.
+    pub async fn generate_file_with_string(&self, target_path: &Path) -> anyhow::Result<()> {
+        let source_string = self.source.clone();
+        let target_path = target_path.to_path_buf();
 
         let repositories = vec![IoChatServiceRepository::in_memory_to_file(
-            from_string,
-            to_path,
+            source_string,
+            target_path,
         )?];
 
         let service = ChatConvertService::new(repositories);

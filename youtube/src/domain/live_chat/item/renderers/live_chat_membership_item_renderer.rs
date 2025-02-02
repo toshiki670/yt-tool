@@ -15,7 +15,7 @@ pub struct LiveChatMembershipItemRenderer {
     pub author_external_channel_id: String,
     pub header_subtext: Text,
     pub message: Option<Message>,
-    pub author_name: SimpleText,
+    pub author_name: Option<SimpleText>,
     pub author_photo: Thumbnails,
     pub author_badges: AuthorBadges,
     pub context_menu_endpoint: ContextMenuEndpoint,

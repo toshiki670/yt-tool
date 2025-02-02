@@ -60,11 +60,11 @@ impl IoChatServiceRepository<Cursor<String>, Cursor<Vec<u8>>> {
     }
 }
 
-// impl<R, W> IoChatServiceRepository<R, W> {
-//     pub fn from_source(&self) -> Option<PathBuf> {
-//         self.from_inner.source.clone()
-//     }
-// }
+impl<R, W> IoChatServiceRepository<R, W> {
+    pub fn from_source(&self) -> Option<PathBuf> {
+        self.from_inner.source.clone()
+    }
+}
 
 impl<R> IoChatServiceRepository<R, Cursor<Vec<u8>>> {
     pub fn to_in_memory_data(&self) -> anyhow::Result<String> {
@@ -95,7 +95,17 @@ where
             .into_iter()
             .enumerate()
             .map(|(n, f)| {
-                f.with_context(|| format!("Failed to convert live chat at line {}", n + 1))
+                if let Some(source) = self.from_source() {
+                    f.with_context(|| {
+                        format!(
+                            "Failed to convert live chat at line {} from {}",
+                            n + 1,
+                            source.display()
+                        )
+                    })
+                } else {
+                    f.with_context(|| format!("Failed to convert live chat at line {}", n + 1))
+                }
             })
             .collect::<Vec<_>>();
 
@@ -110,9 +120,19 @@ where
     }
 
     async fn convert_from_chunk(&self) -> anyhow::Result<()> {
-        let live_chat = self.from_inner.first()?;
-        let simple_chat = live_chat.try_into()?;
-        self.to_inner.bulk_create(simple_chat)?;
+        let error_context = || {
+            if let Some(source) = self.from_source() {
+                format!("Failed to convert live chat from {}", source.display())
+            } else {
+                "Failed to convert live chat".to_string()
+            }
+        };
+
+        let live_chat = self.from_inner.first().with_context(error_context)?;
+        let simple_chat = live_chat.try_into().with_context(error_context)?;
+        self.to_inner
+            .bulk_create(simple_chat)
+            .with_context(error_context)?;
 
         Ok(())
     }

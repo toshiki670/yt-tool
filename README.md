@@ -3,6 +3,18 @@
 
 # yt tool
 
+## Install from GitHub Releases
+
+```
+cargo install --git https://github.com/toshiki670/yt-tool.git --tag 0.2.0
+```
+
+## Install from local
+
+```
+cargo install --path .
+```
+
 ## Release flow
 
 1. Create a release branch as `release/v[0-9]+.[0-9]+.[0-9]+`

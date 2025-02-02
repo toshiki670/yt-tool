@@ -34,7 +34,10 @@ impl From<Box<LiveChatPaidMessageRenderer>> for SimpleChatEntity {
             id: val.id,
             posted_at: val.timestamp_usec.into(),
             author_external_channel_id: val.author_external_channel_id,
-            author_name: val.author_name.map(|v| v.simple_text).unwrap_or("".to_string()),
+            author_name: val
+                .author_name
+                .map(|v| v.simple_text)
+                .unwrap_or("".to_string()),
             content: message,
             is_moderator,
             membership_months,

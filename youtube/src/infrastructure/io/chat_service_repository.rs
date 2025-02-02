@@ -98,9 +98,9 @@ where
                 if let Some(source) = self.source_path() {
                     f.with_context(|| {
                         format!(
-                            "Failed to convert live chat at line {} from {}",
+                            "Failed to convert live chat at {}:{}",
+                            source.display(),
                             n + 1,
-                            source.display()
                         )
                     })
                 } else {

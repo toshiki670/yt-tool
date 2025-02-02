@@ -1,0 +1,132 @@
+{
+  "clickTrackingParams": "CAEQl98BIhMIhLq9wL27igMVI7hWAR36lTRZ",
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "clickTrackingParams": "CAEQl98BIhMIhLq9wL27igMVI7hWAR36lTRZ",
+        "addChatItemAction": {
+          "item": {
+            "liveChatPaidMessageRenderer": {
+              "id": "ChwKGkNMblc0TXFxdTRvREZYM0N3Z1FkY2FVd1ln",
+              "timestampUsec": "1734868997883090",
+              "authorPhoto": {
+                "thumbnails": [
+                  {
+                    "url": "https://yt4.ggpht.com/ytc/AIdro_lqZZRWVeH6XqGcG2ZzeqBwu4JEmbDI7YNnRMhtqBHk1FvxA0I=s32-c-k-c0x00ffffff-no-rj",
+                    "width": 32,
+                    "height": 32
+                  },
+                  {
+                    "url": "https://yt4.ggpht.com/ytc/AIdro_lqZZRWVeH6XqGcG2ZzeqBwu4JEmbDI7YNnRMhtqBHk1FvxA0I=s64-c-k-c0x00ffffff-no-rj",
+                    "width": 64,
+                    "height": 64
+                  }
+                ]
+              },
+              "purchaseAmountText": { "simpleText": "¥5,000" },
+              "headerBackgroundColor": 4290910299,
+              "headerTextColor": 4294967295,
+              "bodyBackgroundColor": 4293467747,
+              "bodyTextColor": 4294967295,
+              "authorExternalChannelId": "UCee6zsDAVBVahONotgG0New",
+              "authorNameTextColor": 3019898879,
+              "contextMenuEndpoint": {
+                "clickTrackingParams": "CAYQ7rsEIhMIhLq9wL27igMVI7hWAR36lTRZ",
+                "commandMetadata": {
+                  "webCommandMetadata": { "ignoreNavigation": true }
+                },
+                "liveChatItemContextMenuEndpoint": {
+                  "params": "Q2g0S0hBb2FRMHh1VnpSTmNYRjFORzlFUmxnelEzZG5VV1JqWVZWM1dXY2FLU29uQ2hoVlExcHNSRmg2UjI5dk4yUTBOR0ozWkU1UFlrWmhZMmNTQzBsb1NsY3RXVkJLTFhvd0lBRW9BVElhQ2hoVlEyVmxObnB6UkVGV1FsWmhhRTlPYjNSblJ6Qk9aWGM0QWtnQlVBOCUzRA=="
+                }
+              },
+              "timestampColor": 2164260863,
+              "contextMenuAccessibility": {
+                "accessibilityData": { "label": "Chat actions" }
+              },
+              "timestampText": { "simpleText": "3:17" },
+              "trackingParams": "CAYQ7rsEIhMIhLq9wL27igMVI7hWAR36lTRZ",
+              "textInputBackgroundColor": 805306368,
+              "creatorHeartButton": {
+                "creatorHeartViewModel": {
+                  "creatorThumbnail": {
+                    "sources": [
+                      {
+                        "url": "https://yt3.ggpht.com/e5wX9w1xSFUjaUdyhFugYZKzDZ_KLTLWBgdtRohHQDu0pshH867pyOv6gLGuqkqy5Ik8bJ9MSZU=s48-c-k-c0x00ffffff-no-rj"
+                      }
+                    ]
+                  },
+                  "heartedIcon": {
+                    "sources": [
+                      { "clientResource": { "imageName": "full_heart-filled" } }
+                    ]
+                  },
+                  "unheartedIcon": {
+                    "sources": [
+                      { "clientResource": { "imageName": "full_heart" } }
+                    ],
+                    "processor": {
+                      "borderImageProcessor": {
+                        "imageTint": { "color": 4294967295 }
+                      }
+                    }
+                  },
+                  "heartedHoverText": "❤ by Kanata Ch. Kanata Amane",
+                  "heartedAccessibilityLabel": "Remove heart",
+                  "unheartedAccessibilityLabel": "Heart",
+                  "engagementStateKey": "EktsaXZlLWNoYXQtbWVzc2FnZS1lbmdhZ2VtZW50LXN0YXRlLUNod0tHa05NYmxjMFRYRnhkVFJ2UkVaWU0wTjNaMUZrWTJGVmQxbG4gLCgB"
+                }
+              },
+              "isV2Style": true,
+              "replyButton": {
+                "pdgReplyButtonViewModel": {
+                  "replyButton": {
+                    "buttonViewModel": {
+                      "iconName": "CHAT",
+                      "onTap": {
+                        "innertubeCommand": {
+                          "clickTrackingParams": "CAcQ68ENIhMIhLq9wL27igMVI7hWAR36lTRZ",
+                          "showEngagementPanelEndpoint": {
+                            "identifier": {
+                              "surface": "ENGAGEMENT_PANEL_SURFACE_LIVE_CHAT",
+                              "tag": "PAreply_thread"
+                            },
+                            "globalConfiguration": {
+                              "params": "ggm2AQojVWd5dGRDLVF0SnB3TEg3eXdqaDRBYUFCRHFnQl9mcnRsZ0kSVgopKicKGFVDWmxEWHpHb283ZDQ0YndkTk9iRmFjZxILSWhKVy1ZUEotejAQARgBIAE6I1VneXRkQy1RdEpwd0xIN3l3amg0QWFBQkRxZ0JfZnJ0bGdJGgggALABAPgBACIpKicKGFVDWmxEWHpHb283ZDQ0YndkTk9iRmFjZxILSWhKVy1ZUEotejAoATAB"
+                            },
+                            "engagementPanelPresentationConfigs": {
+                              "engagementPanelPopupPresentationConfig": {
+                                "popupType": "PANEL_POPUP_TYPE_DIALOG"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "accessibilityText": "Reply",
+                      "style": "BUTTON_VIEW_MODEL_STYLE_CUSTOM",
+                      "trackingParams": "CAcQ68ENIhMIhLq9wL27igMVI7hWAR36lTRZ",
+                      "type": "BUTTON_VIEW_MODEL_TYPE_TONAL",
+                      "buttonSize": "BUTTON_VIEW_MODEL_SIZE_XSMALL",
+                      "customBackgroundColor": 452984831,
+                      "customFontColor": 4294967295,
+                      "loggingDirectives": {
+                        "trackingParams": "CAcQ68ENIhMIhLq9wL27igMVI7hWAR36lTRZ",
+                        "visibility": { "types": "12" }
+                      }
+                    }
+                  },
+                  "replyCountEntityKey": "EiNVZ3l0ZEMtUXRKcHdMSDd5d2poNEFhQUJEcWdCX2ZydGxnSSDxAygB",
+                  "replyCountPlaceholder": {
+                    "content": "Reply",
+                    "styleRuns": [{ "startIndex": 0, "length": 5 }]
+                  }
+                }
+              }
+            }
+          },
+          "clientId": "CLnW4Mqqu4oDFX3CwgQdcaUwYg"
+        }
+      }
+    ],
+    "videoOffsetTimeMsec": "197101"
+  }
+}

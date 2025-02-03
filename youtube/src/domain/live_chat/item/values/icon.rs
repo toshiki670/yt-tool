@@ -16,7 +16,8 @@ impl Icon {
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum IconType {
     #[default]
-    Verified,
+    KEEP,
     Moderator,
+    Verified,
     YoutubeRound,
 }

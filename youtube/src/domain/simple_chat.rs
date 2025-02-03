@@ -7,9 +7,9 @@ pub(crate) use content::Content;
 pub(crate) use posted_at::PostedAtValue;
 use serde::Serialize;
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize)]
+#[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct SimpleChatEntity {
+pub(crate) struct SimpleChatEntity {
     pub id: String,
     pub author_external_channel_id: String,
     pub posted_at: PostedAtValue,

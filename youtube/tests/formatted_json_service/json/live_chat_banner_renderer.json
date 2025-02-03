@@ -1,0 +1,148 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "clickTrackingParams": "CAEQl98BIhMIzeDI7pD9igMVD1j1BR2Txg48",
+        "addBannerToLiveChatCommand": {
+          "bannerRenderer": {
+            "liveChatBannerRenderer": {
+              "header": {
+                "liveChatBannerHeaderRenderer": {
+                  "icon": { "iconType": "KEEP" },
+                  "text": {
+                    "runs": [{ "text": "Pinned by " }, { "text": "ABC" }]
+                  },
+                  "contextMenuButton": {
+                    "buttonRenderer": {
+                      "icon": { "iconType": "MORE_VERT" },
+                      "accessibility": { "label": "Chat actions" },
+                      "trackingParams": "CC0Q8FsiEwjN4MjukP2KAxUPWPUFHZPGDjw=",
+                      "accessibilityData": {
+                        "accessibilityData": { "label": "Chat actions" }
+                      },
+                      "command": {
+                        "clickTrackingParams": "CC0Q8FsiEwjN4MjukP2KAxUPWPUFHZPGDjw=",
+                        "commandMetadata": {
+                          "webCommandMetadata": { "ignoreNavigation": true }
+                        },
+                        "liveChatItemContextMenuEndpoint": {
+                          "params": "Q2g0S0hBb2FRMDExYkhwMmNuQmZTVzlFUmxkaVNIZG5VV1I1YzNkeFRuY2FLU29uQ2hoVlEwUkNlWEJJVkVwbU1FdE1UMWxWY0dWU1kwUndORkVTQ3paaVoweE5VMXBZVm1kRklBRW9CRElhQ2hoVlEwUkNlWEJJVkVwbU1FdE1UMWxWY0dWU1kwUndORkU0QVVnQVVBRSUzRA=="
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "contents": {
+                "liveChatTextMessageRenderer": {
+                  "message": {
+                    "runs": [
+                      {
+                        "text": "テキストメッセージです"
+                      },
+                      {
+                        "emoji": {
+                          "emojiId": "🙏",
+                          "shortcuts": [":folded_hands:", ":pray:"],
+                          "searchTerms": ["folded", "hands", "pray"],
+                          "supportsSkinTone": true,
+                          "image": {
+                            "thumbnails": [
+                              {
+                                "url": "https://fonts.gstatic.com/s/e/notoemoji/15.1/1f64f/72.png"
+                              }
+                            ],
+                            "accessibility": {
+                              "accessibilityData": { "label": "🙏" }
+                            }
+                          },
+                          "variantIds": ["🙏", "🙏🏻", "🙏🏼", "🙏🏽", "🙏🏾", "🙏🏿"]
+                        }
+                      },
+                      { "text": "bowing" },
+                      {
+                        "emoji": {
+                          "emojiId": "🙇‍♀",
+                          "shortcuts": [":woman_bowing:"],
+                          "searchTerms": ["woman", "bowing"],
+                          "image": {
+                            "thumbnails": [
+                              {
+                                "url": "https://fonts.gstatic.com/s/e/notoemoji/15.1/1f647_200d_2640/72.png"
+                              }
+                            ],
+                            "accessibility": {
+                              "accessibilityData": { "label": "🙇‍♀" }
+                            }
+                          }
+                        }
+                      },
+                      { "text": "テキストメッセージ" },
+                      {
+                        "text": "https://www.youtube.com/channel/aaaaa...",
+                        "navigationEndpoint": {
+                          "clickTrackingParams": "CAEQl98BIhMIzeDI7pD9igMVD1j1BR2Txg48",
+                          "commandMetadata": {
+                            "webCommandMetadata": {
+                              "url": "https://www.youtube.com/channel/X9bV3AkM6pY0NcsRFdW2lQeS/join",
+                              "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                              "rootVe": 83769
+                            }
+                          },
+                          "urlEndpoint": {
+                            "url": "https://www.youtube.com/channel/X9bV3AkM6pY0NcsRFdW2lQeS/join",
+                            "target": "TARGET_NEW_WINDOW",
+                            "nofollow": true
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "authorName": { "simpleText": "ABC" },
+                  "authorPhoto": {
+                    "thumbnails": [
+                      {
+                        "url": "https://yt4.ggpht.com/yc1Cb3RMttMawFi4VWHxJZwF9Blzw2IffBOQaAk-BtGuz2-EEFwx_F5EdGgzLi3Pot8V1mc0tqY=s32-c-k-c0x00ffffff-no-rj",
+                        "width": 32,
+                        "height": 32
+                      },
+                      {
+                        "url": "https://yt4.ggpht.com/yc1Cb3RMttMawFi4VWHxJZwF9Blzw2IffBOQaAk-BtGuz2-EEFwx_F5EdGgzLi3Pot8V1mc0tqY=s64-c-k-c0x00ffffff-no-rj",
+                        "width": 64,
+                        "height": 64
+                      }
+                    ]
+                  },
+                  "id": "ChwKGkNNdWx6dnJwX0lvREZXYkh3Z1FkeXN3cU53",
+                  "timestampUsec": "1737119375797775",
+                  "authorBadges": [
+                    {
+                      "liveChatAuthorBadgeRenderer": {
+                        "icon": { "iconType": "OWNER" },
+                        "tooltip": "Owner",
+                        "accessibility": {
+                          "accessibilityData": { "label": "Owner" }
+                        }
+                      }
+                    }
+                  ],
+                  "authorExternalChannelId": "X9bV3AkM6pY0NcsRFdW2lQeS",
+                  "trackingParams": "CAEQl98BIhMIzeDI7pD9igMVD1j1BR2Txg48"
+                }
+              },
+              "actionId": "ChwKGkNOREUxUHpwX0lvREZaM0N3Z1FkdXF3Q3B3",
+              "viewerIsCreator": false,
+              "targetId": "live-chat-banner",
+              "isStackable": false,
+              "backgroundType": "LIVE_CHAT_BANNER_BACKGROUND_TYPE_STATIC",
+              "bannerProperties": { "autoCollapseDelay": { "seconds": "7" } },
+              "bannerType": "LIVE_CHAT_BANNER_TYPE_PINNED_MESSAGE"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "-10443121",
+  "isLive": true
+}

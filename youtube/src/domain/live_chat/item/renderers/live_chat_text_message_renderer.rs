@@ -1,7 +1,7 @@
 use super::values::{
     accessibility::Accessibility, author_badge::AuthorBadges,
-    context_menu_endpoint::ContextMenuEndpoint, message::Message, simple_text::SimpleText,
-    thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
+    context_menu_endpoint::ContextMenuEndpoint, text::Text, thumbnails::Thumbnails,
+    timestamp_usec::TimestampUsec,
 };
 use serde::{Deserialize, Serialize};
 
@@ -10,11 +10,11 @@ use serde::{Deserialize, Serialize};
 pub struct LiveChatTextMessageRenderer {
     pub author_badges: Option<AuthorBadges>,
     pub author_external_channel_id: String,
-    pub author_name: Option<SimpleText>,
+    pub author_name: Option<Text>,
     pub author_photo: Thumbnails,
-    pub context_menu_accessibility: Accessibility,
-    pub context_menu_endpoint: ContextMenuEndpoint,
+    pub context_menu_accessibility: Option<Accessibility>,
+    pub context_menu_endpoint: Option<ContextMenuEndpoint>,
     pub id: String,
-    pub message: Message,
+    pub message: Text,
     pub timestamp_usec: TimestampUsec,
 }

@@ -13,11 +13,9 @@ use renderers::{
 };
 use serde::{Deserialize, Serialize};
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum Item {
-    #[default]
-    None,
     LiveChatMembershipItemRenderer(Box<LiveChatMembershipItemRenderer>),
     LiveChatPaidMessageRenderer(Box<LiveChatPaidMessageRenderer>),
     LiveChatPaidStickerRenderer(serde_json::Value),

@@ -1,3 +1,4 @@
+pub(crate) mod live_chat_banner_renderer;
 pub(super) mod live_chat_membership_item_renderer;
 pub(super) mod live_chat_paid_message_renderer;
 pub(super) mod live_chat_sponsorships_gift_purchase_announcement_renderer;
@@ -7,8 +8,8 @@ pub(super) mod live_chat_ticker_paid_message_item_renderer;
 pub(super) mod live_chat_ticker_paid_sticker_item_renderer;
 pub(super) mod live_chat_viewer_engagement_message_renderer;
 
-use anyhow::bail;
 use chrono::{DateTime, Utc};
+use support::anyhow::collect_results;
 
 use super::{
     live_chat::{
@@ -28,58 +29,61 @@ impl TryInto<Vec<SimpleChatEntity>> for LiveChatEntity {
     type Error = anyhow::Error;
 
     fn try_into(self) -> anyhow::Result<Vec<SimpleChatEntity>> {
-        let mut simple_chats = Vec::new();
+        let results = self
+            .replay_chat_item_action
+            .actions
+            .into_iter()
+            .map(TryInto::<Vec<SimpleChatEntity>>::try_into)
+            .collect();
 
-        for action in self.replay_chat_item_action.actions {
-            if let Some(simple_chat) = action.try_into()? {
-                simple_chats.push(simple_chat);
-            }
-        }
+        let simple_chats = collect_results(results)?;
+        let simple_chats = simple_chats.into_iter().flatten().collect();
 
         Ok(simple_chats)
     }
 }
 
-impl TryInto<Option<SimpleChatEntity>> for Action {
+impl TryInto<Vec<SimpleChatEntity>> for Action {
     type Error = anyhow::Error;
 
-    fn try_into(self) -> anyhow::Result<Option<SimpleChatEntity>> {
-        let item = if let Some(add_chat_item_action) = self.add_chat_item_action {
-            add_chat_item_action.item
+    fn try_into(self) -> anyhow::Result<Vec<SimpleChatEntity>> {
+        if let Some(add_chat_item_action) = self.add_chat_item_action {
+            let item = add_chat_item_action.item.into();
+            Ok(item)
         } else if let Some(add_live_chat_ticker_item_action) = self.add_live_chat_ticker_item_action
         {
-            add_live_chat_ticker_item_action.item
+            let item = add_live_chat_ticker_item_action.item.into();
+            Ok(item)
+        } else if let Some(add_banner_to_live_chat_command) = self.add_banner_to_live_chat_command {
+            let items = add_banner_to_live_chat_command
+                .banner_renderer
+                .live_chat_banner_renderer
+                .into();
+            Ok(items)
         } else if self.live_chat_report_moderation_state_command.is_some()
             || self.remove_chat_item_action.is_some()
         {
-            return Ok(None);
+            return Ok(vec![]);
         } else {
             unreachable!();
-        };
-
-        item.try_into()
+        }
     }
 }
 
-impl TryInto<Option<SimpleChatEntity>> for Item {
-    type Error = anyhow::Error;
-
-    fn try_into(self) -> anyhow::Result<Option<SimpleChatEntity>> {
-        let renderer: SimpleChatEntity = match self {
-            Item::None => bail!("no exists renderers"),
-            Item::LiveChatMembershipItemRenderer(r) => r.into(),
-            Item::LiveChatPaidMessageRenderer(r) => r.into(),
-            Item::LiveChatPaidStickerRenderer(_) => return Ok(None),
-            Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(r) => r.into(),
-            Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(r) => r.into(),
-            Item::LiveChatTextMessageRenderer(r) => r.into(),
-            Item::LiveChatTickerPaidMessageItemRenderer(r) => r.into(),
-            Item::LiveChatTickerSponsorItemRenderer(_) => return Ok(None),
-            Item::LiveChatViewerEngagementMessageRenderer(r) => r.into(),
-            Item::LiveChatTickerPaidStickerItemRenderer(r) => r.into(),
-        };
-
-        Ok(Some(renderer))
+impl From<Item> for Vec<SimpleChatEntity> {
+    fn from(val: Item) -> Self {
+        match val {
+            Item::LiveChatMembershipItemRenderer(r) => vec![r.into()],
+            Item::LiveChatPaidMessageRenderer(r) => vec![r.into()],
+            Item::LiveChatPaidStickerRenderer(_) => vec![],
+            Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(r) => vec![r.into()],
+            Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(r) => vec![r.into()],
+            Item::LiveChatTextMessageRenderer(r) => vec![r.into()],
+            Item::LiveChatTickerPaidMessageItemRenderer(r) => vec![r.into()],
+            Item::LiveChatTickerSponsorItemRenderer(_) => vec![],
+            Item::LiveChatViewerEngagementMessageRenderer(r) => vec![r.into()],
+            Item::LiveChatTickerPaidStickerItemRenderer(r) => vec![r.into()],
+        }
     }
 }
 

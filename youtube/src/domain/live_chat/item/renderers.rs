@@ -1,3 +1,4 @@
+pub(crate) mod live_chat_banner_renderer;
 pub(crate) mod live_chat_membership_item_renderer;
 pub(crate) mod live_chat_paid_message_renderer;
 pub(crate) mod live_chat_sponsorships_gift_purchase_announcement_renderer;

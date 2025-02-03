@@ -5,7 +5,7 @@ use super::values::{
 };
 use serde::{Deserialize, Serialize};
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer {
     pub author_badges: Option<AuthorBadges>,

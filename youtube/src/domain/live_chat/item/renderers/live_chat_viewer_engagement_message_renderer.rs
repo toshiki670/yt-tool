@@ -1,7 +1,7 @@
 use super::values::{icon::Icon, text::Text, timestamp_usec::TimestampUsec};
 use serde::{Deserialize, Serialize};
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LiveChatViewerEngagementMessageRenderer {
     pub id: String,

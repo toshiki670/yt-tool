@@ -6,7 +6,7 @@ use super::values::{
     timestamp_usec::TimestampUsec,
 };
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LiveChatMembershipItemRenderer {
     pub id: String,

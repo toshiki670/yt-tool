@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 
 use super::values::{text::Text, thumbnails::Thumbnails, timestamp_usec::TimestampUsec};
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LiveChatTickerPaidStickerItemRenderer {
     pub id: String,
@@ -17,7 +17,7 @@ pub struct LiveChatTickerPaidStickerItemRenderer {
     pub tracking_params: String,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ShowItemEndpoint {
     pub click_tracking_params: String,
@@ -37,20 +37,20 @@ pub struct WebCommandMetadata {
     pub ignore_navigation: bool,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ShowLiveChatItemEndpoint {
     pub renderer: Renderer,
     pub tracking_params: String,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Renderer {
     pub live_chat_paid_sticker_renderer: LiveChatPaidStickerRenderer,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LiveChatPaidStickerRenderer {
     pub id: String,

@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 
 use super::values::{text::Text, thumbnails::Thumbnails, timestamp_usec::TimestampUsec};
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer {
     pub id: String,
@@ -11,13 +11,13 @@ pub struct LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer {
     pub header: Header,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Header {
     pub live_chat_sponsorships_header_renderer: LiveChatSponsorshipsHeaderRenderer,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LiveChatSponsorshipsHeaderRenderer {
     pub author_name: Text,

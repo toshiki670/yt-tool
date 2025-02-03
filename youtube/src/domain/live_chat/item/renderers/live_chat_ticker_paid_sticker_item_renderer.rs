@@ -60,7 +60,7 @@ pub struct LiveChatPaidStickerRenderer {
     pub author_photo: AuthorPhoto2,
     pub author_name: Text,
     pub author_external_channel_id: String,
-    pub timestamp_text: TimestampText,
+    pub timestamp_text: Option<TimestampText>,
     pub sticker: Sticker,
     pub money_chip_background_color: i64,
     pub money_chip_text_color: i64,

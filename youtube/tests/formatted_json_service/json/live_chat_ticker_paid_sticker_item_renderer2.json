@@ -1,0 +1,160 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "clickTrackingParams": "CAEQl98BIhMI7L7495L9igMVWloPAh1zlA9P",
+        "addLiveChatTickerItemAction": {
+          "item": {
+            "liveChatTickerPaidStickerItemRenderer": {
+              "id": "ChwKGkNQYXZqdTZTX1lvREZjMF9yUVlkUWpJQlJR",
+              "authorPhoto": {
+                "thumbnails": [
+                  {
+                    "url": "https://yt4.ggpht.com/ytc/AIdro_lE-2v4pt1Am5Vt4Pedf4xjFjaVCExlg_cJVl7OY2xcwvV1BhXRzUSHIHLwFa5dONFuTw=s32-c-k-c0x00ffffff-no-rj",
+                    "width": 32,
+                    "height": 32
+                  },
+                  {
+                    "url": "https://yt4.ggpht.com/ytc/AIdro_lE-2v4pt1Am5Vt4Pedf4xjFjaVCExlg_cJVl7OY2xcwvV1BhXRzUSHIHLwFa5dONFuTw=s64-c-k-c0x00ffffff-no-rj",
+                    "width": 64,
+                    "height": 64
+                  }
+                ],
+                "accessibility": {
+                  "accessibilityData": { "label": "aaa" }
+                }
+              },
+              "startBackgroundColor": 4280150454,
+              "endBackgroundColor": 4278239141,
+              "durationSec": 120,
+              "fullDurationSec": 120,
+              "showItemEndpoint": {
+                "clickTrackingParams": "CAIQscgEIhMI7L7495L9igMVWloPAh1zlA9P",
+                "commandMetadata": {
+                  "webCommandMetadata": { "ignoreNavigation": true }
+                },
+                "showLiveChatItemEndpoint": {
+                  "renderer": {
+                    "liveChatPaidStickerRenderer": {
+                      "id": "ChwKGkNQYXZqdTZTX1lvREZjMF9yUVlkUWpJQlJR",
+                      "contextMenuEndpoint": {
+                        "clickTrackingParams": "CAQQ77sEIhMI7L7495L9igMVWloPAh1zlA9P",
+                        "commandMetadata": {
+                          "webCommandMetadata": { "ignoreNavigation": true }
+                        },
+                        "liveChatItemContextMenuEndpoint": {
+                          "params": "Q2g0S0hBb2FRMUJoZG1wMU5sTmZXVzlFUm1Nd1gzSlJXV1JSYWtsQ1VsRWFLU29uQ2hoVlEwUkNlWEJJVkVwbU1FdE1UMWxWY0dWU1kwUndORkVTQ3paaVoweE5VMXBZVm1kRklBRW9CRElhQ2hoVlEzaEZaRjlzUlVkU2VYcEdZMGhqTW5sclltWTJRWGM0QWtnQVVCUSUzRA=="
+                        }
+                      },
+                      "contextMenuAccessibility": {
+                        "accessibilityData": { "label": "Chat actions" }
+                      },
+                      "timestampUsec": "1737130367614647",
+                      "authorPhoto": {
+                        "thumbnails": [
+                          {
+                            "url": "https://yt4.ggpht.com/ytc/AIdro_lE-2v4pt1Am5Vt4Pedf4xjFjaVCExlg_cJVl7OY2xcwvV1BhXRzUSHIHLwFa5dONFuTw=s32-c-k-c0x00ffffff-no-rj",
+                            "width": 32,
+                            "height": 32
+                          },
+                          {
+                            "url": "https://yt4.ggpht.com/ytc/AIdro_lE-2v4pt1Am5Vt4Pedf4xjFjaVCExlg_cJVl7OY2xcwvV1BhXRzUSHIHLwFa5dONFuTw=s64-c-k-c0x00ffffff-no-rj",
+                            "width": 64,
+                            "height": 64
+                          }
+                        ]
+                      },
+                      "authorName": { "simpleText": "aaa" },
+                      "authorExternalChannelId": "UCxEd_lEGRyzFcHc2ykbf6Aw",
+                      "sticker": {
+                        "thumbnails": [
+                          {
+                            "url": "//lh3.googleusercontent.com/iaXFY_xpmoEytuxknC0M0UyO8tE1QKkHhaNZfnySUeL2zLV5HFlAkj7SBIK3FIc6kGSs_MvL2gBiPGuqONc=s88-rwa",
+                            "width": 88,
+                            "height": 88
+                          },
+                          {
+                            "url": "//lh3.googleusercontent.com/iaXFY_xpmoEytuxknC0M0UyO8tE1QKkHhaNZfnySUeL2zLV5HFlAkj7SBIK3FIc6kGSs_MvL2gBiPGuqONc=s176-rwa",
+                            "width": 176,
+                            "height": 176
+                          }
+                        ],
+                        "accessibility": {
+                          "accessibilityData": {
+                            "label": "Hippo character's head pops out of water, surounded by his hippo squad"
+                          }
+                        }
+                      },
+                      "authorBadges": [
+                        {
+                          "liveChatAuthorBadgeRenderer": {
+                            "customThumbnail": {
+                              "thumbnails": [
+                                {
+                                  "url": "https://yt3.ggpht.com/ReCyIV6lyIxLBhKEtIH-lY43qYYTNoGn8ty5M1neeKO3IMjkuKR3bTib2F6WlEXINkoNQm0K=s16-c-k",
+                                  "width": 16,
+                                  "height": 16
+                                },
+                                {
+                                  "url": "https://yt3.ggpht.com/ReCyIV6lyIxLBhKEtIH-lY43qYYTNoGn8ty5M1neeKO3IMjkuKR3bTib2F6WlEXINkoNQm0K=s32-c-k",
+                                  "width": 32,
+                                  "height": 32
+                                }
+                              ]
+                            },
+                            "tooltip": "Member (1 year)",
+                            "accessibility": {
+                              "accessibilityData": {
+                                "label": "Member (1 year)"
+                              }
+                            }
+                          }
+                        }
+                      ],
+                      "moneyChipBackgroundColor": 4280150454,
+                      "moneyChipTextColor": 4278190080,
+                      "purchaseAmountText": { "simpleText": "A$5.00" },
+                      "stickerDisplayWidth": 88,
+                      "stickerDisplayHeight": 88,
+                      "backgroundColor": 4280150454,
+                      "authorNameTextColor": 2315255808,
+                      "trackingParams": "CAQQ77sEIhMI7L7495L9igMVWloPAh1zlA9P",
+                      "isV2Style": true
+                    }
+                  },
+                  "trackingParams": "CAMQjtEGIhMI7L7495L9igMVWloPAh1zlA9P"
+                }
+              },
+              "authorExternalChannelId": "UCxEd_lEGRyzFcHc2ykbf6Aw",
+              "tickerThumbnails": [
+                {
+                  "thumbnails": [
+                    {
+                      "url": "//lh3.googleusercontent.com/s8dXXRV8coeIpz31hZAmF2RQRx8qI3HoAUYEx09F0XO4tEYDiVplYAwhhjiJ2h45tKCP6DJ92lsQGbUiIzc=s32-rp",
+                      "width": 32,
+                      "height": 32
+                    },
+                    {
+                      "url": "//lh3.googleusercontent.com/s8dXXRV8coeIpz31hZAmF2RQRx8qI3HoAUYEx09F0XO4tEYDiVplYAwhhjiJ2h45tKCP6DJ92lsQGbUiIzc=s64-rp",
+                      "width": 64,
+                      "height": 64
+                    }
+                  ],
+                  "accessibility": {
+                    "accessibilityData": {
+                      "label": "Hippopotamus sticker pack"
+                    }
+                  }
+                }
+              ],
+              "trackingParams": "CAIQscgEIhMI7L7495L9igMVWloPAh1zlA9P"
+            }
+          },
+          "durationSec": "120"
+        }
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "548696",
+  "isLive": true
+}

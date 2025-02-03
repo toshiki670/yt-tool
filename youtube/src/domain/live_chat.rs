@@ -21,8 +21,7 @@ pub struct ReplayChatItemAction {
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-#[serde(deny_unknown_fields)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Action {
     pub add_chat_item_action: Option<AddChatItemAction>,
     pub add_live_chat_ticker_item_action: Option<AddLiveChatTickerItemAction>,

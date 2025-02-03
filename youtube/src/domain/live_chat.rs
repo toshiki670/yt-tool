@@ -30,14 +30,14 @@ pub struct Action {
     pub remove_chat_item_action: Option<serde_json::Value>,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AddChatItemAction {
     pub client_id: Option<String>,
     pub item: Item,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct AddLiveChatTickerItemAction {
     pub duration_sec: String,

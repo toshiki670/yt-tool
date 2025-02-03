@@ -1,8 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::values::{
-    text::Text, thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
-};
+use super::values::{text::Text, thumbnails::Thumbnails, timestamp_usec::TimestampUsec};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]

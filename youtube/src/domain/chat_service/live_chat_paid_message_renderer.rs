@@ -6,7 +6,11 @@ use crate::domain::{
 impl LiveChatPaidMessageRenderer {
     pub fn message_text(&self) -> String {
         if let Some(message) = &self.message {
-            format!("{}: {}", String::from(self.purchase_amount_text.clone()), message)
+            format!(
+                "{}: {}",
+                String::from(self.purchase_amount_text.clone()),
+                message
+            )
         } else {
             String::from(self.purchase_amount_text.clone())
         }

@@ -2,8 +2,8 @@ use serde::{Deserialize, Serialize};
 
 use super::values::{
     accessibility::Accessibility, author_badge::AuthorBadges,
-    context_menu_endpoint::ContextMenuEndpoint,
-    text::Text, thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
+    context_menu_endpoint::ContextMenuEndpoint, text::Text, thumbnails::Thumbnails,
+    timestamp_usec::TimestampUsec,
 };
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

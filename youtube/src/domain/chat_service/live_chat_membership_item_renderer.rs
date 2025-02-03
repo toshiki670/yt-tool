@@ -5,10 +5,7 @@ use crate::domain::{
 
 impl From<Box<LiveChatMembershipItemRenderer>> for SimpleChatEntity {
     fn from(val: Box<LiveChatMembershipItemRenderer>) -> Self {
-        let author_name = val
-            .author_name
-            .map(|v| v.into())
-            .unwrap_or("".to_string());
+        let author_name = val.author_name.map(|v| v.into()).unwrap_or("".to_string());
 
         let mut content = Content::new();
         content.add("message", Some(String::from(val.header_subtext)));

@@ -2,7 +2,7 @@ use super::{
     live_chat_paid_message_renderer::LiveChatPaidMessageRenderer,
     values::{
         engagement_panel_command::EngagementPanelCommand, ignore_navigation::IgnoreNavigation,
-        simple_text::SimpleText, thumbnails::Thumbnails, web_command_metadata::WebCommandMetadata,
+        text::Text, thumbnails::Thumbnails, web_command_metadata::WebCommandMetadata,
     },
 };
 use serde::{Deserialize, Serialize};
@@ -20,7 +20,7 @@ pub struct LiveChatTickerPaidMessageItemRenderer {
     pub author_external_channel_id: String,
     pub full_duration_sec: i64,
     pub tracking_params: String,
-    pub author_username: SimpleText,
+    pub author_username: Text,
     pub animation_origin: String,
     pub open_engagement_panel_command: EngagementPanelCommand,
 }

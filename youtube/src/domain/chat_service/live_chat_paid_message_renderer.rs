@@ -6,9 +6,9 @@ use crate::domain::{
 impl LiveChatPaidMessageRenderer {
     pub fn message_text(&self) -> String {
         if let Some(message) = &self.message {
-            format!("{}: {}", self.purchase_amount_text.simple_text, message)
+            format!("{}: {}", String::from(self.purchase_amount_text.clone()), message)
         } else {
-            self.purchase_amount_text.simple_text.clone()
+            String::from(self.purchase_amount_text.clone())
         }
     }
 }
@@ -18,7 +18,7 @@ impl From<Box<LiveChatPaidMessageRenderer>> for SimpleChatEntity {
         let author_name = val
             .author_name
             .clone()
-            .map(|v| v.simple_text)
+            .map(|v| v.into())
             .unwrap_or("".to_string());
 
         let mut content = Content::new();

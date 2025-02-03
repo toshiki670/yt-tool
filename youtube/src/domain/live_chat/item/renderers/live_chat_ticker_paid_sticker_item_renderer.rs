@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 use super::values::{
-    simple_text::SimpleText, thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
+    text::Text, thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
 };
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -60,7 +60,7 @@ pub struct LiveChatPaidStickerRenderer {
     pub context_menu_accessibility: ContextMenuAccessibility,
     pub timestamp_usec: TimestampUsec,
     pub author_photo: AuthorPhoto2,
-    pub author_name: SimpleText,
+    pub author_name: Text,
     pub author_external_channel_id: String,
     pub timestamp_text: TimestampText,
     pub sticker: Sticker,

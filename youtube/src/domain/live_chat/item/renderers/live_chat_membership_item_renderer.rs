@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 
 use super::values::{
     accessibility::Accessibility, author_badge::AuthorBadges,
-    context_menu_endpoint::ContextMenuEndpoint, message::Message, simple_text::SimpleText,
+    context_menu_endpoint::ContextMenuEndpoint, message::Message,
     text::Text, thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
 };
 
@@ -11,11 +11,11 @@ use super::values::{
 pub struct LiveChatMembershipItemRenderer {
     pub id: String,
     pub timestamp_usec: TimestampUsec,
-    pub timestamp_text: SimpleText,
+    pub timestamp_text: Text,
     pub author_external_channel_id: String,
     pub header_subtext: Text,
     pub message: Option<Message>,
-    pub author_name: Option<SimpleText>,
+    pub author_name: Option<Text>,
     pub author_photo: Thumbnails,
     pub author_badges: AuthorBadges,
     pub context_menu_endpoint: ContextMenuEndpoint,

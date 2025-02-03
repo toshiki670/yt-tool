@@ -7,7 +7,7 @@ impl From<Box<LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer>> for Simpl
     fn from(val: Box<LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer>) -> Self {
         let author_name = val
             .author_name
-            .map(|v| v.simple_text)
+            .map(|v| v.into())
             .unwrap_or("".to_string());
 
         let mut content = Content::new();

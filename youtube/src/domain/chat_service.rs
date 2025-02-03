@@ -70,9 +70,9 @@ impl TryInto<Vec<SimpleChatEntity>> for Action {
     }
 }
 
-impl Into<Vec<SimpleChatEntity>> for Item {
-    fn into(self) -> Vec<SimpleChatEntity> {
-        match self {
+impl From<Item> for Vec<SimpleChatEntity> {
+    fn from(val: Item) -> Self {
+        match val {
             Item::LiveChatMembershipItemRenderer(r) => vec![r.into()],
             Item::LiveChatPaidMessageRenderer(r) => vec![r.into()],
             Item::LiveChatPaidStickerRenderer(_) => vec![],

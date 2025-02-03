@@ -1,16 +1,16 @@
 use serde::{Serialize, Serializer};
 use std::fmt;
 
-#[derive(Default, Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq)]
 pub(crate) enum CategoryValue {
-    #[default]
-    TextMessage,
+    Banner,
+    MembershipItem,
     PaidMessage,
     SponsorshipsGiftPurchaseAnnouncement,
     SponsorshipsGiftRedemptionAnnouncement,
+    TextMessage,
     TickerPaidMessageItem,
     ViewerEngagementMessage,
-    MembershipItem,
 }
 
 impl Serialize for CategoryValue {
@@ -25,7 +25,8 @@ impl Serialize for CategoryValue {
 impl fmt::Display for CategoryValue {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let msg = match self {
-            CategoryValue::TextMessage => "Text message",
+            CategoryValue::Banner => "Banner",
+            CategoryValue::MembershipItem => "Membership item",
             CategoryValue::PaidMessage => "Paid message",
             CategoryValue::SponsorshipsGiftRedemptionAnnouncement => {
                 "Sponsorships gift redemption announcement"
@@ -35,7 +36,7 @@ impl fmt::Display for CategoryValue {
             CategoryValue::SponsorshipsGiftPurchaseAnnouncement => {
                 "Sponsorships gift purchase announcement"
             }
-            CategoryValue::MembershipItem => "Membership item",
+            CategoryValue::TextMessage => "Text message",
         };
 
         write!(f, "{}", msg)

@@ -28,13 +28,15 @@ impl TryInto<Vec<SimpleChatEntity>> for LiveChatEntity {
     type Error = anyhow::Error;
 
     fn try_into(self) -> anyhow::Result<Vec<SimpleChatEntity>> {
-        let mut simple_chats = Vec::new();
+        let results = self
+            .replay_chat_item_action
+            .actions
+            .into_iter()
+            .map(TryInto::<Vec<SimpleChatEntity>>::try_into)
+            .collect();
 
-        for action in self.replay_chat_item_action.actions {
-            if let Some(simple_chat) = action.try_into()? {
-                simple_chats.push(simple_chat);
-            }
-        }
+        let simple_chats = collect_results(results)?;
+        let simple_chats = simple_chats.into_iter().flatten().collect();
 
         Ok(simple_chats)
     }

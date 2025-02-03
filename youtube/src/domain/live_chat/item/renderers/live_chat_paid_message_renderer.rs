@@ -1,8 +1,7 @@
 use super::values::{
     accessibility::Accessibility, author_badge::AuthorBadges,
     context_menu_endpoint::ContextMenuEndpoint, creator_heart_button::CreatorHeartButton,
-    message::Message, reply_button::ReplyButton, text::Text, thumbnails::Thumbnails,
-    timestamp_usec::TimestampUsec,
+    reply_button::ReplyButton, text::Text, thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
 };
 use serde::{Deserialize, Serialize};
 
@@ -24,7 +23,7 @@ pub struct LiveChatPaidMessageRenderer {
     pub id: String,
     #[serde(rename = "isV2Style")]
     pub is_v2style: bool,
-    pub message: Option<Message>,
+    pub message: Option<Text>,
     pub purchase_amount_text: Text,
     pub reply_button: Option<ReplyButton>,
     pub text_input_background_color: i64,

@@ -1,6 +1,6 @@
 use super::values::{
     accessibility::Accessibility, author_badge::AuthorBadges,
-    context_menu_endpoint::ContextMenuEndpoint, message::Message, text::Text,
+    context_menu_endpoint::ContextMenuEndpoint, text::Text,
     thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
 };
 use serde::{Deserialize, Serialize};
@@ -15,6 +15,6 @@ pub struct LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer {
     pub context_menu_accessibility: Accessibility,
     pub context_menu_endpoint: ContextMenuEndpoint,
     pub id: String,
-    pub message: Message,
+    pub message: Text,
     pub timestamp_usec: TimestampUsec,
 }

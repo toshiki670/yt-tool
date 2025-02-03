@@ -1,9 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::values::{
-    message::Message, text::Text, thumbnails::Thumbnails,
-    timestamp_usec::TimestampUsec,
-};
+use super::values::{text::Text, thumbnails::Thumbnails, timestamp_usec::TimestampUsec};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -25,7 +22,7 @@ pub struct Header {
 pub struct LiveChatSponsorshipsHeaderRenderer {
     pub author_name: Text,
     pub author_photo: Thumbnails,
-    pub primary_text: Message,
+    pub primary_text: Text,
     pub context_menu_endpoint: serde_json::Value,
     pub context_menu_accessibility: serde_json::Value,
     pub image: serde_json::Value,

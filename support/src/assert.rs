@@ -1,6 +1,6 @@
-use std::path::PathBuf;
-use pretty_assertions::assert_eq;
 use futures::future;
+use pretty_assertions::assert_eq;
+use std::path::PathBuf;
 use tokio::{fs, try_join};
 
 pub async fn assert_files_with_file_name(

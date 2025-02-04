@@ -12,6 +12,8 @@ impl From<Box<LiveChatMembershipItemRenderer>> for SimpleChatEntity {
             content.add("message", Some(String::from(message)));
         }
 
+        content.add("headerSubtext", Some(val.header_subtext.into()));
+
         if val.author_badges.has_moderator() {
             content.add("Moderator", None);
         }

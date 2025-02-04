@@ -29,7 +29,7 @@ jobs:
         id: outdated
         continue-on-error: true
         run: |
-          cargo outdated --exit-code 1 > outdated.txt || true
+          cargo outdated --exit-code 1 > outdated.txt
       - name: Comment outdated dependencies on PR
         if: ${{ github.event_name == 'pull_request' && steps.outdated.outcome == 'failure' }}
         uses: actions/github-script@v6

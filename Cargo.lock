@@ -786,6 +786,8 @@ dependencies = [
  "anyhow",
  "futures",
  "glob",
+ "pretty_assertions",
+ "tempfile",
  "thiserror",
  "tokio",
 ]

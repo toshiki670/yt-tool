@@ -37,7 +37,16 @@ pub struct Emoji {
 
 impl From<Emoji> for String {
     fn from(val: Emoji) -> Self {
-        val.emoji_id
+        if !val.is_custom_emoji.unwrap_or(false) {
+            return val.emoji_id;
+        }
+        if let Some(s) = val.shortcuts.as_ref().and_then(|s| s.first()) {
+            s.clone()
+        } else if let Some(s) = val.search_terms.as_ref().and_then(|s| s.first()) {
+            s.clone()
+        } else {
+            val.emoji_id
+        }
     }
 }
 

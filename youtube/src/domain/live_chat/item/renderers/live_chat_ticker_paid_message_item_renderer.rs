@@ -8,7 +8,7 @@ use super::{
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct LiveChatTickerPaidMessageItemRenderer {
     pub id: String,
     pub amount_text_color: i64,
@@ -26,7 +26,7 @@ pub struct LiveChatTickerPaidMessageItemRenderer {
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ShowItemEndpoint {
     pub click_tracking_params: String,
     pub command_metadata: WebCommandMetadata<IgnoreNavigation>,
@@ -34,14 +34,14 @@ pub struct ShowItemEndpoint {
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ShowLiveChatItemEndpoint {
     pub renderer: Renderer,
     pub tracking_params: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Renderer {
     pub live_chat_paid_message_renderer: LiveChatPaidMessageRenderer,
 }

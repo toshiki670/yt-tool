@@ -6,7 +6,7 @@ use super::values::{
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct LiveChatPaidMessageRenderer {
     pub author_badges: Option<AuthorBadges>,
     pub author_external_channel_id: String,

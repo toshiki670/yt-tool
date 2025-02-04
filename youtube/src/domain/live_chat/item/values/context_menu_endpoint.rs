@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use super::{ignore_navigation::IgnoreNavigation, web_command_metadata::WebCommandMetadata};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ContextMenuEndpoint {
     pub click_tracking_params: Option<String>,
     pub command_metadata: WebCommandMetadata<IgnoreNavigation>,
@@ -11,7 +11,7 @@ pub struct ContextMenuEndpoint {
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Params {
     pub params: String,
 }

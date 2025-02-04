@@ -11,7 +11,7 @@ use crate::domain::live_chat::item::values::{
 };
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct LiveChatBannerRenderer {
     pub header: Header,
     pub contents: Contents,
@@ -25,13 +25,13 @@ pub struct LiveChatBannerRenderer {
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Header {
     pub live_chat_banner_header_renderer: LiveChatBannerHeaderRenderer,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct LiveChatBannerHeaderRenderer {
     pub icon: Icon,
     pub text: Text,
@@ -39,13 +39,13 @@ pub struct LiveChatBannerHeaderRenderer {
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ContextMenuButton {
     pub button_renderer: ButtonRenderer,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ButtonRenderer {
     pub icon: Icon,
     pub accessibility: Label,
@@ -55,7 +55,7 @@ pub struct ButtonRenderer {
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Command {
     pub click_tracking_params: String,
     pub command_metadata: CommandMetadata,
@@ -63,25 +63,25 @@ pub struct Command {
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct LiveChatItemContextMenuEndpoint {
     pub params: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Contents {
     pub live_chat_text_message_renderer: LiveChatTextMessageRenderer,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct BannerProperties {
     pub auto_collapse_delay: AutoCollapseDelay,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct AutoCollapseDelay {
     pub seconds: String,
 }

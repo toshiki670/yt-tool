@@ -14,7 +14,7 @@ use renderers::{
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub enum Item {
     LiveChatMembershipItemRenderer(Box<LiveChatMembershipItemRenderer>),
     LiveChatPaidMessageRenderer(Box<LiveChatPaidMessageRenderer>),

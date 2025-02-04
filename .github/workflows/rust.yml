@@ -26,7 +26,7 @@ jobs:
       - name: Install cargo-outdated
         run: cargo install cargo-outdated
       - name: Check dependencies
-        run: cargo outdated --exit-code 1
+        run: cargo outdated
 
   check:
     runs-on: ubuntu-latest

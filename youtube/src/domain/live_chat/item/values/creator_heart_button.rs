@@ -16,6 +16,7 @@ pub struct CreatorHeartViewModel {
     pub hearted_accessibility_label: String,
     pub unhearted_accessibility_label: String,
     pub engagement_state_key: String,
+    pub gradient: Option<serde_json::Value>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

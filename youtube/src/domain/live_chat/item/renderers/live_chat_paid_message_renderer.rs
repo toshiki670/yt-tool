@@ -31,4 +31,7 @@ pub struct LiveChatPaidMessageRenderer {
     pub timestamp_text: Option<Text>,
     pub timestamp_usec: TimestampUsec,
     pub tracking_params: String,
+    pub header_overlay_image: Option<Thumbnails>,
+    pub lower_bumper: Option<serde_json::Value>,
+    pub pdg_purchased_novelty_logging_directives: Option<serde_json::Value>,
 }

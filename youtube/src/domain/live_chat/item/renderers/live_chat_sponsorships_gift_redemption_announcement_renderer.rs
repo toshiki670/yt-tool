@@ -17,4 +17,6 @@ pub struct LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer {
     pub id: String,
     pub message: Text,
     pub timestamp_usec: TimestampUsec,
+    pub timestamp_text: Text,
+    pub tracking_params: String,
 }

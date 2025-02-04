@@ -33,6 +33,8 @@ pub struct Emoji {
     pub search_terms: Option<Vec<String>>,
     pub image: Thumbnails,
     pub is_custom_emoji: Option<bool>,
+    pub supports_skin_tone: Option<bool>,
+    pub variant_ids: Option<Vec<String>>,
 }
 
 impl From<Emoji> for String {

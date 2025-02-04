@@ -69,6 +69,7 @@ pub struct LiveChatPaidStickerRenderer {
     pub sticker_display_height: i64,
     pub background_color: i64,
     pub author_name_text_color: i64,
+    pub author_badges: Option<serde_json::Value>,
     pub tracking_params: String,
     #[serde(rename = "isV2Style")]
     pub is_v2style: bool,

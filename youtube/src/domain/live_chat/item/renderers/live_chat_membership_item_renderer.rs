@@ -21,4 +21,5 @@ pub struct LiveChatMembershipItemRenderer {
     pub context_menu_endpoint: ContextMenuEndpoint,
     pub context_menu_accessibility: Accessibility,
     pub tracking_params: String,
+    pub header_primary_text: Option<Text>,
 }

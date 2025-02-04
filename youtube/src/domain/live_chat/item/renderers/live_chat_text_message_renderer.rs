@@ -18,5 +18,5 @@ pub struct LiveChatTextMessageRenderer {
     pub message: Text,
     pub timestamp_usec: TimestampUsec,
     pub timestamp_text: Option<Text>,
-    pub tracking_params: String,
+    pub tracking_params: Option<String>,
 }

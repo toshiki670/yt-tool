@@ -1,5 +1,5 @@
 use std::path::PathBuf;
-
+use pretty_assertions::assert_eq;
 use futures::future;
 use tokio::{fs, try_join};
 

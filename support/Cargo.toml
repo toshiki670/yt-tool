@@ -9,7 +9,7 @@ anyhow = []
 glob = []
 
 test = ['assert']
-assert = []
+assert = ['pretty_assertions']
 
 [dependencies]
 tokio = { workspace = true }
@@ -18,6 +18,8 @@ futures = { workspace = true }
 glob = { workspace = true }
 anyhow = { workspace = true }
 thiserror = { workspace = true }
+
+pretty_assertions = { version = "1.4.1", optional = true }
 
 [dev-dependencies]
 pretty_assertions = "1.4.1"

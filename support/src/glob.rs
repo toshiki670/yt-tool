@@ -62,3 +62,53 @@ pub enum ExpendGlobError {
     #[error("no input files were found")]
     NoInputFilesFound,
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use pretty_assertions::assert_eq;
+    use tokio::{fs, try_join};
+
+    #[tokio::test]
+    async fn test_expend_glob_input_patterns() -> anyhow::Result<()> {
+        let temp_dir = tempfile::tempdir()?;
+        let test_dir = temp_dir.path().join("test_expend_glob_input_patterns");
+        fs::create_dir_all(&test_dir).await?;
+        try_join!(
+            fs::File::create(test_dir.join("test.json")),
+            fs::File::create(test_dir.join("test2.json")),
+        )?;
+
+        let pattern = test_dir.join("*.json");
+        let patterns = vec![pattern.to_string_lossy().to_string()];
+        let result = expend_glob_input_patterns(&patterns)?;
+        assert_eq!(result.len(), 2);
+        assert_eq!(result[0], test_dir.join("test.json"));
+        assert_eq!(result[1], test_dir.join("test2.json"));
+
+        temp_dir.close()?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_not_found_patterns() -> anyhow::Result<()> {
+        let patterns = vec!["*.json".to_string()];
+        let result = expend_glob_input_patterns(&patterns);
+
+        let expected = ExpendGlobError::NoInputFilesFound.to_string();
+        let actual = result.unwrap_err().to_string();
+        assert_eq!(expected, actual);
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_not_found_pattern() -> anyhow::Result<()> {
+        let pattern = "*.json";
+        let result = expend_glob_pattern(pattern);
+
+        let expected = ExpendGlobError::NoInputFilesFound.to_string();
+        let actual = result.unwrap_err().to_string();
+        assert_eq!(expected, actual);
+        Ok(())
+    }
+}

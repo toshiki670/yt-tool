@@ -1,0 +1,14 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "clickTrackingParams": "CAEQl98BIhMImI3mpsKtigMVOmoPAh3RUy2T",
+        "removeChatItemAction": {
+          "targetItemId": "ChwKGkNQYW1fOVhBcllvREZjTGlsQWtkanBrVlNR"
+        }
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "-581945",
+  "isLive": true
+}

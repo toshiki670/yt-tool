@@ -10,7 +10,7 @@ use crate::domain::live_chat::item::values::{
     text::Text,
 };
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LiveChatBannerRenderer {
     pub header: Header,
@@ -24,13 +24,13 @@ pub struct LiveChatBannerRenderer {
     pub banner_type: String,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Header {
     pub live_chat_banner_header_renderer: LiveChatBannerHeaderRenderer,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct LiveChatBannerHeaderRenderer {
     pub icon: Icon,
@@ -68,7 +68,7 @@ pub struct LiveChatItemContextMenuEndpoint {
     pub params: String,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Contents {
     pub live_chat_text_message_renderer: LiveChatTextMessageRenderer,

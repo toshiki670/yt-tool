@@ -4,11 +4,9 @@ use std::fmt::Display;
 use run::Run;
 use serde::{Deserialize, Serialize};
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum Text {
-    #[default]
-    None,
     #[allow(clippy::enum_variant_names)]
     SimpleText(String),
     Runs(Vec<Run>),
@@ -30,7 +28,6 @@ impl From<Text> for String {
                 .map(|run| run.into())
                 .collect::<Vec<String>>()
                 .join(""),
-            Text::None => String::new(),
         }
     }
 }

@@ -19,7 +19,6 @@ glob = { workspace = true }
 anyhow = { workspace = true }
 thiserror = { workspace = true }
 
-chrono = { version = "0.4.39", features = ["serde"] }
 pretty_assertions = { version = "1.4.1", optional = true }
 
 [dev-dependencies]

@@ -16,7 +16,10 @@ impl From<Box<LiveChatPaidMessageRenderer>> for SimpleChatEntity {
             content.add("message", Some(message.into()));
         }
 
-        content.add("purchaseAmount", Some(val.purchase_amount_text.clone().into()));
+        content.add(
+            "purchaseAmount",
+            Some(val.purchase_amount_text.clone().into()),
+        );
 
         if let Some(author_badges) = &val.author_badges {
             if author_badges.has_moderator() {

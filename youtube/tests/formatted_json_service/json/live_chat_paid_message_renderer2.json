@@ -1,0 +1,218 @@
+{
+  "clickTrackingParams": "CAEQl98BIhMIz5X5ur27igMVoc80Bx03uTj5",
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "clickTrackingParams": "CAEQl98BIhMIz5X5ur27igMVoc80Bx03uTj5",
+        "addChatItemAction": {
+          "item": {
+            "liveChatPaidMessageRenderer": {
+              "id": "ChwKGkNLV3lrTC1qdTRvREZVYlB3Z1FkRHFJWk1R",
+              "timestampUsec": "1734867122096802",
+              "authorName": { "simpleText": "Hoi" },
+              "authorPhoto": {
+                "thumbnails": [
+                  {
+                    "url": "https://yt4.ggpht.com/LuOA36QOJC1vs-_7tSzylCyd8hHVbEu0do6Ds8gJ91pnujbXWFMFYuBVL8m0rx_A9Y85ZeJY=s32-c-k-c0x00ffffff-no-rj",
+                    "width": 32,
+                    "height": 32
+                  },
+                  {
+                    "url": "https://yt4.ggpht.com/LuOA36QOJC1vs-_7tSzylCyd8hHVbEu0do6Ds8gJ91pnujbXWFMFYuBVL8m0rx_A9Y85ZeJY=s64-c-k-c0x00ffffff-no-rj",
+                    "width": 64,
+                    "height": 64
+                  }
+                ]
+              },
+              "purchaseAmountText": { "simpleText": "¥5,555" },
+              "message": {
+                "runs": [
+                  {
+                    "text": "...メッセージ..."
+                  }
+                ]
+              },
+              "headerBackgroundColor": 4290910299,
+              "headerTextColor": 4294967295,
+              "bodyBackgroundColor": 4293467747,
+              "bodyTextColor": 4294967295,
+              "authorExternalChannelId": "UCg38veB3XAeqBeaILJrFfWw",
+              "authorNameTextColor": 3019898879,
+              "contextMenuEndpoint": {
+                "clickTrackingParams": "CNUCEO67BCITCM-V-bq9u4oDFaHPNAcdN7k4-Q==",
+                "commandMetadata": {
+                  "webCommandMetadata": { "ignoreNavigation": true }
+                },
+                "liveChatItemContextMenuEndpoint": {
+                  "params": "Q2g0S0hBb2FRMHRYZVd0TUxXcDFORzlFUmxWaVVIZG5VV1JFY1VsYVRWRWFLU29uQ2hoVlExcHNSRmg2UjI5dk4yUTBOR0ozWkU1UFlrWmhZMmNTQzBsb1NsY3RXVkJLTFhvd0lBRW9BVElhQ2hoVlEyY3pPSFpsUWpOWVFXVnhRbVZoU1V4S2NrWm1WM2M0QWtnQlVBOCUzRA=="
+                }
+              },
+              "timestampColor": 2164260863,
+              "contextMenuAccessibility": {
+                "accessibilityData": { "label": "Chat actions" }
+              },
+              "timestampText": { "simpleText": "-27:55" },
+              "trackingParams": "CNUCEO67BCITCM-V-bq9u4oDFaHPNAcdN7k4-Q==",
+              "headerOverlayImage": {
+                "thumbnails": [
+                  {
+                    "url": "https://www.gstatic.com/youtube/img/pdg/novelty/purchase_milestones/5th_purchase_milestone/5th_Purchase_Celebration_Novelty_ILSC_T6.webp",
+                    "width": 130,
+                    "height": 48
+                  }
+                ]
+              },
+              "authorBadges": [
+                {
+                  "liveChatAuthorBadgeRenderer": {
+                    "customThumbnail": {
+                      "thumbnails": [
+                        {
+                          "url": "https://yt3.ggpht.com/c9FVnU3zQyRhy7W4z_vm4hGF7bjSyXcyxIVTELl9dDNndD-tXfDNCjRQxHfgZu-NCHq1j4VmEQ=s16-c-k",
+                          "width": 16,
+                          "height": 16
+                        },
+                        {
+                          "url": "https://yt3.ggpht.com/c9FVnU3zQyRhy7W4z_vm4hGF7bjSyXcyxIVTELl9dDNndD-tXfDNCjRQxHfgZu-NCHq1j4VmEQ=s32-c-k",
+                          "width": 32,
+                          "height": 32
+                        }
+                      ]
+                    },
+                    "tooltip": "Member (1 year)",
+                    "accessibility": {
+                      "accessibilityData": { "label": "Member (1 year)" }
+                    }
+                  }
+                }
+              ],
+              "textInputBackgroundColor": 805306368,
+              "lowerBumper": {
+                "liveChatItemBumperViewModel": {
+                  "content": {
+                    "bumperUserEduContentViewModel": {
+                      "text": {
+                        "content": "Let's celebrate their 5th Super on a live stream",
+                        "styleRuns": [{ "startIndex": 0, "length": 48 }]
+                      },
+                      "trackingParams": "CNkCEJOWCyITCM-V-bq9u4oDFaHPNAcdN7k4-Q==",
+                      "image": {
+                        "sources": [
+                          {
+                            "clientResource": {
+                              "imageName": "CELEBRATION",
+                              "imageColor": 4294901760
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "pdgPurchasedBumperLoggingDirectives": {
+                    "loggingDirectives": {
+                      "trackingParams": "CNgCEO_OCyITCM-V-bq9u4oDFaHPNAcdN7k4-Q==",
+                      "visibility": { "types": "12" }
+                    }
+                  }
+                }
+              },
+              "creatorHeartButton": {
+                "creatorHeartViewModel": {
+                  "creatorThumbnail": {
+                    "sources": [
+                      {
+                        "url": "https://yt3.ggpht.com/e5wX9w1xSFUjaUdyhFugYZKzDZ_KLTLWBgdtRohHQDu0pshH867pyOv6gLGuqkqy5Ik8bJ9MSZU=s48-c-k-c0x00ffffff-no-rj"
+                      }
+                    ]
+                  },
+                  "heartedIcon": {
+                    "sources": [
+                      { "clientResource": { "imageName": "full_heart-filled" } }
+                    ]
+                  },
+                  "unheartedIcon": {
+                    "sources": [
+                      { "clientResource": { "imageName": "full_heart" } }
+                    ],
+                    "processor": {
+                      "borderImageProcessor": {
+                        "imageTint": { "color": 4294967295 }
+                      }
+                    }
+                  },
+                  "heartedHoverText": "❤ by channel name",
+                  "heartedAccessibilityLabel": "Remove heart",
+                  "unheartedAccessibilityLabel": "Heart",
+                  "engagementStateKey": "EktsaXZlLWNoYXQtbWVzc2FnZS1lbmdhZ2VtZW50LXN0YXRlLUNod0tHa05MVjNsclRDMXFkVFJ2UkVaVllsQjNaMUZrUkhGSldrMVIgLCgB",
+                  "gradient": {
+                    "sources": [
+                      { "url": "//youtube.com/img/pdg/gradient.png" }
+                    ],
+                    "processor": {
+                      "borderImageProcessor": {
+                        "imageTint": { "color": 4293467747 }
+                      }
+                    }
+                  }
+                }
+              },
+              "isV2Style": true,
+              "pdgPurchasedNoveltyLoggingDirectives": {
+                "loggingDirectives": {
+                  "trackingParams": "CNcCEO7OCyITCM-V-bq9u4oDFaHPNAcdN7k4-Q==",
+                  "visibility": { "types": "12" }
+                }
+              },
+              "replyButton": {
+                "pdgReplyButtonViewModel": {
+                  "replyButton": {
+                    "buttonViewModel": {
+                      "iconName": "CHAT",
+                      "onTap": {
+                        "innertubeCommand": {
+                          "clickTrackingParams": "CNYCEOvBDSITCM-V-bq9u4oDFaHPNAcdN7k4-Q==",
+                          "showEngagementPanelEndpoint": {
+                            "identifier": {
+                              "surface": "ENGAGEMENT_PANEL_SURFACE_LIVE_CHAT",
+                              "tag": "PAreply_thread"
+                            },
+                            "globalConfiguration": {
+                              "params": "ggm2AQojVWd6cVpSVTNmT19PY3lxX05nUjRBYUFCRHFnQi1JYmduZ0kSVgopKicKGFVDWmxEWHpHb283ZDQ0YndkTk9iRmFjZxILSWhKVy1ZUEotejAQARgBIAE6I1VnenFaUlUzZk9fT2N5cV9OZ1I0QWFBQkRxZ0ItSWJnbmdJGgggALABAPgBACIpKicKGFVDWmxEWHpHb283ZDQ0YndkTk9iRmFjZxILSWhKVy1ZUEotejAoATAB"
+                            },
+                            "engagementPanelPresentationConfigs": {
+                              "engagementPanelPopupPresentationConfig": {
+                                "popupType": "PANEL_POPUP_TYPE_DIALOG"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "accessibilityText": "Reply",
+                      "style": "BUTTON_VIEW_MODEL_STYLE_CUSTOM",
+                      "trackingParams": "CNYCEOvBDSITCM-V-bq9u4oDFaHPNAcdN7k4-Q==",
+                      "type": "BUTTON_VIEW_MODEL_TYPE_TONAL",
+                      "buttonSize": "BUTTON_VIEW_MODEL_SIZE_XSMALL",
+                      "customBackgroundColor": 452984831,
+                      "customFontColor": 4294967295,
+                      "loggingDirectives": {
+                        "trackingParams": "CNYCEOvBDSITCM-V-bq9u4oDFaHPNAcdN7k4-Q==",
+                        "visibility": { "types": "12" }
+                      }
+                    }
+                  },
+                  "replyCountEntityKey": "EiNVZ3pxWlJVM2ZPX09jeXFfTmdSNEFhQUJEcWdCLUliZ25nSSDxAygB",
+                  "replyCountPlaceholder": {
+                    "content": "Reply",
+                    "styleRuns": [{ "startIndex": 0, "length": 5 }]
+                  }
+                }
+              }
+            }
+          },
+          "clientId": "CKWykL-ju4oDFUbPwgQdDqIZMQ"
+        }
+      }
+    ],
+    "videoOffsetTimeMsec": "0"
+  }
+}

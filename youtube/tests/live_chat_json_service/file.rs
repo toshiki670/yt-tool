@@ -1,14 +1,13 @@
 extern crate youtube;
 
 use anyhow::Context;
+use chrono::prelude::*;
 use futures::future;
 use std::{
     env,
     path::{Path, PathBuf},
 };
-use support::assert::{
-    assert_file_content, assert_files_with_file_name, assert_files_with_timestamped_name,
-};
+use support::assert::{assert_file_content, assert_files_with_file_name};
 use tempfile::tempdir;
 use tokio::fs;
 use youtube::prelude::LiveChatJsonInterface;
@@ -64,7 +63,7 @@ async fn it_generate_with_paths() -> anyhow::Result<()> {
 }
 
 #[tokio::test]
-async fn it_generate_with_paths_and_timestamped_name() -> anyhow::Result<()> {
+async fn it_generate_with_path_and_timestamped_name() -> anyhow::Result<()> {
     let temp_dir = tempdir()?;
 
     // Create test directory
@@ -78,18 +77,28 @@ async fn it_generate_with_paths_and_timestamped_name() -> anyhow::Result<()> {
     let source = test_json_dir.join("*");
     cp(&source.to_string_lossy(), &test_dir).await?;
 
-    // Read test json files
-    let imput_paths = read_paths(&test_dir)?;
+    // Read test json file
+    let imput_path = test_dir.join("live_chat.json");
+    let imput_paths = vec![imput_path];
 
     // Run the test subject
     let interface = LiveChatJsonInterface::new(&imput_paths);
-    interface.generate_files_with_csv().await?;
+    interface.generate_files_with_timestamped_name().await?;
 
     // Prepare expected file paths
-    let expected_paths = imput_paths;
+    let imput_path = imput_paths.first().unwrap();
+    let metadata = imput_path.metadata().unwrap();
 
-    // Assert the result
-    assert_files_with_timestamped_name(&expected_paths).await?;
+    let created_at = metadata.created().unwrap();
+    let created_at: DateTime<Local> = created_at.into();
+
+    let expected_paths =
+        imput_path.with_file_name(format!("{}.csv", created_at.format("%Y%m%dT%H%M%S%z")));
+
+    let exists = fs::try_exists(&expected_paths).await?;
+
+    // Assert that the file was created by timestamped name
+    assert!(exists);
 
     temp_dir.close()?;
     Ok(())

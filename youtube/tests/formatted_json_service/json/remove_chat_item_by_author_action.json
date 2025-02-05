@@ -1,0 +1,13 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "removeChatItemByAuthorAction": {
+          "externalChannelId": "UC7LcPXvPLqw0S6GcVQHZTXw"
+        }
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "15044111",
+  "isLive": true
+}

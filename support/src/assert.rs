@@ -25,10 +25,20 @@ pub async fn assert_files_with_file_name(
     Ok(())
 }
 
-pub async fn assert_file_content(expected: PathBuf, actual: PathBuf) -> tokio::io::Result<()> {
-    let expected = fs::read_to_string(expected);
-    let actual = fs::read_to_string(actual);
-    let (expected, actual) = try_join!(expected, actual)?;
+
+pub async fn assert_file_content(
+    expected_path: PathBuf,
+    actual_path: PathBuf,
+) -> anyhow::Result<()> {
+    let expected = fs::read_to_string(&expected_path);
+    let actual = fs::read_to_string(&actual_path);
+    let (expected, actual) = try_join!(expected, actual).with_context(|| {
+        format!(
+            "Failed: expected: {}, actual: {}",
+            &expected_path.display(),
+            &actual_path.display()
+        )
+    })?;
 
     assert_eq!(
         expected, actual,

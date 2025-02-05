@@ -19,4 +19,5 @@ pub struct LiveChatTextMessageRenderer {
     pub timestamp_usec: TimestampUsec,
     pub timestamp_text: Option<Text>,
     pub tracking_params: Option<String>,
+    pub before_content_buttons: Option<serde_json::Value>,
 }

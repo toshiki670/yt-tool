@@ -25,6 +25,34 @@ pub async fn assert_files_with_file_name(
     Ok(())
 }
 
+pub async fn assert_files_with_timestamped_name(
+    expected_paths: &Vec<PathBuf>,
+) -> anyhow::Result<()> {
+    let zipped = expected_paths
+        .clone()
+        .into_iter()
+        .map(|file| {
+            let metadata = file.metadata().unwrap();
+
+            let created_at = metadata.created().unwrap();
+            let created_at: DateTime<Local> = created_at.into();
+
+            let actual_file =
+                file.with_file_name(format!("{}.csv", created_at.format("%Y%m%dT%H%M%S%z")));
+            let expected_file = file;
+
+            (expected_file, actual_file)
+        })
+        .collect::<Vec<_>>();
+
+    let futures = zipped
+        .into_iter()
+        .map(|(expected, actual)| assert_file_content(expected, actual))
+        .collect::<Vec<_>>();
+
+    future::try_join_all(futures).await?;
+    Ok(())
+}
 
 pub async fn assert_file_content(
     expected_path: PathBuf,

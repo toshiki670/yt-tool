@@ -23,6 +23,7 @@ pub struct LiveChatTickerPaidMessageItemRenderer {
     pub author_username: Text,
     pub animation_origin: String,
     pub open_engagement_panel_command: EngagementPanelCommand,
+    pub dynamic_state_data: Option<serde_json::Value>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

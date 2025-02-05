@@ -29,6 +29,7 @@ pub struct Action {
     pub live_chat_report_moderation_state_command: Option<serde_json::Value>,
     pub remove_chat_item_action: Option<serde_json::Value>,
     pub add_banner_to_live_chat_command: Option<AddBannerToLiveChatCommand>,
+    pub remove_chat_item_by_author_action: Option<serde_json::Value>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

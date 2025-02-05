@@ -62,6 +62,7 @@ impl TryInto<Vec<SimpleChatEntity>> for Action {
             Ok(items)
         } else if self.live_chat_report_moderation_state_command.is_some()
             || self.remove_chat_item_action.is_some()
+            || self.remove_chat_item_by_author_action.is_some()
         {
             return Ok(vec![]);
         } else {

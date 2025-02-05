@@ -6,7 +6,9 @@ use std::{
     env,
     path::{Path, PathBuf},
 };
-use support::assert::{assert_file_content, assert_files_with_file_name};
+use support::assert::{
+    assert_file_content, assert_files_with_file_name, assert_files_with_timestamped_name,
+};
 use tempfile::tempdir;
 use tokio::fs;
 use youtube::prelude::LiveChatJsonInterface;
@@ -56,6 +58,38 @@ async fn it_generate_with_paths() -> anyhow::Result<()> {
 
     // Assert the result
     assert_files_with_file_name(&expected_dir, &actual_files).await?;
+
+    temp_dir.close()?;
+    Ok(())
+}
+
+#[tokio::test]
+async fn it_generate_with_paths_and_timestamped_name() -> anyhow::Result<()> {
+    let temp_dir = tempdir()?;
+
+    // Create test directory
+    let test_dir = temp_dir
+        .path()
+        .join("it_generate_with_paths_and_timestamped_name");
+    fs::create_dir_all(&test_dir).await?;
+
+    // Copy test json files
+    let test_json_dir = test_json_dir();
+    let source = test_json_dir.join("*");
+    cp(&source.to_string_lossy(), &test_dir).await?;
+
+    // Read test json files
+    let imput_paths = read_paths(&test_dir)?;
+
+    // Run the test subject
+    let interface = LiveChatJsonInterface::new(&imput_paths);
+    interface.generate_files_with_csv().await?;
+
+    // Prepare expected file paths
+    let expected_paths = imput_paths;
+
+    // Assert the result
+    assert_files_with_timestamped_name(&expected_paths).await?;
 
     temp_dir.close()?;
     Ok(())

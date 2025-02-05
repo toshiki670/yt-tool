@@ -1,6 +1,7 @@
 extern crate youtube;
 
 use anyhow::Context;
+use chrono::prelude::*;
 use futures::future;
 use std::{
     env,
@@ -56,6 +57,48 @@ async fn it_generate_with_paths() -> anyhow::Result<()> {
 
     // Assert the result
     assert_files_with_file_name(&expected_dir, &actual_files).await?;
+
+    temp_dir.close()?;
+    Ok(())
+}
+
+#[tokio::test]
+async fn it_generate_with_path_and_timestamped_name() -> anyhow::Result<()> {
+    let temp_dir = tempdir()?;
+
+    // Create test directory
+    let test_dir = temp_dir
+        .path()
+        .join("it_generate_with_paths_and_timestamped_name");
+    fs::create_dir_all(&test_dir).await?;
+
+    // Copy test json files
+    let test_json_dir = test_json_dir();
+    let source = test_json_dir.join("*");
+    cp(&source.to_string_lossy(), &test_dir).await?;
+
+    // Read test json file
+    let imput_path = test_dir.join("live_chat.json");
+    let imput_paths = vec![imput_path];
+
+    // Run the test subject
+    let interface = LiveChatJsonInterface::new(&imput_paths);
+    interface.generate_files_with_timestamped_name().await?;
+
+    // Prepare expected file paths
+    let imput_path = imput_paths.first().unwrap();
+    let metadata = imput_path.metadata().unwrap();
+
+    let created_at = metadata.created().unwrap();
+    let created_at: DateTime<Local> = created_at.into();
+
+    let expected_paths =
+        imput_path.with_file_name(format!("{}.csv", created_at.format("%Y%m%dT%H%M%S%z")));
+
+    let exists = fs::try_exists(&expected_paths).await?;
+
+    // Assert that the file was created by timestamped name
+    assert!(exists);
 
     temp_dir.close()?;
     Ok(())

@@ -25,13 +25,11 @@ impl Route for Args {
 
         let interface = LiveChatJsonInterface::new(&input_files);
 
-        // if self.rename_with_timestamp {
-        //     interface.generate_files_with_csv().await?;
-        // } else {
-        //     interface.generate_files_with_csv().await?;
-        // }
-
-        interface.generate_files_with_csv().await?;
+        if self.rename_with_timestamp {
+            interface.generate_files_with_timestamped_name().await?;
+        } else {
+            interface.generate_files_with_csv().await?;
+        }
 
         Ok(())
     }

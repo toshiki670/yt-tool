@@ -41,7 +41,8 @@ pub async fn assert_file_content(
     })?;
 
     assert_eq!(
-        expected, actual,
+        expected,
+        actual,
         "File content does not match expected content: {} {}",
         &expected_path.display(),
         &actual_path.display()

@@ -26,4 +26,5 @@ pub struct LiveChatSponsorshipsHeaderRenderer {
     pub context_menu_endpoint: serde_json::Value,
     pub context_menu_accessibility: serde_json::Value,
     pub image: serde_json::Value,
+    pub author_badges: Option<serde_json::Value>,
 }

@@ -19,9 +19,18 @@ impl From<Box<LiveChatTickerPaidMessageItemRenderer>> for SimpleChatEntity {
         let author_name = val.author_username.into();
 
         let mut content = Content::new();
+        if let Some(message) = live_chat_paid_message_renderer.message {
+            content.add("message", Some(message.into()));
+        }
+
         content.add(
-            "message",
-            Some(live_chat_paid_message_renderer.message_text()),
+            "purchaseAmount",
+            Some(
+                live_chat_paid_message_renderer
+                    .purchase_amount_text
+                    .clone()
+                    .into(),
+            ),
         );
 
         SimpleChatEntity {

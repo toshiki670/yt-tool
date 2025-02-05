@@ -63,7 +63,7 @@ mod tests {
     use super::*;
 
     #[derive(Debug, Deserialize, Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[serde(deny_unknown_fields, rename_all = "camelCase")]
     struct Example {
         timestamp_usec: TimestampUsec,
     }

@@ -5,7 +5,7 @@ use item::{renderers::live_chat_banner_renderer::LiveChatBannerRenderer, Item};
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct LiveChatEntity {
     pub click_tracking_params: Option<String>,
     pub is_live: Option<bool>,
@@ -14,7 +14,7 @@ pub struct LiveChatEntity {
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ReplayChatItemAction {
     pub actions: Vec<Action>,
     pub video_offset_time_msec: Option<String>,
@@ -32,27 +32,27 @@ pub struct Action {
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct AddChatItemAction {
     pub client_id: Option<String>,
     pub item: Item,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct AddLiveChatTickerItemAction {
     pub duration_sec: String,
     pub item: Item,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct AddBannerToLiveChatCommand {
     pub banner_renderer: BannerRenderer,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct BannerRenderer {
     pub live_chat_banner_renderer: Box<LiveChatBannerRenderer>,
 }

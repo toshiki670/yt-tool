@@ -3,20 +3,6 @@ use crate::domain::{
     simple_chat::{CategoryValue, Content, SimpleChatEntity},
 };
 
-impl LiveChatPaidMessageRenderer {
-    pub fn message_text(&self) -> String {
-        if let Some(message) = &self.message {
-            format!(
-                "{}: {}",
-                String::from(self.purchase_amount_text.clone()),
-                message
-            )
-        } else {
-            String::from(self.purchase_amount_text.clone())
-        }
-    }
-}
-
 impl From<Box<LiveChatPaidMessageRenderer>> for SimpleChatEntity {
     fn from(val: Box<LiveChatPaidMessageRenderer>) -> Self {
         let author_name = val
@@ -26,7 +12,14 @@ impl From<Box<LiveChatPaidMessageRenderer>> for SimpleChatEntity {
             .unwrap_or("".to_string());
 
         let mut content = Content::new();
-        content.add("message", Some(val.message_text()));
+        if let Some(message) = val.message {
+            content.add("message", Some(message.into()));
+        }
+
+        content.add(
+            "purchaseAmount",
+            Some(val.purchase_amount_text.clone().into()),
+        );
 
         if let Some(author_badges) = &val.author_badges {
             if author_badges.has_moderator() {

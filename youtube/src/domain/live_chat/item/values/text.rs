@@ -5,7 +5,7 @@ use run::Run;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub enum Text {
     #[allow(clippy::enum_variant_names)]
     SimpleText(String),

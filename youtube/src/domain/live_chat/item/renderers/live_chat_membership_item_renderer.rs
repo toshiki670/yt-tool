@@ -7,7 +7,7 @@ use super::values::{
 };
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct LiveChatMembershipItemRenderer {
     pub id: String,
     pub timestamp_usec: TimestampUsec,
@@ -21,4 +21,6 @@ pub struct LiveChatMembershipItemRenderer {
     pub context_menu_endpoint: ContextMenuEndpoint,
     pub context_menu_accessibility: Accessibility,
     pub tracking_params: String,
+    pub header_primary_text: Option<Text>,
+    pub empty: Option<bool>,
 }

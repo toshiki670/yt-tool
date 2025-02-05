@@ -26,13 +26,15 @@ impl From<Run> for String {
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Emoji {
     pub emoji_id: String,
     pub shortcuts: Option<Vec<String>>,
     pub search_terms: Option<Vec<String>>,
     pub image: Thumbnails,
     pub is_custom_emoji: Option<bool>,
+    pub supports_skin_tone: Option<bool>,
+    pub variant_ids: Option<Vec<String>>,
 }
 
 impl From<Emoji> for String {
@@ -51,7 +53,7 @@ impl From<Emoji> for String {
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct NavigationEndpoint {
     pub click_tracking_params: String,
     pub command_metadata: CommandMetadata,
@@ -59,13 +61,13 @@ pub struct NavigationEndpoint {
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CommandMetadata {
     pub web_command_metadata: WebCommandMetadata,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct WebCommandMetadata {
     pub url: String,
     pub web_page_type: String,
@@ -73,7 +75,7 @@ pub struct WebCommandMetadata {
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct UrlEndpoint {
     pub url: String,
     pub target: String,

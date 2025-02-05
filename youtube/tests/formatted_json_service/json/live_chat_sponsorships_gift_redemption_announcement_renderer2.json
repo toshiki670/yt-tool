@@ -1,0 +1,52 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "addChatItemAction": {
+          "item": {
+            "liveChatSponsorshipsGiftRedemptionAnnouncementRenderer": {
+              "id": "ChwKGkNNZlFyNDZxdTRvREZUOHYxZ0FkNGJraXhn",
+              "timestampUsec": "1734868854410766",
+              "timestampText": { "simpleText": "0:53" },
+              "authorExternalChannelId": "UCzYrGtWbIo-I_IrhW-vLJmw",
+              "authorName": { "simpleText": "投稿者名" },
+              "authorPhoto": {
+                "thumbnails": [
+                  {
+                    "url": "https://yt4.ggpht.com/9kxRKIWVOUd20da5nsXrT3sYETixtlF1O8afP8JzjgxVFoCjHhXv4oFUwi2Cx4A8XWyUfsXuaHc=s32-c-k-c0x00ffffff-no-rj",
+                    "width": 32,
+                    "height": 32
+                  },
+                  {
+                    "url": "https://yt4.ggpht.com/9kxRKIWVOUd20da5nsXrT3sYETixtlF1O8afP8JzjgxVFoCjHhXv4oFUwi2Cx4A8XWyUfsXuaHc=s64-c-k-c0x00ffffff-no-rj",
+                    "width": 64,
+                    "height": 64
+                  }
+                ]
+              },
+              "message": {
+                "runs": [
+                  { "text": "was gifted a membership by ", "italics": true },
+                  { "text": "ギフトを与えた人の名前 ", "bold": true, "italics": true }
+                ]
+              },
+              "contextMenuEndpoint": {
+                "commandMetadata": {
+                  "webCommandMetadata": { "ignoreNavigation": true }
+                },
+                "liveChatItemContextMenuEndpoint": {
+                  "params": "Q2g0S0hBb2FRMDFtVVhJME5uRjFORzlFUmxRNGRqRm5RV1EwWW10cGVHY2FLU29uQ2hoVlExcHNSRmg2UjI5dk4yUTBOR0ozWkU1UFlrWmhZMmNTQzBsb1NsY3RXVkJLTFhvd0lBRW9BVElhQ2hoVlEzcFpja2QwVjJKSmJ5MUpYMGx5YUZjdGRreEtiWGM0QWtnQlVDTSUzRA=="
+                }
+              },
+              "contextMenuAccessibility": {
+                "accessibilityData": { "label": "Chat actions" }
+              }
+            }
+          },
+          "clientId": "CMfQr46qu4oDFT8v1gAd4bkixg"
+        }
+      }
+    ],
+    "videoOffsetTimeMsec": "53810"
+  }
+}

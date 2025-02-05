@@ -1,0 +1,191 @@
+{
+  "clickTrackingParams": "CAEQl98BIhMI3J721L27igMVybhWAR1iexat",
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "clickTrackingParams": "CAEQl98BIhMI3J721L27igMVybhWAR1iexat",
+        "addLiveChatTickerItemAction": {
+          "item": {
+            "liveChatTickerPaidStickerItemRenderer": {
+              "id": "ChwKGkNQZWt0ZjJ0dTRvREZYM0N3Z1FkY2FVd1ln",
+              "authorPhoto": {
+                "thumbnails": [
+                  {
+                    "url": "https://yt4.ggpht.com/naoQGA5ZyAnCRILrBje5Dl4VhmIdEtO8D1pqFByw-U5Vc14lAMFa9Vcnr1tGl_CmJb-wer5_VQ=s32-c-k-c0x00ffffff-no-rj",
+                    "width": 32,
+                    "height": 32
+                  },
+                  {
+                    "url": "https://yt4.ggpht.com/naoQGA5ZyAnCRILrBje5Dl4VhmIdEtO8D1pqFByw-U5Vc14lAMFa9Vcnr1tGl_CmJb-wer5_VQ=s64-c-k-c0x00ffffff-no-rj",
+                    "width": 64,
+                    "height": 64
+                  }
+                ],
+                "accessibility": { "accessibilityData": { "label": "投稿者名" } }
+              },
+              "startBackgroundColor": 4294278144,
+              "endBackgroundColor": 4293284096,
+              "durationSec": 600,
+              "fullDurationSec": 600,
+              "showItemEndpoint": {
+                "clickTrackingParams": "CAIQscgEIhMI3J721L27igMVybhWAR1iexat",
+                "commandMetadata": {
+                  "webCommandMetadata": { "ignoreNavigation": true }
+                },
+                "showLiveChatItemEndpoint": {
+                  "renderer": {
+                    "liveChatPaidStickerRenderer": {
+                      "id": "ChwKGkNQZWt0ZjJ0dTRvREZYM0N3Z1FkY2FVd1ln",
+                      "contextMenuEndpoint": {
+                        "clickTrackingParams": "CAQQ77sEIhMI3J721L27igMVybhWAR1iexat",
+                        "commandMetadata": {
+                          "webCommandMetadata": { "ignoreNavigation": true }
+                        },
+                        "liveChatItemContextMenuEndpoint": {
+                          "params": "Q2g0S0hBb2FRMUJsYTNSbU1uUjFORzlFUmxnelEzZG5VV1JqWVZWM1dXY2FLU29uQ2hoVlExcHNSRmg2UjI5dk4yUTBOR0ozWkU1UFlrWmhZMmNTQzBsb1NsY3RXVkJLTFhvd0lBRW9BVElhQ2hoVlEzWkdkM0pPWmpKQ09FWnFiSEUyYW5CdU5EWTNWRkU0QWtnQlVCUSUzRA=="
+                        }
+                      },
+                      "contextMenuAccessibility": {
+                        "accessibilityData": { "label": "Chat actions" }
+                      },
+                      "timestampUsec": "1734869912101323",
+                      "authorPhoto": {
+                        "thumbnails": [
+                          {
+                            "url": "https://yt4.ggpht.com/naoQGA5ZyAnCRILrBje5Dl4VhmIdEtO8D1pqFByw-U5Vc14lAMFa9Vcnr1tGl_CmJb-wer5_VQ=s32-c-k-c0x00ffffff-no-rj",
+                            "width": 32,
+                            "height": 32
+                          },
+                          {
+                            "url": "https://yt4.ggpht.com/naoQGA5ZyAnCRILrBje5Dl4VhmIdEtO8D1pqFByw-U5Vc14lAMFa9Vcnr1tGl_CmJb-wer5_VQ=s64-c-k-c0x00ffffff-no-rj",
+                            "width": 64,
+                            "height": 64
+                          }
+                        ]
+                      },
+                      "authorName": { "simpleText": "投稿者名" },
+                      "authorExternalChannelId": "UCvFwrNf2B8Fjlq6jpn467TQ",
+                      "timestampText": { "simpleText": "18:31" },
+                      "sticker": {
+                        "thumbnails": [
+                          {
+                            "url": "//lh3.googleusercontent.com/feAVtS9aF4EgKoYZR-j9ab75-P4qrE5rEjCYNuF3lmzxU6L0iInf4WSpLdpXmXuxDaUHWgUbW_NaopWFyw=s120-rwa",
+                            "width": 120,
+                            "height": 120
+                          },
+                          {
+                            "url": "//lh3.googleusercontent.com/feAVtS9aF4EgKoYZR-j9ab75-P4qrE5rEjCYNuF3lmzxU6L0iInf4WSpLdpXmXuxDaUHWgUbW_NaopWFyw=s240-rwa",
+                            "width": 240,
+                            "height": 240
+                          }
+                        ],
+                        "accessibility": {
+                          "accessibilityData": {
+                            "label": "Video game controller dances goofily under the word 'Woot'"
+                          }
+                        }
+                      },
+                      "moneyChipBackgroundColor": 4294278144,
+                      "moneyChipTextColor": 3758096383,
+                      "purchaseAmountText": { "simpleText": "¥3,000" },
+                      "stickerDisplayWidth": 120,
+                      "stickerDisplayHeight": 120,
+                      "backgroundColor": 4294278144,
+                      "authorNameTextColor": 3019898879,
+                      "trackingParams": "CAQQ77sEIhMI3J721L27igMVybhWAR1iexat",
+                      "headerOverlayImage": {
+                        "thumbnails": [
+                          {
+                            "url": "https://www.gstatic.com/youtube/img/pdg/novelty/1st_purchase_celebration_novelty_animation/1st_Purchase_Celebration_Novelty_STK_IL_T5_v1.webp",
+                            "width": 124,
+                            "height": 88
+                          }
+                        ]
+                      },
+                      "isV2Style": true,
+                      "pdgPurchasedNoveltyLoggingDirectives": {
+                        "loggingDirectives": {
+                          "trackingParams": "CAcQ7s4LIhMI3J721L27igMVybhWAR1iexat",
+                          "visibility": { "types": "12" }
+                        }
+                      },
+                      "lowerBumper": {
+                        "liveChatItemBumperViewModel": {
+                          "content": {
+                            "bumperUserEduContentViewModel": {
+                              "text": {
+                                "content": "Let's celebrate their 1st Super on a live stream",
+                                "styleRuns": [{ "startIndex": 0, "length": 48 }]
+                              },
+                              "trackingParams": "CAYQk5YLIhMI3J721L27igMVybhWAR1iexat",
+                              "image": {
+                                "sources": [
+                                  {
+                                    "clientResource": {
+                                      "imageName": "CELEBRATION",
+                                      "imageColor": 4294901760
+                                    }
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "pdgPurchasedBumperLoggingDirectives": {
+                            "loggingDirectives": {
+                              "trackingParams": "CAUQ784LIhMI3J721L27igMVybhWAR1iexat",
+                              "visibility": { "types": "12" }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "trackingParams": "CAMQjtEGIhMI3J721L27igMVybhWAR1iexat"
+                }
+              },
+              "authorExternalChannelId": "UCvFwrNf2B8Fjlq6jpn467TQ",
+              "tickerThumbnails": [
+                {
+                  "thumbnails": [
+                    {
+                      "url": "//lh3.googleusercontent.com/Z5MZSam3Jp1F2q2mJcKKYwi60cs9p709-0UydCzie2VrIjpcexaetJJQ0ycDSCZwUy_6yQJQd7UIqkcuUA=s32-rp",
+                      "width": 32,
+                      "height": 32
+                    },
+                    {
+                      "url": "//lh3.googleusercontent.com/Z5MZSam3Jp1F2q2mJcKKYwi60cs9p709-0UydCzie2VrIjpcexaetJJQ0ycDSCZwUy_6yQJQd7UIqkcuUA=s64-rp",
+                      "width": 64,
+                      "height": 64
+                    }
+                  ],
+                  "accessibility": {
+                    "accessibilityData": {
+                      "label": "Gaming controller sticker pack"
+                    }
+                  }
+                },
+                {
+                  "thumbnails": [
+                    {
+                      "url": "//lh3.googleusercontent.com/S6we2hZraES7JrbiYJJS85G3m9OOX0YoKAxsNRbFHOFCucIzjk29w0XpexkQYOU2yUxzQYN6W9TDyhjWS2zh=s32-rp",
+                      "width": 32,
+                      "height": 32
+                    },
+                    {
+                      "url": "//lh3.googleusercontent.com/S6we2hZraES7JrbiYJJS85G3m9OOX0YoKAxsNRbFHOFCucIzjk29w0XpexkQYOU2yUxzQYN6W9TDyhjWS2zh=s64-rp",
+                      "width": 64,
+                      "height": 64
+                    }
+                  ]
+                }
+              ],
+              "trackingParams": "CAIQscgEIhMI3J721L27igMVybhWAR1iexat"
+            }
+          },
+          "durationSec": "600"
+        }
+      }
+    ],
+    "videoOffsetTimeMsec": "1111534"
+  }
+}

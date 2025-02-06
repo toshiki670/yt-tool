@@ -11,9 +11,9 @@ use serde::Serialize;
 #[serde(rename_all = "camelCase")]
 pub(crate) struct SimpleChatEntity {
     pub id: String,
-    pub author_external_channel_id: String,
-    pub posted_at: PostedAtValue,
+    pub author_external_channel_id: Option<String>,
+    pub posted_at: Option<PostedAtValue>,
     pub category: CategoryValue,
-    pub author_name: String,
+    pub author_name: Option<String>,
     pub content: Content,
 }

@@ -5,7 +5,7 @@ use crate::domain::{
 
 impl From<Box<LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer>> for SimpleChatEntity {
     fn from(val: Box<LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer>) -> Self {
-        let author_name = val.author_name.map(|v| v.into()).unwrap_or("".to_string());
+        let author_name = val.author_name.map(|v| v.into());
 
         let mut content = Content::new();
         content.add("message", Some(String::from(val.message)));
@@ -24,8 +24,8 @@ impl From<Box<LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer>> for Simpl
 
         SimpleChatEntity {
             id: val.id,
-            author_external_channel_id: val.author_external_channel_id,
-            posted_at: val.timestamp_usec.into(),
+            author_external_channel_id: Some(val.author_external_channel_id),
+            posted_at: Some(val.timestamp_usec.into()),
             category: CategoryValue::SponsorshipsGiftRedemptionAnnouncement,
             author_name,
             content,

@@ -5,11 +5,7 @@ use crate::domain::{
 
 impl From<Box<LiveChatPaidMessageRenderer>> for SimpleChatEntity {
     fn from(val: Box<LiveChatPaidMessageRenderer>) -> Self {
-        let author_name = val
-            .author_name
-            .clone()
-            .map(|v| v.into())
-            .unwrap_or("".to_string());
+        let author_name = val.author_name.clone().map(|v| v.into());
 
         let mut content = Content::new();
         if let Some(message) = val.message {
@@ -35,8 +31,8 @@ impl From<Box<LiveChatPaidMessageRenderer>> for SimpleChatEntity {
 
         SimpleChatEntity {
             id: val.id,
-            posted_at: val.timestamp_usec.into(),
-            author_external_channel_id: val.author_external_channel_id,
+            posted_at: Some(val.timestamp_usec.into()),
+            author_external_channel_id: Some(val.author_external_channel_id),
             category: CategoryValue::PaidMessage,
             author_name,
             content,

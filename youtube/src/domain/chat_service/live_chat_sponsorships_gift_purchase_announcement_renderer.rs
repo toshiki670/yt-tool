@@ -5,11 +5,12 @@ use crate::domain::{
 
 impl From<Box<LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer>> for SimpleChatEntity {
     fn from(val: Box<LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer>) -> Self {
-        let author_name = val
-            .header
-            .live_chat_sponsorships_header_renderer
-            .author_name
-            .into();
+        let author_name = Some(
+            val.header
+                .live_chat_sponsorships_header_renderer
+                .author_name
+                .into(),
+        );
 
         let mut content = Content::new();
 
@@ -22,8 +23,8 @@ impl From<Box<LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer>> for SimpleC
 
         SimpleChatEntity {
             id: val.id,
-            posted_at: val.timestamp_usec.into(),
-            author_external_channel_id: val.author_external_channel_id,
+            posted_at: Some(val.timestamp_usec.into()),
+            author_external_channel_id: Some(val.author_external_channel_id),
             category: CategoryValue::SponsorshipsGiftPurchaseAnnouncement,
             author_name,
             content,

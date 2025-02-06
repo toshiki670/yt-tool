@@ -10,10 +10,10 @@ impl From<Box<LiveChatViewerEngagementMessageRenderer>> for SimpleChatEntity {
 
         SimpleChatEntity {
             id: val.id,
-            posted_at: val.timestamp_usec.into(),
-            author_external_channel_id: "".to_string(),
+            posted_at: Some(val.timestamp_usec.into()),
+            author_external_channel_id: None,
             category: CategoryValue::ViewerEngagementMessage,
-            author_name: "System Message".to_string(),
+            author_name: Some("System Message".to_string()),
             content,
         }
     }

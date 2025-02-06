@@ -94,7 +94,7 @@ impl LiveChatJsonInterface<'_, Vec<PathBuf>> {
                 let created_at: DateTime<Local> = created_at.into();
 
                 let target_path = source_path
-                    .with_file_name(format!("{}.csv", created_at.format("%Y%m%dT%H%M%S%z")));
+                    .with_file_name(format!("{}.csv", created_at.format("%Y-%m-%dT%H:%M:%S%z")));
 
                 let rp = IoChatServiceRepository::file_to_file(source_path, target_path)?;
 

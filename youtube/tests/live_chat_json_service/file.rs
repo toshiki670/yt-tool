@@ -93,7 +93,7 @@ async fn it_generate_with_path_and_timestamped_name() -> anyhow::Result<()> {
     let created_at: DateTime<Local> = created_at.into();
 
     let expected_paths =
-        imput_path.with_file_name(format!("{}.csv", created_at.format("%Y%m%dT%H%M%S%z")));
+        imput_path.with_file_name(format!("{}.csv", created_at.format("%Y-%m-%dT%H:%M:%S%z")));
 
     let exists = fs::try_exists(&expected_paths).await?;
 

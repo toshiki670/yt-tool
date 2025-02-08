@@ -10,9 +10,11 @@ use actions::{
     show_live_chat_action_panel_action::ShowLiveChatActionPanelAction,
     update_live_chat_poll_action::UpdateLiveChatPollAction,
 };
-use commands::remove_banner_for_live_chat_command::RemoveBannerForLiveChatCommand;
+use commands::{
+    add_banner_to_live_chat_command::AddBannerToLiveChatCommand,
+    remove_banner_for_live_chat_command::RemoveBannerForLiveChatCommand,
+};
 use item::Item;
-use renderers::banner_renderer::BannerRenderer;
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -59,10 +61,4 @@ pub struct AddChatItemAction {
 pub struct AddLiveChatTickerItemAction {
     pub duration_sec: String,
     pub item: Item,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct AddBannerToLiveChatCommand {
-    pub banner_renderer: BannerRenderer,
 }

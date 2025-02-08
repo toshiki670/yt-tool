@@ -64,7 +64,7 @@ pub struct LiveChatPaidStickerRenderer {
     pub sticker: Thumbnails,
     pub money_chip_background_color: i64,
     pub money_chip_text_color: i64,
-    pub purchase_amount_text: PurchaseAmountText,
+    pub purchase_amount_text: Text,
     pub sticker_display_width: i64,
     pub sticker_display_height: i64,
     pub background_color: i64,
@@ -126,10 +126,4 @@ pub struct Accessibility2 {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct AccessibilityData3 {
     pub label: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct PurchaseAmountText {
-    pub simple_text: String,
 }

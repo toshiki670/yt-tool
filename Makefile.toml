@@ -66,3 +66,13 @@ cargo upgrade
 cargo update
 '''
 ]
+
+[tasks.fix]
+description = "Fix the code"
+category = "Development"
+script = ['''
+cargo fix --allow-dirty --allow-staged --workspace
+cargo fmt
+cargo clippy --fix --allow-dirty --allow-staged
+'''
+]

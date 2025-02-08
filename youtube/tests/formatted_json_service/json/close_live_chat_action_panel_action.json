@@ -1,0 +1,14 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "closeLiveChatActionPanelAction": {
+          "targetPanelId": "ChwKGkNQdW42T0staUlzREZkRVRyUVlkWF93anJR",
+          "skipOnDismissCommand": true
+        }
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "13707327",
+  "isLive": true
+}

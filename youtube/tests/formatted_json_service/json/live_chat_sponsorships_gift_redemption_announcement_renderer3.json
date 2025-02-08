@@ -1,0 +1,52 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "addChatItemAction": {
+          "item": {
+            "liveChatSponsorshipsGiftRedemptionAnnouncementRenderer": {
+              "id": "ChwKGkNJM0Q5NTI3NDRvREZaZ3UxZ0FkQVVvdlVR",
+              "timestampUsec": "1736247839985695",
+              "authorExternalChannelId": "UC0m9xEKIulBTyYZxyvmOj6g",
+              "authorName": { "simpleText": "投稿者名" },
+              "authorPhoto": {
+                "thumbnails": [
+                  {
+                    "url": "https://yt4.ggpht.com/ytc/AIdro_kRseyc_uL6ZbFnK3iA4mmWaBOoSFRWYM5Esnhy0NZwK-bj4kEMkdV_Up2N42CdkezROcGebVvR=s32-c-k-c0x00ffffff-no-rj",
+                    "width": 32,
+                    "height": 32
+                  },
+                  {
+                    "url": "https://yt4.ggpht.com/ytc/AIdro_kRseyc_uL6ZbFnK3iA4mmWaBOoSFRWYM5Esnhy0NZwK-bj4kEMkdV_Up2N42CdkezROcGebVvR=s64-c-k-c0x00ffffff-no-rj",
+                    "width": 64,
+                    "height": 64
+                  }
+                ]
+              },
+              "message": {
+                "runs": [
+                  { "text": "was gifted a membership by ", "italics": true },
+                  { "text": "ギフトを与えた人の名前", "bold": true, "italics": true }
+                ]
+              },
+              "contextMenuEndpoint": {
+                "commandMetadata": {
+                  "webCommandMetadata": { "ignoreNavigation": true }
+                },
+                "liveChatItemContextMenuEndpoint": {
+                  "params": "Q2g0S0hBb2FRMGt6UkRrMU1qYzBORzlFUmxwbmRURm5RV1JCVlc5MlZWRWFLU29uQ2hoVlExcHNSRmg2UjI5dk4yUTBOR0ozWkU1UFlrWmhZMmNTQzBoMU9IRldSVEZoY0VadklBRW9CRElhQ2hoVlF6QnRPWGhGUzBsMWJFSlVlVmxhZUhsMmJVOXFObWM0QWtnQVVDTSUzRA=="
+                }
+              },
+              "contextMenuAccessibility": {
+                "accessibilityData": { "label": "Chat actions" }
+              }
+            }
+          },
+          "clientId": "CI3D952744oDFZgu1gAdAUovUQ"
+        }
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "12940",
+  "isLive": true
+}

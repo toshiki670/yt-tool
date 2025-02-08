@@ -38,13 +38,13 @@ pub struct LiveChatBannerHeaderRenderer {
     pub context_menu_button: ContextMenuButton,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ContextMenuButton {
     pub button_renderer: ButtonRenderer,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ButtonRenderer {
     pub icon: Icon,

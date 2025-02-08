@@ -57,11 +57,11 @@ pub struct LiveChatPaidStickerRenderer {
     pub context_menu_endpoint: ContextMenuEndpoint,
     pub context_menu_accessibility: ContextMenuAccessibility,
     pub timestamp_usec: TimestampUsec,
-    pub author_photo: AuthorPhoto2,
+    pub author_photo: Thumbnails,
     pub author_name: Text,
     pub author_external_channel_id: String,
     pub timestamp_text: Option<TimestampText>,
-    pub sticker: Sticker,
+    pub sticker: Thumbnails,
     pub money_chip_background_color: i64,
     pub money_chip_text_color: i64,
     pub purchase_amount_text: PurchaseAmountText,
@@ -118,20 +118,6 @@ pub struct AccessibilityData2 {
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct AuthorPhoto2 {
-    pub thumbnails: Vec<Thumbnail2>,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct Thumbnail2 {
-    pub url: String,
-    pub width: i64,
-    pub height: i64,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct AuthorName {
     pub simple_text: String,
 }
@@ -140,21 +126,6 @@ pub struct AuthorName {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct TimestampText {
     pub simple_text: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct Sticker {
-    pub thumbnails: Vec<Thumbnail3>,
-    pub accessibility: Accessibility2,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct Thumbnail3 {
-    pub url: String,
-    pub width: i64,
-    pub height: i64,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

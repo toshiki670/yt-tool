@@ -21,13 +21,14 @@ impl Display for Text {
 
 impl From<Text> for String {
     fn from(val: Text) -> Self {
-        match val {
+        let text = match val {
             Text::SimpleText(text) => text,
             Text::Runs(runs) => runs
                 .into_iter()
                 .map(|run| run.into())
                 .collect::<Vec<String>>()
                 .join(""),
-        }
+        };
+        text.replace("\n", "<br>")
     }
 }

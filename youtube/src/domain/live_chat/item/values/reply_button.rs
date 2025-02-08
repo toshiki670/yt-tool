@@ -35,6 +35,7 @@ pub struct ButtonViewModel {
     pub custom_background_color: i64,
     pub custom_font_color: i64,
     pub logging_directives: LoggingDirectives,
+    pub on_visible: Option<serde_json::Value>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

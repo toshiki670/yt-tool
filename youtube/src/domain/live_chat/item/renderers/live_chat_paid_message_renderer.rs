@@ -34,4 +34,5 @@ pub struct LiveChatPaidMessageRenderer {
     pub header_overlay_image: Option<Thumbnails>,
     pub lower_bumper: Option<serde_json::Value>,
     pub pdg_purchased_novelty_logging_directives: Option<serde_json::Value>,
+    pub pdg_like_button: Option<serde_json::Value>,
 }

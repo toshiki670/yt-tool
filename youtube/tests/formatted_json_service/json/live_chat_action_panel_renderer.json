@@ -1,0 +1,146 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "clickTrackingParams": "CAEQl98BIhMIzPXdraumiwMVO1UPAh0o1QZ8",
+        "showLiveChatActionPanelAction": {
+          "panelToShow": {
+            "liveChatActionPanelRenderer": {
+              "contents": {
+                "pollRenderer": {
+                  "choices": [
+                    {
+                      "text": { "runs": [{ "text": "投票1" }] },
+                      "selected": false,
+                      "selectServiceEndpoint": {
+                        "clickTrackingParams": "CAIQiK0HIhMIzPXdraumiwMVO1UPAh0o1QZ8",
+                        "commandMetadata": {
+                          "webCommandMetadata": {
+                            "sendPost": true,
+                            "apiUrl": "/youtubei/v1/live_chat/send_live_chat_vote"
+                          }
+                        },
+                        "sendLiveChatVoteEndpoint": {
+                          "params": "Q2lrcUp3b1lWVU0yYjB3NFoyVkxUV1Y1WjIwdE5EbHBUSEp4WldaM0VndHNPR0Z0UkZORVFscHlheEllQ2h3S0drTk1jbXg0WVdseWNHOXpSRVpqVkVSM1oxRmtWa2gzVEZwQklnQXFHZ29ZVlVNMmIwdzRaMlZMVFdWNVoyMHRORGxwVEhKeFpXWjNNQUU0QkVBQVNpUlZaMnQ0TjBSaWQwSldabXhvU1RGVWVrRjFVREk0ZFZaMWJWTnJhemR6UzBwTWVuUSUzRA=="
+                        }
+                      }
+                    },
+                    {
+                      "text": { "runs": [{ "text": "投票2" }] },
+                      "selected": false,
+                      "selectServiceEndpoint": {
+                        "clickTrackingParams": "CAIQiK0HIhMIzPXdraumiwMVO1UPAh0o1QZ8",
+                        "commandMetadata": {
+                          "webCommandMetadata": {
+                            "sendPost": true,
+                            "apiUrl": "/youtubei/v1/live_chat/send_live_chat_vote"
+                          }
+                        },
+                        "sendLiveChatVoteEndpoint": {
+                          "params": "Q2lrcUp3b1lWVU0yYjB3NFoyVkxUV1Y1WjIwdE5EbHBUSEp4WldaM0VndHNPR0Z0UkZORVFscHlheEllQ2h3S0drTk1jbXg0WVdseWNHOXpSRVpqVkVSM1oxRmtWa2gzVEZwQklnSUlBU29hQ2hoVlF6WnZURGhuWlV0TlpYbG5iUzAwT1dsTWNuRmxabmN3QVRnRVFBQktKRlZuYTNnM1JHSjNRbFptYkdoSk1WUjZRWFZRTWpoMVZuVnRVMnRyTjNOTFNreDZkQSUzRCUzRA=="
+                        }
+                      }
+                    },
+                    {
+                      "text": { "runs": [{ "text": "投票3" }] },
+                      "selected": false,
+                      "selectServiceEndpoint": {
+                        "clickTrackingParams": "CAIQiK0HIhMIzPXdraumiwMVO1UPAh0o1QZ8",
+                        "commandMetadata": {
+                          "webCommandMetadata": {
+                            "sendPost": true,
+                            "apiUrl": "/youtubei/v1/live_chat/send_live_chat_vote"
+                          }
+                        },
+                        "sendLiveChatVoteEndpoint": {
+                          "params": "Q2lrcUp3b1lWVU0yYjB3NFoyVkxUV1Y1WjIwdE5EbHBUSEp4WldaM0VndHNPR0Z0UkZORVFscHlheEllQ2h3S0drTk1jbXg0WVdseWNHOXpSRVpqVkVSM1oxRmtWa2gzVEZwQklnSUlBaW9hQ2hoVlF6WnZURGhuWlV0TlpYbG5iUzAwT1dsTWNuRmxabmN3QVRnRVFBQktKRlZuYTNnM1JHSjNRbFptYkdoSk1WUjZRWFZRTWpoMVZuVnRVMnRyTjNOTFNreDZkQSUzRCUzRA=="
+                        }
+                      }
+                    },
+                    {
+                      "text": { "runs": [{ "text": "投票4" }] },
+                      "selected": false,
+                      "selectServiceEndpoint": {
+                        "clickTrackingParams": "CAIQiK0HIhMIzPXdraumiwMVO1UPAh0o1QZ8",
+                        "commandMetadata": {
+                          "webCommandMetadata": {
+                            "sendPost": true,
+                            "apiUrl": "/youtubei/v1/live_chat/send_live_chat_vote"
+                          }
+                        },
+                        "sendLiveChatVoteEndpoint": {
+                          "params": "Q2lrcUp3b1lWVU0yYjB3NFoyVkxUV1Y1WjIwdE5EbHBUSEp4WldaM0VndHNPR0Z0UkZORVFscHlheEllQ2h3S0drTk1jbXg0WVdseWNHOXpSRVpqVkVSM1oxRmtWa2gzVEZwQklnSUlBeW9hQ2hoVlF6WnZURGhuWlV0TlpYbG5iUzAwT1dsTWNuRmxabmN3QVRnRVFBQktKRlZuYTNnM1JHSjNRbFptYkdoSk1WUjZRWFZRTWpoMVZuVnRVMnRyTjNOTFNreDZkQSUzRCUzRA=="
+                        }
+                      }
+                    }
+                  ],
+                  "trackingParams": "CAIQiK0HIhMIzPXdraumiwMVO1UPAh0o1QZ8",
+                  "liveChatPollId": "ChwKGkNMcmx4YWlycG9zREZjVER3Z1FkVkh3TFpB",
+                  "header": {
+                    "pollHeaderRenderer": {
+                      "pollQuestion": {
+                        "runs": [
+                          { "text": "投票1、投票2、投票3、投票4のうち、どれを選びますか？" }
+                        ]
+                      },
+                      "thumbnail": {
+                        "thumbnails": [
+                          {
+                            "url": "https://yt4.ggpht.com/eiArqR7kKFImTZjkBW3w2SoWpMhPJXxWhmjF219v10QLXy3DLbGk8x1ag7I_eF6HGrcU3RspDA=s32-c-k-c0x00ffffff-no-rj",
+                            "width": 32,
+                            "height": 32
+                          },
+                          {
+                            "url": "https://yt4.ggpht.com/eiArqR7kKFImTZjkBW3w2SoWpMhPJXxWhmjF219v10QLXy3DLbGk8x1ag7I_eF6HGrcU3RspDA=s64-c-k-c0x00ffffff-no-rj",
+                            "width": 64,
+                            "height": 64
+                          }
+                        ]
+                      },
+                      "metadataText": {
+                        "runs": [
+                          {
+                            "text": "チャンネル名"
+                          },
+                          { "text": " • " },
+                          { "text": "just now" },
+                          { "text": " • " },
+                          { "text": "3 votes" }
+                        ]
+                      },
+                      "liveChatPollType": "LIVE_CHAT_POLL_TYPE_CREATOR",
+                      "contextMenuButton": {
+                        "buttonRenderer": {
+                          "icon": { "iconType": "MORE_VERT" },
+                          "accessibility": { "label": "Chat actions" },
+                          "trackingParams": "CAMQ8FsiEwjM9d2tq6aLAxU7VQ8CHSjVBnw=",
+                          "accessibilityData": {
+                            "accessibilityData": { "label": "Chat actions" }
+                          },
+                          "targetId": "live-chat-action-panel-poll-context-menu",
+                          "command": {
+                            "clickTrackingParams": "CAMQ8FsiEwjM9d2tq6aLAxU7VQ8CHSjVBnw=",
+                            "commandMetadata": {
+                              "webCommandMetadata": { "ignoreNavigation": true }
+                            },
+                            "liveChatItemContextMenuEndpoint": {
+                              "params": "Q2g0S0hBb2FRMHh5YkhoaGFYSndiM05FUm1OVVJIZG5VV1JXU0hkTVdrRWFLU29uQ2hoVlF6WnZURGhuWlV0TlpYbG5iUzAwT1dsTWNuRmxabmNTQzJ3NFlXMUVVMFJDV25KcklBRW9CRElhQ2hoVlF6WnZURGhuWlV0TlpYbG5iUzAwT1dsTWNuRmxabmM0QTBnQVVCVSUzRA=="
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "id": "ChwKGkNMcmx4YWlycG9zREZjVER3Z1FkVkh3TFpB",
+              "targetId": "live-chat-action-panel"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "1184040",
+  "isLive": true
+}

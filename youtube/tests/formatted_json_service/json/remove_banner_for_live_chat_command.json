@@ -1,0 +1,13 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "removeBannerForLiveChatCommand": {
+          "targetActionId": "ChwKGkNQdW42T0staUlzREZkRVRyUVlkWF93anJR"
+        }
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "13707327",
+  "isLive": true
+}

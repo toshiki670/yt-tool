@@ -11,12 +11,14 @@ impl From<Box<LiveChatTickerPaidStickerItemRenderer>> for SimpleChatEntity {
             .renderer
             .live_chat_paid_sticker_renderer;
 
-        let posted_at = live_chat_paid_sticker_renderer
-            .timestamp_usec
-            .clone()
-            .into();
+        let posted_at = Some(
+            live_chat_paid_sticker_renderer
+                .timestamp_usec
+                .clone()
+                .into(),
+        );
 
-        let author_name = live_chat_paid_sticker_renderer.author_name.clone().into();
+        let author_name = Some(live_chat_paid_sticker_renderer.author_name.clone().into());
 
         let purchase_amount_text = live_chat_paid_sticker_renderer
             .purchase_amount_text
@@ -27,7 +29,7 @@ impl From<Box<LiveChatTickerPaidStickerItemRenderer>> for SimpleChatEntity {
 
         SimpleChatEntity {
             id: val.id,
-            author_external_channel_id: val.author_external_channel_id,
+            author_external_channel_id: Some(val.author_external_channel_id),
             category: CategoryValue::TickerPaidMessageItem,
             posted_at,
             author_name,

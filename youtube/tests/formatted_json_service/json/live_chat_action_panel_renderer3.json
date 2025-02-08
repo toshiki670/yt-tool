@@ -1,0 +1,134 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "updateLiveChatPollAction": {
+          "pollToUpdate": {
+            "pollRenderer": {
+              "choices": [
+                {
+                  "text": { "runs": [{ "text": "投票1" }] },
+                  "selected": false,
+                  "voteRatio": 0.3333333432674408,
+                  "votePercentage": { "simpleText": "33%" },
+                  "signinEndpoint": {
+                    "commandMetadata": {
+                      "webCommandMetadata": {
+                        "url": "https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Den&hl=en",
+                        "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                        "rootVe": 83769
+                      }
+                    },
+                    "signInEndpoint": { "nextEndpoint": {} }
+                  }
+                },
+                {
+                  "text": { "runs": [{ "text": "投票2" }] },
+                  "selected": false,
+                  "voteRatio": 0.2916666567325592,
+                  "votePercentage": { "simpleText": "29%" },
+                  "signinEndpoint": {
+                    "commandMetadata": {
+                      "webCommandMetadata": {
+                        "url": "https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Den&hl=en",
+                        "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                        "rootVe": 83769
+                      }
+                    },
+                    "signInEndpoint": { "nextEndpoint": {} }
+                  }
+                },
+                {
+                  "text": { "runs": [{ "text": "投票3" }] },
+                  "selected": false,
+                  "voteRatio": 0.25,
+                  "votePercentage": { "simpleText": "25%" },
+                  "signinEndpoint": {
+                    "commandMetadata": {
+                      "webCommandMetadata": {
+                        "url": "https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Den&hl=en",
+                        "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                        "rootVe": 83769
+                      }
+                    },
+                    "signInEndpoint": { "nextEndpoint": {} }
+                  }
+                },
+                {
+                  "text": { "runs": [{ "text": "投票4" }] },
+                  "selected": false,
+                  "voteRatio": 0.125,
+                  "votePercentage": { "simpleText": "12%" },
+                  "signinEndpoint": {
+                    "commandMetadata": {
+                      "webCommandMetadata": {
+                        "url": "https://accounts.google.com/ServiceLogin?service=youtube&uilel=3&passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26hl%3Den&hl=en",
+                        "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                        "rootVe": 83769
+                      }
+                    },
+                    "signInEndpoint": { "nextEndpoint": {} }
+                  }
+                }
+              ],
+              "liveChatPollId": "ChwKGkNQdW42T0staUlzREZkRVRyUVlkWF93anJR",
+              "header": {
+                "pollHeaderRenderer": {
+                  "pollQuestion": {
+                    "runs": [{ "text": "投票1、投票2、投票3、投票4のうち、どれを選びますか？" }]
+                  },
+                  "thumbnail": {
+                    "thumbnails": [
+                      {
+                        "url": "https://yt4.ggpht.com/eiArqR7kKFImTZjkBW3w2SoWpMhPJXxWhmjF219v10QLXy3DLbGk8x1ag7I_eF6HGrcU3RspDA=s32-c-k-c0x00ffffff-no-rj",
+                        "width": 32,
+                        "height": 32
+                      },
+                      {
+                        "url": "https://yt4.ggpht.com/eiArqR7kKFImTZjkBW3w2SoWpMhPJXxWhmjF219v10QLXy3DLbGk8x1ag7I_eF6HGrcU3RspDA=s64-c-k-c0x00ffffff-no-rj",
+                        "width": 64,
+                        "height": 64
+                      }
+                    ]
+                  },
+                  "metadataText": {
+                    "runs": [
+                      {
+                        "text": "チャンネル名"
+                      },
+                      { "text": " • " },
+                      { "text": "2 min ago" },
+                      { "text": " • " },
+                      { "text": "24 votes" }
+                    ]
+                  },
+                  "liveChatPollType": "LIVE_CHAT_POLL_TYPE_CREATOR",
+                  "contextMenuButton": {
+                    "buttonRenderer": {
+                      "icon": { "iconType": "MORE_VERT" },
+                      "accessibility": { "label": "Chat actions" },
+                      "accessibilityData": {
+                        "accessibilityData": { "label": "Chat actions" }
+                      },
+                      "targetId": "live-chat-action-panel-poll-context-menu",
+                      "command": {
+                        "commandMetadata": {
+                          "webCommandMetadata": { "ignoreNavigation": true }
+                        },
+                        "liveChatItemContextMenuEndpoint": {
+                          "params": "Q2g0S0hBb2FRMUIxYmpaUFN5MXBTWE5FUm1SRlZISlJXV1JZWDNkcWNsRWFLU29uQ2hoVlF6WnZURGhuWlV0TlpYbG5iUzAwT1dsTWNuRmxabmNTQ3pOcU5pMHpTakpXZUdKVklBRW9CRElhQ2hoVlF6WnZURGhuWlV0TlpYbG5iUzAwT1dsTWNuRmxabmM0QTBnQVVCVSUzRA=="
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "13062668",
+  "isLive": true
+}

@@ -55,7 +55,7 @@ impl From<Emoji> for String {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct NavigationEndpoint {
-    pub click_tracking_params: String,
+    pub click_tracking_params: Option<String>,
     pub command_metadata: CommandMetadata,
     pub url_endpoint: UrlEndpoint,
 }

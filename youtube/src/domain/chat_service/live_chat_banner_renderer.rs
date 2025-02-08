@@ -5,7 +5,14 @@ use crate::domain::{
 
 impl From<Box<LiveChatBannerRenderer>> for Vec<SimpleChatEntity> {
     fn from(val: Box<LiveChatBannerRenderer>) -> Self {
-        let author_name = val.header.live_chat_banner_header_renderer.text.into();
+        let posted_at = Some(
+            val.contents
+                .live_chat_text_message_renderer
+                .timestamp_usec
+                .clone()
+                .into(),
+        );
+        let author_name = Some(val.header.live_chat_banner_header_renderer.text.into());
 
         let mut content = Content::new();
         content.add(
@@ -16,13 +23,8 @@ impl From<Box<LiveChatBannerRenderer>> for Vec<SimpleChatEntity> {
         vec![
             SimpleChatEntity {
                 id: val.action_id,
-                author_external_channel_id: "".to_string(),
-                posted_at: val
-                    .contents
-                    .live_chat_text_message_renderer
-                    .timestamp_usec
-                    .clone()
-                    .into(),
+                author_external_channel_id: None,
+                posted_at,
                 category: CategoryValue::Banner,
                 author_name,
                 content,

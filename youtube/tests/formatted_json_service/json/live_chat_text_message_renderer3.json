@@ -1,0 +1,100 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "addChatItemAction": {
+          "item": {
+            "liveChatTextMessageRenderer": {
+              "message": {
+                "runs": [
+                  {
+                    "text": "https://www.nikkei.com/article/DGXZQO...",
+                    "navigationEndpoint": {
+                      "commandMetadata": {
+                        "webCommandMetadata": {
+                          "url": "https://www.youtube.com/redirect?event=live_chat&redir_token=QUFFLUhqbUFPZzBiVkgzV0tzbF9IV245dW5Edk5UbzdWQXxBQ3Jtc0ttQm0tVGFtOGpFVlE1VzlxdE9waDUzamRSRE1FUmxRQUk3WlBvM1dHNVRHb2tmWF83eXVfTlFzRkhfUktIb25DVmc0a2hTQ2ppa1ZUSXQydVBfNkVCWWVjQ0xkQVp6aUlOdG1oWDJ2aE5YNUZiR0N3QQ&q=https%3A%2F%2Fwww.nikkei.com%2Farticle%2FDGXZQOFL191000Z10C24A6000000%2F",
+                          "webPageType": "WEB_PAGE_TYPE_UNKNOWN",
+                          "rootVe": 83769
+                        }
+                      },
+                      "urlEndpoint": {
+                        "url": "https://www.youtube.com/redirect?event=live_chat&redir_token=QUFFLUhqbUFPZzBiVkgzV0tzbF9IV245dW5Edk5UbzdWQXxBQ3Jtc0ttQm0tVGFtOGpFVlE1VzlxdE9waDUzamRSRE1FUmxRQUk3WlBvM1dHNVRHb2tmWF83eXVfTlFzRkhfUktIb25DVmc0a2hTQ2ppa1ZUSXQydVBfNkVCWWVjQ0xkQVp6aUlOdG1oWDJ2aE5YNUZiR0N3QQ&q=https%3A%2F%2Fwww.nikkei.com%2Farticle%2FDGXZQOFL191000Z10C24A6000000%2F",
+                        "target": "TARGET_NEW_WINDOW",
+                        "nofollow": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "authorName": { "simpleText": "投稿者名" },
+              "authorPhoto": {
+                "thumbnails": [
+                  {
+                    "url": "https://yt4.ggpht.com/WxTopCWfI9ikDj5r9cW9LCjyYVxsFLWYo7pO1YabJNy6cJ6vhRr5HfC5Y1fagVj45OpSfE5s8Q=s32-c-k-c0x00ffffff-no-rj",
+                    "width": 32,
+                    "height": 32
+                  },
+                  {
+                    "url": "https://yt4.ggpht.com/WxTopCWfI9ikDj5r9cW9LCjyYVxsFLWYo7pO1YabJNy6cJ6vhRr5HfC5Y1fagVj45OpSfE5s8Q=s64-c-k-c0x00ffffff-no-rj",
+                    "width": 64,
+                    "height": 64
+                  }
+                ]
+              },
+              "contextMenuEndpoint": {
+                "commandMetadata": {
+                  "webCommandMetadata": { "ignoreNavigation": true }
+                },
+                "liveChatItemContextMenuEndpoint": {
+                  "params": "Q2g0S0hBb2FRMGxJTmpJMVJHdzBiMjlFUm1WbVFuZG5VV1ExVkVWUWFHY2FLU29uQ2hoVlF6WnZURGhuWlV0TlpYbG5iUzAwT1dsTWNuRmxabmNTQzFGUU1UazVhRzh0V0dRd0lBRW9CRElhQ2hoVlEyUkZhRWN6Ykdwa1gwZG9lbnBTWVhrd2FTMHdibEU0QWtnQVVBRSUzRA=="
+                }
+              },
+              "id": "ChwKGkNJSDYyNURsNG9vREZlZkJ3Z1FkNVRFUGhn",
+              "timestampUsec": "1736224726787084",
+              "authorBadges": [
+                {
+                  "liveChatAuthorBadgeRenderer": {
+                    "icon": { "iconType": "MODERATOR" },
+                    "tooltip": "Moderator",
+                    "accessibility": {
+                      "accessibilityData": { "label": "Moderator" }
+                    }
+                  }
+                },
+                {
+                  "liveChatAuthorBadgeRenderer": {
+                    "customThumbnail": {
+                      "thumbnails": [
+                        {
+                          "url": "https://yt3.ggpht.com/6YYy6158MQ8Y1a05XVlQUhrXpQRz8T-T2hCOnKhnn_6ysM3JjufMVBnO6oi5rwj-HFPl8A7jqpe2d4uhaQ=s16-c-k",
+                          "width": 16,
+                          "height": 16
+                        },
+                        {
+                          "url": "https://yt3.ggpht.com/6YYy6158MQ8Y1a05XVlQUhrXpQRz8T-T2hCOnKhnn_6ysM3JjufMVBnO6oi5rwj-HFPl8A7jqpe2d4uhaQ=s32-c-k",
+                          "width": 32,
+                          "height": 32
+                        }
+                      ]
+                    },
+                    "tooltip": "Member (2 months)",
+                    "accessibility": {
+                      "accessibilityData": { "label": "Member (2 months)" }
+                    }
+                  }
+                }
+              ],
+              "authorExternalChannelId": "UCdEhG3ljd_GhzzRay0i-0nQ",
+              "contextMenuAccessibility": {
+                "accessibilityData": { "label": "Chat actions" }
+              }
+            }
+          },
+          "clientId": "CIH625Dl4ooDFefBwgQd5TEPhg"
+        }
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "2979240",
+  "isLive": true
+}

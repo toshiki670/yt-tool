@@ -46,32 +46,20 @@ impl TryInto<Vec<SimpleChatEntity>> for Action {
     type Error = anyhow::Error;
 
     fn try_into(self) -> anyhow::Result<Vec<SimpleChatEntity>> {
-        if let Some(add_chat_item_action) = self.add_chat_item_action {
-            let item = add_chat_item_action.item.into();
+        if let Some(action) = self.add_chat_item_action {
+            let item = action.item.into();
             Ok(item)
-        } else if let Some(add_live_chat_ticker_item_action) = self.add_live_chat_ticker_item_action
-        {
-            let item = add_live_chat_ticker_item_action.item.into();
+        } else if let Some(action) = self.add_live_chat_ticker_item_action {
+            let item = action.item.into();
             Ok(item)
-        } else if let Some(add_banner_to_live_chat_command) = self.add_banner_to_live_chat_command {
-            let items = add_banner_to_live_chat_command
-                .banner_renderer
-                .live_chat_banner_renderer
-                .into();
+        } else if let Some(command) = self.add_banner_to_live_chat_command {
+            let items = command.banner_renderer.live_chat_banner_renderer.into();
             Ok(items)
-        } else if let Some(show_live_chat_action_panel_action) =
-            self.show_live_chat_action_panel_action
-        {
-            let item = show_live_chat_action_panel_action
-                .panel_to_show
-                .live_chat_action_panel_renderer
-                .into();
+        } else if let Some(action) = self.show_live_chat_action_panel_action {
+            let item = action.panel_to_show.live_chat_action_panel_renderer.into();
             Ok(vec![item])
-        } else if let Some(update_live_chat_poll_action) = self.update_live_chat_poll_action {
-            let mut item: SimpleChatEntity = update_live_chat_poll_action
-                .poll_to_update
-                .poll_renderer
-                .into();
+        } else if let Some(action) = self.update_live_chat_poll_action {
+            let mut item: SimpleChatEntity = action.poll_to_update.poll_renderer.into();
             item.category = CategoryValue::UpdatedPoll;
             Ok(vec![item])
         } else if self.live_chat_report_moderation_state_command.is_some()

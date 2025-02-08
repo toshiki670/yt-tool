@@ -22,4 +22,5 @@ pub enum IconType {
     Owner,
     Verified,
     YoutubeRound,
+    Poll,
 }

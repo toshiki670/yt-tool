@@ -6,6 +6,7 @@ pub(crate) mod renderers;
 pub(crate) mod values;
 
 use actions::{
+    add_live_chat_ticker_item_action::AddLiveChatTickerItemAction,
     close_live_chat_action_panel_action::CloseLiveChatActionPanelAction,
     show_live_chat_action_panel_action::ShowLiveChatActionPanelAction,
     update_live_chat_poll_action::UpdateLiveChatPollAction,
@@ -53,12 +54,5 @@ pub struct Action {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct AddChatItemAction {
     pub client_id: Option<String>,
-    pub item: Item,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct AddLiveChatTickerItemAction {
-    pub duration_sec: String,
     pub item: Item,
 }

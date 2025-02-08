@@ -1,3 +1,4 @@
+pub(super) mod live_chat_action_panel_renderer;
 pub(crate) mod live_chat_banner_renderer;
 pub(super) mod live_chat_membership_item_renderer;
 pub(super) mod live_chat_paid_message_renderer;
@@ -7,6 +8,7 @@ pub(super) mod live_chat_text_message_renderer;
 pub(super) mod live_chat_ticker_paid_message_item_renderer;
 pub(super) mod live_chat_ticker_paid_sticker_item_renderer;
 pub(super) mod live_chat_viewer_engagement_message_renderer;
+pub(super) mod poll_renderer;
 
 use chrono::{DateTime, Utc};
 use support::anyhow::collect_results;
@@ -16,7 +18,7 @@ use super::{
         item::{values::timestamp_usec::TimestampUsec, Item},
         Action, LiveChatEntity,
     },
-    simple_chat::{PostedAtValue, SimpleChatEntity},
+    simple_chat::{CategoryValue, PostedAtValue, SimpleChatEntity},
 };
 
 impl LiveChatEntity {
@@ -60,9 +62,25 @@ impl TryInto<Vec<SimpleChatEntity>> for Action {
                 .live_chat_banner_renderer
                 .into();
             Ok(items)
+        } else if let Some(show_live_chat_action_panel_action) =
+            self.show_live_chat_action_panel_action
+        {
+            let item = show_live_chat_action_panel_action
+                .panel_to_show
+                .live_chat_action_panel_renderer
+                .into();
+            Ok(vec![item])
+        } else if let Some(update_live_chat_poll_action) = self.update_live_chat_poll_action {
+            let mut item: SimpleChatEntity = update_live_chat_poll_action
+                .poll_to_update
+                .poll_renderer
+                .into();
+            item.category = CategoryValue::UpdatedPoll;
+            Ok(vec![item])
         } else if self.live_chat_report_moderation_state_command.is_some()
             || self.remove_chat_item_action.is_some()
             || self.remove_chat_item_by_author_action.is_some()
+            || self.close_live_chat_action_panel_action.is_some()
         {
             return Ok(vec![]);
         } else {
@@ -142,7 +160,7 @@ mod tests {
             let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
             let first = simple_chats.first().context("There is no chat")?;
-            let actual: DateTime<Utc> = first.posted_at.into();
+            let actual: DateTime<Utc> = first.posted_at.unwrap().into();
 
             assert_eq!(expected, actual);
             Ok(())
@@ -193,7 +211,7 @@ mod tests {
             let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
             let first = simple_chats.first().context("There is no chat")?;
-            let actual: DateTime<Utc> = first.posted_at.into();
+            let actual: DateTime<Utc> = first.posted_at.unwrap().into();
 
             assert_eq!(expected, actual);
             Ok(())

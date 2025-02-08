@@ -11,6 +11,8 @@ pub(crate) enum CategoryValue {
     TextMessage,
     TickerPaidMessageItem,
     ViewerEngagementMessage,
+    Poll,
+    UpdatedPoll,
 }
 
 impl Serialize for CategoryValue {
@@ -37,6 +39,8 @@ impl fmt::Display for CategoryValue {
                 "Sponsorships gift purchase announcement"
             }
             CategoryValue::TextMessage => "Text message",
+            CategoryValue::Poll => "Pool",
+            CategoryValue::UpdatedPoll => "Updated pool",
         };
 
         write!(f, "{}", msg)

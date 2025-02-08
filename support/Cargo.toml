@@ -12,15 +12,13 @@ test = ['assert']
 assert = ['pretty_assertions']
 
 [dependencies]
-tokio = { workspace = true }
-futures = { workspace = true }
-
-glob = { workspace = true }
 anyhow = { workspace = true }
+futures = { workspace = true }
+glob = { workspace = true }
+pretty_assertions = { workspace = true, optional = true }
 thiserror = { workspace = true }
-
-pretty_assertions = { version = "1.4.1", optional = true }
+tokio = { workspace = true }
 
 [dev-dependencies]
-pretty_assertions = "1.4.1"
-tempfile = "3.16.0"
+pretty_assertions = { workspace = true }
+tempfile = { workspace = true }

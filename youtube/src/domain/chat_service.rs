@@ -82,6 +82,7 @@ impl From<Item> for Vec<SimpleChatEntity> {
         match val {
             Item::LiveChatMembershipItemRenderer(r) => vec![r.into()],
             Item::LiveChatPaidMessageRenderer(r) => vec![r.into()],
+            Item::LiveChatPlaceholderItemRenderer(_) => vec![],
             Item::LiveChatPaidStickerRenderer(_) => vec![],
             Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(r) => vec![r.into()],
             Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(r) => vec![r.into()],

@@ -1,5 +1,9 @@
 use crate::domain::live_chat::values::{
-    icon::Icon, ignore_navigation::IgnoreNavigation, text::Text, thumbnails::Thumbnails,
+    accessibility::{Accessibility, Label},
+    icon::Icon,
+    ignore_navigation::IgnoreNavigation,
+    text::Text,
+    thumbnails::Thumbnails,
     web_command_metadata::WebCommandMetadata,
 };
 use serde::{Deserialize, Serialize};
@@ -70,29 +74,11 @@ pub struct ContextMenuButton {
 #[serde(rename_all = "camelCase")]
 pub struct ButtonRenderer {
     pub icon: Icon,
-    pub accessibility: Accessibility,
+    pub accessibility: Label,
     pub tracking_params: Option<String>,
-    pub accessibility_data: AccessibilityData,
+    pub accessibility_data: Accessibility,
     pub target_id: String,
     pub command: Command,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Accessibility {
-    pub label: String,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct AccessibilityData {
-    pub accessibility_data: AccessibilityData2,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct AccessibilityData2 {
-    pub label: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

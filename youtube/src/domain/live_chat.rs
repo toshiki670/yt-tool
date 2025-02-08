@@ -1,6 +1,8 @@
 // https://transform.tools/json-to-rust-serde
 pub(crate) mod item;
+pub(crate) mod actions;
 
+use actions::update_live_chat_poll_action::UpdateLiveChatPollAction;
 use item::{
     renderers::{
         live_chat_action_panel_renderer::LiveChatActionPanelRenderer,
@@ -78,18 +80,6 @@ pub struct ShowLiveChatActionPanelAction {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct PanelToShow {
     pub live_chat_action_panel_renderer: Box<LiveChatActionPanelRenderer>,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct UpdateLiveChatPollAction {
-    pub poll_to_update: PollToUpdate,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct PollToUpdate {
-    pub poll_renderer: Box<PollRenderer>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

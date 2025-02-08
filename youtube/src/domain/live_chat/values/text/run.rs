@@ -1,4 +1,5 @@
 use super::super::thumbnails::Thumbnails;
+use crate::domain::live_chat::values::web_command_metadata::WebCommandMetadata;
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -56,19 +57,13 @@ impl From<Emoji> for String {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct NavigationEndpoint {
     pub click_tracking_params: Option<String>,
-    pub command_metadata: CommandMetadata,
+    pub command_metadata: WebCommandMetadata<NavigationMetadata>,
     pub url_endpoint: UrlEndpoint,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct CommandMetadata {
-    pub web_command_metadata: WebCommandMetadata,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct WebCommandMetadata {
+pub struct NavigationMetadata {
     pub url: String,
     pub web_page_type: String,
     pub root_ve: i64,

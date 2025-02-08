@@ -3,10 +3,9 @@ use serde::{Deserialize, Serialize};
 use super::live_chat_text_message_renderer::LiveChatTextMessageRenderer;
 use crate::domain::live_chat::values::{
     accessibility::{Accessibility, Label},
+    context_menu_endpoint::ContextMenuEndpoint,
     icon::Icon,
-    ignore_navigation::IgnoreNavigation,
     text::Text,
-    web_command_metadata::WebCommandMetadata,
 };
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -50,21 +49,7 @@ pub struct ButtonRenderer {
     pub accessibility: Label,
     pub tracking_params: String,
     pub accessibility_data: Accessibility,
-    pub command: Command,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct Command {
-    pub click_tracking_params: String,
-    pub command_metadata: WebCommandMetadata<IgnoreNavigation>,
-    pub live_chat_item_context_menu_endpoint: LiveChatItemContextMenuEndpoint,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct LiveChatItemContextMenuEndpoint {
-    pub params: String,
+    pub command: ContextMenuEndpoint,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

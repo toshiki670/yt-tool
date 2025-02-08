@@ -1,7 +1,7 @@
 use crate::domain::live_chat::values::{
     accessibility::{Accessibility, Label},
+    context_menu_endpoint::ContextMenuEndpoint,
     icon::Icon,
-    ignore_navigation::IgnoreNavigation,
     text::Text,
     thumbnails::Thumbnails,
     web_command_metadata::WebCommandMetadata,
@@ -78,19 +78,5 @@ pub struct ButtonRenderer {
     pub tracking_params: Option<String>,
     pub accessibility_data: Accessibility,
     pub target_id: String,
-    pub command: Command,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Command {
-    pub click_tracking_params: Option<String>,
-    pub command_metadata: WebCommandMetadata<IgnoreNavigation>,
-    pub live_chat_item_context_menu_endpoint: LiveChatItemContextMenuEndpoint,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct LiveChatItemContextMenuEndpoint {
-    pub params: String,
+    pub command: ContextMenuEndpoint,
 }

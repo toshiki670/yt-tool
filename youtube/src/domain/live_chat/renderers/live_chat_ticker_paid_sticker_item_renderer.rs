@@ -1,7 +1,8 @@
 use serde::{Deserialize, Serialize};
 
 use crate::domain::live_chat::values::{
-    accessibility::Accessibility, ignore_navigation::IgnoreNavigation, web_command_metadata::WebCommandMetadata,
+    accessibility::Accessibility, context_menu_endpoint::ContextMenuEndpoint,
+    ignore_navigation::IgnoreNavigation, web_command_metadata::WebCommandMetadata,
 };
 
 use super::values::{text::Text, thumbnails::Thumbnails, timestamp_usec::TimestampUsec};
@@ -68,18 +69,4 @@ pub struct LiveChatPaidStickerRenderer {
     pub header_overlay_image: Option<Thumbnails>,
     pub pdg_purchased_novelty_logging_directives: Option<serde_json::Value>,
     pub lower_bumper: Option<serde_json::Value>,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct ContextMenuEndpoint {
-    pub click_tracking_params: String,
-    pub command_metadata: WebCommandMetadata<IgnoreNavigation>,
-    pub live_chat_item_context_menu_endpoint: LiveChatItemContextMenuEndpoint,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct LiveChatItemContextMenuEndpoint {
-    pub params: String,
 }

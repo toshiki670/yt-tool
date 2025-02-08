@@ -7,9 +7,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub enum Text {
+    Runs(Vec<Run>),
     #[allow(clippy::enum_variant_names)]
     SimpleText(String),
-    Runs(Vec<Run>),
 }
 
 impl Display for Text {

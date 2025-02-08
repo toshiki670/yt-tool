@@ -12,19 +12,19 @@ use serde::{Deserialize, Serialize};
 #[serde(rename_all = "camelCase")]
 pub struct PollRenderer {
     pub choices: Vec<Choice>,
-    pub tracking_params: Option<String>,
-    pub live_chat_poll_id: String,
     pub header: Header,
+    pub live_chat_poll_id: String,
+    pub tracking_params: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Choice {
-    pub text: Text,
-    pub selected: bool,
-    pub vote_ratio: Option<f64>,
-    pub vote_percentage: Option<Text>,
     pub select_service_endpoint: Option<SelectServiceEndpoint>,
+    pub selected: bool,
+    pub text: Text,
+    pub vote_percentage: Option<Text>,
+    pub vote_ratio: Option<f64>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -38,8 +38,8 @@ pub struct SelectServiceEndpoint {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SelectServiceMetadata {
-    pub send_post: bool,
     pub api_url: String,
+    pub send_post: bool,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -57,11 +57,11 @@ pub struct Header {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct PollHeaderRenderer {
+    pub context_menu_button: ContextMenuButton,
+    pub live_chat_poll_type: String,
+    pub metadata_text: Text,
     pub poll_question: Text,
     pub thumbnail: Thumbnails,
-    pub metadata_text: Text,
-    pub live_chat_poll_type: String,
-    pub context_menu_button: ContextMenuButton,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -73,10 +73,10 @@ pub struct ContextMenuButton {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ButtonRenderer {
-    pub icon: Icon,
-    pub accessibility: Label,
-    pub tracking_params: Option<String>,
     pub accessibility_data: Accessibility,
-    pub target_id: String,
+    pub accessibility: Label,
     pub command: ContextMenuEndpoint,
+    pub icon: Icon,
+    pub target_id: String,
+    pub tracking_params: Option<String>,
 }

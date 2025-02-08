@@ -24,18 +24,18 @@ pub struct ReplyButton2 {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ButtonViewModel {
-    pub icon_name: String,
-    pub on_tap: OnTap,
     pub accessibility_text: String,
+    pub button_size: String,
+    pub custom_background_color: i64,
+    pub custom_font_color: i64,
+    pub icon_name: String,
+    pub logging_directives: LoggingDirectives,
+    pub on_tap: OnTap,
+    pub on_visible: Option<serde_json::Value>,
     pub style: String,
     pub tracking_params: String,
     #[serde(rename = "type")]
     pub type_field: String,
-    pub button_size: String,
-    pub custom_background_color: i64,
-    pub custom_font_color: i64,
-    pub logging_directives: LoggingDirectives,
-    pub on_visible: Option<serde_json::Value>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

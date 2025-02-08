@@ -5,10 +5,10 @@ use serde::{Deserialize, Serialize};
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Run {
     pub bold: Option<bool>,
-    pub italics: Option<bool>,
-    pub text: Option<String>,
     pub emoji: Option<Emoji>,
+    pub italics: Option<bool>,
     pub navigation_endpoint: Option<NavigationEndpoint>,
+    pub text: Option<String>,
 }
 
 impl From<Run> for String {
@@ -29,10 +29,10 @@ impl From<Run> for String {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Emoji {
     pub emoji_id: String,
-    pub shortcuts: Option<Vec<String>>,
-    pub search_terms: Option<Vec<String>>,
     pub image: Thumbnails,
     pub is_custom_emoji: Option<bool>,
+    pub search_terms: Option<Vec<String>>,
+    pub shortcuts: Option<Vec<String>>,
     pub supports_skin_tone: Option<bool>,
     pub variant_ids: Option<Vec<String>>,
 }

@@ -9,18 +9,18 @@ use super::values::{
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct LiveChatMembershipItemRenderer {
-    pub id: String,
-    pub timestamp_usec: TimestampUsec,
-    pub timestamp_text: Option<Text>,
+    pub author_badges: AuthorBadges,
     pub author_external_channel_id: String,
-    pub header_subtext: Text,
-    pub message: Option<Text>,
     pub author_name: Option<Text>,
     pub author_photo: Thumbnails,
-    pub author_badges: AuthorBadges,
-    pub context_menu_endpoint: ContextMenuEndpoint,
     pub context_menu_accessibility: Accessibility,
-    pub tracking_params: String,
-    pub header_primary_text: Option<Text>,
+    pub context_menu_endpoint: ContextMenuEndpoint,
     pub empty: Option<bool>,
+    pub header_primary_text: Option<Text>,
+    pub header_subtext: Text,
+    pub id: String,
+    pub message: Option<Text>,
+    pub timestamp_text: Option<Text>,
+    pub timestamp_usec: TimestampUsec,
+    pub tracking_params: String,
 }

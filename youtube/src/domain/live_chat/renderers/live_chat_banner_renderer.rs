@@ -45,11 +45,11 @@ pub struct ContextMenuButton {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ButtonRenderer {
-    pub icon: Icon,
-    pub accessibility: Label,
-    pub tracking_params: String,
     pub accessibility_data: Accessibility,
+    pub accessibility: Label,
     pub command: ContextMenuEndpoint,
+    pub icon: Icon,
+    pub tracking_params: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

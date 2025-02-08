@@ -10,13 +10,13 @@ pub struct CreatorHeartButton {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CreatorHeartViewModel {
     pub creator_thumbnail: Sources<Url>,
-    pub hearted_icon: Sources<ClientResource>,
-    pub unhearted_icon: UnheartedIcon,
-    pub hearted_hover_text: String,
-    pub hearted_accessibility_label: String,
-    pub unhearted_accessibility_label: String,
     pub engagement_state_key: String,
     pub gradient: Option<serde_json::Value>,
+    pub hearted_accessibility_label: String,
+    pub hearted_hover_text: String,
+    pub hearted_icon: Sources<ClientResource>,
+    pub unhearted_accessibility_label: String,
+    pub unhearted_icon: UnheartedIcon,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

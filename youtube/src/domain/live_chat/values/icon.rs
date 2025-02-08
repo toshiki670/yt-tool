@@ -19,7 +19,7 @@ pub enum IconType {
     Moderator,
     MoreVert,
     Owner,
+    Poll,
     Verified,
     YoutubeRound,
-    Poll,
 }

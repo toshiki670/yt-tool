@@ -9,7 +9,7 @@ pub struct LiveChatViewerEngagementMessageRenderer {
     pub icon: Icon,
     pub message: Text,
     pub action_button: Option<serde_json::Value>,
-    pub tracking_params: String,
+    pub tracking_params: Option<String>,
     pub context_menu_endpoint: Option<serde_json::Value>,
     pub context_menu_accessibility: Option<serde_json::Value>,
 }

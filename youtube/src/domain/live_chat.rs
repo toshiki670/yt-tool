@@ -10,7 +10,7 @@ use actions::{
     update_live_chat_poll_action::UpdateLiveChatPollAction,
 };
 use item::Item;
-use renderers::live_chat_banner_renderer::LiveChatBannerRenderer;
+use renderers::banner_renderer::BannerRenderer;
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -63,12 +63,6 @@ pub struct AddLiveChatTickerItemAction {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct AddBannerToLiveChatCommand {
     pub banner_renderer: BannerRenderer,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct BannerRenderer {
-    pub live_chat_banner_renderer: Box<LiveChatBannerRenderer>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

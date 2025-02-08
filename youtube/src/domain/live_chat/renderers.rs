@@ -1,3 +1,4 @@
+pub(crate) mod banner_renderer;
 pub(crate) mod live_chat_action_panel_renderer;
 pub(crate) mod live_chat_banner_renderer;
 pub(crate) mod live_chat_membership_item_renderer;

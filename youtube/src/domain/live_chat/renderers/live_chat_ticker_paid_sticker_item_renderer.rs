@@ -60,7 +60,7 @@ pub struct LiveChatPaidStickerRenderer {
     pub author_photo: Thumbnails,
     pub author_name: Text,
     pub author_external_channel_id: String,
-    pub timestamp_text: Option<TimestampText>,
+    pub timestamp_text: Option<Text>,
     pub sticker: Thumbnails,
     pub money_chip_background_color: i64,
     pub money_chip_text_color: i64,
@@ -114,18 +114,6 @@ pub struct ContextMenuAccessibility {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct AccessibilityData2 {
     pub label: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct AuthorName {
-    pub simple_text: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct TimestampText {
-    pub simple_text: String,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

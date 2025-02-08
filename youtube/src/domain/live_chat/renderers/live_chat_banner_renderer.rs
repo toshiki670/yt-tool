@@ -1,13 +1,12 @@
 use serde::{Deserialize, Serialize};
 
-use super::{
-    live_chat_text_message_renderer::LiveChatTextMessageRenderer,
-    live_chat_ticker_paid_sticker_item_renderer::CommandMetadata,
-};
+use super::live_chat_text_message_renderer::LiveChatTextMessageRenderer;
 use crate::domain::live_chat::values::{
     accessibility::{Accessibility, Label},
     icon::Icon,
+    ignore_navigation::IgnoreNavigation,
     text::Text,
+    web_command_metadata::WebCommandMetadata,
 };
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -58,7 +57,7 @@ pub struct ButtonRenderer {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Command {
     pub click_tracking_params: String,
-    pub command_metadata: CommandMetadata,
+    pub command_metadata: WebCommandMetadata<IgnoreNavigation>,
     pub live_chat_item_context_menu_endpoint: LiveChatItemContextMenuEndpoint,
 }
 

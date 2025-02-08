@@ -1,6 +1,8 @@
 use serde::{Deserialize, Serialize};
 
-use crate::domain::live_chat::values::accessibility::Accessibility;
+use crate::domain::live_chat::values::{
+    accessibility::Accessibility, ignore_navigation::IgnoreNavigation, web_command_metadata::WebCommandMetadata,
+};
 
 use super::values::{text::Text, thumbnails::Thumbnails, timestamp_usec::TimestampUsec};
 
@@ -23,20 +25,8 @@ pub struct LiveChatTickerPaidStickerItemRenderer {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ShowItemEndpoint {
     pub click_tracking_params: String,
-    pub command_metadata: CommandMetadata,
+    pub command_metadata: WebCommandMetadata<IgnoreNavigation>,
     pub show_live_chat_item_endpoint: ShowLiveChatItemEndpoint,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct CommandMetadata {
-    pub web_command_metadata: WebCommandMetadata,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct WebCommandMetadata {
-    pub ignore_navigation: bool,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -84,20 +74,8 @@ pub struct LiveChatPaidStickerRenderer {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ContextMenuEndpoint {
     pub click_tracking_params: String,
-    pub command_metadata: CommandMetadata2,
+    pub command_metadata: WebCommandMetadata<IgnoreNavigation>,
     pub live_chat_item_context_menu_endpoint: LiveChatItemContextMenuEndpoint,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct CommandMetadata2 {
-    pub web_command_metadata: WebCommandMetadata2,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct WebCommandMetadata2 {
-    pub ignore_navigation: bool,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

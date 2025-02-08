@@ -1,7 +1,4 @@
-pub(crate) mod renderers;
-pub(crate) mod values;
-
-use renderers::{
+use super::renderers::{
     live_chat_membership_item_renderer::LiveChatMembershipItemRenderer,
     live_chat_paid_message_renderer::LiveChatPaidMessageRenderer,
     live_chat_sponsorships_gift_purchase_announcement_renderer::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer,

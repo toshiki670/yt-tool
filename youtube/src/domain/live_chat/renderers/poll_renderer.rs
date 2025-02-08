@@ -1,4 +1,4 @@
-use crate::domain::live_chat::item::values::{text::Text, thumbnails::Thumbnails};
+use crate::domain::live_chat::values::{text::Text, thumbnails::Thumbnails};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

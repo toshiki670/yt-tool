@@ -1,5 +1,5 @@
 use crate::domain::{
-    live_chat::item::renderers::live_chat_text_message_renderer::LiveChatTextMessageRenderer,
+    live_chat::renderers::live_chat_text_message_renderer::LiveChatTextMessageRenderer,
     simple_chat::{CategoryValue, Content, SimpleChatEntity},
 };
 

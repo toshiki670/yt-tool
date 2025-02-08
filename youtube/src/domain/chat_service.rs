@@ -14,10 +14,7 @@ use chrono::{DateTime, Utc};
 use support::anyhow::collect_results;
 
 use super::{
-    live_chat::{
-        item::{values::timestamp_usec::TimestampUsec, Item},
-        Action, LiveChatEntity,
-    },
+    live_chat::{item::Item, values::timestamp_usec::TimestampUsec, Action, LiveChatEntity},
     simple_chat::{CategoryValue, PostedAtValue, SimpleChatEntity},
 };
 

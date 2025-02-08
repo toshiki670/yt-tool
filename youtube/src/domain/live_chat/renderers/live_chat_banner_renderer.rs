@@ -4,7 +4,7 @@ use super::{
     live_chat_text_message_renderer::LiveChatTextMessageRenderer,
     live_chat_ticker_paid_sticker_item_renderer::CommandMetadata,
 };
-use crate::domain::live_chat::item::values::{
+use crate::domain::live_chat::values::{
     accessibility::{Accessibility, Label},
     icon::Icon,
     text::Text,

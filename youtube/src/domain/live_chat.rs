@@ -1,17 +1,16 @@
 // https://transform.tools/json-to-rust-serde
 pub(crate) mod actions;
 pub(crate) mod item;
+pub(crate) mod renderers;
+pub(crate) mod values;
 
 use actions::{
-    close_live_chat_action_panel_action::CloseLiveChatActionPanelAction, show_live_chat_action_panel_action::ShowLiveChatActionPanelAction, update_live_chat_poll_action::UpdateLiveChatPollAction
+    close_live_chat_action_panel_action::CloseLiveChatActionPanelAction,
+    show_live_chat_action_panel_action::ShowLiveChatActionPanelAction,
+    update_live_chat_poll_action::UpdateLiveChatPollAction,
 };
-use item::{
-    renderers::{
-        live_chat_action_panel_renderer::LiveChatActionPanelRenderer,
-        live_chat_banner_renderer::LiveChatBannerRenderer,
-    },
-    Item,
-};
+use item::Item;
+use renderers::live_chat_banner_renderer::LiveChatBannerRenderer;
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

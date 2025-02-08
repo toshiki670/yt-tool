@@ -1,4 +1,4 @@
-use crate::domain::live_chat::item::renderers::poll_renderer::PollRenderer;
+use crate::domain::live_chat::renderers::poll_renderer::PollRenderer;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

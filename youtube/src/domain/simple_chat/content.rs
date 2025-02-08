@@ -4,7 +4,7 @@ use indexmap::IndexMap;
 use serde::{Serialize, Serializer};
 
 #[derive(Default, Debug, Clone, PartialEq)]
-pub(crate) struct Content(pub(crate) IndexMap<String, Option<String>>);
+pub(crate) struct Content(IndexMap<String, Option<String>>);
 
 impl core::ops::Deref for Content {
     type Target = IndexMap<String, Option<String>>;

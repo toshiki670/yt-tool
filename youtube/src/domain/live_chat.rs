@@ -3,8 +3,7 @@ pub(crate) mod actions;
 pub(crate) mod item;
 
 use actions::{
-    close_live_chat_action_panel_action::CloseLiveChatActionPanelAction,
-    update_live_chat_poll_action::UpdateLiveChatPollAction,
+    close_live_chat_action_panel_action::CloseLiveChatActionPanelAction, show_live_chat_action_panel_action::ShowLiveChatActionPanelAction, update_live_chat_poll_action::UpdateLiveChatPollAction
 };
 use item::{
     renderers::{
@@ -71,18 +70,6 @@ pub struct AddBannerToLiveChatCommand {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct BannerRenderer {
     pub live_chat_banner_renderer: Box<LiveChatBannerRenderer>,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct ShowLiveChatActionPanelAction {
-    pub panel_to_show: PanelToShow,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct PanelToShow {
-    pub live_chat_action_panel_renderer: Box<LiveChatActionPanelRenderer>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

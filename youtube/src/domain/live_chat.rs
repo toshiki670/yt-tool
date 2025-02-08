@@ -6,6 +6,7 @@ pub(crate) mod renderers;
 pub(crate) mod values;
 
 use actions::{
+    add_chat_item_action::AddChatItemAction,
     add_live_chat_ticker_item_action::AddLiveChatTickerItemAction,
     close_live_chat_action_panel_action::CloseLiveChatActionPanelAction,
     show_live_chat_action_panel_action::ShowLiveChatActionPanelAction,
@@ -15,7 +16,6 @@ use commands::{
     add_banner_to_live_chat_command::AddBannerToLiveChatCommand,
     remove_banner_for_live_chat_command::RemoveBannerForLiveChatCommand,
 };
-use item::Item;
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -48,11 +48,4 @@ pub struct Action {
     pub remove_chat_item_by_author_action: Option<serde_json::Value>,
     pub show_live_chat_action_panel_action: Option<ShowLiveChatActionPanelAction>,
     pub update_live_chat_poll_action: Option<UpdateLiveChatPollAction>,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct AddChatItemAction {
-    pub client_id: Option<String>,
-    pub item: Item,
 }

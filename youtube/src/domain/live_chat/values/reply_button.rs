@@ -1,4 +1,4 @@
-use super::engagement_panel_command::EngagementPanelCommand;
+use crate::domain::live_chat::commands::engagement_panel_command::EngagementPanelCommand;
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

@@ -1,10 +1,11 @@
 use super::{
     live_chat_paid_message_renderer::LiveChatPaidMessageRenderer,
     values::{
-        engagement_panel_command::EngagementPanelCommand, ignore_navigation::IgnoreNavigation,
-        text::Text, thumbnails::Thumbnails, web_command_metadata::WebCommandMetadata,
+        ignore_navigation::IgnoreNavigation, text::Text, thumbnails::Thumbnails,
+        web_command_metadata::WebCommandMetadata,
     },
 };
+use crate::domain::live_chat::commands::engagement_panel_command::EngagementPanelCommand;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

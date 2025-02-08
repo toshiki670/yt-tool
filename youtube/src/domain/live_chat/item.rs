@@ -12,6 +12,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
+#[allow(clippy::enum_variant_names)]
 pub enum Item {
     LiveChatMembershipItemRenderer(Box<LiveChatMembershipItemRenderer>),
     LiveChatPaidMessageRenderer(Box<LiveChatPaidMessageRenderer>),

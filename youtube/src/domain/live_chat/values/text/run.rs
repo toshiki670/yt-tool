@@ -1,14 +1,15 @@
 use super::super::thumbnails::Thumbnails;
+use crate::domain::live_chat::values::web_command_metadata::WebCommandMetadata;
 use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Run {
     pub bold: Option<bool>,
-    pub italics: Option<bool>,
-    pub text: Option<String>,
     pub emoji: Option<Emoji>,
+    pub italics: Option<bool>,
     pub navigation_endpoint: Option<NavigationEndpoint>,
+    pub text: Option<String>,
 }
 
 impl From<Run> for String {
@@ -29,10 +30,10 @@ impl From<Run> for String {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Emoji {
     pub emoji_id: String,
-    pub shortcuts: Option<Vec<String>>,
-    pub search_terms: Option<Vec<String>>,
     pub image: Thumbnails,
     pub is_custom_emoji: Option<bool>,
+    pub search_terms: Option<Vec<String>>,
+    pub shortcuts: Option<Vec<String>>,
     pub supports_skin_tone: Option<bool>,
     pub variant_ids: Option<Vec<String>>,
 }
@@ -56,19 +57,13 @@ impl From<Emoji> for String {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct NavigationEndpoint {
     pub click_tracking_params: Option<String>,
-    pub command_metadata: CommandMetadata,
+    pub command_metadata: WebCommandMetadata<NavigationMetadata>,
     pub url_endpoint: UrlEndpoint,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct CommandMetadata {
-    pub web_command_metadata: WebCommandMetadata,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct WebCommandMetadata {
+pub struct NavigationMetadata {
     pub url: String,
     pub web_page_type: String,
     pub root_ve: i64,

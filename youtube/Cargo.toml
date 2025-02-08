@@ -4,28 +4,21 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-tokio = { workspace = true }
-futures = { workspace = true }
-
 anyhow = { workspace = true }
-thiserror = { workspace = true }
-
-# https://serde.rs/container-attrs.html
-serde = { version = "1.0.217", features = ["derive"] }
-serde_json = "1.0.138"
-csv = "1.3.1"
-
-# https://docs.rs/chrono/latest/chrono/serde/ts_seconds/fn.serialize.html
-chrono = { version = "0.4.39", features = ["serde"] }
-
+chrono = { workspace = true, features = ["serde"] } # https://docs.rs/chrono/latest/chrono/serde/ts_seconds/fn.serialize.html
+csv = { workspace = true }
 env_logger = { workspace = true }
+futures = { workspace = true }
+indexmap = { workspace = true }
 log = { workspace = true }
-
-indexmap = "2.7.1"
+serde = { workspace = true, features = ["derive"] } # https://serde.rs/container-attrs.html
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
 
 support = { path = "../support" }
 
 [dev-dependencies]
-pretty_assertions = "1.4.1"
-tempfile = "3.16.0"
+pretty_assertions = { workspace = true }
 support = { path = "../support", features = ['test'] }
+tempfile = { workspace = true }

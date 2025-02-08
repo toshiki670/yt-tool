@@ -5,8 +5,8 @@ use super::accessibility::Accessibility;
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Thumbnails {
-    pub thumbnails: Vec<Thumbnail>,
     pub accessibility: Option<Accessibility>,
+    pub thumbnails: Vec<Thumbnail>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

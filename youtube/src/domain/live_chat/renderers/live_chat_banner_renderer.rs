@@ -1,11 +1,9 @@
 use serde::{Deserialize, Serialize};
 
-use super::{
-    live_chat_text_message_renderer::LiveChatTextMessageRenderer,
-    live_chat_ticker_paid_sticker_item_renderer::CommandMetadata,
-};
-use crate::domain::live_chat::item::values::{
+use super::live_chat_text_message_renderer::LiveChatTextMessageRenderer;
+use crate::domain::live_chat::values::{
     accessibility::{Accessibility, Label},
+    context_menu_endpoint::ContextMenuEndpoint,
     icon::Icon,
     text::Text,
 };
@@ -47,25 +45,11 @@ pub struct ContextMenuButton {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ButtonRenderer {
-    pub icon: Icon,
-    pub accessibility: Label,
-    pub tracking_params: String,
     pub accessibility_data: Accessibility,
-    pub command: Command,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct Command {
-    pub click_tracking_params: String,
-    pub command_metadata: CommandMetadata,
-    pub live_chat_item_context_menu_endpoint: LiveChatItemContextMenuEndpoint,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct LiveChatItemContextMenuEndpoint {
-    pub params: String,
+    pub accessibility: Label,
+    pub command: ContextMenuEndpoint,
+    pub icon: Icon,
+    pub tracking_params: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

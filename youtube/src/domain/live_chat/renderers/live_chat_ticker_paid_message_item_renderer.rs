@@ -1,29 +1,30 @@
 use super::{
     live_chat_paid_message_renderer::LiveChatPaidMessageRenderer,
     values::{
-        engagement_panel_command::EngagementPanelCommand, ignore_navigation::IgnoreNavigation,
-        text::Text, thumbnails::Thumbnails, web_command_metadata::WebCommandMetadata,
+        ignore_navigation::IgnoreNavigation, text::Text, thumbnails::Thumbnails,
+        web_command_metadata::WebCommandMetadata,
     },
 };
+use crate::domain::live_chat::commands::engagement_panel_command::EngagementPanelCommand;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct LiveChatTickerPaidMessageItemRenderer {
-    pub id: String,
     pub amount_text_color: i64,
-    pub start_background_color: i64,
-    pub end_background_color: i64,
-    pub author_photo: Thumbnails,
-    pub duration_sec: i64,
-    pub show_item_endpoint: ShowItemEndpoint,
-    pub author_external_channel_id: String,
-    pub full_duration_sec: i64,
-    pub tracking_params: String,
-    pub author_username: Text,
     pub animation_origin: String,
-    pub open_engagement_panel_command: EngagementPanelCommand,
+    pub author_external_channel_id: String,
+    pub author_photo: Thumbnails,
+    pub author_username: Text,
+    pub duration_sec: i64,
     pub dynamic_state_data: Option<serde_json::Value>,
+    pub end_background_color: i64,
+    pub full_duration_sec: i64,
+    pub id: String,
+    pub open_engagement_panel_command: EngagementPanelCommand,
+    pub show_item_endpoint: ShowItemEndpoint,
+    pub start_background_color: i64,
+    pub tracking_params: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

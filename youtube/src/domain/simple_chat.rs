@@ -1,5 +1,5 @@
 mod category;
-pub(crate) mod content;
+mod content;
 mod posted_at;
 
 pub(crate) use category::CategoryValue;

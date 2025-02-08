@@ -10,9 +10,9 @@ pub struct EngagementPanelCommand {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct ShowEngagementPanelEndpoint {
-    pub identifier: Identifier,
-    pub global_configuration: GlobalConfiguration,
     pub engagement_panel_presentation_configs: EngagementPanelPresentationConfigs,
+    pub global_configuration: GlobalConfiguration,
+    pub identifier: Identifier,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

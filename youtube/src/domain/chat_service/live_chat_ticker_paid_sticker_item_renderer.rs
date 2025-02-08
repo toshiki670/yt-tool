@@ -1,5 +1,5 @@
 use crate::domain::{
-    live_chat::item::renderers::live_chat_ticker_paid_sticker_item_renderer::LiveChatTickerPaidStickerItemRenderer,
+    live_chat::renderers::live_chat_ticker_paid_sticker_item_renderer::LiveChatTickerPaidStickerItemRenderer,
     simple_chat::{CategoryValue, Content, SimpleChatEntity},
 };
 
@@ -20,9 +20,7 @@ impl From<Box<LiveChatTickerPaidStickerItemRenderer>> for SimpleChatEntity {
 
         let author_name = Some(live_chat_paid_sticker_renderer.author_name.clone().into());
 
-        let purchase_amount_text = live_chat_paid_sticker_renderer
-            .purchase_amount_text
-            .simple_text;
+        let purchase_amount_text = live_chat_paid_sticker_renderer.purchase_amount_text.into();
 
         let mut content = Content::new();
         content.add("purchaseAmountText", Some(purchase_amount_text));

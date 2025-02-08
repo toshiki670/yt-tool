@@ -122,7 +122,7 @@ async fn cp(src_pattern: &str, dst_dir: &Path) -> anyhow::Result<()> {
 }
 
 fn read_paths(path: &Path) -> anyhow::Result<Vec<PathBuf>> {
-    let dir = std::fs::read_dir(&path)?;
+    let dir = std::fs::read_dir(path)?;
 
     let results = dir.map(|e| e.map_err(|e| anyhow::anyhow!(e))).collect();
     let dir_entries = support::anyhow::collect_results(results)?;

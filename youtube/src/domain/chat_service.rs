@@ -133,7 +133,7 @@ mod tests {
         fn it_has_one_simple_chat() -> anyhow::Result<()> {
             let expected = 1;
 
-            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
             let actual = simple_chats.len();
 
@@ -145,7 +145,7 @@ mod tests {
         fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
             let expected = CategoryValue::TextMessage;
 
-            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
             let first = simple_chats.first().context("There is no chat")?;
             let actual = first.category.clone();
@@ -158,7 +158,7 @@ mod tests {
         fn it_equals_timestamp_usec() -> anyhow::Result<()> {
             let expected = Utc.timestamp_micros(1733370114906095).unwrap();
 
-            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
             let first = simple_chats.first().context("There is no chat")?;
             let actual: DateTime<Utc> = first.posted_at.unwrap().into();
@@ -184,7 +184,7 @@ mod tests {
         fn it_has_one_simple_chat() -> anyhow::Result<()> {
             let expected = 1;
 
-            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
             let actual = simple_chats.len();
 
@@ -196,7 +196,7 @@ mod tests {
         fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
             let expected = CategoryValue::ViewerEngagementMessage;
 
-            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
             let first = simple_chats.first().context("There is no chat")?;
             let actual = first.category.clone();
@@ -209,7 +209,7 @@ mod tests {
         fn it_equals_timestamp_usec() -> anyhow::Result<()> {
             let expected = Utc.timestamp_micros(1733370532507093).unwrap();
 
-            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
             let first = simple_chats.first().context("There is no chat")?;
             let actual: DateTime<Utc> = first.posted_at.unwrap().into();
@@ -234,7 +234,7 @@ mod tests {
         fn it_has_one_simple_chat() -> anyhow::Result<()> {
             let expected = 1;
 
-            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
             let actual = simple_chats.len();
 
@@ -246,7 +246,7 @@ mod tests {
         fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
             let expected = CategoryValue::SponsorshipsGiftPurchaseAnnouncement;
 
-            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
             let first = simple_chats.first().context("There is no chat")?;
             let actual = first.category.clone();
@@ -270,7 +270,7 @@ mod tests {
         fn it_has_one_simple_chat() -> anyhow::Result<()> {
             let expected = 1;
 
-            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
             let actual = simple_chats.len();
 
@@ -282,7 +282,7 @@ mod tests {
         fn it_equals_chat_text_message_category() -> anyhow::Result<()> {
             let expected = CategoryValue::PaidMessage;
 
-            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
             let first = simple_chats.first().context("There is no chat")?;
             let actual = first.category.clone();
@@ -304,7 +304,7 @@ mod tests {
         fn it_has_no_simple_chat() -> anyhow::Result<()> {
             let expected = 0;
 
-            let json_chat = serde_json::from_str::<LiveChatEntity>(&RAW_JSON)?;
+            let json_chat = serde_json::from_str::<LiveChatEntity>(RAW_JSON)?;
             let simple_chats: Vec<SimpleChatEntity> = json_chat.try_into()?;
             let actual = simple_chats.len();
 

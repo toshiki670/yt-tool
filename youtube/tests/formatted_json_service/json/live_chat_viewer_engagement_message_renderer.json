@@ -1,0 +1,46 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "addChatItemAction": {
+          "item": {
+            "liveChatViewerEngagementMessageRenderer": {
+              "id": "ChwKGkNJQ2RucnJCaUlzREZkM0N3Z1FkcUJRVTJR",
+              "icon": { "iconType": "POLL" },
+              "message": {
+                "runs": [
+                  { "text": "新しいゲームはどうですか？", "bold": true },
+                  { "text": "\n" },
+                  { "text": "持ってる (41%)" },
+                  { "text": "\n" },
+                  { "text": "持ってない (23%)" },
+                  { "text": "\n" },
+                  { "text": "買うか検討中 (17%)" },
+                  { "text": "\n" },
+                  { "text": "絶対に買わない (17%)" },
+                  { "text": "\n" },
+                  { "text": "\n" },
+                  { "text": "Poll complete: 34 votes" }
+                ]
+              },
+              "contextMenuEndpoint": {
+                "commandMetadata": {
+                  "webCommandMetadata": { "ignoreNavigation": true }
+                },
+                "liveChatItemContextMenuEndpoint": {
+                  "params": "Q2g0S0hBb2FRMGxEWkc1eWNrSnBTWE5FUm1RelEzZG5VV1J4UWxGVk1sRWFLU29uQ2hoVlF6WnZURGhuWlV0TlpYbG5iUzAwT1dsTWNuRmxabmNTQ3pOcU5pMHpTakpXZUdKVklBRW9CRElhQ2hoVlF6WnZURGhuWlV0TlpYbG5iUzAwT1dsTWNuRmxabmM0QWtnQVVCWSUzRA=="
+                }
+              },
+              "contextMenuAccessibility": {
+                "accessibilityData": { "label": "Chat actions" }
+              }
+            }
+          },
+          "clientId": "CICdnrrBiIsDFd3CwgQdqBQU2Q"
+        }
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "13707327",
+  "isLive": true
+}

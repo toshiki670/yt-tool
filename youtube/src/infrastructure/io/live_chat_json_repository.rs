@@ -76,7 +76,7 @@ where
             let live_chat = serde_json::from_str::<LiveChatEntity>(&line).with_context(|| {
                 if let Some(source) = &self.path {
                     let source_str = source.to_string_lossy();
-                    format!("Failed to convert at {source_str}:{line_number}")
+                    format!("Failed to convert at '{source_str}:{line_number}'")
                 } else {
                     format!("Failed to convert at {line_number} row")
                 }

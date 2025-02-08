@@ -1,4 +1,7 @@
-use crate::domain::live_chat::values::{text::Text, thumbnails::Thumbnails};
+use crate::domain::live_chat::values::{
+    icon::Icon, ignore_navigation::IgnoreNavigation, text::Text, thumbnails::Thumbnails,
+    web_command_metadata::WebCommandMetadata,
+};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -24,19 +27,13 @@ pub struct Choice {
 #[serde(rename_all = "camelCase")]
 pub struct SelectServiceEndpoint {
     pub click_tracking_params: String,
-    pub command_metadata: CommandMetadata,
+    pub command_metadata: WebCommandMetadata<SelectServiceMetadata>,
     pub send_live_chat_vote_endpoint: SendLiveChatVoteEndpoint,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct CommandMetadata {
-    pub web_command_metadata: WebCommandMetadata,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct WebCommandMetadata {
+pub struct SelectServiceMetadata {
     pub send_post: bool,
     pub api_url: String,
 }
@@ -82,12 +79,6 @@ pub struct ButtonRenderer {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Icon {
-    pub icon_type: String,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
 pub struct Accessibility {
     pub label: String,
 }
@@ -108,20 +99,8 @@ pub struct AccessibilityData2 {
 #[serde(rename_all = "camelCase")]
 pub struct Command {
     pub click_tracking_params: Option<String>,
-    pub command_metadata: CommandMetadata2,
+    pub command_metadata: WebCommandMetadata<IgnoreNavigation>,
     pub live_chat_item_context_menu_endpoint: LiveChatItemContextMenuEndpoint,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct CommandMetadata2 {
-    pub web_command_metadata: WebCommandMetadata2,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct WebCommandMetadata2 {
-    pub ignore_navigation: bool,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

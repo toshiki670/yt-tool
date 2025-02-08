@@ -1,5 +1,7 @@
 use serde::{Deserialize, Serialize};
 
+use crate::domain::live_chat::values::accessibility::Accessibility;
+
 use super::values::{text::Text, thumbnails::Thumbnails, timestamp_usec::TimestampUsec};
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -55,7 +57,7 @@ pub struct Renderer {
 pub struct LiveChatPaidStickerRenderer {
     pub id: String,
     pub context_menu_endpoint: ContextMenuEndpoint,
-    pub context_menu_accessibility: ContextMenuAccessibility,
+    pub context_menu_accessibility: Accessibility,
     pub timestamp_usec: TimestampUsec,
     pub author_photo: Thumbnails,
     pub author_name: Text,
@@ -102,28 +104,4 @@ pub struct WebCommandMetadata2 {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct LiveChatItemContextMenuEndpoint {
     pub params: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct ContextMenuAccessibility {
-    pub accessibility_data: AccessibilityData2,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct AccessibilityData2 {
-    pub label: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct Accessibility2 {
-    pub accessibility_data: AccessibilityData3,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct AccessibilityData3 {
-    pub label: String,
 }

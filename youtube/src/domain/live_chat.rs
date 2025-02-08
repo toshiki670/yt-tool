@@ -2,7 +2,10 @@
 pub(crate) mod actions;
 pub(crate) mod item;
 
-use actions::update_live_chat_poll_action::UpdateLiveChatPollAction;
+use actions::{
+    close_live_chat_action_panel_action::CloseLiveChatActionPanelAction,
+    update_live_chat_poll_action::UpdateLiveChatPollAction,
+};
 use item::{
     renderers::{
         live_chat_action_panel_renderer::LiveChatActionPanelRenderer,
@@ -80,13 +83,6 @@ pub struct ShowLiveChatActionPanelAction {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct PanelToShow {
     pub live_chat_action_panel_renderer: Box<LiveChatActionPanelRenderer>,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct CloseLiveChatActionPanelAction {
-    pub target_panel_id: String,
-    pub skip_on_dismiss_command: bool,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

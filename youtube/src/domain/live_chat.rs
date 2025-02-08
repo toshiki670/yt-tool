@@ -1,5 +1,6 @@
 // https://transform.tools/json-to-rust-serde
 pub(crate) mod actions;
+pub(crate) mod commands;
 pub(crate) mod item;
 pub(crate) mod renderers;
 pub(crate) mod values;
@@ -9,6 +10,7 @@ use actions::{
     show_live_chat_action_panel_action::ShowLiveChatActionPanelAction,
     update_live_chat_poll_action::UpdateLiveChatPollAction,
 };
+use commands::remove_banner_for_live_chat_command::RemoveBannerForLiveChatCommand;
 use item::Item;
 use renderers::banner_renderer::BannerRenderer;
 use serde::{Deserialize, Serialize};
@@ -63,10 +65,4 @@ pub struct AddLiveChatTickerItemAction {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct AddBannerToLiveChatCommand {
     pub banner_renderer: BannerRenderer,
-}
-
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct RemoveBannerForLiveChatCommand {
-    pub target_action_id: String,
 }

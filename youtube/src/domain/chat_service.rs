@@ -81,6 +81,7 @@ impl TryInto<Vec<SimpleChatEntity>> for Action {
             || self.remove_chat_item_action.is_some()
             || self.remove_chat_item_by_author_action.is_some()
             || self.close_live_chat_action_panel_action.is_some()
+            || self.remove_banner_for_live_chat_command.is_some()
         {
             return Ok(vec![]);
         } else {

@@ -39,6 +39,7 @@ pub struct Action {
     pub show_live_chat_action_panel_action: Option<ShowLiveChatActionPanelAction>,
     pub update_live_chat_poll_action: Option<UpdateLiveChatPollAction>,
     pub close_live_chat_action_panel_action: Option<CloseLiveChatActionPanelAction>,
+    pub remove_banner_for_live_chat_command: Option<RemoveBannerForLiveChatCommand>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -96,4 +97,10 @@ pub struct PollToUpdate {
 pub struct CloseLiveChatActionPanelAction {
     pub target_panel_id: String,
     pub skip_on_dismiss_command: bool,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
+pub struct RemoveBannerForLiveChatCommand {
+    pub target_action_id: String,
 }

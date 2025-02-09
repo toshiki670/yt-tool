@@ -64,6 +64,8 @@ impl TryInto<Vec<SimpleChatEntity>> for Action {
             let mut item: SimpleChatEntity = action.poll_to_update.poll_renderer.into();
             item.category = CategoryValue::UpdatedPoll;
             Ok(vec![item])
+        } else if let Some(action) = self.replace_chat_item_action {
+            Ok(action.replacement_item.into())
         } else if self.live_chat_report_moderation_state_command.is_some()
             || self.remove_chat_item_action.is_some()
             || self.remove_chat_item_by_author_action.is_some()

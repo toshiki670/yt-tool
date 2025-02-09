@@ -13,6 +13,7 @@ pub struct LiveChatPaidMessageRenderer {
     pub author_name_text_color: i64,
     pub author_name: Option<Text>,
     pub author_photo: Thumbnails,
+    pub buy_button: Option<serde_json::Value>,
     pub body_background_color: i64,
     pub body_text_color: i64,
     pub context_menu_accessibility: Accessibility,

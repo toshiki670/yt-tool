@@ -13,7 +13,7 @@ fn test_root_dir() -> PathBuf {
 }
 
 fn test_expected_dir() -> PathBuf {
-    test_root_dir().join("expected/")
+    test_root_dir().join("expected_string/")
 }
 
 #[tokio::test]

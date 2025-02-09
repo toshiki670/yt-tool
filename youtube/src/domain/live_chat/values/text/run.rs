@@ -1,6 +1,7 @@
 use super::super::thumbnails::Thumbnails;
 use crate::domain::live_chat::values::web_command_metadata::WebCommandMetadata;
 use serde::{Deserialize, Serialize};
+use url::Url;
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
@@ -15,7 +16,7 @@ pub struct Run {
 impl From<Run> for String {
     fn from(val: Run) -> Self {
         if let Some(endpoint) = val.navigation_endpoint {
-            endpoint.url_endpoint.url
+            endpoint.url_endpoint.url.to_string()
         } else if let Some(text) = val.text {
             text
         } else if let Some(emoji) = val.emoji {
@@ -54,7 +55,7 @@ impl From<Emoji> for String {
     }
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct NavigationEndpoint {
     pub click_tracking_params: Option<String>,
@@ -62,18 +63,18 @@ pub struct NavigationEndpoint {
     pub url_endpoint: UrlEndpoint,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct NavigationMetadata {
-    pub url: String,
+    pub url: Url,
     pub web_page_type: String,
     pub root_ve: i64,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct UrlEndpoint {
-    pub url: String,
+    pub url: Url,
     pub target: String,
     pub nofollow: bool,
 }

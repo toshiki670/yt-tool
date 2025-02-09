@@ -2,12 +2,14 @@ use super::{
     live_chat_json_repository::IoLiveChatRepository,
     simple_chat_csv_repository::IoSimpleChatRepository,
 };
-use crate::domain::repositories::{
-    ChatServiceRepository, FetchLiveChatRepository, SaveSimpleChatRepository,
+use crate::domain::{
+    repositories::{ChatServiceRepository, FetchLiveChatRepository, SaveSimpleChatRepository},
+    simple_chat::{CategoryValue, Content, SimpleChatEntity},
 };
 use anyhow::Context as _;
+use chrono::prelude::*;
 use futures::future;
-use log::info;
+use log::{error, info};
 use std::{
     fs::File,
     io::{Cursor, Read, Write},
@@ -113,10 +115,19 @@ where
             })
             .collect::<Vec<_>>();
 
-        let simple_chats = collect_results(results)?
-            .into_iter()
-            .flatten()
-            .collect::<Vec<_>>();
+        let init_simple_chat = if let Some(simple_chat) = self.create_metadata_simple_chat() {
+            vec![simple_chat]
+        } else {
+            vec![]
+        };
+
+        let simple_chats =
+            collect_results(results)?
+                .into_iter()
+                .fold(init_simple_chat, |mut acc, chats| {
+                    acc.extend(chats);
+                    acc
+                });
 
         self.target.bulk_create(simple_chats)?;
 
@@ -149,5 +160,47 @@ where
             .with_context(error_context)?;
 
         Ok(())
+    }
+}
+
+impl<R, W> IoChatServiceRepository<R, W> {
+    fn create_metadata_simple_chat(&self) -> Option<SimpleChatEntity> {
+        if let Some(source) = self.source_path() {
+            let mut content = Content::new();
+
+            let metadata = match source.metadata() {
+                Ok(m) => m,
+                Err(e) => {
+                    error!("Failed to get metadata from {}: {}", source.display(), e);
+                    return None;
+                }
+            };
+
+            let created_at = match metadata.created() {
+                Ok(m) => m,
+                Err(e) => {
+                    error!("Failed to get created at from {}: {}", source.display(), e);
+                    return None;
+                }
+            };
+
+            let created_at: DateTime<Local> = created_at.into();
+            let posted_at = Some(created_at.into());
+
+            if let Some(file_name) = source.file_name() {
+                content.add("fileName", Some(file_name.to_string_lossy().to_string()));
+            }
+
+            Some(SimpleChatEntity {
+                id: "".to_string(),
+                posted_at,
+                author_external_channel_id: None,
+                category: CategoryValue::Metadata,
+                author_name: None,
+                content,
+            })
+        } else {
+            None
+        }
     }
 }

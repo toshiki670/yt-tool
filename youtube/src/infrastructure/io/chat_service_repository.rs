@@ -7,12 +7,14 @@ use crate::domain::repositories::{
 };
 use anyhow::Context as _;
 use futures::future;
+use log::info;
 use std::{
     fs::File,
     io::{Cursor, Read, Write},
     path::PathBuf,
 };
 use support::anyhow::collect_results;
+use tokio::time::Instant;
 
 /// This repository provides an interface for managing and retrieving live chat JSON data.
 ///
@@ -83,6 +85,8 @@ where
     W: Write,
 {
     async fn convert_from_lines(&self) -> anyhow::Result<()> {
+        let start = Instant::now();
+
         let from_chats = self.source.all()?;
 
         let futures = from_chats
@@ -116,6 +120,16 @@ where
 
         self.target.bulk_create(simple_chats)?;
 
+        let duration = start.elapsed();
+        if let Some(source) = self.source_path() {
+            info!(
+                "Conversion time was {:?} from this {}",
+                duration,
+                source.display()
+            );
+        } else {
+            info!("Conversion time was {:?}", duration);
+        }
         Ok(())
     }
 

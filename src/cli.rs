@@ -50,7 +50,7 @@ impl Route for Args {
             }
 
             let duration = start.elapsed();
-            info!("Total time: {:?}", duration);
+            info!("Total time: {:.3?}", duration);
         }
         Ok(())
     }

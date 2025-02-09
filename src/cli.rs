@@ -2,8 +2,9 @@ mod youtube;
 
 use clap::{CommandFactory, Parser};
 use clap_complete::{generate, Generator, Shell};
-use log::Level;
+use log::{info, Level};
 use std::{env, io::stdout};
+use tokio::time::Instant;
 
 trait Route {
     async fn route(&self) -> anyhow::Result<()>;
@@ -40,12 +41,16 @@ impl Route for Args {
             generate_completions(*shell);
         } else {
             initialize_logger(self.verbose);
+            let start = Instant::now();
 
             if let Some(command) = &self.command {
                 match command {
                     Subcommand::Youtube(youtube) => youtube.route().await?,
                 }
             }
+
+            let duration = start.elapsed();
+            info!("Total time: {:?}", duration);
         }
         Ok(())
     }

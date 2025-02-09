@@ -1,0 +1,71 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "replaceChatItemAction": {
+          "targetItemId": "ChwKGkNPQ1J2ZlhWejRvREZUWER3Z1FkcE04Ym1B",
+          "replacementItem": {
+            "liveChatTextMessageRenderer": {
+              "message": { "runs": [{ "text": "テスト" }] },
+              "authorName": { "simpleText": "投稿者名" },
+              "authorPhoto": {
+                "thumbnails": [
+                  {
+                    "url": "https://yt4.ggpht.com/ytc/AIdro_lCzEV7-bY_JQuDsuypBwQJXSiqmu7ieMkZ4UN45PvvwYE=s32-c-k-c0x00ffffff-no-rj",
+                    "width": 32,
+                    "height": 32
+                  },
+                  {
+                    "url": "https://yt4.ggpht.com/ytc/AIdro_lCzEV7-bY_JQuDsuypBwQJXSiqmu7ieMkZ4UN45PvvwYE=s64-c-k-c0x00ffffff-no-rj",
+                    "width": 64,
+                    "height": 64
+                  }
+                ]
+              },
+              "contextMenuEndpoint": {
+                "commandMetadata": {
+                  "webCommandMetadata": { "ignoreNavigation": true }
+                },
+                "liveChatItemContextMenuEndpoint": {
+                  "params": "Q2g0S0hBb2FRMDlEVW5abVdGWjZORzlFUmxSWVJIZG5VV1J3VFRoaWJVRWFLU29uQ2hoVlEzWmhWR1JJVkZkQ1IzWXpUVXRxTTB0V2NVcFdRM2NTQzI1emJFUjZXVWRITXpkQklBRW9CRElhQ2hoVlEwRnlTMmxMWVhZMk5FdGhjMDV0TjJKZmNsUlJUbmM0QWtnQVVBRSUzRA=="
+                }
+              },
+              "id": "ChwKGkNPQ1J2ZlhWejRvREZUWER3Z1FkcE04Ym1B",
+              "timestampUsec": "1735567808091479",
+              "authorBadges": [
+                {
+                  "liveChatAuthorBadgeRenderer": {
+                    "customThumbnail": {
+                      "thumbnails": [
+                        {
+                          "url": "https://yt3.ggpht.com/cqmXupRjMArybDGGj_znpkaKrC5biqpzSYl0CRqacbjkKZvgqMYXchE8Vf5U6GlPQnE-6ZD1=s16-c-k",
+                          "width": 16,
+                          "height": 16
+                        },
+                        {
+                          "url": "https://yt3.ggpht.com/cqmXupRjMArybDGGj_znpkaKrC5biqpzSYl0CRqacbjkKZvgqMYXchE8Vf5U6GlPQnE-6ZD1=s32-c-k",
+                          "width": 32,
+                          "height": 32
+                        }
+                      ]
+                    },
+                    "tooltip": "Member (3 years)",
+                    "accessibility": {
+                      "accessibilityData": { "label": "Member (3 years)" }
+                    }
+                  }
+                }
+              ],
+              "authorExternalChannelId": "UCArKiKav64KasNm7b_rTQNw",
+              "contextMenuAccessibility": {
+                "accessibilityData": { "label": "Chat actions" }
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "11187112",
+  "isLive": true
+}

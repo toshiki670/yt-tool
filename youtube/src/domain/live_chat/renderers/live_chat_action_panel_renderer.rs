@@ -13,5 +13,5 @@ pub struct LiveChatActionPanelRenderer {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Contents {
-    pub poll_renderer: Box<PollRenderer>,
+    pub poll_renderer: PollRenderer,
 }

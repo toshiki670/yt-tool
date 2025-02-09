@@ -11,5 +11,5 @@ pub struct ShowLiveChatActionPanelAction {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct PanelToShow {
-    pub live_chat_action_panel_renderer: Box<LiveChatActionPanelRenderer>,
+    pub live_chat_action_panel_renderer: LiveChatActionPanelRenderer,
 }

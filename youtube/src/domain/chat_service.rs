@@ -55,16 +55,13 @@ impl TryInto<Vec<SimpleChatEntity>> for Action {
             let item = action.item.into();
             Ok(item)
         } else if let Some(command) = self.add_banner_to_live_chat_command {
-            let r = *command.banner_renderer.live_chat_banner_renderer;
-            let items = r.into();
+            let items = command.banner_renderer.live_chat_banner_renderer.into();
             Ok(items)
         } else if let Some(action) = self.show_live_chat_action_panel_action {
-            let r = *action.panel_to_show.live_chat_action_panel_renderer;
-            let item = r.into();
+            let item = action.panel_to_show.live_chat_action_panel_renderer.into();
             Ok(vec![item])
         } else if let Some(action) = self.update_live_chat_poll_action {
-            let r = *action.poll_to_update.poll_renderer;
-            let mut item: SimpleChatEntity = r.into();
+            let mut item: SimpleChatEntity = action.poll_to_update.poll_renderer.into();
             item.category = CategoryValue::UpdatedPoll;
             Ok(vec![item])
         } else if let Some(action) = self.replace_chat_item_action {

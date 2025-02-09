@@ -5,6 +5,7 @@ use std::fmt;
 pub(crate) enum CategoryValue {
     Banner,
     MembershipItem,
+    Metadata, // This is special category for metadata of live chat.
     PaidMessage,
     Poll,
     SponsorshipsGiftPurchaseAnnouncement,
@@ -29,6 +30,7 @@ impl fmt::Display for CategoryValue {
         let msg = match self {
             CategoryValue::Banner => "Banner",
             CategoryValue::MembershipItem => "Membership item",
+            CategoryValue::Metadata => "Metadata",
             CategoryValue::PaidMessage => "Paid message",
             CategoryValue::Poll => "Pool",
             CategoryValue::SponsorshipsGiftPurchaseAnnouncement => {

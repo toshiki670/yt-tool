@@ -83,6 +83,8 @@ where
     W: Write,
 {
     async fn convert_from_lines(&self) -> anyhow::Result<()> {
+        let start = Instant::now();
+
         let from_chats = self.source.all()?;
 
         let futures = from_chats
@@ -116,6 +118,16 @@ where
 
         self.target.bulk_create(simple_chats)?;
 
+        let duration = start.elapsed();
+        if let Some(source) = self.source_path() {
+            info!(
+                "Conversion time was {:?} from this {}",
+                duration,
+                source.display()
+            );
+        } else {
+            info!("Conversion time was {:?}", duration);
+        }
         Ok(())
     }
 

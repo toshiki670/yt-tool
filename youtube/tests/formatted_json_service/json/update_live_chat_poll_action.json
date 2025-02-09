@@ -1,0 +1,138 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "updateLiveChatPollAction": {
+          "pollToUpdate": {
+            "pollRenderer": {
+              "choices": [
+                {
+                  "text": { "runs": [{ "text": "投票1" }] },
+                  "selected": false,
+                  "voteRatio": 0.43089431524276733,
+                  "votePercentage": { "simpleText": "43%" },
+                  "selectServiceEndpoint": {
+                    "commandMetadata": {
+                      "webCommandMetadata": {
+                        "sendPost": true,
+                        "apiUrl": "/youtubei/v1/live_chat/send_live_chat_vote"
+                      }
+                    },
+                    "sendLiveChatVoteEndpoint": {
+                      "params": "Q2lrcUp3b1lWVU5FUW5sd1NGUktaakJMVEU5WlZYQmxVbU5FY0RSUkVndE9Nak0yVFRCR2RWVTNheEllQ2h3S0drTlBjbTl1WkZkbWNXOXpSRVpoTjBKM1oxRmtkbkIzV0hkM0lnQXFHZ29ZVlVORVFubHdTRlJLWmpCTFRFOVpWWEJsVW1ORWNEUlJNQUU0QkVBQVNpUlZaMnQ0ZG5SUVJ6Wk1UbWMxZVU5b1psRlJVbkZNVHpWelIwOUdlVTFVWm5WclRGSSUzRA=="
+                    }
+                  }
+                },
+                {
+                  "text": { "runs": [{ "text": "投票2" }] },
+                  "selected": false,
+                  "voteRatio": 0.21138212084770203,
+                  "votePercentage": { "simpleText": "21%" },
+                  "selectServiceEndpoint": {
+                    "commandMetadata": {
+                      "webCommandMetadata": {
+                        "sendPost": true,
+                        "apiUrl": "/youtubei/v1/live_chat/send_live_chat_vote"
+                      }
+                    },
+                    "sendLiveChatVoteEndpoint": {
+                      "params": "Q2lrcUp3b1lWVU5FUW5sd1NGUktaakJMVEU5WlZYQmxVbU5FY0RSUkVndE9Nak0yVFRCR2RWVTNheEllQ2h3S0drTlBjbTl1WkZkbWNXOXpSRVpoTjBKM1oxRmtkbkIzV0hkM0lnSUlBU29hQ2hoVlEwUkNlWEJJVkVwbU1FdE1UMWxWY0dWU1kwUndORkV3QVRnRVFBQktKRlZuYTNoMmRGQkhOa3hPWnpWNVQyaG1VVkZTY1V4UE5YTkhUMFo1VFZSbWRXdE1VZyUzRCUzRA=="
+                    }
+                  }
+                },
+                {
+                  "text": { "runs": [{ "text": "投票3" }] },
+                  "selected": false,
+                  "voteRatio": 0.35772356390953064,
+                  "votePercentage": { "simpleText": "36%" },
+                  "selectServiceEndpoint": {
+                    "commandMetadata": {
+                      "webCommandMetadata": {
+                        "sendPost": true,
+                        "apiUrl": "/youtubei/v1/live_chat/send_live_chat_vote"
+                      }
+                    },
+                    "sendLiveChatVoteEndpoint": {
+                      "params": "Q2lrcUp3b1lWVU5FUW5sd1NGUktaakJMVEU5WlZYQmxVbU5FY0RSUkVndE9Nak0yVFRCR2RWVTNheEllQ2h3S0drTlBjbTl1WkZkbWNXOXpSRVpoTjBKM1oxRmtkbkIzV0hkM0lnSUlBaW9hQ2hoVlEwUkNlWEJJVkVwbU1FdE1UMWxWY0dWU1kwUndORkV3QVRnRVFBQktKRlZuYTNoMmRGQkhOa3hPWnpWNVQyaG1VVkZTY1V4UE5YTkhUMFo1VFZSbWRXdE1VZyUzRCUzRA=="
+                    }
+                  }
+                }
+              ],
+              "liveChatPollId": "ChwKGkNPcm9uZFdmcW9zREZhN0J3Z1FkdnB3WHd3",
+              "header": {
+                "pollHeaderRenderer": {
+                  "pollQuestion": {
+                    "runs": [
+                      { "text": "投票です。選択してください" },
+                      {
+                        "emoji": {
+                          "emojiId": "🫠",
+                          "shortcuts": [":melting_face:"],
+                          "searchTerms": ["melting", "face"],
+                          "image": {
+                            "thumbnails": [
+                              {
+                                "url": "https://fonts.gstatic.com/s/e/notoemoji/15.1/1fae0/72.png"
+                              }
+                            ],
+                            "accessibility": {
+                              "accessibilityData": { "label": "🫠" }
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "thumbnail": {
+                    "thumbnails": [
+                      {
+                        "url": "https://yt4.ggpht.com/yc1Cb3RMttMawFi4VWHxJZwF9Blzw2IffBOQaAk-BtGuz2-EEFwx_3Ggc5zLiPoF8V1mtEd0tqY=s32-c-k-c0x00ffffff-no-rj",
+                        "width": 32,
+                        "height": 32
+                      },
+                      {
+                        "url": "https://yt4.ggpht.com/yc1Cb3RMttMawFi4VWHxJZwF9Blzw2IffBOQaAk-BtGuz2-EEFwx_3Ggc5zLiPoF8V1mtEd0tqY=s64-c-k-c0x00ffffff-no-rj",
+                        "width": 64,
+                        "height": 64
+                      }
+                    ]
+                  },
+                  "metadataText": {
+                    "runs": [
+                      { "text": "投稿者名" },
+                      { "text": " • " },
+                      { "text": "23h ago" },
+                      { "text": " • " },
+                      { "text": "123 votes" }
+                    ]
+                  },
+                  "liveChatPollType": "LIVE_CHAT_POLL_TYPE_CREATOR",
+                  "contextMenuButton": {
+                    "buttonRenderer": {
+                      "icon": { "iconType": "MORE_VERT" },
+                      "accessibility": { "label": "Chat actions" },
+                      "accessibilityData": {
+                        "accessibilityData": { "label": "Chat actions" }
+                      },
+                      "targetId": "live-chat-action-panel-poll-context-menu",
+                      "command": {
+                        "commandMetadata": {
+                          "webCommandMetadata": { "ignoreNavigation": true }
+                        },
+                        "liveChatItemContextMenuEndpoint": {
+                          "params": "Q2g0S0hBb2FRMDl5YjI1a1YyWnhiM05FUm1FM1FuZG5VV1IyY0hkWWQzY2FLU29uQ2hoVlEwUkNlWEJJVkVwbU1FdE1UMWxWY0dWU1kwUndORkVTQzA0eU16Wk5NRVoxVlRkcklBRW9CRElhQ2hoVlEwUkNlWEJJVkVwbU1FdE1UMWxWY0dWU1kwUndORkU0QTBnQVVCVSUzRA=="
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "-4494",
+  "isLive": true
+}

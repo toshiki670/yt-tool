@@ -36,6 +36,7 @@ pub struct Emoji {
     pub shortcuts: Option<Vec<String>>,
     pub supports_skin_tone: Option<bool>,
     pub variant_ids: Option<Vec<String>>,
+    pub multi_selector_thumbnail_row: Option<Vec<MultiSelectorThumbnailRow>>,
 }
 
 impl From<Emoji> for String {
@@ -75,4 +76,10 @@ pub struct UrlEndpoint {
     pub url: String,
     pub target: String,
     pub nofollow: bool,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct MultiSelectorThumbnailRow {
+    pub thumbnails: Vec<Thumbnails>,
 }

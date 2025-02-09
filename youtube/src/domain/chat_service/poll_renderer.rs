@@ -3,8 +3,8 @@ use crate::domain::{
     simple_chat::{CategoryValue, Content, SimpleChatEntity},
 };
 
-impl From<Box<PollRenderer>> for SimpleChatEntity {
-    fn from(val: Box<PollRenderer>) -> Self {
+impl From<PollRenderer> for SimpleChatEntity {
+    fn from(val: PollRenderer) -> Self {
         let mut content = Content::new();
         content.add(
             "PollQuestion",

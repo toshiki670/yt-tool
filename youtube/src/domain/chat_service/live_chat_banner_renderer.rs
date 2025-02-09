@@ -3,8 +3,8 @@ use crate::domain::{
     simple_chat::{CategoryValue, Content, SimpleChatEntity},
 };
 
-impl From<Box<LiveChatBannerRenderer>> for Vec<SimpleChatEntity> {
-    fn from(val: Box<LiveChatBannerRenderer>) -> Self {
+impl From<LiveChatBannerRenderer> for Vec<SimpleChatEntity> {
+    fn from(val: LiveChatBannerRenderer) -> Self {
         let posted_at = Some(
             val.contents
                 .live_chat_text_message_renderer
@@ -29,7 +29,7 @@ impl From<Box<LiveChatBannerRenderer>> for Vec<SimpleChatEntity> {
                 author_name,
                 content,
             },
-            SimpleChatEntity::from(Box::new(val.contents.live_chat_text_message_renderer)),
+            SimpleChatEntity::from(val.contents.live_chat_text_message_renderer),
         ]
     }
 }

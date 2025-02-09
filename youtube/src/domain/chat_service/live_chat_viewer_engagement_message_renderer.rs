@@ -3,8 +3,8 @@ use crate::domain::{
     simple_chat::{CategoryValue, Content, PostedAtValue, SimpleChatEntity},
 };
 
-impl From<Box<LiveChatViewerEngagementMessageRenderer>> for SimpleChatEntity {
-    fn from(val: Box<LiveChatViewerEngagementMessageRenderer>) -> Self {
+impl From<LiveChatViewerEngagementMessageRenderer> for SimpleChatEntity {
+    fn from(val: LiveChatViewerEngagementMessageRenderer) -> Self {
         let posted_at = val.timestamp_usec.map(PostedAtValue::from);
         let mut content = Content::new();
         content.add("message", Some(String::from(val.message)));

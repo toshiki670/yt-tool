@@ -55,13 +55,16 @@ impl TryInto<Vec<SimpleChatEntity>> for Action {
             let item = action.item.into();
             Ok(item)
         } else if let Some(command) = self.add_banner_to_live_chat_command {
-            let items = command.banner_renderer.live_chat_banner_renderer.into();
+            let r = *command.banner_renderer.live_chat_banner_renderer;
+            let items = r.into();
             Ok(items)
         } else if let Some(action) = self.show_live_chat_action_panel_action {
-            let item = action.panel_to_show.live_chat_action_panel_renderer.into();
+            let r = *action.panel_to_show.live_chat_action_panel_renderer;
+            let item = r.into();
             Ok(vec![item])
         } else if let Some(action) = self.update_live_chat_poll_action {
-            let mut item: SimpleChatEntity = action.poll_to_update.poll_renderer.into();
+            let r = *action.poll_to_update.poll_renderer;
+            let mut item: SimpleChatEntity = r.into();
             item.category = CategoryValue::UpdatedPoll;
             Ok(vec![item])
         } else if let Some(action) = self.replace_chat_item_action {
@@ -82,17 +85,17 @@ impl TryInto<Vec<SimpleChatEntity>> for Action {
 impl From<Item> for Vec<SimpleChatEntity> {
     fn from(val: Item) -> Self {
         match val {
-            Item::LiveChatMembershipItemRenderer(r) => vec![r.into()],
-            Item::LiveChatPaidMessageRenderer(r) => vec![r.into()],
+            Item::LiveChatMembershipItemRenderer(r) => vec![(*r).into()],
+            Item::LiveChatPaidMessageRenderer(r) => vec![(*r).into()],
             Item::LiveChatPlaceholderItemRenderer(_) => vec![],
             Item::LiveChatPaidStickerRenderer(_) => vec![],
-            Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(r) => vec![r.into()],
-            Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(r) => vec![r.into()],
-            Item::LiveChatTextMessageRenderer(r) => vec![r.into()],
-            Item::LiveChatTickerPaidMessageItemRenderer(r) => vec![r.into()],
+            Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(r) => vec![(*r).into()],
+            Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(r) => vec![(*r).into()],
+            Item::LiveChatTextMessageRenderer(r) => vec![(*r).into()],
+            Item::LiveChatTickerPaidMessageItemRenderer(r) => vec![(*r).into()],
             Item::LiveChatTickerSponsorItemRenderer(_) => vec![],
-            Item::LiveChatViewerEngagementMessageRenderer(r) => vec![r.into()],
-            Item::LiveChatTickerPaidStickerItemRenderer(r) => vec![r.into()],
+            Item::LiveChatViewerEngagementMessageRenderer(r) => vec![(*r).into()],
+            Item::LiveChatTickerPaidStickerItemRenderer(r) => vec![(*r).into()],
         }
     }
 }

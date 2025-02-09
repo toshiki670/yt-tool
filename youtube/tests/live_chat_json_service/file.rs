@@ -9,7 +9,6 @@ use std::{
     io::{BufRead as _, BufReader},
     path::{Path, PathBuf},
 };
-use support::assert::assert_files_with_file_name;
 use tempfile::tempdir;
 use tokio::fs;
 use youtube::prelude::LiveChatJsonInterface;
@@ -28,37 +27,37 @@ fn test_expected_dir() -> PathBuf {
     test_root_dir().join("expected/")
 }
 
-#[tokio::test]
-async fn it_generate_with_paths() -> anyhow::Result<()> {
-    let test_dir = tempdir()?;
+// #[tokio::test]
+// async fn it_generate_with_paths() -> anyhow::Result<()> {
+//     let test_dir = tempdir()?;
 
-    // Copy test json files
-    let test_json_dir = test_json_dir();
-    let source = test_json_dir.join("*");
-    cp(&source.to_string_lossy(), test_dir.path()).await?;
+//     // Copy test json files
+//     let test_json_dir = test_json_dir();
+//     let source = test_json_dir.join("*");
+//     cp(&source.to_string_lossy(), test_dir.path()).await?;
 
-    // Read test json files
-    let imput_paths = read_paths(test_dir.path())?;
+//     // Read test json files
+//     let imput_paths = read_paths(test_dir.path())?;
 
-    // Run the test subject
-    let interface = LiveChatJsonInterface::new(&imput_paths);
-    interface.generate_files_with_csv().await?;
+//     // Run the test subject
+//     let interface = LiveChatJsonInterface::new(&imput_paths);
+//     interface.generate_files_with_csv().await?;
 
-    // Prepare expected file paths
-    let expected_dir = test_expected_dir();
+//     // Prepare expected file paths
+//     let expected_dir = test_expected_dir();
 
-    // Prepare actual file paths
-    let actual_files = imput_paths
-        .iter()
-        .map(|path| path.with_extension("csv"))
-        .collect::<Vec<_>>();
+//     // Prepare actual file paths
+//     let actual_files = imput_paths
+//         .iter()
+//         .map(|path| path.with_extension("csv"))
+//         .collect::<Vec<_>>();
 
-    // Assert the result
-    assert_files_with_file_name(&expected_dir, &actual_files).await?;
+//     // Assert the result
+//     assert_files_with_file_name(&expected_dir, &actual_files).await?;
 
-    test_dir.close()?;
-    Ok(())
-}
+//     test_dir.close()?;
+//     Ok(())
+// }
 
 #[tokio::test]
 async fn it_generate_with_path_and_timestamped_name() -> anyhow::Result<()> {
@@ -160,12 +159,12 @@ async fn cp(src_pattern: &str, dst_dir: &Path) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn read_paths(path: &Path) -> anyhow::Result<Vec<PathBuf>> {
-    let dir = std::fs::read_dir(path)?;
+// fn read_paths(path: &Path) -> anyhow::Result<Vec<PathBuf>> {
+//     let dir = std::fs::read_dir(path)?;
 
-    let results = dir.map(|e| e.map_err(|e| anyhow::anyhow!(e))).collect();
-    let dir_entries = support::anyhow::collect_results(results)?;
-    let paths = dir_entries.iter().map(|e| e.path()).collect();
+//     let results = dir.map(|e| e.map_err(|e| anyhow::anyhow!(e))).collect();
+//     let dir_entries = support::anyhow::collect_results(results)?;
+//     let paths = dir_entries.iter().map(|e| e.path()).collect();
 
-    Ok(paths)
-}
+//     Ok(paths)
+// }

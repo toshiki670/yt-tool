@@ -123,12 +123,12 @@ where
         let duration = start.elapsed();
         if let Some(source) = self.source_path() {
             info!(
-                "Conversion time was {:?} from this {}",
+                "Conversion time was {:.3?} from this {}",
                 duration,
                 source.display()
             );
         } else {
-            info!("Conversion time was {:?}", duration);
+            info!("Conversion time was {:.3?}", duration);
         }
         Ok(())
     }

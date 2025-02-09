@@ -27,19 +27,15 @@ fn test_expected_dir() -> PathBuf {
 
 #[tokio::test]
 async fn it_generate_with_paths() -> anyhow::Result<()> {
-    let temp_dir = tempdir()?;
-
-    // Create test directory
-    let test_dir = temp_dir.path().join("it_generate_with_paths");
-    fs::create_dir_all(&test_dir).await?;
+    let test_dir = tempdir()?;
 
     // Copy test json files
     let test_json_dir = test_json_dir();
     let source = test_json_dir.join("*");
-    cp(&source.to_string_lossy(), &test_dir).await?;
+    cp(&source.to_string_lossy(), test_dir.path()).await?;
 
     // Read test json files
-    let imput_paths = read_paths(&test_dir)?;
+    let imput_paths = read_paths(test_dir.path())?;
 
     // Run the test subject
     let interface = FormattedJsonInterface::new(&imput_paths);
@@ -57,22 +53,18 @@ async fn it_generate_with_paths() -> anyhow::Result<()> {
     // Assert the result
     assert_files_with_file_name(&expected_dir, &actual_files).await?;
 
-    temp_dir.close()?;
+    test_dir.close()?;
     Ok(())
 }
 
 #[tokio::test]
 async fn it_generate_with_type() -> anyhow::Result<()> {
-    let temp_dir = tempdir()?;
-
-    // Create test directory
-    let test_dir = temp_dir.path().join("it_generate_with_type");
-    fs::create_dir_all(&test_dir).await?;
+    let test_dir = tempdir()?;
 
     // Copy test json file
     let file_name = "formatted.json";
     let base_input_path = test_json_dir().join(file_name);
-    let input_path = temp_dir.path().join(file_name);
+    let input_path = test_dir.path().join(file_name);
     fs::copy(&base_input_path, &input_path).await?;
 
     let output_type = "csv".to_string();
@@ -87,7 +79,7 @@ async fn it_generate_with_type() -> anyhow::Result<()> {
     to_path.set_extension(output_type);
     assert_file_content(expected_path, to_path).await?;
 
-    temp_dir.close()?;
+    test_dir.close()?;
     Ok(())
 }
 

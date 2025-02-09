@@ -14,6 +14,7 @@ pub struct LiveChatPaidStickerRenderer {
     pub author_name: Text,
     pub author_photo: Thumbnails,
     pub background_color: i64,
+    pub buy_button: Option<serde_json::Value>,
     pub context_menu_accessibility: Accessibility,
     pub context_menu_endpoint: ContextMenuEndpoint,
     pub header_overlay_image: Option<Thumbnails>,

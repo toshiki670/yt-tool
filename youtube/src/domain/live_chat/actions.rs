@@ -9,6 +9,7 @@ pub mod update_live_chat_poll_action;
 
 use super::commands::{
     add_banner_to_live_chat_command::AddBannerToLiveChatCommand,
+    live_chat_report_moderation_state_command::LiveChatReportModerationStateCommand,
     remove_banner_for_live_chat_command::RemoveBannerForLiveChatCommand,
 };
 use add_chat_item_action::AddChatItemAction;
@@ -36,7 +37,7 @@ pub struct Action {
     pub add_live_chat_ticker_item_action: Option<AddLiveChatTickerItemAction>,
     pub click_tracking_params: Option<String>,
     pub close_live_chat_action_panel_action: Option<CloseLiveChatActionPanelAction>,
-    pub live_chat_report_moderation_state_command: Option<serde_json::Value>,
+    pub live_chat_report_moderation_state_command: Option<LiveChatReportModerationStateCommand>,
     pub remove_banner_for_live_chat_command: Option<RemoveBannerForLiveChatCommand>,
     pub remove_chat_item_action: Option<RemoveChatItemAction>,
     pub remove_chat_item_by_author_action: Option<RemoveChatItemByAuthorAction>,

@@ -1,7 +1,8 @@
 use serde::{Deserialize, Serialize};
 
 use crate::domain::live_chat::values::{
-    accessibility::Accessibility, context_menu_endpoint::ContextMenuEndpoint, text::Text,
+    accessibility::Accessibility, context_menu_endpoint::ContextMenuEndpoint,
+    pdg_purchased_novelty_logging_directives::PdgPurchasedNoveltyLoggingDirectives, text::Text,
     thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
 };
 
@@ -24,7 +25,7 @@ pub struct LiveChatPaidStickerRenderer {
     pub lower_bumper: Option<serde_json::Value>,
     pub money_chip_background_color: i64,
     pub money_chip_text_color: i64,
-    pub pdg_purchased_novelty_logging_directives: Option<serde_json::Value>,
+    pub pdg_purchased_novelty_logging_directives: Option<PdgPurchasedNoveltyLoggingDirectives>,
     pub purchase_amount_text: Text,
     pub sticker_display_height: i64,
     pub sticker_display_width: i64,

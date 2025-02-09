@@ -4,6 +4,7 @@ pub(super) mod context_menu_endpoint;
 pub(super) mod creator_heart_button;
 pub(super) mod icon;
 pub(super) mod ignore_navigation;
+pub(super) mod pdg_purchased_novelty_logging_directives;
 pub(super) mod reply_button;
 pub(super) mod text;
 pub(super) mod thumbnails;

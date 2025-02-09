@@ -1,6 +1,7 @@
 use super::values::{
     accessibility::Accessibility, author_badge::AuthorBadges,
     context_menu_endpoint::ContextMenuEndpoint, creator_heart_button::CreatorHeartButton,
+    pdg_purchased_novelty_logging_directives::PdgPurchasedNoveltyLoggingDirectives,
     reply_button::ReplyButton, text::Text, thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
 };
 use serde::{Deserialize, Serialize};
@@ -28,7 +29,7 @@ pub struct LiveChatPaidMessageRenderer {
     pub lower_bumper: Option<serde_json::Value>,
     pub message: Option<Text>,
     pub pdg_like_button: Option<serde_json::Value>,
-    pub pdg_purchased_novelty_logging_directives: Option<serde_json::Value>,
+    pub pdg_purchased_novelty_logging_directives: Option<PdgPurchasedNoveltyLoggingDirectives>,
     pub purchase_amount_text: Text,
     pub reply_button: Option<ReplyButton>,
     pub text_input_background_color: i64,

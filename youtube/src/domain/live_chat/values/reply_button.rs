@@ -47,6 +47,7 @@ pub struct OnTap {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct LoggingDirectives {
+    pub enable_displaylogger_experiment: Option<bool>,
     pub tracking_params: String,
     pub visibility: Visibility,
 }

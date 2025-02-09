@@ -49,7 +49,7 @@ pub struct ButtonRenderer {
     pub accessibility: Label,
     pub command: ContextMenuEndpoint,
     pub icon: Icon,
-    pub tracking_params: String,
+    pub tracking_params: Option<String>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

@@ -6,7 +6,7 @@
 ## Install from GitHub Releases
 
 ```
-cargo install --git https://github.com/toshiki670/yt-tool.git --tag 0.2.0
+cargo install --git https://github.com/toshiki670/yt-tool.git --tag 0.3.0
 ```
 
 ## Install from local

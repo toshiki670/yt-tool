@@ -1,6 +1,7 @@
 use super::renderers::{
     live_chat_membership_item_renderer::LiveChatMembershipItemRenderer,
     live_chat_paid_message_renderer::LiveChatPaidMessageRenderer,
+    live_chat_placeholder_item_renderer::LiveChatPlaceholderItemRenderer,
     live_chat_sponsorships_gift_purchase_announcement_renderer::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer,
     live_chat_sponsorships_gift_redemption_announcement_renderer::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer,
     live_chat_text_message_renderer::LiveChatTextMessageRenderer,
@@ -16,6 +17,7 @@ use serde::{Deserialize, Serialize};
 pub enum Item {
     LiveChatMembershipItemRenderer(Box<LiveChatMembershipItemRenderer>),
     LiveChatPaidMessageRenderer(Box<LiveChatPaidMessageRenderer>),
+    LiveChatPlaceholderItemRenderer(Box<LiveChatPlaceholderItemRenderer>),
     LiveChatPaidStickerRenderer(serde_json::Value),
     LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(
         Box<LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer>,

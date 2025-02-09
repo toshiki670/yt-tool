@@ -1,0 +1,19 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "addChatItemAction": {
+          "item": {
+            "liveChatPlaceholderItemRenderer": {
+              "id": "ChwKGkNLX0p4LTNoMUlvREZiX0F3Z1FkMW13cENR",
+              "timestampUsec": "1735742811410177"
+            }
+          },
+          "clientId": "CK_Jx-3h1IoDFb_AwgQd1mwpCQ"
+        }
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "370466",
+  "isLive": true
+}

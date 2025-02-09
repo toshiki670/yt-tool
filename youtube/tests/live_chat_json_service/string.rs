@@ -18,10 +18,10 @@ fn test_expected_dir() -> PathBuf {
 
 #[tokio::test]
 async fn it_generate_with_path() -> anyhow::Result<()> {
-    let temp_dir = tempdir()?;
+    let test_dir = tempdir()?;
 
     let input_json = test_formatted_json_data();
-    let output_path = temp_dir.path().join("output.csv");
+    let output_path = test_dir.path().join("output.csv");
 
     // Run the test subject
     let interface = LiveChatJsonInterface::new(&input_json);
@@ -38,7 +38,7 @@ async fn it_generate_with_path() -> anyhow::Result<()> {
     let (expected, actual) = try_join!(expected, actual)?;
     assert_eq!(expected, actual);
 
-    temp_dir.close()?;
+    test_dir.close()?;
     Ok(())
 }
 

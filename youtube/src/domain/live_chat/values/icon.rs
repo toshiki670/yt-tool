@@ -20,6 +20,8 @@ pub enum IconType {
     MoreVert,
     Owner,
     Poll,
+    PurchaseSuperChat,
+    PurchaseSuperSticker,
     Verified,
     YoutubeRound,
 }

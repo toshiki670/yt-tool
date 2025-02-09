@@ -28,7 +28,7 @@
               "message": {
                 "runs": [
                   { "text": "was gifted a membership by ", "italics": true },
-                  { "text": "K", "bold": true, "italics": true }
+                  { "text": "ギフトを与えた人の名前", "bold": true, "italics": true }
                 ]
               },
               "contextMenuEndpoint": {

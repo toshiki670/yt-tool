@@ -1,15 +1,16 @@
 use serde::{Deserialize, Serialize};
+use url::Url;
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CreatorHeartButton {
     pub creator_heart_view_model: CreatorHeartViewModel,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct CreatorHeartViewModel {
-    pub creator_thumbnail: Sources<Url>,
+    pub creator_thumbnail: Sources<SourceUrl>,
     pub engagement_state_key: String,
     pub gradient: Option<serde_json::Value>,
     pub hearted_accessibility_label: String,
@@ -25,10 +26,10 @@ pub struct Sources<T> {
     pub sources: Vec<T>,
 }
 
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct Url {
-    pub url: String,
+pub struct SourceUrl {
+    pub url: Url,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

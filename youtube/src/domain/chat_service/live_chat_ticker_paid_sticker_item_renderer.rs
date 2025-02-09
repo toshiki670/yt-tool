@@ -3,8 +3,8 @@ use crate::domain::{
     simple_chat::{CategoryValue, Content, SimpleChatEntity},
 };
 
-impl From<Box<LiveChatTickerPaidStickerItemRenderer>> for SimpleChatEntity {
-    fn from(val: Box<LiveChatTickerPaidStickerItemRenderer>) -> Self {
+impl From<LiveChatTickerPaidStickerItemRenderer> for SimpleChatEntity {
+    fn from(val: LiveChatTickerPaidStickerItemRenderer) -> Self {
         let live_chat_paid_sticker_renderer = val
             .show_item_endpoint
             .show_live_chat_item_endpoint

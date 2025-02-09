@@ -3,8 +3,8 @@ use crate::domain::{
     simple_chat::{CategoryValue, Content, SimpleChatEntity},
 };
 
-impl From<Box<LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer>> for SimpleChatEntity {
-    fn from(val: Box<LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer>) -> Self {
+impl From<LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer> for SimpleChatEntity {
+    fn from(val: LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer) -> Self {
         let author_name = val.author_name.map(|v| v.into());
 
         let mut content = Content::new();

@@ -3,8 +3,8 @@ use crate::domain::{
     simple_chat::SimpleChatEntity,
 };
 
-impl From<Box<LiveChatActionPanelRenderer>> for SimpleChatEntity {
-    fn from(val: Box<LiveChatActionPanelRenderer>) -> Self {
+impl From<LiveChatActionPanelRenderer> for SimpleChatEntity {
+    fn from(val: LiveChatActionPanelRenderer) -> Self {
         val.contents.poll_renderer.into()
     }
 }

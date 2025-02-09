@@ -15,6 +15,7 @@ serde = { workspace = true, features = ["derive"] } # https://serde.rs/container
 serde_json = { workspace = true }
 thiserror = { workspace = true }
 tokio = { workspace = true }
+url = { workspace = true, features = ["serde"] }
 
 support = { path = "../support" }
 

@@ -64,6 +64,8 @@ impl TryInto<Vec<SimpleChatEntity>> for Action {
             let mut item: SimpleChatEntity = action.poll_to_update.poll_renderer.into();
             item.category = CategoryValue::UpdatedPoll;
             Ok(vec![item])
+        } else if let Some(action) = self.replace_chat_item_action {
+            Ok(action.replacement_item.into())
         } else if self.live_chat_report_moderation_state_command.is_some()
             || self.remove_chat_item_action.is_some()
             || self.remove_chat_item_by_author_action.is_some()
@@ -80,16 +82,17 @@ impl TryInto<Vec<SimpleChatEntity>> for Action {
 impl From<Item> for Vec<SimpleChatEntity> {
     fn from(val: Item) -> Self {
         match val {
-            Item::LiveChatMembershipItemRenderer(r) => vec![r.into()],
-            Item::LiveChatPaidMessageRenderer(r) => vec![r.into()],
+            Item::LiveChatMembershipItemRenderer(r) => vec![(*r).into()],
+            Item::LiveChatPaidMessageRenderer(r) => vec![(*r).into()],
+            Item::LiveChatPlaceholderItemRenderer(_) => vec![],
             Item::LiveChatPaidStickerRenderer(_) => vec![],
-            Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(r) => vec![r.into()],
-            Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(r) => vec![r.into()],
-            Item::LiveChatTextMessageRenderer(r) => vec![r.into()],
-            Item::LiveChatTickerPaidMessageItemRenderer(r) => vec![r.into()],
+            Item::LiveChatSponsorshipsGiftPurchaseAnnouncementRenderer(r) => vec![(*r).into()],
+            Item::LiveChatSponsorshipsGiftRedemptionAnnouncementRenderer(r) => vec![(*r).into()],
+            Item::LiveChatTextMessageRenderer(r) => vec![(*r).into()],
+            Item::LiveChatTickerPaidMessageItemRenderer(r) => vec![(*r).into()],
             Item::LiveChatTickerSponsorItemRenderer(_) => vec![],
-            Item::LiveChatViewerEngagementMessageRenderer(r) => vec![r.into()],
-            Item::LiveChatTickerPaidStickerItemRenderer(r) => vec![r.into()],
+            Item::LiveChatViewerEngagementMessageRenderer(r) => vec![(*r).into()],
+            Item::LiveChatTickerPaidStickerItemRenderer(r) => vec![(*r).into()],
         }
     }
 }

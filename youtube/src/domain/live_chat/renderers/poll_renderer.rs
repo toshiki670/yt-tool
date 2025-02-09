@@ -30,7 +30,7 @@ pub struct Choice {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SelectServiceEndpoint {
-    pub click_tracking_params: String,
+    pub click_tracking_params: Option<String>,
     pub command_metadata: WebCommandMetadata<SelectServiceMetadata>,
     pub send_live_chat_vote_endpoint: SendLiveChatVoteEndpoint,
 }

@@ -1,0 +1,214 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "clickTrackingParams": "CAEQl98BIhMIoZWJyOmsiwMVdbRLBR3IJwVG",
+        "addLiveChatTickerItemAction": {
+          "item": {
+            "liveChatTickerPaidStickerItemRenderer": {
+              "id": "ChwKGkNQaWZrOExwcklzREZkalB3Z1FkcGNvNGhR",
+              "authorPhoto": {
+                "thumbnails": [
+                  {
+                    "url": "https://yt4.ggpht.com/ytc/AIdro_lE-2v4pt1Am5Vt4Pedf4xjFjaVCExlg_cJVl7OY2xcwvV1BhXRzUSHIHLwFa5dONFuTw=s32-c-k-c0x00ffffff-no-rj",
+                    "width": 32,
+                    "height": 32
+                  },
+                  {
+                    "url": "https://yt4.ggpht.com/ytc/AIdro_lE-2v4pt1Am5Vt4Pedf4xjFjaVCExlg_cJVl7OY2xcwvV1BhXRzUSHIHLwFa5dONFuTw=s64-c-k-c0x00ffffff-no-rj",
+                    "width": 64,
+                    "height": 64
+                  }
+                ],
+                "accessibility": {
+                  "accessibilityData": { "label": "投稿者名" }
+                }
+              },
+              "startBackgroundColor": 4280150454,
+              "endBackgroundColor": 4278239141,
+              "durationSec": 120,
+              "fullDurationSec": 120,
+              "showItemEndpoint": {
+                "clickTrackingParams": "CAIQscgEIhMIoZWJyOmsiwMVdbRLBR3IJwVG",
+                "commandMetadata": {
+                  "webCommandMetadata": { "ignoreNavigation": true }
+                },
+                "showLiveChatItemEndpoint": {
+                  "renderer": {
+                    "liveChatPaidStickerRenderer": {
+                      "id": "ChwKGkNQaWZrOExwcklzREZkalB3Z1FkcGNvNGhR",
+                      "contextMenuEndpoint": {
+                        "clickTrackingParams": "CAQQ77sEIhMIoZWJyOmsiwMVdbRLBR3IJwVG",
+                        "commandMetadata": {
+                          "webCommandMetadata": { "ignoreNavigation": true }
+                        },
+                        "liveChatItemContextMenuEndpoint": {
+                          "params": "Q2g0S0hBb2FRMUJwWm1zNFRIQnlTWE5FUm1ScVVIZG5VV1J3WTI4MGFGRWFLU29uQ2hoVlEwUkNlWEJJVkVwbU1FdE1UMWxWY0dWU1kwUndORkVTQzA0eU16Wk5NRVoxVlRkcklBRW9CRElhQ2hoVlEzaEZaRjlzUlVkU2VYcEdZMGhqTW5sclltWTJRWGM0QWtnQVVCUSUzRA=="
+                        }
+                      },
+                      "contextMenuAccessibility": {
+                        "accessibilityData": { "label": "Chat actions" }
+                      },
+                      "timestampUsec": "1738768536214650",
+                      "authorPhoto": {
+                        "thumbnails": [
+                          {
+                            "url": "https://yt4.ggpht.com/ytc/AIdro_lE-2v4pt1Am5Vt4Pedf4xjFjaVCExlg_cJVl7OY2xcwvV1BhXRzUSHIHLwFa5dONFuTw=s32-c-k-c0x00ffffff-no-rj",
+                            "width": 32,
+                            "height": 32
+                          },
+                          {
+                            "url": "https://yt4.ggpht.com/ytc/AIdro_lE-2v4pt1Am5Vt4Pedf4xjFjaVCExlg_cJVl7OY2xcwvV1BhXRzUSHIHLwFa5dONFuTw=s64-c-k-c0x00ffffff-no-rj",
+                            "width": 64,
+                            "height": 64
+                          }
+                        ]
+                      },
+                      "authorName": { "simpleText": "投稿者名" },
+                      "authorExternalChannelId": "UCxEd_lEGRyzFcHc2ykbf6Aw",
+                      "sticker": {
+                        "thumbnails": [
+                          {
+                            "url": "//lh3.googleusercontent.com/iaXFY_xpmoEytuxknC0M0UyO8tE1QKkHhaNZfnySUeL2zLV5HFlAkj7SBIK3FIc6kGSs_MvL2gBiPGuqONc=s88-rwa",
+                            "width": 88,
+                            "height": 88
+                          },
+                          {
+                            "url": "//lh3.googleusercontent.com/iaXFY_xpmoEytuxknC0M0UyO8tE1QKkHhaNZfnySUeL2zLV5HFlAkj7SBIK3FIc6kGSs_MvL2gBiPGuqONc=s176-rwa",
+                            "width": 176,
+                            "height": 176
+                          }
+                        ],
+                        "accessibility": {
+                          "accessibilityData": {
+                            "label": "Hippo character's head pops out of water, surounded by his hippo squad"
+                          }
+                        }
+                      },
+                      "authorBadges": [
+                        {
+                          "liveChatAuthorBadgeRenderer": {
+                            "customThumbnail": {
+                              "thumbnails": [
+                                {
+                                  "url": "https://yt3.ggpht.com/oHcyKstMahmYCUWsplMB-UHTkU6Iy_9Dt5omVgOC6d63PpahjkulH3p9ICMsYeraT5GzcMIF=s16-c-k",
+                                  "width": 16,
+                                  "height": 16
+                                },
+                                {
+                                  "url": "https://yt3.ggpht.com/oHcyKstMahmYCUWsplMB-UHTkU6Iy_9Dt5omVgOC6d63PpahjkulH3p9ICMsYeraT5GzcMIF=s32-c-k",
+                                  "width": 32,
+                                  "height": 32
+                                }
+                              ]
+                            },
+                            "tooltip": "Member (1 year)",
+                            "accessibility": {
+                              "accessibilityData": {
+                                "label": "Member (1 year)"
+                              }
+                            }
+                          }
+                        }
+                      ],
+                      "moneyChipBackgroundColor": 4280150454,
+                      "moneyChipTextColor": 4278190080,
+                      "purchaseAmountText": { "simpleText": "A$5.00" },
+                      "stickerDisplayWidth": 88,
+                      "stickerDisplayHeight": 88,
+                      "backgroundColor": 4280150454,
+                      "authorNameTextColor": 2315255808,
+                      "trackingParams": "CAQQ77sEIhMIoZWJyOmsiwMVdbRLBR3IJwVG",
+                      "buyButton": {
+                        "buttonRenderer": {
+                          "style": "STYLE_DEFAULT",
+                          "size": "SIZE_DEFAULT",
+                          "isDisabled": false,
+                          "text": {
+                            "simpleText": "Buy your own Super Sticker"
+                          },
+                          "icon": { "iconType": "PURCHASE_SUPER_STICKER" },
+                          "accessibility": {
+                            "label": "Buy your own Super Sticker"
+                          },
+                          "trackingParams": "CAUQx4cIIhMIoZWJyOmsiwMVdbRLBR3IJwVG",
+                          "accessibilityData": {
+                            "accessibilityData": {
+                              "label": "Buy your own Super Sticker"
+                            }
+                          },
+                          "command": {
+                            "clickTrackingParams": "CAUQx4cIIhMIoZWJyOmsiwMVdbRLBR3IJwVG",
+                            "commandExecutorCommand": {
+                              "commands": [
+                                {
+                                  "clickTrackingParams": "CAUQx4cIIhMIoZWJyOmsiwMVdbRLBR3IJwVG",
+                                  "logFlowLoggingEventCommand": {
+                                    "flowEventType": 1,
+                                    "flowEventNamespace": "FLOW_EVENT_NAMESPACE_PDG_BUY_FLOW",
+                                    "flowType": "FLOW_TYPE_PDG_BUY_FLOW",
+                                    "flowEventMetadata": {
+                                      "pdgBuyFlowContext": {
+                                        "productType": "PRODUCT_TYPE_SUPER_STICKERS",
+                                        "entryPointClickedContext": {
+                                          "superStickerBuyFlowEntryPoint": "SUPER_STICKER_BUY_FLOW_ENTRY_POINT_TICKER_CHIP"
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "clickTrackingParams": "CAUQx4cIIhMIoZWJyOmsiwMVdbRLBR3IJwVG",
+                                  "commandMetadata": {
+                                    "webCommandMetadata": {
+                                      "ignoreNavigation": true
+                                    }
+                                  },
+                                  "openSuperStickerBuyFlowCommand": {
+                                    "params": "Q2lrcUp3b1lWVU5FUW5sd1NGUktaakJMVEU5WlZYQmxVbU5FY0RSUkVndE9Nak0yVFRCR2RWVTNheEFCSWhoVlEwUkNlWEJJVkVwbU1FdE1UMWxWY0dWU1kwUndORkVvQVRJa0NBSVNGZ29PYUdsZmNHOWZjRzlmYzNGMVlXUVE0OXFGa0FJYUNHaHBYM0J2WDNCdk9BQSUzRA=="
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "isV2Style": true
+                    }
+                  },
+                  "trackingParams": "CAMQjtEGIhMIoZWJyOmsiwMVdbRLBR3IJwVG"
+                }
+              },
+              "authorExternalChannelId": "UCxEd_lEGRyzFcHc2ykbf6Aw",
+              "tickerThumbnails": [
+                {
+                  "thumbnails": [
+                    {
+                      "url": "//lh3.googleusercontent.com/s8dXXRV8coeIpz31hZAmF2RQRx8qI3HoAUYEx09F0XO4tEYDiVplYAwhhjiJ2h45tKCP6DJ92lsQGbUiIzc=s32-rp",
+                      "width": 32,
+                      "height": 32
+                    },
+                    {
+                      "url": "//lh3.googleusercontent.com/s8dXXRV8coeIpz31hZAmF2RQRx8qI3HoAUYEx09F0XO4tEYDiVplYAwhhjiJ2h45tKCP6DJ92lsQGbUiIzc=s64-rp",
+                      "width": 64,
+                      "height": 64
+                    }
+                  ],
+                  "accessibility": {
+                    "accessibilityData": {
+                      "label": "Hippopotamus sticker pack"
+                    }
+                  }
+                }
+              ],
+              "trackingParams": "CAIQscgEIhMIoZWJyOmsiwMVdbRLBR3IJwVG"
+            }
+          },
+          "durationSec": "120"
+        }
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "4431234",
+  "isLive": true
+}

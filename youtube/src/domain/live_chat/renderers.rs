@@ -4,6 +4,7 @@ pub mod live_chat_banner_renderer;
 pub mod live_chat_membership_item_renderer;
 pub mod live_chat_paid_message_renderer;
 pub mod live_chat_paid_sticker_renderer;
+pub mod live_chat_placeholder_item_renderer;
 pub mod live_chat_sponsorships_gift_purchase_announcement_renderer;
 pub mod live_chat_sponsorships_gift_redemption_announcement_renderer;
 pub mod live_chat_sponsorships_header_renderer;

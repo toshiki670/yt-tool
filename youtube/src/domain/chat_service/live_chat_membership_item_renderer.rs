@@ -3,8 +3,8 @@ use crate::domain::{
     simple_chat::{CategoryValue, Content, SimpleChatEntity},
 };
 
-impl From<Box<LiveChatMembershipItemRenderer>> for SimpleChatEntity {
-    fn from(val: Box<LiveChatMembershipItemRenderer>) -> Self {
+impl From<LiveChatMembershipItemRenderer> for SimpleChatEntity {
+    fn from(val: LiveChatMembershipItemRenderer) -> Self {
         let author_name = val.author_name.map(|v| v.into());
 
         let mut content = Content::new();
@@ -12,7 +12,9 @@ impl From<Box<LiveChatMembershipItemRenderer>> for SimpleChatEntity {
             content.add("message", Some(String::from(message)));
         }
 
-        content.add("headerSubtext", Some(val.header_subtext.into()));
+        if let Some(header_subtext) = val.header_subtext {
+            content.add("headerSubtext", Some(header_subtext.into()));
+        }
 
         if val.author_badges.has_moderator() {
             content.add("Moderator", None);

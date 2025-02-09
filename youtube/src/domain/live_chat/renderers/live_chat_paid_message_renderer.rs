@@ -1,6 +1,9 @@
+use crate::domain::live_chat::values::buy_button::BuyButton;
+
 use super::values::{
     accessibility::Accessibility, author_badge::AuthorBadges,
     context_menu_endpoint::ContextMenuEndpoint, creator_heart_button::CreatorHeartButton,
+    pdg_purchased_novelty_logging_directives::PdgPurchasedNoveltyLoggingDirectives,
     reply_button::ReplyButton, text::Text, thumbnails::Thumbnails, timestamp_usec::TimestampUsec,
 };
 use serde::{Deserialize, Serialize};
@@ -13,6 +16,7 @@ pub struct LiveChatPaidMessageRenderer {
     pub author_name_text_color: i64,
     pub author_name: Option<Text>,
     pub author_photo: Thumbnails,
+    pub buy_button: Option<BuyButton>,
     pub body_background_color: i64,
     pub body_text_color: i64,
     pub context_menu_accessibility: Accessibility,
@@ -27,7 +31,7 @@ pub struct LiveChatPaidMessageRenderer {
     pub lower_bumper: Option<serde_json::Value>,
     pub message: Option<Text>,
     pub pdg_like_button: Option<serde_json::Value>,
-    pub pdg_purchased_novelty_logging_directives: Option<serde_json::Value>,
+    pub pdg_purchased_novelty_logging_directives: Option<PdgPurchasedNoveltyLoggingDirectives>,
     pub purchase_amount_text: Text,
     pub reply_button: Option<ReplyButton>,
     pub text_input_background_color: i64,

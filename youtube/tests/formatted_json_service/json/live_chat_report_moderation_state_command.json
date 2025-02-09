@@ -1,0 +1,12 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "clickTrackingParams": "CAEQl98BIhMIq4qZmLvjigMVimCdCR1KYgV3",
+        "liveChatReportModerationStateCommand": {}
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "-757",
+  "isLive": true
+}

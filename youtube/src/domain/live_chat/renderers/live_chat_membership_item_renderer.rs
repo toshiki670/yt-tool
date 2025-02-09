@@ -17,7 +17,7 @@ pub struct LiveChatMembershipItemRenderer {
     pub context_menu_endpoint: ContextMenuEndpoint,
     pub empty: Option<bool>,
     pub header_primary_text: Option<Text>,
-    pub header_subtext: Text,
+    pub header_subtext: Option<Text>,
     pub id: String,
     pub message: Option<Text>,
     pub timestamp_text: Option<Text>,

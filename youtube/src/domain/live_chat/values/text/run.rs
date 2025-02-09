@@ -1,5 +1,6 @@
 use super::super::thumbnails::Thumbnails;
 use crate::domain::live_chat::values::web_command_metadata::WebCommandMetadata;
+use log::warn;
 use serde::{Deserialize, Serialize};
 use url::Url;
 
@@ -16,7 +17,7 @@ pub struct Run {
 impl From<Run> for String {
     fn from(val: Run) -> Self {
         if let Some(endpoint) = val.navigation_endpoint {
-            endpoint.url_endpoint.url.to_string()
+            endpoint.url_endpoint.unwrap_redirect().url.to_string()
         } else if let Some(text) = val.text {
             text
         } else if let Some(emoji) = val.emoji {
@@ -77,6 +78,32 @@ pub struct UrlEndpoint {
     pub url: Url,
     pub target: String,
     pub nofollow: bool,
+}
+
+impl UrlEndpoint {
+    fn is_youtube_redirect(&self) -> bool {
+        self.url.domain() == Some("www.youtube.com") && self.url.path() == "/redirect"
+    }
+
+    pub(super) fn unwrap_redirect(mut self) -> Self {
+        if self.is_youtube_redirect() {
+            let mut params = self.url.query_pairs();
+            if let Some(redirect_url) = params.find(|(key, _)| key == "q").map(|(_, value)| value) {
+                if let Ok(url) = Url::parse(&redirect_url) {
+                    self.url = url;
+                    return self;
+                } else {
+                    warn!(
+                        "Failed to parse redirect URL {:?} of {:?}",
+                        &redirect_url, &self.url
+                    );
+                }
+            } else {
+                warn!("No redirect URL found in {:?}", &self.url);
+            }
+        }
+        self
+    }
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

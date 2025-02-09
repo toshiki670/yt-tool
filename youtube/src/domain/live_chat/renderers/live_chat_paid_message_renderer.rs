@@ -1,3 +1,5 @@
+use crate::domain::live_chat::values::buy_button::BuyButton;
+
 use super::values::{
     accessibility::Accessibility, author_badge::AuthorBadges,
     context_menu_endpoint::ContextMenuEndpoint, creator_heart_button::CreatorHeartButton,
@@ -14,7 +16,7 @@ pub struct LiveChatPaidMessageRenderer {
     pub author_name_text_color: i64,
     pub author_name: Option<Text>,
     pub author_photo: Thumbnails,
-    pub buy_button: Option<serde_json::Value>,
+    pub buy_button: Option<BuyButton>,
     pub body_background_color: i64,
     pub body_text_color: i64,
     pub context_menu_accessibility: Accessibility,

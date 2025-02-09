@@ -1,5 +1,6 @@
 pub(super) mod accessibility;
 pub(super) mod author_badge;
+pub(super) mod buy_button;
 pub(super) mod context_menu_endpoint;
 pub(super) mod creator_heart_button;
 pub(super) mod icon;

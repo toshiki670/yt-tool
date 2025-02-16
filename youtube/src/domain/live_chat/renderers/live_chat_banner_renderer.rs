@@ -1,6 +1,9 @@
 use serde::{Deserialize, Serialize};
 
-use super::live_chat_text_message_renderer::LiveChatTextMessageRenderer;
+use super::{
+    live_chat_banner_redirect_renderer::LiveChatBannerRedirectRenderer,
+    live_chat_text_message_renderer::LiveChatTextMessageRenderer,
+};
 use crate::domain::live_chat::values::{
     accessibility::{Accessibility, Label},
     context_menu_endpoint::ContextMenuEndpoint,
@@ -11,14 +14,14 @@ use crate::domain::live_chat::values::{
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct LiveChatBannerRenderer {
-    pub header: Header,
+    pub header: Option<Header>,
     pub contents: Contents,
     pub action_id: String,
-    pub viewer_is_creator: bool,
+    pub viewer_is_creator: Option<bool>,
     pub target_id: String,
     pub is_stackable: bool,
-    pub background_type: String,
-    pub banner_properties: BannerProperties,
+    pub background_type: Option<String>,
+    pub banner_properties: Option<BannerProperties>,
     pub banner_type: String,
 }
 
@@ -54,8 +57,9 @@ pub struct ButtonRenderer {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
-pub struct Contents {
-    pub live_chat_text_message_renderer: LiveChatTextMessageRenderer,
+pub enum Contents {
+    LiveChatTextMessageRenderer(LiveChatTextMessageRenderer),
+    LiveChatBannerRedirectRenderer(LiveChatBannerRedirectRenderer),
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

@@ -1,5 +1,6 @@
 pub mod banner_renderer;
 pub mod live_chat_action_panel_renderer;
+pub mod live_chat_banner_redirect_renderer;
 pub mod live_chat_banner_renderer;
 pub mod live_chat_membership_item_renderer;
 pub mod live_chat_paid_message_renderer;

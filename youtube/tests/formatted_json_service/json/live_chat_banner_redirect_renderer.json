@@ -1,0 +1,93 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "clickTrackingParams": "CAEQl98BIhMIsfSZhba7igMVWc80Bx1efgKS",
+        "addBannerToLiveChatCommand": {
+          "bannerRenderer": {
+            "liveChatBannerRenderer": {
+              "contents": {
+                "liveChatBannerRedirectRenderer": {
+                  "bannerMessage": {
+                    "runs": [
+                      {
+                        "text": "Don't miss out! People are going to watch something from ",
+                        "textColor": 4294967295,
+                        "fontFace": "FONT_FACE_ROBOTO_REGULAR"
+                      },
+                      {
+                        "text": "Z Channel",
+                        "bold": true,
+                        "textColor": 4294967295,
+                        "fontFace": "FONT_FACE_ROBOTO_REGULAR"
+                      }
+                    ]
+                  },
+                  "authorPhoto": {
+                    "thumbnails": [
+                      {
+                        "url": "https://yt4.ggpht.com/so69WMDlrSwil0013l7MLKIBLV--U_zjya2tG9_Sgij5NBm7raSvbZXUJiiAbQgrZosseqKDobM=s32-c-k-c0x00ffffff-no-rj",
+                        "width": 32,
+                        "height": 32
+                      },
+                      {
+                        "url": "https://yt4.ggpht.com/so69WMDlrSwil0013l7MLKIBLV--U_zjya2tG9_Sgij5NBm7raSvbZXUJiiAbQgrZosseqKDobM=s64-c-k-c0x00ffffff-no-rj",
+                        "width": 64,
+                        "height": 64
+                      }
+                    ]
+                  },
+                  "inlineActionButton": {
+                    "buttonRenderer": {
+                      "style": "STYLE_DEFAULT",
+                      "size": "SIZE_DEFAULT",
+                      "isDisabled": false,
+                      "text": { "runs": [{ "text": "Go now" }] },
+                      "trackingParams": "CCwQ8FsiEwix9JmFtruKAxVZzzQHHV5-ApI=",
+                      "command": {
+                        "clickTrackingParams": "CCwQ8FsiEwix9JmFtruKAxVZzzQHHV5-ApI=",
+                        "commandMetadata": {
+                          "webCommandMetadata": {
+                            "url": "/watch?v=SebgFzzswLQ",
+                            "webPageType": "WEB_PAGE_TYPE_WATCH",
+                            "rootVe": 3832
+                          }
+                        },
+                        "watchEndpoint": { "videoId": "SebgFzzswLQ" }
+                      }
+                    }
+                  },
+                  "contextMenuButton": {
+                    "buttonRenderer": {
+                      "icon": { "iconType": "MORE_VERT" },
+                      "accessibility": { "label": "Chat actions" },
+                      "trackingParams": "CCsQ8FsiEwix9JmFtruKAxVZzzQHHV5-ApI=",
+                      "accessibilityData": {
+                        "accessibilityData": { "label": "Chat actions" }
+                      },
+                      "command": {
+                        "clickTrackingParams": "CCsQ8FsiEwix9JmFtruKAxVZzzQHHV5-ApI=",
+                        "commandMetadata": {
+                          "webCommandMetadata": { "ignoreNavigation": true }
+                        },
+                        "liveChatItemContextMenuEndpoint": {
+                          "params": "Q2g0S0hBb2FRMHMyYjJjMFV6SjFORzlFUmxkQmFITjNRV1JPYUVrelNtY2FLU29uQ2hoVlExcHNSRmg2UjI5dk4yUTBOR0ozWkU1UFlrWmhZMmNTQzBsb1NsY3RXVkJLTFhvd0lBRW9CRElFRWdJSUJqZ0JTQUJRSlElM0QlM0Q="
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "actionId": "ChwKGkNLNm9nNFMydTRvREZXQWhzd0FkTmhJM0pn",
+              "targetId": "live-chat-banner",
+              "isStackable": true,
+              "bannerType": "LIVE_CHAT_BANNER_TYPE_CROSS_CHANNEL_REDIRECT"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "videoOffsetTimeMsec": "2367475",
+  "isLive": true
+}

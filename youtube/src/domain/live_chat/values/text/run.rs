@@ -9,8 +9,10 @@ use url::Url;
 pub struct Run {
     pub bold: Option<bool>,
     pub emoji: Option<Emoji>,
+    pub font_face: Option<String>,
     pub italics: Option<bool>,
     pub navigation_endpoint: Option<NavigationEndpoint>,
+    pub text_color: Option<u32>,
     pub text: Option<String>,
 }
 

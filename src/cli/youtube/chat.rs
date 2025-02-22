@@ -2,7 +2,7 @@
 // https://tech.natsuneko.blog/entry/2022/03/15/exclusive-command-options-in-clap
 
 use crate::cli::Route;
-use support::glob;
+use rust_support::glob;
 use youtube::prelude::*;
 
 #[derive(clap::Args, Debug)]

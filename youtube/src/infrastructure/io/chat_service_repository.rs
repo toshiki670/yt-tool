@@ -10,12 +10,12 @@ use anyhow::Context as _;
 use chrono::prelude::*;
 use futures::future;
 use log::{error, info};
+use rust_support::anyhow::collect_results;
 use std::{
     fs::File,
     io::{Cursor, Read, Write},
     path::PathBuf,
 };
-use support::anyhow::collect_results;
 use tokio::time::Instant;
 
 /// This repository provides an interface for managing and retrieving live chat JSON data.

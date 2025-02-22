@@ -11,7 +11,7 @@ pub(super) mod live_chat_viewer_engagement_message_renderer;
 pub(super) mod poll_renderer;
 
 use chrono::{DateTime, Utc};
-use support::anyhow::collect_results;
+use rust_support::anyhow::collect_results;
 
 use super::{
     live_chat::{

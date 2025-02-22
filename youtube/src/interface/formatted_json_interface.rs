@@ -91,7 +91,7 @@ impl FormattedJsonInterface<'_, Vec<PathBuf>> {
             })
             .collect::<Vec<_>>();
 
-        let repositories = support::anyhow::collect_results(results)?;
+        let repositories = rust_support::anyhow::collect_results(results)?;
 
         let service = ChatConvertService::new(repositories);
 

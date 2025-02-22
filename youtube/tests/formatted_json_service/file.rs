@@ -2,11 +2,11 @@ extern crate youtube;
 
 use anyhow::Context as _;
 use futures::future;
+use rust_support::assert::{assert_file_content, assert_files_with_file_name};
 use std::{
     env,
     path::{Path, PathBuf},
 };
-use rust_support::assert::{assert_file_content, assert_files_with_file_name};
 use tempfile::tempdir;
 use tokio::fs;
 use youtube::prelude::FormattedJsonInterface;

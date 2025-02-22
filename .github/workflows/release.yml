@@ -7,15 +7,36 @@ on:
       - closed
 
 jobs:
-  release:
-    name: Create release
+  build_confirmation:
+    name: Build confirmation
     runs-on: ubuntu-latest
-    if: contains(github.head_ref, 'release')
+
+    if: contains(github.head_ref, 'release/')
+
     steps:
       - uses: actions/checkout@v4
 
       - name: Build
         run: cargo build --release
+
+  release_to_github:
+    name: Publish to GitHub
+    runs-on: ubuntu-latest
+
+    needs: build_confirmation
+    if: contains(github.head_ref, 'release/')
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check if the release is a beta, rc, or alpha
+        id: is_prerelease
+        run: |
+          if [[ ${{ github.head_ref }} == *"rc"* || ${{ github.head_ref }} == *"beta"* || ${{ github.head_ref }} == *"alpha"* ]]; then
+            echo "bool=true" >> $GITHUB_OUTPUT
+          else
+            echo "bool=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Create Release
         id: create_release
@@ -24,3 +45,5 @@ jobs:
           name: ${{ github.event.pull_request.title }}
           tag_name: ${{ github.event.pull_request.title }}
           generate_release_notes: true
+          token: ${{ secrets.CREATE_PR_TOKEN }}
+          prerelease: ${{ steps.is_prerelease.outputs.bool }}

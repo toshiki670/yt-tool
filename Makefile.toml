@@ -80,82 +80,73 @@ cargo clippy --fix --allow-dirty --allow-staged
 
 # ---- Release ----
 
-[tasks.release-alpha]
-description = "Create an alpha release"
+[tasks.create-release-branch]
+description = "Create a release branch"
 category = "Release"
 script = ['''
-cargo release version --execute --no-confirm alpha
-new_version=$(cargo pkgid | sed 's/.*#//')
+cargo release version --execute --no-confirm {{@1}}
+cargo build
+new_version=$(cargo pkgid | awk -F# '{print $2}')
 git switch -c "release/v${new_version}"
-git add .
+
+max_attempts=5
+attempt=0
+
+while [ $attempt -lt $max_attempts ]; do
+  git add .
+  if [ $? -eq 0 ]; then
+    echo "git add . Passed"
+    break
+  else
+    echo "git add . Failed, retrying..."
+    attempt=$((attempt + 1))
+    sleep 1
+  fi
+done
+
+if [ $attempt -eq $max_attempts ]; then
+  echo "Max attempts reached"
+fi
+
 git commit -m "Bump version to ${new_version}"
 git push origin "release/v${new_version}"
 '''
 ]
+
+[tasks.release-alpha]
+description = "Create an alpha release"
+category = "Release"
+command = "makers"
+args = ["create-release-branch", "alpha"]
 
 [tasks.release-beta]
 description = "Create a beta release"
 category = "Release"
-script = ['''
-cargo release version --execute --no-confirm beta
-new_version=$(cargo pkgid | sed 's/.*#//')
-git switch -c "release/v${new_version}"
-git add .
-git commit -m "Bump version to ${new_version}"
-git push origin "release/v${new_version}"
-'''
-]
+command = "makers"
+args = ["create-release-branch", "beta"]
 
 [tasks.release-rc]
 description = "Create a release candidate"
 category = "Release"
-script = ['''
-cargo release version --execute --no-confirm rc
-new_version=$(cargo pkgid | sed 's/.*#//')
-git switch -c "release/v${new_version}"
-git add .
-git commit -m "Bump version to ${new_version}"
-git push origin "release/v${new_version}"
-'''
-]
+command = "makers"
+args = ["create-release-branch", "rc"]
 
 [tasks.release-patch]
 description = "Create a patch release"
 category = "Release"
-script = ['''
-cargo release version --execute --no-confirm patch
-new_version=$(cargo pkgid | sed 's/.*#//')
-git switch -c "release/v${new_version}"
-git add .
-git commit -m "Bump version to ${new_version}"
-git push origin "release/v${new_version}"
-'''
-]
+command = "makers"
+args = ["create-release-branch", "patch"]
 
 [tasks.release-minor]
 description = "Create a minor release"
 category = "Release"
-script = ['''
-cargo release version --execute --no-confirm minor
-new_version=$(cargo pkgid | sed 's/.*#//')
-git switch -c "release/v${new_version}"
-git add .
-git commit -m "Bump version to ${new_version}"
-git push origin "release/v${new_version}"
-'''
-]
+command = "makers"
+args = ["create-release-branch", "minor"]
 
 [tasks.release-major]
 description = "Create a major release"
 category = "Release"
-script = ['''
-cargo release version --execute --no-confirm major
-new_version=$(cargo pkgid | sed 's/.*#//')
-git switch -c "release/v${new_version}"
-git add .
-git commit -m "Bump version to ${new_version}"
-git push origin "release/v${new_version}"
-'''
-]
+command = "makers"
+args = ["create-release-branch", "major"]
 
 # ---- End Release ----

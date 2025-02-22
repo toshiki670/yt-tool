@@ -1,0 +1,43 @@
+name: Create Pull Request for Release Branch
+
+on:
+  push:
+    branches:
+      - "release/**"
+
+jobs:
+  create-release-pr:
+    runs-on: ubuntu-latest
+
+    env:
+      GH_TOKEN: ${{ secrets.CREATE_PR_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get the version
+        id: get_version
+        run: |
+          VERSION=$(cargo pkgid | awk -F# '{print $2}')
+          echo "release_version=${VERSION}"
+          echo "release_version=${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Check PullRequest Exists
+        id: check_pr
+        env:
+          HEAD_MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          COMMIT_MESSAGE=$(echo "${HEAD_MESSAGE}" | sed -n -e 1p)
+          echo "message=${COMMIT_MESSAGE}"
+          echo "message=${COMMIT_MESSAGE}" >> "$GITHUB_OUTPUT"
+          COUNT=$(gh pr list --state open -S 'head:${{ github.head_ref }}' | wc -l)
+          echo "count=${COUNT}"
+          echo "count=${COUNT}" >> "$GITHUB_OUTPUT"
+      - name: Create Release Pull Request
+        if: ${{ steps.check_pr.outputs.count == 0 }}
+        run: |
+          gh pr create \
+            -B main \
+            -t 'v${{ steps.get_version.outputs.release_version }}' \
+            -a ${{ github.actor }} \
+            -b '${{ steps.check_pr.outputs.message }}'

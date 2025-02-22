@@ -15,7 +15,7 @@ use std::{
     io::{Cursor, Read, Write},
     path::PathBuf,
 };
-use support::anyhow::collect_results;
+use rust_support::anyhow::collect_results;
 use tokio::time::Instant;
 
 /// This repository provides an interface for managing and retrieving live chat JSON data.

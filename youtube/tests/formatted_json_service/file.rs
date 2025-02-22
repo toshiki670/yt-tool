@@ -6,7 +6,7 @@ use std::{
     env,
     path::{Path, PathBuf},
 };
-use support::assert::{assert_file_content, assert_files_with_file_name};
+use rust_support::assert::{assert_file_content, assert_files_with_file_name};
 use tempfile::tempdir;
 use tokio::fs;
 use youtube::prelude::FormattedJsonInterface;
@@ -84,7 +84,7 @@ async fn it_generate_with_type() -> anyhow::Result<()> {
 }
 
 async fn cp(src_pattern: &str, dst_dir: &Path) -> anyhow::Result<()> {
-    let src_paths = support::glob::expend_glob_pattern(src_pattern)?;
+    let src_paths = rust_support::glob::expend_glob_pattern(src_pattern)?;
 
     let sets = src_paths
         .into_iter()
@@ -98,7 +98,7 @@ async fn cp(src_pattern: &str, dst_dir: &Path) -> anyhow::Result<()> {
         })
         .collect::<Vec<anyhow::Result<(PathBuf, PathBuf)>>>();
 
-    let sets = support::anyhow::collect_results(sets)?;
+    let sets = rust_support::anyhow::collect_results(sets)?;
 
     let futures = sets
         .into_iter()
@@ -117,7 +117,7 @@ fn read_paths(path: &Path) -> anyhow::Result<Vec<PathBuf>> {
     let dir = std::fs::read_dir(path)?;
 
     let results = dir.map(|e| e.map_err(|e| anyhow::anyhow!(e))).collect();
-    let dir_entries = support::anyhow::collect_results(results)?;
+    let dir_entries = rust_support::anyhow::collect_results(results)?;
     let paths = dir_entries.iter().map(|e| e.path()).collect();
 
     Ok(paths)

@@ -1,6 +1,6 @@
 use crate::domain::repositories::ChatServiceRepository;
 use futures::future;
-use support::anyhow::collect_results;
+use rust_support::anyhow::collect_results;
 
 pub struct ChatConvertService<T: ChatServiceRepository> {
     chat_service_repositories: Vec<T>,

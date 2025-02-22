@@ -11,15 +11,14 @@ env_logger = { workspace = true }
 futures = { workspace = true }
 indexmap = { workspace = true }
 log = { workspace = true }
+rust_support = { workspace = true }
 serde = { workspace = true, features = ["derive"] } # https://serde.rs/container-attrs.html
 serde_json = { workspace = true }
 thiserror = { workspace = true }
 tokio = { workspace = true }
 url = { workspace = true, features = ["serde"] }
 
-support = { path = "../support" }
-
 [dev-dependencies]
 pretty_assertions = { workspace = true }
-support = { path = "../support", features = ['test'] }
+rust_support = { workspace = true, features = ['test'] }
 tempfile = { workspace = true }

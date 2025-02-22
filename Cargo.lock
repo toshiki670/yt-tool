@@ -93,9 +93,9 @@ dependencies = [
 
 [[package]]
 name = "anyhow"
-version = "1.0.95"
+version = "1.0.96"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "34ac096ce696dc2fcabef30516bb13c0a68a11d30131d3df6f04711467681b04"
+checksum = "6b964d184e89d9b6b67dd2715bc8e74cf3107fb2b529990c90cf517326150bf4"
 
 [[package]]
 name = "autocfg"
@@ -836,6 +836,20 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2b15c43186be67a4fd63bee50d0303afffcef381492ebe2c5d87f324e1b8815c"
 
 [[package]]
+name = "rust_support"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a022b5eb9fff1ee05456217364c83c1a9652989470bd6924dcabe911d2a51e23"
+dependencies = [
+ "anyhow",
+ "futures",
+ "glob",
+ "pretty_assertions",
+ "thiserror",
+ "tokio",
+]
+
+[[package]]
 name = "rustc-demangle"
 version = "0.1.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -955,19 +969,6 @@ name = "strsim"
 version = "0.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7da8b5736845d9f2fcb837ea5d9e2628564b3b043a70948a3f0b778838c5fb4f"
-
-[[package]]
-name = "support"
-version = "0.3.3"
-dependencies = [
- "anyhow",
- "futures",
- "glob",
- "pretty_assertions",
- "tempfile",
- "thiserror",
- "tokio",
-]
 
 [[package]]
 name = "syn"
@@ -1327,9 +1328,9 @@ dependencies = [
  "indexmap",
  "log",
  "pretty_assertions",
+ "rust_support",
  "serde",
  "serde_json",
- "support",
  "tempfile",
  "thiserror",
  "tokio",
@@ -1347,7 +1348,7 @@ dependencies = [
  "futures",
  "glob",
  "log",
- "support",
+ "rust_support",
  "thiserror",
  "tokio",
  "youtube",

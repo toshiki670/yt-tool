@@ -130,7 +130,7 @@ async fn it_generate_with_type() -> anyhow::Result<()> {
 }
 
 async fn cp(src_pattern: &str, dst_dir: &Path) -> anyhow::Result<()> {
-    let src_paths = support::glob::expend_glob_pattern(src_pattern)?;
+    let src_paths = rust_support::glob::expend_glob_pattern(src_pattern)?;
 
     let sets = src_paths
         .into_iter()
@@ -144,7 +144,7 @@ async fn cp(src_pattern: &str, dst_dir: &Path) -> anyhow::Result<()> {
         })
         .collect::<Vec<anyhow::Result<(PathBuf, PathBuf)>>>();
 
-    let sets = support::anyhow::collect_results(sets)?;
+    let sets = rust_support::anyhow::collect_results(sets)?;
 
     let futures = sets
         .into_iter()

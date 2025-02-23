@@ -43,5 +43,5 @@ url = "2.5.4"
 rust_support = "0.1.0"
 
 [workspace.package]
-version = "0.3.3"
+version = "0.3.4"
 edition = "2021"

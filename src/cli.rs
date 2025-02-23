@@ -64,7 +64,9 @@ fn generate_completions<G: Generator>(gen: G) {
 
 fn initialize_logger(verbose: bool) {
     if verbose {
-        env::set_var("RUST_LOG", Level::Trace.to_string());
+        unsafe {
+            env::set_var("RUST_LOG", Level::Trace.to_string());
+        }
     }
     env_logger::init();
 }

@@ -1,8 +1,8 @@
 mod youtube;
 
 use clap::{CommandFactory, Parser};
-use clap_complete::{generate, Generator, Shell};
-use log::{info, Level};
+use clap_complete::{Generator, Shell, generate};
+use log::{Level, info};
 use std::{env, io::stdout};
 use tokio::time::Instant;
 

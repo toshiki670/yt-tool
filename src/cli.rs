@@ -1,8 +1,8 @@
 mod youtube;
 
 use clap::{CommandFactory, Parser};
-use clap_complete::{generate, Generator, Shell};
-use log::{info, Level};
+use clap_complete::{Generator, Shell, generate};
+use log::{Level, info};
 use std::{env, io::stdout};
 use tokio::time::Instant;
 
@@ -56,15 +56,17 @@ impl Route for Args {
     }
 }
 
-fn generate_completions<G: Generator>(gen: G) {
+fn generate_completions<G: Generator>(r#gen: G) {
     let mut cmd = Args::command();
     let bin_name = cmd.get_name().to_string();
-    generate(gen, &mut cmd, bin_name, &mut stdout());
+    generate(r#gen, &mut cmd, bin_name, &mut stdout());
 }
 
 fn initialize_logger(verbose: bool) {
     if verbose {
-        env::set_var("RUST_LOG", Level::Trace.to_string());
+        unsafe {
+            env::set_var("RUST_LOG", Level::Trace.to_string());
+        }
     }
     env_logger::init();
 }

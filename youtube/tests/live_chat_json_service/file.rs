@@ -122,7 +122,10 @@ async fn it_generate_with_type() -> anyhow::Result<()> {
     }
 
     if let Some(last_line) = last_line {
-        assert_eq!(last_line, "id,authorExternalChannelId,2024-12-05T12:41:54.906095+09:00,Text message,authorName,message: 'メッセージ'");
+        assert_eq!(
+            last_line,
+            "id,authorExternalChannelId,2024-12-05T12:41:54.906095+09:00,Text message,authorName,message: 'メッセージ'"
+        );
     }
 
     test_dir.close()?;

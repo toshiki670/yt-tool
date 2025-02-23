@@ -15,7 +15,7 @@ use rust_support::anyhow::collect_results;
 
 use super::{
     live_chat::{
-        actions::Action, item::Item, values::timestamp_usec::TimestampUsec, LiveChatEntity,
+        LiveChatEntity, actions::Action, item::Item, values::timestamp_usec::TimestampUsec,
     },
     simple_chat::{CategoryValue, PostedAtValue, SimpleChatEntity},
 };

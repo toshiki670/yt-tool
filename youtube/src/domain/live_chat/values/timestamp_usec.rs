@@ -1,5 +1,5 @@
 use chrono::prelude::*;
-use serde::{de, Deserialize, Deserializer, Serialize, Serializer};
+use serde::{Deserialize, Deserializer, Serialize, Serializer, de};
 
 #[derive(Default, Debug, Clone, PartialEq)]
 pub struct TimestampUsec(DateTime<Utc>);
@@ -30,7 +30,7 @@ impl<'de> Deserialize<'de> for TimestampUsec {
                 return Err(de::Error::custom(format!(
                     "Unsupported type for timestamp: {:?}",
                     value
-                )))
+                )));
             }
         };
 

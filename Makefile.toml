@@ -3,7 +3,7 @@
 
 [env]
 CARGO_MAKE_EXTEND_WORKSPACE_MAKEFILE = true
-
+CARGO_MAKE_WORKSPACE_MAKEFILE = false
 
 # For the setup
 [tasks.setup]
@@ -84,7 +84,7 @@ cargo clippy --fix --allow-dirty --allow-staged
 description = "Create a release branch"
 category = "Release"
 script = ['''
-cargo release version --execute --no-confirm {{@1}}
+cargo release version --execute --no-confirm ${@}
 cargo build
 new_version=$(cargo pkgid | awk -F# '{print $2}')
 git switch -c "release/v${new_version}"

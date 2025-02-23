@@ -56,10 +56,10 @@ impl Route for Args {
     }
 }
 
-fn generate_completions<G: Generator>(gen: G) {
+fn generate_completions<G: Generator>(r#gen: G) {
     let mut cmd = Args::command();
     let bin_name = cmd.get_name().to_string();
-    generate(gen, &mut cmd, bin_name, &mut stdout());
+    generate(r#gen, &mut cmd, bin_name, &mut stdout());
 }
 
 fn initialize_logger(verbose: bool) {

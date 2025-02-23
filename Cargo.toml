@@ -45,7 +45,7 @@ url = "2.5.4"
 rust_support = "0.1.1"
 
 [workspace.package]
-version = "0.3.4"
+version = "0.3.5"
 edition = "2024"
 authors = ["Toshiki"]
 license = "MIT"

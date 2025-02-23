@@ -4,11 +4,11 @@
 [env]
 CARGO_MAKE_EXTEND_WORKSPACE_MAKEFILE = true
 
-
 # For the setup
 [tasks.setup]
 description = "Setup the project"
 category = "Preparation"
+workspace = false
 script = ['''
 rustup component add llvm-tools-preview
 cargo install cargo-edit
@@ -26,41 +26,37 @@ category = "Documentation"
 command = "cargo"
 args = ["doc", "--document-private-items"]
 
-[tasks.dw]
-description = "Generate documentation for the workspace"
-category = "Documentation"
-command = "cargo"
-args = ["doc", "--document-private-items", "--workspace"]
-
-
 [tasks.test-watch]
 description = "Run the tests and watch for changes"
 category = "Test"
+workspace = false
 command = "cargo"
-args = ["watch", "-x", "test --workspace"]
+args = ["watch", "--exec", "test --workspace", "--ignore", "tests/*"]
 env = { RUST_BACKTRACE = "0" }
 
 [tasks.tw]
 description = "Run the tests and watch for changes (alias for test-watch)"
 category = "Test"
+workspace = false
 dependencies = ["test-watch"]
 
 [tasks.t]
 description = "Run the tests"
 category = "Test"
 command = "cargo"
-args = ["test", "--workspace"]
+args = ["test"]
 env = { RUST_BACKTRACE = "0" }
 
 [tasks.cov]
 description = "Run the tests and generate coverage report"
 category = "Test"
 command = "cargo"
-args = ["llvm-cov", "--workspace", "--open"]
+args = ["llvm-cov", "--open"]
 
 [tasks.update]
 description = "Update the dependencies"
 category = "Development"
+workspace = false
 script = ['''
 rustup upgrade
 cargo upgrade
@@ -72,7 +68,7 @@ cargo update
 description = "Fix the code"
 category = "Development"
 script = ['''
-cargo fix --allow-dirty --allow-staged --workspace
+cargo fix --allow-dirty --allow-staged
 cargo fmt
 cargo clippy --fix --allow-dirty --allow-staged
 '''
@@ -80,82 +76,80 @@ cargo clippy --fix --allow-dirty --allow-staged
 
 # ---- Release ----
 
-[tasks.release-alpha]
-description = "Create an alpha release"
+[tasks.create-release-branch]
+description = "Create a release branch"
 category = "Release"
+workspace = false
 script = ['''
-cargo release version --execute --no-confirm alpha
-new_version=$(cargo pkgid | sed 's/.*#//')
+cargo release version --execute --no-confirm ${@}
+cargo build
+new_version=$(cargo pkgid | awk -F# '{print $2}')
 git switch -c "release/v${new_version}"
-git add .
+
+max_attempts=5
+attempt=0
+
+while [ $attempt -lt $max_attempts ]; do
+  git add .
+  if [ $? -eq 0 ]; then
+    echo "git add . Passed"
+    break
+  else
+    echo "git add . Failed, retrying..."
+    attempt=$((attempt + 1))
+    sleep 1
+  fi
+done
+
+if [ $attempt -eq $max_attempts ]; then
+  echo "Max attempts reached"
+fi
+
 git commit -m "Bump version to ${new_version}"
 git push origin "release/v${new_version}"
 '''
 ]
+
+[tasks.release-alpha]
+description = "Create an alpha release"
+category = "Release"
+command = "makers"
+workspace = false
+args = ["create-release-branch", "alpha"]
 
 [tasks.release-beta]
 description = "Create a beta release"
 category = "Release"
-script = ['''
-cargo release version --execute --no-confirm beta
-new_version=$(cargo pkgid | sed 's/.*#//')
-git switch -c "release/v${new_version}"
-git add .
-git commit -m "Bump version to ${new_version}"
-git push origin "release/v${new_version}"
-'''
-]
+command = "makers"
+workspace = false
+args = ["create-release-branch", "beta"]
 
 [tasks.release-rc]
 description = "Create a release candidate"
 category = "Release"
-script = ['''
-cargo release version --execute --no-confirm rc
-new_version=$(cargo pkgid | sed 's/.*#//')
-git switch -c "release/v${new_version}"
-git add .
-git commit -m "Bump version to ${new_version}"
-git push origin "release/v${new_version}"
-'''
-]
+command = "makers"
+workspace = false
+args = ["create-release-branch", "rc"]
 
 [tasks.release-patch]
 description = "Create a patch release"
 category = "Release"
-script = ['''
-cargo release version --execute --no-confirm patch
-new_version=$(cargo pkgid | sed 's/.*#//')
-git switch -c "release/v${new_version}"
-git add .
-git commit -m "Bump version to ${new_version}"
-git push origin "release/v${new_version}"
-'''
-]
+command = "makers"
+workspace = false
+args = ["create-release-branch", "patch"]
 
 [tasks.release-minor]
 description = "Create a minor release"
 category = "Release"
-script = ['''
-cargo release version --execute --no-confirm minor
-new_version=$(cargo pkgid | sed 's/.*#//')
-git switch -c "release/v${new_version}"
-git add .
-git commit -m "Bump version to ${new_version}"
-git push origin "release/v${new_version}"
-'''
-]
+command = "makers"
+workspace = false
+args = ["create-release-branch", "minor"]
 
 [tasks.release-major]
 description = "Create a major release"
 category = "Release"
-script = ['''
-cargo release version --execute --no-confirm major
-new_version=$(cargo pkgid | sed 's/.*#//')
-git switch -c "release/v${new_version}"
-git add .
-git commit -m "Bump version to ${new_version}"
-git push origin "release/v${new_version}"
-'''
-]
+command = "makers"
+workspace = false
+args = ["create-release-branch", "major"]
 
 # ---- End Release ----

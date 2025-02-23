@@ -44,4 +44,4 @@ rust_support = "0.1.0"
 
 [workspace.package]
 version = "0.3.4"
-edition = "2021"
+edition = "2024"

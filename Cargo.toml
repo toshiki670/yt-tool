@@ -2,6 +2,8 @@
 name = "yt-tool"
 version.workspace = true
 edition.workspace = true
+license.workspace = true
+authors.workspace = true
 
 [dependencies]
 anyhow = { workspace = true } # https://zenn.dev/yukinarit/articles/b39cd42820f29e
@@ -45,3 +47,5 @@ rust_support = "0.1.1"
 [workspace.package]
 version = "0.3.4"
 edition = "2024"
+authors = ["Toshiki"]
+license = "MIT"

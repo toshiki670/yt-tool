@@ -11,7 +11,7 @@ trait Route {
 }
 
 #[derive(Parser, Debug)]
-#[command(author, version, about = "Algorithm tool", long_about = None)]
+#[command(author, version, about = "yt-dlp tool", long_about = None)]
 pub(super) struct Args {
     #[arg(short, long, global = true, help = "Show logs")]
     verbose: bool,

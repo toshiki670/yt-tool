@@ -71,30 +71,15 @@ mod tests {
     mod deserialize {
         use super::*;
         use pretty_assertions::assert_eq;
-
-        #[test]
-        fn it_deserialize_from_string() -> anyhow::Result<()> {
+        use test_case::test_case;
+        #[test_case(r#"{"timestampUsec":"1733370114906095"}"# ; "when a value of json_data is a string")]
+        #[test_case(r#"{"timestampUsec":1733370114906095}"#  ; "when a value of json_data is a number")]
+        fn it_deserialize(json_data: &str) -> anyhow::Result<()> {
             let expected = Utc
                 .timestamp_micros(1733370114906095)
                 .unwrap()
                 .timestamp_micros();
 
-            let json_data = r#"{"timestampUsec":"1733370114906095"}"#;
-            let example: Example = serde_json::from_str(json_data)?;
-            let actual = example.timestamp_usec.timestamp_micros();
-
-            assert_eq!(expected, actual);
-            Ok(())
-        }
-
-        #[test]
-        fn it_deserialize_from_number() -> anyhow::Result<()> {
-            let expected = Utc
-                .timestamp_micros(1733370114906095)
-                .unwrap()
-                .timestamp_micros();
-
-            let json_data = r#"{"timestampUsec":1733370114906095}"#;
             let example: Example = serde_json::from_str(json_data)?;
             let actual = example.timestamp_usec.timestamp_micros();
 

@@ -25,3 +25,4 @@ itertools = { workspace = true }
 pretty_assertions = { workspace = true }
 rust_support = { workspace = true, features = ['test'] }
 tempfile = { workspace = true }
+indoc = { workspace = true }

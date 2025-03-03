@@ -26,3 +26,4 @@ indoc = { workspace = true }
 pretty_assertions = { workspace = true }
 rust_support = { workspace = true, features = ['test'] }
 tempfile = { workspace = true }
+test-case = { workspace = true }

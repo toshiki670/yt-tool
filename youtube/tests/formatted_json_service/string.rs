@@ -1,5 +1,6 @@
 extern crate youtube;
 
+use indoc::indoc;
 use pretty_assertions::assert_eq;
 use std::{env, path::PathBuf};
 use tempfile::tempdir;
@@ -43,52 +44,52 @@ async fn it_generate_with_path() -> anyhow::Result<()> {
 }
 
 fn test_formatted_json_data() -> String {
-    let s = r#"
-    {
-    "replayChatItemAction": {
-        "actions": [
+    let s = indoc! {r#"
         {
-            "clickTrackingParams": "clickTrackingParams",
-            "addChatItemAction": {
-            "item": {
-                "liveChatTextMessageRenderer": {
-                "message": { "runs": [{ "text": "メッセージ" }] },
-                "authorName": { "simpleText": "authorName" },
-                "authorPhoto": {
-                    "thumbnails": [
-                    {
-                        "url": "https://yt4.ggpht.com/",
-                        "width": 32,
-                        "height": 32
-                    },
-                    { "url": "https://yt4.ggpht.com/", "width": 64, "height": 64 }
-                    ]
-                },
-                "contextMenuEndpoint": {
+            "replayChatItemAction": {
+                "actions": [
+                {
                     "clickTrackingParams": "clickTrackingParams",
-                    "commandMetadata": {
-                    "webCommandMetadata": { "ignoreNavigation": true }
+                    "addChatItemAction": {
+                    "item": {
+                        "liveChatTextMessageRenderer": {
+                        "message": { "runs": [{ "text": "メッセージ" }] },
+                        "authorName": { "simpleText": "authorName" },
+                        "authorPhoto": {
+                            "thumbnails": [
+                            {
+                                "url": "https://yt4.ggpht.com/",
+                                "width": 32,
+                                "height": 32
+                            },
+                            { "url": "https://yt4.ggpht.com/", "width": 64, "height": 64 }
+                            ]
+                        },
+                        "contextMenuEndpoint": {
+                            "clickTrackingParams": "clickTrackingParams",
+                            "commandMetadata": {
+                            "webCommandMetadata": { "ignoreNavigation": true }
+                            },
+                            "liveChatItemContextMenuEndpoint": { "params": "params==" }
+                        },
+                        "id": "id",
+                        "timestampUsec": "1733370114906095",
+                        "authorExternalChannelId": "authorExternalChannelId",
+                        "contextMenuAccessibility": {
+                            "accessibilityData": { "label": "Chat actions" }
+                        },
+                        "trackingParams": "trackingParams"
+                        }
                     },
-                    "liveChatItemContextMenuEndpoint": { "params": "params==" }
-                },
-                "id": "id",
-                "timestampUsec": "1733370114906095",
-                "authorExternalChannelId": "authorExternalChannelId",
-                "contextMenuAccessibility": {
-                    "accessibilityData": { "label": "Chat actions" }
-                },
-                "trackingParams": "trackingParams"
+                    "clientId": "clientId"
+                    }
                 }
+                ]
             },
-            "clientId": "clientId"
-            }
+            "videoOffsetTimeMsec": "-416809",
+            "isLive": true
         }
-        ]
-    },
-    "videoOffsetTimeMsec": "-416809",
-    "isLive": true
-    }
-    "#;
+    "#};
 
     s.to_string()
 }

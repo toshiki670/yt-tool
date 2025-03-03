@@ -22,7 +22,7 @@ url = { workspace = true, features = ["serde"] }
 itertools = { workspace = true }
 
 [dev-dependencies]
+indoc = { workspace = true }
 pretty_assertions = { workspace = true }
 rust_support = { workspace = true, features = ['test'] }
 tempfile = { workspace = true }
-indoc = { workspace = true }

@@ -5,7 +5,18 @@ edition.workspace = true
 license.workspace = true
 authors.workspace = true
 
+[workspace.package]
+version = "0.3.6"
+edition = "2024"
+authors = ["Toshiki"]
+license = "MIT"
+
+[workspace]
+members = ["youtube"]
+
 [dependencies]
+youtube = { path = "youtube" }
+
 anyhow = { workspace = true } # https://zenn.dev/yukinarit/articles/b39cd42820f29e
 clap = { workspace = true, features = ["derive"] }
 clap_complete = { workspace = true }
@@ -18,15 +29,14 @@ rust_support = { workspace = true }
 thiserror = { workspace = true }
 tokio = { workspace = true }
 
-youtube = { path = "youtube" }
-
-[workspace]
-members = [
-  "youtube"
-  ]
+[dev-dependencies]
+assert_cmd = { workspace = true }
+predicates = { workspace = true }
+test-case = { workspace = true }
 
 [workspace.dependencies]
 anyhow = "1.0.97"
+assert_cmd = "2.0"
 chrono = "0.4.40"
 clap = "4.5.31"
 clap_complete = "4.5.46"
@@ -38,6 +48,7 @@ indexmap = "2.7.1"
 indoc = "2.0.6"
 itertools = "0.14.0"
 log = "0.4.26"
+predicates = "3.0"
 pretty_assertions = "1.4.1"
 rust_support = "0.1.2"
 serde = "1.0.218"
@@ -47,9 +58,3 @@ test-case = "*"
 thiserror = "2.0.12"
 tokio = { version = "1.43.0", features = ["full"] }
 url = "2.5.4"
-
-[workspace.package]
-version = "0.3.6"
-edition = "2024"
-authors = ["Toshiki"]
-license = "MIT"

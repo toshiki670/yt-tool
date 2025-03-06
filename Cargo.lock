@@ -1514,6 +1514,7 @@ dependencies = [
  "log",
  "predicates",
  "rust_support",
+ "tempfile",
  "test-case",
  "thiserror",
  "tokio",

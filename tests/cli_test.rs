@@ -25,15 +25,18 @@ fn it_works_as_stderr(arg: &str, expected: &str) {
 }
 
 #[test]
-fn test_completion_generation() {
+fn it_works_as_completion_generation() {
     let mut cmd = Command::cargo_bin("yt-tool").unwrap();
     cmd.arg("--generate-completions").arg("bash");
     cmd.assert().success();
 }
 
-#[test]
-fn test_youtube_subcommand() {
+#[test_case("-h", "yt-tool youtube"; "when a flag is -h")]
+#[test_case("--help", "yt-tool youtube"; "when a flag is --help")]
+fn it_works_as_youtube_subcommand(arg: &str, expected: &str) {
     let mut cmd = Command::cargo_bin("yt-tool").unwrap();
-    cmd.arg("youtube").arg("--help");
-    cmd.assert().success();
+    cmd.arg("youtube").arg(arg);
+    cmd.assert()
+        .success()
+        .stdout(predicate::str::contains(expected));
 }

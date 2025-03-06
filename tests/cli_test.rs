@@ -25,15 +25,15 @@ fn it_works_as_stderr(arg: &str, expected: &str) {
 }
 
 #[test]
-fn test_youtube_subcommand() {
+fn test_completion_generation() {
     let mut cmd = Command::cargo_bin("yt-tool").unwrap();
-    cmd.arg("youtube").arg("--help");
+    cmd.arg("--generate-completions").arg("bash");
     cmd.assert().success();
 }
 
 #[test]
-fn test_completion_generation() {
+fn test_youtube_subcommand() {
     let mut cmd = Command::cargo_bin("yt-tool").unwrap();
-    cmd.arg("--generate-completions").arg("bash");
+    cmd.arg("youtube").arg("--help");
     cmd.assert().success();
 }

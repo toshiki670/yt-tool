@@ -47,3 +47,15 @@ fn it_works_as_youtube_subcommand(arg: &str, expected: &str) {
         .success()
         .stdout(predicate::str::contains(expected));
 }
+
+#[test_case("-h", "yt-tool youtube chat"; "when a flag is -h")]
+#[test_case("--help", "yt-tool youtube chat"; "when a flag is --help")]
+fn it_works_as_youtube_chat_subcommand(arg: &str, expected: &str) {
+    subject()
+        .arg("youtube")
+        .arg("chat")
+        .arg(arg)
+        .assert()
+        .success()
+        .stdout(predicate::str::contains(expected));
+}

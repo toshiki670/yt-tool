@@ -1,0 +1,68 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Cursor Rule: ライブラリの更新をして
+
+## 概要
+依存関係を最新バージョンに更新し、自動的にPRを作成するルールです。
+
+## コマンド名
+`ライブラリの更新をして`
+
+## 説明
+このルールは以下の操作を自動的に実行します：
+1. 日付ベースの新しいブランチを作成
+2. 依存関係を最新バージョンに更新
+3. 変更をコミット
+4. GitHub PRを作成
+
+## 実行手順
+```json
+{
+  "type": "shell",
+  "command": "git switch -c update-$(date +%m-%d)"
+}
+```
+新しいブランチを作成します（例：`update-03-28`）
+
+```json
+{
+  "type": "shell",
+  "command": "makers update"
+}
+```
+`makers update`コマンドで依存関係を更新します
+
+```json
+{
+  "type": "shell",
+  "command": "git add . && git commit -m \"Update dependencies to latest versions\""
+}
+```
+変更をコミットします
+
+```json
+{
+  "type": "shell",
+  "command": "gh pr create --title \"Update dependencies $(date +%Y-%m-%d)\" --body \"Update dependencies to their latest versions\""
+}
+```
+GitHub PRを作成します
+
+## 前提条件
+- Git
+- GitHub CLI (`gh`)
+- `makers`コマンド
+- GitHubへのログイン状態
+- リポジトリへの書き込み権限
+
+## 使用方法
+Cursorのチャット欄で「ライブラリの更新をして」と入力するだけです。
+
+## カスタマイズ可能な項目
+- ブランチ名のフォーマット
+- コミットメッセージ
+- PRのタイトルと説明文
+- コマンドの実行順序

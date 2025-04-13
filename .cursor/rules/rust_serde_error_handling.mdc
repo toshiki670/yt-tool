@@ -1,0 +1,60 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# ルール名: Rust `serde` デシリアライズエラー対応 (YouTube Live Chat 例, RED->GREEN & マスキング)
+
+## 目的:
+
+- 外部 API (例: YouTube API) の変更などにより発生する `serde` のデシリアライズエラー (`unknown field` や `missing field`) に対処する。特に `yt-tool` の `youtube chat` コマンド実行時に発生するケースを想定。
+- テスト駆動開発 (TDD) の RED->GREEN サイクルに従い、修正と検証を行う。
+- テストデータに含まれる個人情報や機密情報をマスクする。
+
+## トリガー/状況:
+
+- `cargo run -- -v youtube chat -r '*.json'` のようなコマンドを実行した際に、`serde` のデシリアライズエラー (例: `unknown field ...`, `missing field ...`) がログに出力された場合。
+
+## 手順:
+
+### 1. RED (テスト失敗の再現)
+
+- **エラー特定:** `cargo run` 実行時のエラーログを詳細に確認し、問題が発生している **ファイル名** (例: `[VIDEO_ID].live_chat.json`)、**行番号**、**フィールド名** を特定する。
+- **データ抽出:** 特定したファイルと行番号を元に、**エラーを引き起こしている JSON データ** スニペットを取得する。
+  - 例: `sed -n '<行番号>p' "<ファイル名>"` コマンドを使用する (ファイルが大きい場合)。
+  - (または、エラーログが `... at line 1 column XXXX` の形式であれば、`grep` などで該当箇所を検索する。)
+- **テストケース作成:**
+  - 抽出した JSON スニペットを、適切なテストディレクトリ (例: `youtube/tests/formatted_json_service/json/`) に新しい `.json` ファイルとして保存する。
+  - **ファイル名の命名規則:** JSON データ内の主要な Action 名 (例: `replayChatItemAction`, `addChatItemAction` のキー) を探し、それを **スネークケースに変換** したものをファイル名とする (例: `replay_chat_item_action.json`)。
+- **テスト実行 & 失敗確認:**
+  - 関連するテストスイートを実行する (`cargo test -p youtube --test test_main -- --nocapture` など、プロジェクト固有のテストコマンドを確認)。
+  - **新しく追加したテストケースが原因で、テストが失敗することを確認する。** エラーメッセージが予期したもの (例: `unknown field '...'`) と一致するか確認する。
+
+### 2. GREEN (コード修正とテスト成功)
+
+- **構造体特定:** エラーメッセージ (期待されていたフィールド名 `expected one of ...` など) や JSON の内容を手がかりに、デシリアライズに失敗している Rust の **構造体定義** を特定する (`grep` やコード検索を活用)。関連する `.rs` ファイル (例: `youtube/src/domain/live_chat/values/` や `youtube/src/domain/live_chat/actions.rs` など) を探す。
+- **構造体修正:** 特定した構造体定義を以下のように修正する。
+  - **`unknown field` エラーの場合:**
+    - JSON に存在するフィールドが構造体にない場合、そのフィールドを構造体に追加する。通常、API の変更は予期せぬタイミングで起こるため、**`Option<T>`** として追加するのが安全 (例: `pub logging_directives: Option<LoggingDirectives>`)。
+    - (代替案: `#[serde(deny_unknown_fields)]` を削除する。ただし、将来的に必要なフィールドを見逃す可能性があるため注意)。
+  - **`missing field` エラーの場合:**
+    - JSON に存在しない場合があるフィールドが構造体で必須になっている場合、そのフィールドを **`Option<T>`** に変更する (例: `pub logging_directives: Option<LoggingDirectives>`)。
+- **テスト再実行 & 確認:**
+  - 再度テストを実行する (`cargo test -p youtube --test test_main -- --nocapture` など)。
+  - **もし `assertion failed: (...)` のようなアサーションエラーで失敗する場合:**
+    - エラーメッセージを確認し、期待結果ファイル (例: `youtube/tests/formatted_json_service/expected/` 内の `.csv`) が不足しているか、内容が異なっているか判断する。
+    - **期待結果ファイル不足の場合:**
+      - まず、空の期待結果ファイルを作成する (例: `touch youtube/tests/formatted_json_service/expected/replay_chat_item_action.csv`)。
+      - 再度テストを実行し、今度は内容不一致で失敗することを確認する。
+    - **内容不一致の場合:**
+      - テスト実行時の **実際 (actual) の出力内容** を、**期待 (expected) 結果ファイル** にコピー＆ペーストする。
+      - **注意:** ファイル末尾の改行やスペースが原因で失敗することがあるため、Diff をよく確認し、期待結果ファイルを正確に修正する。
+  - **すべてのテストが成功するまで、修正とテスト実行を繰り返す。**
+
+### 3. REFACTOR (テストデータのマスク)
+
+- **機密情報特定:** ステップ 1 で追加したテスト `.json` ファイル (例: `youtube/tests/formatted_json_service/json/replay_chat_item_action.json`) を開き、個人情報や機密情報にあたる値 (ユーザー名、チャンネル ID、個人を特定できるメッセージ内容、固有のキーやトークン、一部の URL など) を特定する。
+- **JSON マスク:** 特定した値を、**JSON の構造を変えずに** 、`"MASKED_ID"` や `"Masked Author Name"` のような一般的な代替文字列に置換する。
+  - **注意:** マスクすべきでない値 (例: 汎用的なラベル `"Member (6 months)"`) を誤ってマスクしないように注意する。必要に応じてマスク対象から除外する。
+- **期待結果更新:** マスクした JSON データに合わせて、ステップ 2 で作成・修正した **期待結果ファイル (例: `youtube/tests/formatted_json_service/expected/replay_chat_item_action.csv`) の内容も同様に更新する**。
+- **最終テスト確認:** 再度テストを実行し (`cargo test -p youtube --test test_main -- --nocapture` など)、**マスクされたデータでもテストが成功することを確認する。**

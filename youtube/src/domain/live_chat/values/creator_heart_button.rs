@@ -18,6 +18,7 @@ pub struct CreatorHeartViewModel {
     pub hearted_icon: Sources<ClientResource>,
     pub unhearted_accessibility_label: String,
     pub unhearted_icon: UnheartedIcon,
+    pub logging_directives: Option<LoggingDirectives>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -67,4 +68,17 @@ pub struct ImageTint {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct Color {
     pub color: i64,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
+pub struct LoggingDirectives {
+    pub tracking_params: String,
+    pub visibility: Visibility,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
+pub struct Visibility {
+    pub types: String,
 }

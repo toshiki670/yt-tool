@@ -27,6 +27,7 @@ use update_live_chat_poll_action::UpdateLiveChatPollAction;
 pub struct Actions {
     pub actions: Vec<Action>,
     pub video_offset_time_msec: Option<String>,
+    pub is_live: Option<bool>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

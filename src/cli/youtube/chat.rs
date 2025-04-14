@@ -2,6 +2,7 @@
 // https://tech.natsuneko.blog/entry/2022/03/15/exclusive-command-options-in-clap
 
 use crate::cli::Route;
+use anyhow::Context as _;
 use rust_support::glob;
 use std::path::PathBuf;
 use youtube::prelude::*;
@@ -42,8 +43,9 @@ pub(super) struct Args {
 impl Route for Args {
     async fn route(&self) -> anyhow::Result<()> {
         if let Some(file_path) = &self.watch_file {
-            println!("(Placeholder) Watching file: {}", file_path.display());
-            eprintln!("Watch mode is not fully implemented yet.");
+            watch_and_print(file_path)
+                .await
+                .context("Chat watching process failed")?;
         } else if let Some(patterns) = &self.input_patterns {
             let input_files = glob::expend_glob_input_patterns(patterns)?;
             let interface = LiveChatJsonInterface::new(&input_files);

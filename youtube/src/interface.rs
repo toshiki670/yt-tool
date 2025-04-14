@@ -3,3 +3,4 @@
 
 pub(crate) mod formatted_json_interface;
 pub(crate) mod live_chat_json_interface;
+pub(crate) mod live_chat_watch_interface;

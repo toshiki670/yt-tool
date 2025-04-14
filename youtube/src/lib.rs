@@ -8,4 +8,5 @@ pub mod prelude {
 
     pub use crate::interface::formatted_json_interface::*;
     pub use crate::interface::live_chat_json_interface::*;
+    pub use crate::interface::live_chat_watch_interface::*;
 }

@@ -1,4 +1,4 @@
-use crate::application::chat_service::ChatConvertService;
+use crate::application::use_cases::chat_convert::ChatConvertUseCase;
 use crate::infrastructure::io::chat_service_repository::IoChatServiceRepository;
 use chrono::prelude::*;
 use std::path::{Path, PathBuf};
@@ -33,7 +33,7 @@ impl LiveChatJsonCommand<'_, PathBuf> {
             target_path,
         )?];
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
 
         service.convert_from_lines().await
     }
@@ -53,7 +53,7 @@ impl LiveChatJsonCommand<'_, PathBuf> {
             target_path,
         )?];
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
 
         service.convert_from_lines().await
     }
@@ -78,7 +78,7 @@ impl LiveChatJsonCommand<'_, Vec<PathBuf>> {
 
         let repositories = rust_support::anyhow::collect_results(results)?;
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
 
         service.convert_from_lines().await
     }
@@ -104,7 +104,7 @@ impl LiveChatJsonCommand<'_, Vec<PathBuf>> {
 
         let repositories = rust_support::anyhow::collect_results(results)?;
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
 
         service.convert_from_lines().await
     }
@@ -125,7 +125,7 @@ impl LiveChatJsonCommand<'_, String> {
             target_path,
         )?];
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
 
         service.convert_from_lines().await
     }

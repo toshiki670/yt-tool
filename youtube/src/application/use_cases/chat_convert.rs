@@ -2,11 +2,11 @@ use crate::domain::repositories::ChatServiceRepository;
 use futures::future;
 use rust_support::anyhow::collect_results;
 
-pub struct ChatConvertService<T: ChatServiceRepository> {
+pub struct ChatConvertUseCase<T: ChatServiceRepository> {
     chat_service_repositories: Vec<T>,
 }
 
-impl<T: ChatServiceRepository> ChatConvertService<T> {
+impl<T: ChatServiceRepository> ChatConvertUseCase<T> {
     pub fn new(chat_service_repositories: Vec<T>) -> Self {
         Self {
             chat_service_repositories,
@@ -18,7 +18,7 @@ impl<T: ChatServiceRepository> ChatConvertService<T> {
     }
 }
 
-impl<T> ChatConvertService<T>
+impl<T> ChatConvertUseCase<T>
 where
     T: ChatServiceRepository,
 {

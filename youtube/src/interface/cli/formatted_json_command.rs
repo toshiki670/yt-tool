@@ -1,4 +1,4 @@
-use crate::application::chat_service::ChatConvertService;
+use crate::application::use_cases::chat_convert::ChatConvertUseCase;
 use crate::infrastructure::io::chat_service_repository::IoChatServiceRepository;
 use std::path::{Path, PathBuf};
 
@@ -32,7 +32,7 @@ impl FormattedJsonCommand<'_, PathBuf> {
             target_path,
         )?];
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
 
         service.convert_from_chunk().await
     }
@@ -51,7 +51,7 @@ impl FormattedJsonCommand<'_, PathBuf> {
             target_path,
         )?];
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
         service.convert_from_chunk().await
     }
 
@@ -64,7 +64,7 @@ impl FormattedJsonCommand<'_, PathBuf> {
 
         let repositories = vec![IoChatServiceRepository::file_to_in_memory(source_path)?];
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
         service.convert_from_chunk().await?;
 
         let repositories = service.move_chat_service_repository();
@@ -93,7 +93,7 @@ impl FormattedJsonCommand<'_, Vec<PathBuf>> {
 
         let repositories = rust_support::anyhow::collect_results(results)?;
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
 
         service.convert_from_chunk().await
     }
@@ -114,7 +114,7 @@ impl FormattedJsonCommand<'_, String> {
             target_path,
         )?];
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
 
         service.convert_from_chunk().await
     }
@@ -130,7 +130,7 @@ impl FormattedJsonCommand<'_, String> {
             source_string,
         )?];
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
         service.convert_from_chunk().await?;
 
         let repositories = service.move_chat_service_repository();

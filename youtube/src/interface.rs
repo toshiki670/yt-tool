@@ -1,6 +1,7 @@
 //! This module contains the interface layer logic.
 //! The interface layer is the layer that interacts with the outside world.
 
-pub(crate) mod formatted_json_interface;
-pub(crate) mod live_chat_json_interface;
-pub(crate) mod live_chat_watch_interface;
+pub mod cli;
+pub mod formatted_json_interface;
+pub mod live_chat_json_interface;
+pub mod presenter;

@@ -43,7 +43,9 @@ pub(super) struct Args {
 impl Route for Args {
     async fn route(&self) -> anyhow::Result<()> {
         if let Some(file_path) = &self.watch_file {
-            watch_and_print(file_path)
+            let command = WatchChatCommand::new();
+            command
+                .execute(file_path)
                 .await
                 .context("Chat watching process failed")?;
         } else if let Some(patterns) = &self.input_patterns {

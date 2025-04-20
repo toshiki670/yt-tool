@@ -7,19 +7,23 @@ authors.workspace = true
 
 [dependencies]
 anyhow = { workspace = true }
+async-stream = { workspace = true }
+async-trait = { workspace = true }
 chrono = { workspace = true, features = ["serde"] } # https://docs.rs/chrono/latest/chrono/serde/ts_seconds/fn.serialize.html
 csv = { workspace = true }
 env_logger = { workspace = true }
 futures = { workspace = true }
 indexmap = { workspace = true }
+itertools = { workspace = true }
 log = { workspace = true }
+notify = { workspace = true }
 rust_support = { workspace = true }
 serde = { workspace = true, features = ["derive"] } # https://serde.rs/container-attrs.html
 serde_json = { workspace = true }
 thiserror = { workspace = true }
 tokio = { workspace = true }
+tokio-stream = { workspace = true }
 url = { workspace = true, features = ["serde"] }
-itertools = { workspace = true }
 
 [dev-dependencies]
 indoc = { workspace = true }

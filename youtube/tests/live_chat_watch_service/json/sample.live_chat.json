@@ -1,0 +1,19 @@
+{
+  "replayChatItemAction": {
+    "actions": [
+      {
+        "addChatItemAction": {
+          "item": {
+            "liveChatTextMessageRenderer": {
+              "message": { "runs": [{ "text": "こんにちは" }] },
+              "authorName": { "simpleText": "テストユーザー" },
+              "timestampUsec": "1700000000000000",
+              "id": "test-id-1",
+              "authorExternalChannelId": "test-channel-1"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

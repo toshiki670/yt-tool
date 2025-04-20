@@ -2,14 +2,14 @@ mod category;
 mod content;
 mod posted_at;
 
-pub(crate) use category::CategoryValue;
-pub(crate) use content::Content;
-pub(crate) use posted_at::PostedAtValue;
+pub use category::CategoryValue;
+pub use content::Content;
+pub use posted_at::PostedAtValue;
 use serde::Serialize;
 
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct SimpleChatEntity {
+pub struct SimpleChatEntity {
     pub id: String,
     pub author_external_channel_id: Option<String>,
     pub posted_at: Option<PostedAtValue>,

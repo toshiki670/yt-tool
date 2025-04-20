@@ -2,7 +2,7 @@ use serde::{Serialize, Serializer};
 use std::fmt;
 
 #[derive(Debug, Clone, PartialEq)]
-pub(crate) enum CategoryValue {
+pub enum CategoryValue {
     Banner,
     MembershipItem,
     Metadata, // This is special category for metadata of live chat.

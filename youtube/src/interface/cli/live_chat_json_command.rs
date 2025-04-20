@@ -1,14 +1,15 @@
 use crate::application::chat_service::ChatConvertService;
 use crate::infrastructure::io::chat_service_repository::IoChatServiceRepository;
+use chrono::prelude::*;
 use std::path::{Path, PathBuf};
 
 /// This service provides an interface for managing and retrieving live chat JSON data from files.
-pub struct FormattedJsonInterface<'a, T> {
+pub struct LiveChatJsonCommand<'a, T> {
     source: &'a T,
 }
 
-impl<'a, T> FormattedJsonInterface<'a, T> {
-    /// Create a new FormatedJsonService instance.
+impl<'a, T> LiveChatJsonCommand<'a, T> {
+    /// Create a new LiveChatJsonService instance.
     ///
     /// # Arguments
     /// - `inner`: Source file path.
@@ -18,7 +19,7 @@ impl<'a, T> FormattedJsonInterface<'a, T> {
 }
 
 /// This implementation is for the PathBuf type.
-impl FormattedJsonInterface<'_, PathBuf> {
+impl LiveChatJsonCommand<'_, PathBuf> {
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
@@ -34,7 +35,7 @@ impl FormattedJsonInterface<'_, PathBuf> {
 
         let service = ChatConvertService::new(repositories);
 
-        service.convert_from_chunk().await
+        service.convert_from_lines().await
     }
 
     /// Generate simple chat CSV data from live chat JSON data.
@@ -45,6 +46,7 @@ impl FormattedJsonInterface<'_, PathBuf> {
         let source_path = self.source.clone();
         let mut target_path = source_path.clone();
         target_path.set_extension(file_type);
+        let target_path = target_path;
 
         let repositories = vec![IoChatServiceRepository::file_to_file(
             source_path,
@@ -52,29 +54,12 @@ impl FormattedJsonInterface<'_, PathBuf> {
         )?];
 
         let service = ChatConvertService::new(repositories);
-        service.convert_from_chunk().await
-    }
 
-    /// Generate simple chat CSV data from live chat JSON data.
-    ///
-    /// # Returns
-    /// - `anyhow::Result<String>`: Result of the conversion.
-    pub async fn generate_string(&self) -> anyhow::Result<String> {
-        let source_path = self.source.clone();
-
-        let repositories = vec![IoChatServiceRepository::file_to_in_memory(source_path)?];
-
-        let service = ChatConvertService::new(repositories);
-        service.convert_from_chunk().await?;
-
-        let repositories = service.move_chat_service_repository();
-
-        let data_str = repositories.first().unwrap().to_in_memory_data()?;
-        Ok(data_str)
+        service.convert_from_lines().await
     }
 }
 
-impl FormattedJsonInterface<'_, Vec<PathBuf>> {
+impl LiveChatJsonCommand<'_, Vec<PathBuf>> {
     /// Generate simple chat CSV data from live chat JSON data.
     pub async fn generate_files_with_csv(&self) -> anyhow::Result<()> {
         let source_paths = self.source.clone();
@@ -95,17 +80,43 @@ impl FormattedJsonInterface<'_, Vec<PathBuf>> {
 
         let service = ChatConvertService::new(repositories);
 
-        service.convert_from_chunk().await
+        service.convert_from_lines().await
+    }
+
+    /// Generate simple chat CSV data from live chat JSON data.
+    pub async fn generate_files_with_timestamped_name(&self) -> anyhow::Result<()> {
+        let source_paths = self.source.clone();
+
+        let results = source_paths
+            .into_iter()
+            .map(|source_path| {
+                let created_at = source_path.metadata()?.created()?;
+                let created_at: DateTime<Local> = created_at.into();
+
+                let target_path = source_path
+                    .with_file_name(format!("{}.csv", created_at.format("%Y-%m-%dT%H-%M-%S%z")));
+
+                let rp = IoChatServiceRepository::file_to_file(source_path, target_path)?;
+
+                Ok(rp)
+            })
+            .collect::<Vec<_>>();
+
+        let repositories = rust_support::anyhow::collect_results(results)?;
+
+        let service = ChatConvertService::new(repositories);
+
+        service.convert_from_lines().await
     }
 }
 
 /// This implementation is for the String type.
-impl FormattedJsonInterface<'_, String> {
+impl LiveChatJsonCommand<'_, String> {
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
-    /// - `to_path`: The path to save the converted data.
-    pub async fn generate_file_with_path(&self, target_path: &Path) -> anyhow::Result<()> {
+    /// - `target_path`: The path to save the converted data.
+    pub async fn generate_file_with_string(&self, target_path: &Path) -> anyhow::Result<()> {
         let source_string = self.source.clone();
         let target_path = target_path.to_path_buf();
 
@@ -116,26 +127,6 @@ impl FormattedJsonInterface<'_, String> {
 
         let service = ChatConvertService::new(repositories);
 
-        service.convert_from_chunk().await
-    }
-
-    /// Generate simple chat CSV data from live chat JSON data.
-    ///
-    /// # Returns
-    /// - `anyhow::Result<String>`: Result of the conversion.
-    pub async fn generate_string(&self) -> anyhow::Result<String> {
-        let source_string = self.source.clone();
-
-        let repositories = vec![IoChatServiceRepository::in_memory_to_in_memory(
-            source_string,
-        )?];
-
-        let service = ChatConvertService::new(repositories);
-        service.convert_from_chunk().await?;
-
-        let repositories = service.move_chat_service_repository();
-
-        let data_str = repositories.first().unwrap().to_in_memory_data()?;
-        Ok(data_str)
+        service.convert_from_lines().await
     }
 }

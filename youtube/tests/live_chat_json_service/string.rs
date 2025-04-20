@@ -4,7 +4,7 @@ use pretty_assertions::assert_eq;
 use std::{env, path::PathBuf};
 use tempfile::tempdir;
 use tokio::{fs, try_join};
-use youtube::prelude::LiveChatJsonInterface;
+use youtube::prelude::LiveChatJsonCommand;
 
 fn test_root_dir() -> PathBuf {
     env::current_dir()
@@ -24,8 +24,8 @@ async fn it_generate_with_path() -> anyhow::Result<()> {
     let output_path = test_dir.path().join("output.csv");
 
     // Run the test subject
-    let interface = LiveChatJsonInterface::new(&input_json);
-    interface.generate_file_with_string(&output_path).await?;
+    let command = LiveChatJsonCommand::new(&input_json);
+    command.generate_file_with_string(&output_path).await?;
 
     // Read expected csv file
     let expected_path = test_expected_dir().join("live_chat.csv");

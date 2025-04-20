@@ -11,7 +11,7 @@ use std::{
 };
 use tempfile::tempdir;
 use tokio::fs;
-use youtube::prelude::LiveChatJsonInterface;
+use youtube::prelude::LiveChatJsonCommand;
 
 fn test_root_dir() -> PathBuf {
     env::current_dir()
@@ -73,8 +73,8 @@ async fn it_generate_with_path_and_timestamped_name() -> anyhow::Result<()> {
     let imput_paths = vec![imput_path];
 
     // Run the test subject
-    let interface = LiveChatJsonInterface::new(&imput_paths);
-    interface.generate_files_with_timestamped_name().await?;
+    let command = LiveChatJsonCommand::new(&imput_paths);
+    command.generate_files_with_timestamped_name().await?;
 
     // Prepare expected file paths
     let imput_path = imput_paths.first().unwrap();
@@ -108,8 +108,8 @@ async fn it_generate_with_type() -> anyhow::Result<()> {
     let output_type = "csv".to_string();
 
     // Run the test subject
-    let interface = LiveChatJsonInterface::new(&input_path);
-    interface.generate_file_with_type(&output_type).await?;
+    let command = LiveChatJsonCommand::new(&input_path);
+    command.generate_file_with_type(&output_type).await?;
 
     // Assert the result
     let expected_path = test_expected_dir().join("live_chat.csv");

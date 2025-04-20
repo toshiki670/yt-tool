@@ -50,12 +50,12 @@ impl Route for Args {
                 .context("Chat watching process failed")?;
         } else if let Some(patterns) = &self.input_patterns {
             let input_files = glob::expend_glob_input_patterns(patterns)?;
-            let interface = LiveChatJsonInterface::new(&input_files);
+            let command = LiveChatJsonCommand::new(&input_files);
 
             if self.rename_with_timestamp {
-                interface.generate_files_with_timestamped_name().await?;
+                command.generate_files_with_timestamped_name().await?;
             } else {
-                interface.generate_files_with_csv().await?;
+                command.generate_files_with_csv().await?;
             }
         } else {
             anyhow::bail!("Either input patterns or a file to watch must be specified.");

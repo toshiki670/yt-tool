@@ -9,7 +9,7 @@ use std::{
 };
 use tempfile::tempdir;
 use tokio::fs;
-use youtube::prelude::FormattedJsonInterface;
+use youtube::prelude::FormattedJsonCommand;
 
 fn test_root_dir() -> PathBuf {
     env::current_dir()
@@ -38,8 +38,8 @@ async fn it_generate_with_paths() -> anyhow::Result<()> {
     let imput_paths = read_paths(test_dir.path())?;
 
     // Run the test subject
-    let interface = FormattedJsonInterface::new(&imput_paths);
-    interface.generate_files_with_csv().await?;
+    let command = FormattedJsonCommand::new(&imput_paths);
+    command.generate_files_with_csv().await?;
 
     // Prepare expected file paths
     let expected_dir = test_expected_dir();
@@ -70,8 +70,8 @@ async fn it_generate_with_type() -> anyhow::Result<()> {
     let output_type = "csv".to_string();
 
     // Run the test subject
-    let interface = FormattedJsonInterface::new(&input_path);
-    interface.generate_file_with_type(&output_type).await?;
+    let command = FormattedJsonCommand::new(&input_path);
+    command.generate_file_with_type(&output_type).await?;
 
     // Assert the result
     let expected_path = test_expected_dir().join("formatted.csv");

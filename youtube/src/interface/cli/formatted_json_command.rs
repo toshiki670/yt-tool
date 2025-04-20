@@ -1,13 +1,13 @@
-use crate::application::chat_service::ChatConvertService;
+use crate::application::use_cases::chat_convert::ChatConvertUseCase;
 use crate::infrastructure::io::chat_service_repository::IoChatServiceRepository;
 use std::path::{Path, PathBuf};
 
 /// This service provides an interface for managing and retrieving live chat JSON data from files.
-pub struct FormattedJsonInterface<'a, T> {
+pub struct FormattedJsonCommand<'a, T> {
     source: &'a T,
 }
 
-impl<'a, T> FormattedJsonInterface<'a, T> {
+impl<'a, T> FormattedJsonCommand<'a, T> {
     /// Create a new FormatedJsonService instance.
     ///
     /// # Arguments
@@ -18,7 +18,7 @@ impl<'a, T> FormattedJsonInterface<'a, T> {
 }
 
 /// This implementation is for the PathBuf type.
-impl FormattedJsonInterface<'_, PathBuf> {
+impl FormattedJsonCommand<'_, PathBuf> {
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
@@ -32,7 +32,7 @@ impl FormattedJsonInterface<'_, PathBuf> {
             target_path,
         )?];
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
 
         service.convert_from_chunk().await
     }
@@ -51,7 +51,7 @@ impl FormattedJsonInterface<'_, PathBuf> {
             target_path,
         )?];
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
         service.convert_from_chunk().await
     }
 
@@ -64,7 +64,7 @@ impl FormattedJsonInterface<'_, PathBuf> {
 
         let repositories = vec![IoChatServiceRepository::file_to_in_memory(source_path)?];
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
         service.convert_from_chunk().await?;
 
         let repositories = service.move_chat_service_repository();
@@ -74,7 +74,7 @@ impl FormattedJsonInterface<'_, PathBuf> {
     }
 }
 
-impl FormattedJsonInterface<'_, Vec<PathBuf>> {
+impl FormattedJsonCommand<'_, Vec<PathBuf>> {
     /// Generate simple chat CSV data from live chat JSON data.
     pub async fn generate_files_with_csv(&self) -> anyhow::Result<()> {
         let source_paths = self.source.clone();
@@ -93,14 +93,14 @@ impl FormattedJsonInterface<'_, Vec<PathBuf>> {
 
         let repositories = rust_support::anyhow::collect_results(results)?;
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
 
         service.convert_from_chunk().await
     }
 }
 
 /// This implementation is for the String type.
-impl FormattedJsonInterface<'_, String> {
+impl FormattedJsonCommand<'_, String> {
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
@@ -114,7 +114,7 @@ impl FormattedJsonInterface<'_, String> {
             target_path,
         )?];
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
 
         service.convert_from_chunk().await
     }
@@ -130,7 +130,7 @@ impl FormattedJsonInterface<'_, String> {
             source_string,
         )?];
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
         service.convert_from_chunk().await?;
 
         let repositories = service.move_chat_service_repository();

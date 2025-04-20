@@ -5,7 +5,7 @@ use pretty_assertions::assert_eq;
 use std::{env, path::PathBuf};
 use tempfile::tempdir;
 use tokio::{fs, try_join};
-use youtube::prelude::FormattedJsonInterface;
+use youtube::prelude::FormattedJsonCommand;
 
 fn test_root_dir() -> PathBuf {
     env::current_dir()
@@ -25,8 +25,8 @@ async fn it_generate_with_path() -> anyhow::Result<()> {
     let output_path = test_dir.path().join("output.csv");
 
     // Run the test subject
-    let interface = FormattedJsonInterface::new(&input_json);
-    interface.generate_file_with_path(&output_path).await?;
+    let command = FormattedJsonCommand::new(&input_json);
+    command.generate_file_with_path(&output_path).await?;
 
     // Read expected csv file
     let expected_path = test_expected_dir().join("formatted.csv");

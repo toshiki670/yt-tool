@@ -1,14 +1,14 @@
-use crate::application::chat_service::ChatConvertService;
+use crate::application::use_cases::chat_convert::ChatConvertUseCase;
 use crate::infrastructure::io::chat_service_repository::IoChatServiceRepository;
 use chrono::prelude::*;
 use std::path::{Path, PathBuf};
 
 /// This service provides an interface for managing and retrieving live chat JSON data from files.
-pub struct LiveChatJsonInterface<'a, T> {
+pub struct LiveChatJsonCommand<'a, T> {
     source: &'a T,
 }
 
-impl<'a, T> LiveChatJsonInterface<'a, T> {
+impl<'a, T> LiveChatJsonCommand<'a, T> {
     /// Create a new LiveChatJsonService instance.
     ///
     /// # Arguments
@@ -19,7 +19,7 @@ impl<'a, T> LiveChatJsonInterface<'a, T> {
 }
 
 /// This implementation is for the PathBuf type.
-impl LiveChatJsonInterface<'_, PathBuf> {
+impl LiveChatJsonCommand<'_, PathBuf> {
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
@@ -33,7 +33,7 @@ impl LiveChatJsonInterface<'_, PathBuf> {
             target_path,
         )?];
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
 
         service.convert_from_lines().await
     }
@@ -53,13 +53,13 @@ impl LiveChatJsonInterface<'_, PathBuf> {
             target_path,
         )?];
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
 
         service.convert_from_lines().await
     }
 }
 
-impl LiveChatJsonInterface<'_, Vec<PathBuf>> {
+impl LiveChatJsonCommand<'_, Vec<PathBuf>> {
     /// Generate simple chat CSV data from live chat JSON data.
     pub async fn generate_files_with_csv(&self) -> anyhow::Result<()> {
         let source_paths = self.source.clone();
@@ -78,7 +78,7 @@ impl LiveChatJsonInterface<'_, Vec<PathBuf>> {
 
         let repositories = rust_support::anyhow::collect_results(results)?;
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
 
         service.convert_from_lines().await
     }
@@ -104,14 +104,14 @@ impl LiveChatJsonInterface<'_, Vec<PathBuf>> {
 
         let repositories = rust_support::anyhow::collect_results(results)?;
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
 
         service.convert_from_lines().await
     }
 }
 
 /// This implementation is for the String type.
-impl LiveChatJsonInterface<'_, String> {
+impl LiveChatJsonCommand<'_, String> {
     /// Generate simple chat CSV data from live chat JSON data.
     ///
     /// # Arguments
@@ -125,7 +125,7 @@ impl LiveChatJsonInterface<'_, String> {
             target_path,
         )?];
 
-        let service = ChatConvertService::new(repositories);
+        let service = ChatConvertUseCase::new(repositories);
 
         service.convert_from_lines().await
     }

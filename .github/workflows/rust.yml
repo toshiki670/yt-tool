@@ -85,5 +85,6 @@ jobs:
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: stable
+          components: sccache
       - name: Run tests
         run: cargo test --workspace --verbose

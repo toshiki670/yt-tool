@@ -66,6 +66,7 @@ pub enum Contents {
 #[serde(deny_unknown_fields, rename_all = "camelCase")]
 pub struct BannerProperties {
     pub auto_collapse_delay: AutoCollapseDelay,
+    pub banner_collapsed_state_entity_key: Option<String>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

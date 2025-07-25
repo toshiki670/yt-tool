@@ -1,0 +1,132 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# 開発ワークフローとベストプラクティス
+
+## 開発環境セットアップ
+
+### 初回セットアップ
+```bash
+makers setup  # 必要なツールのインストール
+```
+
+### 日常的な開発コマンド
+- `makers t` - テスト実行
+- `makers tw` - テスト監視モード（ファイル変更時に自動実行）
+- `makers fix` - コード自動修正（fmt, clippy）
+- `makers d` - ドキュメント生成
+- `makers cov` - カバレッジレポート生成
+
+## Git ワークフロー
+
+### ブランチ戦略
+- `main` - 安定版ブランチ
+- `release/v{version}` - リリース準備ブランチ
+- `feature/{feature-name}` - 機能開発ブランチ
+- `fix/{issue-description}` - バグ修正ブランチ
+
+### コミットメッセージ規則
+- `feat:` - 新機能追加
+- `fix:` - バグ修正
+- `test:` - テスト追加・修正
+- `refactor:` - リファクタリング
+- `docs:` - ドキュメント更新
+- `chore:` - その他の変更
+
+### プルリクエストワークフロー
+1. 機能ブランチ作成
+2. 開発・テスト
+3. プルリクエスト作成
+4. コードレビュー
+5. マージ
+
+## テスト駆動開発 (TDD)
+
+### RED-GREEN-REFACTOR サイクル
+1. **RED**: 失敗するテストを書く
+2. **GREEN**: テストを通すための最小限のコード実装
+3. **REFACTOR**: コードとテストの改善
+
+### テスト実行パターン
+```bash
+# 全テスト実行
+cargo test
+
+# YouTube クレートのみ
+cargo test -p youtube
+
+# 特定のテスト
+cargo test -p youtube --test test_main -- --nocapture
+
+# 監視モード
+makers tw
+```
+
+## エラーハンドリングパターン
+
+### serde デシリアライズエラー対応
+YouTube API の変更によるフィールド追加・削除に対応するため、[rust_serde_error_handling.mdc](mdc:.cursor/rules/rust_serde_error_handling.mdc) の手順に従う。
+
+### 一般的なエラーハンドリング
+- `anyhow::Result<T>` を使用
+- `thiserror` でカスタムエラー型定義
+- エラーコンテキストの適切な追加
+
+## コード品質管理
+
+### 静的解析ツール
+- `cargo clippy` - Linting
+- `cargo fmt` - フォーマット
+- `cargo audit` - セキュリティ監査
+
+### 依存関係管理
+```bash
+makers update  # 依存関係更新
+cargo outdated  # 古い依存関係確認
+```
+
+## リリース管理
+
+### バージョニング
+セマンティックバージョニング（SemVer）を採用:
+- `MAJOR.MINOR.PATCH`
+- `MAJOR`: 破壊的変更
+- `MINOR`: 後方互換性のある機能追加
+- `PATCH`: 後方互換性のあるバグ修正
+
+### リリースコマンド
+```bash
+makers release-patch   # パッチリリース
+makers release-minor   # マイナーリリース
+makers release-major   # メジャーリリース
+makers release-rc      # リリース候補
+makers release-beta    # ベータリリース
+makers release-alpha   # アルファリリース
+```
+
+## パフォーマンス最適化
+
+### プロファイリング
+```bash
+cargo build --release
+cargo bench  # ベンチマーク実行
+```
+
+### メモリ使用量監視
+- 大きなJSONファイル処理時のメモリ効率を考慮
+- ストリーミング処理の活用
+
+## セキュリティ考慮事項
+
+### テストデータのマスキング
+- 個人情報（ユーザー名、チャンネルID）のマスク
+- 機密情報（トークン、キー）の除去
+- プライバシー保護の徹底
+
+### 依存関係セキュリティ
+```bash
+cargo audit  # セキュリティ脆弱性チェック
+```
+

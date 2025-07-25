@@ -1,0 +1,158 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# テストパターンとE2Eテストガイド
+
+## テスト構造概要
+
+### テストタイプ
+1. **Unit Tests** - 個別モジュールのテスト
+2. **Integration Tests** - モジュール間連携のテスト  
+3. **E2E Tests** - エンドツーエンドのテスト
+
+### テストディレクトリ構造
+```
+youtube/tests/
+├── test_main.rs                    # テストエントリーポイント
+├── formatted_json_service/         # フォーマット済みJSONサービステスト
+│   ├── json/                      # 入力JSONテストデータ
+│   └── expected/                  # 期待される出力結果（CSV）
+├── live_chat_json_service/         # ライブチャットJSONサービステスト
+└── live_chat_watch_service/        # ライブチャット監視サービステスト
+```
+
+## E2Eテストパターン
+
+### テストケース作成手順
+
+#### 1. JSONテストデータ準備
+```bash
+# テストデータファイル作成
+touch youtube/tests/formatted_json_service/json/{test_case_name}.json
+```
+
+#### 2. 期待結果ファイル準備
+```bash
+# 期待結果ファイル作成
+touch youtube/tests/formatted_json_service/expected/{test_case_name}.csv
+```
+
+#### 3. テスト実行と結果確認
+```bash
+# テスト実行
+cargo test -p youtube --test test_main -- --nocapture
+
+# 特定のテストケースのみ実行
+cargo test -p youtube --test test_main -- {test_case_name} --nocapture
+```
+
+### テストデータ命名規則
+
+#### JSONファイル命名
+- パターン: `{action_name_in_snake_case}.json`
+- 例: `add_chat_item_action.json`, `replay_chat_item_action.json`
+
+#### 期待結果ファイル命名
+- パターン: `{action_name_in_snake_case}.csv`
+- 例: `add_chat_item_action.csv`, `replay_chat_item_action.csv`
+
+## テストデータ作成ガイドライン
+
+### JSONテストデータ
+1. **実際のYouTube APIレスポンスから抽出**
+2. **個人情報のマスキング必須**
+   - ユーザー名 → `"Test User"`
+   - チャンネル名 → `"Test Channel Name"`
+   - チャンネルID → `"UCTestChannelId123456789"`
+   - アバターURL → `"https://example.com/avatar32.jpg"`
+3. **JSON構造の保持**
+4. **エラーを再現する最小限のデータ**
+
+### 期待結果データ（CSV）
+1. **実際の出力結果をベースに作成**
+2. **マスクされたJSONデータに対応する内容**
+3. **ファイル末尾の改行に注意**
+4. **カンマ区切りの正確性確保**
+
+## テストデバッグパターン
+
+### アサーションエラー対応
+```bash
+# テスト実行でアサーションエラーが発生した場合
+cargo test -p youtube --test test_main -- {test_case_name} --nocapture
+
+# 実際の出力と期待結果の差分確認
+# エラーメッセージから actual と expected の内容を比較
+```
+
+### 期待結果ファイル更新手順
+1. テスト実行時の `actual` 出力をコピー
+2. 期待結果ファイルに貼り付け
+3. 個人情報がマスクされていることを確認
+4. 再度テスト実行して成功を確認
+
+## テストカバレッジ
+
+### カバレッジ測定
+```bash
+makers cov  # カバレッジレポート生成・表示
+```
+
+### カバレッジ目標
+- **Unit Tests**: 80%以上
+- **Integration Tests**: 主要フローの網羅
+- **E2E Tests**: 重要なユースケースの網羅
+
+## パフォーマンステスト
+
+### ベンチマーク実行
+```bash
+cargo bench  # ベンチマーク実行
+```
+
+### 大容量データテスト
+- 大きなJSONファイルでのメモリ使用量確認
+- 処理時間の測定
+- メモリリーク検出
+
+## テストデータ管理
+
+### プライバシー保護
+- **個人を特定できる情報の完全除去**
+- **テストデータレビューの実施**
+- **マスキングパターンの統一**
+
+### テストデータバージョン管理
+- Git管理対象に含める
+- 変更履歴の追跡
+- レビュープロセスの適用
+
+## CI/CDでのテスト実行
+
+### GitHub Actions
+- プルリクエスト時の自動テスト実行
+- 全テストスイートの実行
+- カバレッジレポートの生成
+
+### テスト失敗時の対応
+1. ローカルでの再現確認
+2. エラーログの詳細分析
+3. 必要に応じてテストデータ更新
+4. 修正後の再テスト実行
+
+## テストベストプラクティス
+
+### テスト作成時
+- **1つのテストケースで1つの機能をテスト**
+- **テスト名は機能を明確に表現**
+- **テストデータは最小限に保つ**
+- **エラーケースも含めてテスト**
+
+### テスト保守時
+- **定期的なテストデータ見直し**
+- **不要なテストケースの削除**
+- **テスト実行時間の最適化**
+- **テストの可読性向上**
+

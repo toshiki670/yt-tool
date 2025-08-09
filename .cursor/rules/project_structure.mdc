@@ -1,0 +1,80 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# プロジェクト構造とアーキテクチャガイド
+
+## プロジェクト概要
+
+`yt-tool` は YouTube データ処理のためのRustベースのCLIツールです。ワークスペース構成を採用し、メインクレートと `youtube` クレートで構成されています。
+
+## ワークスペース構造
+
+### ルートレベル
+- [Cargo.toml](mdc:Cargo.toml) - ワークスペース設定とメインクレートの依存関係
+- [src/main.rs](mdc:src/main.rs) - アプリケーションエントリーポイント
+- [src/cli.rs](mdc:src/cli.rs) - CLI定義とコマンド処理
+- [Makefile.toml](mdc:Makefile.toml) - ビルド、テスト、リリースタスク定義
+
+### YouTube クレート (`youtube/`)
+- [youtube/Cargo.toml](mdc:youtube/Cargo.toml) - YouTube クレート固有の依存関係
+- [youtube/src/lib.rs](mdc:youtube/src/lib.rs) - クレートのエントリーポイント
+
+## アーキテクチャパターン
+
+YouTube クレートはクリーンアーキテクチャパターンを採用:
+
+### レイヤー構造
+1. **Domain Layer** (`youtube/src/domain/`)
+   - [youtube/src/domain.rs](mdc:youtube/src/domain.rs) - ドメインモジュール定義
+   - `live_chat/` - ライブチャット関連のドメインロジック
+   - `simple_chat/` - シンプルチャット関連のドメインロジック
+   - `chat_service/` - チャットサービスのドメインロジック
+
+2. **Application Layer** (`youtube/src/application/`)
+   - [youtube/src/application.rs](mdc:youtube/src/application.rs) - アプリケーションサービス
+
+3. **Infrastructure Layer** (`youtube/src/infrastructure/`)
+   - [youtube/src/infrastructure.rs](mdc:youtube/src/infrastructure.rs) - 外部システムとの連携
+
+4. **Interface Layer** (`youtube/src/interface/`)
+   - [youtube/src/interface.rs](mdc:youtube/src/interface.rs) - 外部インターフェース定義
+
+## テスト構造
+
+### テストディレクトリ (`youtube/tests/`)
+- [youtube/tests/test_main.rs](mdc:youtube/tests/test_main.rs) - メインテストエントリーポイント
+- `formatted_json_service/` - フォーマット済みJSONサービスのE2Eテスト
+- `live_chat_json_service/` - ライブチャットJSONサービスのテスト
+- `live_chat_watch_service/` - ライブチャット監視サービスのテスト
+
+### テストデータパターン
+- `json/` - 入力JSONテストデータ
+- `expected/` - 期待される出力結果（通常CSV形式）
+
+## 開発ワークフロー
+
+### ビルドとテスト
+- `cargo test` - 全テスト実行
+- `makers t` - テスト実行（エイリアス）
+- `makers tw` - テスト監視モード
+- `makers cov` - カバレッジレポート生成
+
+### リリースフロー
+1. リリースブランチ作成: `makers release-{major|minor|patch|rc|beta|alpha}`
+2. プルリクエスト作成とマージ
+3. GitHub Actionsによる自動リリース
+
+## 命名規則
+
+### ファイル命名
+- テストJSONファイル: `{action_name_in_snake_case}.json`
+- 期待結果ファイル: `{action_name_in_snake_case}.csv`
+- 構造体ファイル: `{domain_concept}.rs`
+
+### コード規則
+- Rust標準の命名規則に従う
+- serde属性: `#[serde(rename_all = "camelCase")]` でJSONとの変換
+- オプショナルフィールド: `Option<T>` を使用してAPI変更に対応
+

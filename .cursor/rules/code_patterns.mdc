@@ -1,0 +1,316 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# コーディングパターンとRustベストプラクティス
+
+## Rust コーディング規則
+
+### 命名規則
+- **関数・変数**: `snake_case`
+- **型・構造体**: `PascalCase`
+- **定数**: `SCREAMING_SNAKE_CASE`
+- **モジュール**: `snake_case`
+- **クレート**: `kebab-case`
+
+### 構造体定義パターン
+
+#### serde属性の使用
+```rust
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields, rename_all = "camelCase")]
+pub struct ExampleStruct {
+    pub field_name: String,
+    pub optional_field: Option<String>,
+    #[serde(default)]
+    pub default_field: bool,
+}
+```
+
+#### オプショナルフィールドの活用
+```rust
+// API変更に対応するため、新しいフィールドはOptionで定義
+pub struct ApiResponse {
+    pub required_field: String,
+    pub new_optional_field: Option<String>, // 後から追加されたフィールド
+}
+```
+
+## エラーハンドリングパターン
+
+### Result型の使用
+```rust
+use anyhow::{Context, Result};
+
+pub fn process_data(input: &str) -> Result<ProcessedData> {
+    let parsed = parse_input(input)
+        .context("Failed to parse input data")?;
+    
+    let processed = transform_data(parsed)
+        .context("Failed to transform data")?;
+    
+    Ok(processed)
+}
+```
+
+### カスタムエラー型
+```rust
+use thiserror::Error;
+
+#[derive(Error, Debug)]
+pub enum ProcessingError {
+    #[error("Invalid input format: {0}")]
+    InvalidFormat(String),
+    
+    #[error("Network error")]
+    Network(#[from] reqwest::Error),
+    
+    #[error("Serialization error")]
+    Serialization(#[from] serde_json::Error),
+}
+```
+
+## 非同期プログラミングパターン
+
+### async/await の使用
+```rust
+use tokio::fs;
+use anyhow::Result;
+
+pub async fn process_file(path: &str) -> Result<String> {
+    let content = fs::read_to_string(path).await?;
+    let processed = process_content(&content).await?;
+    Ok(processed)
+}
+```
+
+### ストリーム処理
+```rust
+use futures::StreamExt;
+use tokio_stream::wrappers::ReadDirStream;
+
+pub async fn process_directory(dir_path: &str) -> Result<Vec<ProcessedFile>> {
+    let mut dir = fs::read_dir(dir_path).await?;
+    let mut results = Vec::new();
+    
+    while let Some(entry) = dir.next_entry().await? {
+        let processed = process_file_entry(entry).await?;
+        results.push(processed);
+    }
+    
+    Ok(results)
+}
+```
+
+## テストパターン
+
+### Unit Test
+```rust
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use test_case::test_case;
+
+    #[test]
+    fn test_basic_functionality() {
+        let input = "test input";
+        let result = process_input(input).unwrap();
+        assert_eq!(result.field, "expected value");
+    }
+
+    #[test_case("input1", "expected1"; "case 1")]
+    #[test_case("input2", "expected2"; "case 2")]
+    fn test_multiple_cases(input: &str, expected: &str) {
+        let result = process_input(input).unwrap();
+        assert_eq!(result.field, expected);
+    }
+}
+```
+
+### Integration Test
+```rust
+use tempfile::TempDir;
+use std::fs;
+
+#[tokio::test]
+async fn test_file_processing() {
+    let temp_dir = TempDir::new().unwrap();
+    let file_path = temp_dir.path().join("test.json");
+    
+    fs::write(&file_path, r#"{"test": "data"}"#).unwrap();
+    
+    let result = process_file(file_path.to_str().unwrap()).await.unwrap();
+    assert_eq!(result.test, "data");
+}
+```
+
+## ドメイン駆動設計パターン
+
+### Value Object
+```rust
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub struct UserId(String);
+
+impl UserId {
+    pub fn new(id: String) -> Result<Self> {
+        if id.is_empty() {
+            return Err(anyhow::anyhow!("User ID cannot be empty"));
+        }
+        Ok(UserId(id))
+    }
+    
+    pub fn as_str(&self) -> &str {
+        &self.0
+    }
+}
+```
+
+### Repository Pattern
+```rust
+#[async_trait]
+pub trait UserRepository {
+    async fn find_by_id(&self, id: &UserId) -> Result<Option<User>>;
+    async fn save(&self, user: &User) -> Result<()>;
+}
+
+pub struct InMemoryUserRepository {
+    users: Arc<Mutex<HashMap<UserId, User>>>,
+}
+
+#[async_trait]
+impl UserRepository for InMemoryUserRepository {
+    async fn find_by_id(&self, id: &UserId) -> Result<Option<User>> {
+        let users = self.users.lock().await;
+        Ok(users.get(id).cloned())
+    }
+    
+    async fn save(&self, user: &User) -> Result<()> {
+        let mut users = self.users.lock().await;
+        users.insert(user.id().clone(), user.clone());
+        Ok(())
+    }
+}
+```
+
+## パフォーマンス最適化パターン
+
+### メモリ効率的な処理
+```rust
+use std::io::{BufRead, BufReader};
+use std::fs::File;
+
+// 大きなファイルをストリーミング処理
+pub fn process_large_file(path: &str) -> Result<ProcessedData> {
+    let file = File::open(path)?;
+    let reader = BufReader::new(file);
+    
+    let mut result = ProcessedData::new();
+    
+    for line in reader.lines() {
+        let line = line?;
+        process_line(&line, &mut result)?;
+    }
+    
+    Ok(result)
+}
+```
+
+### 並列処理
+```rust
+use rayon::prelude::*;
+
+pub fn process_items_parallel(items: Vec<Item>) -> Vec<ProcessedItem> {
+    items
+        .into_par_iter()
+        .map(|item| process_item(item))
+        .collect()
+}
+```
+
+## ログ出力パターン
+
+### 構造化ログ
+```rust
+use log::{info, warn, error, debug};
+
+pub fn process_request(request: &Request) -> Result<Response> {
+    debug!("Processing request: {:?}", request);
+    
+    match validate_request(request) {
+        Ok(_) => {
+            info!("Request validated successfully");
+            let response = handle_request(request)?;
+            info!("Request processed successfully");
+            Ok(response)
+        }
+        Err(e) => {
+            warn!("Request validation failed: {}", e);
+            Err(e)
+        }
+    }
+}
+```
+
+## 設定管理パターン
+
+### 環境変数の使用
+```rust
+use std::env;
+
+#[derive(Debug)]
+pub struct Config {
+    pub database_url: String,
+    pub api_key: String,
+    pub log_level: String,
+}
+
+impl Config {
+    pub fn from_env() -> Result<Self> {
+        Ok(Config {
+            database_url: env::var("DATABASE_URL")
+                .context("DATABASE_URL must be set")?,
+            api_key: env::var("API_KEY")
+                .context("API_KEY must be set")?,
+            log_level: env::var("LOG_LEVEL")
+                .unwrap_or_else(|_| "info".to_string()),
+        })
+    }
+}
+```
+
+## セキュリティパターン
+
+### 入力検証
+```rust
+use regex::Regex;
+
+pub fn validate_email(email: &str) -> Result<()> {
+    let email_regex = Regex::new(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")?;
+    
+    if !email_regex.is_match(email) {
+        return Err(anyhow::anyhow!("Invalid email format"));
+    }
+    
+    Ok(())
+}
+```
+
+### 機密情報の扱い
+```rust
+use zeroize::Zeroize;
+
+#[derive(Zeroize)]
+pub struct SecretData {
+    #[zeroize(skip)]
+    pub id: u64,
+    pub secret: String,
+}
+
+impl Drop for SecretData {
+    fn drop(&mut self) {
+        self.zeroize();
+    }
+}
+```
+

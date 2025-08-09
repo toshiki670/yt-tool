@@ -16,13 +16,3 @@ pub trait OutputPresenter: Send + Sync {
     /// チャットエンティティを表示する
     async fn present_chat(&self, chat: &SimpleChatEntity) -> anyhow::Result<()>;
 }
-
-/// プレゼンターエラー型
-#[derive(thiserror::Error, Debug)]
-pub enum PresenterError {
-    #[error(transparent)]
-    IoError(#[from] std::io::Error),
-
-    #[error(transparent)]
-    Other(#[from] anyhow::Error),
-}
